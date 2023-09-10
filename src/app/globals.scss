@@ -1,0 +1,83 @@
+$color-white: white;
+$color-lightYellow: #fff4e3;
+$color-lightBlue: #ceecf0;
+$color-blue: #1e56a0;
+$color-deepBlue: #13325d;
+
+:root {
+  color: $color-blue;
+  font-family: Noto Sans;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.h1 {
+  font-size: 52px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: 150%; /* 78px */
+  letter-spacing: 1px;
+}
+
+.h2 {
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%; /* 48px */
+  letter-spacing: 1px;
+}
+
+.h3 {
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%; /* 36px */
+  letter-spacing: 1px;
+}
+
+.h4 {
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 150%; /* 27px */
+  letter-spacing: 1px;
+}
+
+.h5 {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 200%; /* 32px */
+  letter-spacing: 1px;
+}
+
+.h6 {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 150%; /* 21px */
+  letter-spacing: 1px;
+}
+
+p {
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 150%; /* 18px */
+  letter-spacing: 1px;
+}
