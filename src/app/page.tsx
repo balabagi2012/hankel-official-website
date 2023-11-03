@@ -1,7 +1,5 @@
-import Image from "next/image";
-import styles from "./page.module.css";
-import NavBar from "@/app/components/NavBar";
 import { Metadata } from "next";
+import styles from "./page.module.css";
 
 export const metadata: Metadata = {
   title: "Hankel",
@@ -11,10 +9,8 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <div className={styles.description}>
-        <p>Home</p>
+        <p className="text-3xl">Home</p>
       </div>
-
-      <NavBar />
     </main>
   );
 }
