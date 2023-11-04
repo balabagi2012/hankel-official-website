@@ -36,7 +36,7 @@ export default function Banner({
         objectFit="fill"
       ></Image>
       {size === "big" ? (
-        <div className="w-[530px] pt-[20px] pb-[32px] px-[16px] bg-[rgba(255,255,255,.8)] flex flex-col justify-center items-center">
+        <div className="z-[-1] absolute w-[530px] pt-[20px] pb-[32px] px-[16px] bg-[rgba(255,255,255,.8)] flex flex-col justify-center items-center">
           <Image
             alt="Mountains"
             src="/logo_square.svg"
@@ -56,7 +56,7 @@ export default function Banner({
         </div>
       ) : (
         size === "medium" && (
-          <div className="mx-[80px] flex flex-col justify-center items-start flex-1">
+          <div className="z-[-1] absolute w-full px-[80px] flex flex-col justify-center items-start flex-1">
             <div className="text-white my-2 font-bold font-serif leading-[1.5] tracking-[1px] text-[52px]">
               {title}
             </div>

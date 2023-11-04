@@ -1,6 +1,6 @@
+import Banner from "@/components/Banner";
 import { Metadata } from "next";
 import styles from "./page.module.css";
-import Banner from "@/components/Banner";
 
 export const metadata: Metadata = {
   title: "Hankel",

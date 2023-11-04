@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import styles from "./page.module.css";
 import Banner from "@/components/Banner";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Hankel - MiddleSchool",
