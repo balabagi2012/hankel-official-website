@@ -3,11 +3,11 @@ import { ReactElement } from "react";
 
 interface BannerProps {
   className?: string;
-  size?: "big" | "small";
+  size?: "big" | "medium" | "small";
   src: string;
-  title: string;
+  title?: string;
   subtitle?: string;
-  description: string;
+  description?: string;
 }
 export default function Banner({
   className,
@@ -20,7 +20,11 @@ export default function Banner({
   return (
     <div
       className={`w-full ${
-        size === "big" ? "h-screen" : "h-[400px]"
+        size === "big"
+          ? "h-screen"
+          : size === "medium"
+          ? "h-[400px]"
+          : "h-[350px]"
       } relative ${className} pt-[80px] flex flex-row justify-center items-center`}
     >
       <Image
@@ -40,12 +44,27 @@ export default function Banner({
             width={60}
             height={60}
           ></Image>
-          <div className="text-[#13325D] my-2 font-bold font-serif leading-[1.5] tracking-[1px] text-[32px]">{title}</div>
-          <div className="text-[16px] font-serif leading-[2] tracking-[1px] mb-3 text-justify">{subtitle}</div>
-          <div className="text-[14px] font-sans text-[#4E4E4E] leading-[1.8] text-center">{description}</div>
+          <div className="text-[#13325D] my-2 font-bold font-serif leading-[1.5] tracking-[1px] text-[32px]">
+            {title}
+          </div>
+          <div className="text-[16px] font-serif leading-[2] tracking-[1px] mb-3 text-justify">
+            {subtitle}
+          </div>
+          <div className="text-[14px] font-sans text-[#4E4E4E] leading-[1.8] text-center">
+            {description}
+          </div>
         </div>
       ) : (
-        <div></div>
+        size === "medium" && (
+          <div className="mx-[80px] flex flex-col justify-center items-start flex-1">
+            <div className="text-white my-2 font-bold font-serif leading-[1.5] tracking-[1px] text-[52px]">
+              {title}
+            </div>
+            <div className="text-[18px] font-serif font-bold text-white leading-[2] tracking-[1px]">
+              {description}
+            </div>
+          </div>
+        )
       )}
     </div>
   );
