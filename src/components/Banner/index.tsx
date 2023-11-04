@@ -1,18 +1,52 @@
 import Image from "next/image";
+import { ReactElement } from "react";
 
-export default function Banner() {
+interface BannerProps {
+  className?: string;
+  size?: "big" | "small";
+  src: string;
+  title: string;
+  subtitle?: string;
+  description: string;
+}
+export default function Banner({
+  className,
+  title,
+  description,
+  src,
+  subtitle,
+  size = "big",
+}: BannerProps) {
   return (
-    <div className="w-full">
+    <div
+      className={`w-full ${
+        size === "big" ? "h-screen" : "h-[400px]"
+      } relative ${className} pt-[80px] flex flex-row justify-center items-center`}
+    >
       <Image
-        alt="Mountains"
-        src="/bg_home.png"
-        className="z-[-1]"
+        alt="banner home"
+        src={src}
+        className="z-[-1] absolute"
         quality={100}
         fill
-        style={{
-          objectFit: "cover",
-        }}
+        objectFit="fill"
       ></Image>
+      {size === "big" ? (
+        <div className="w-[530px] pt-[20px] pb-[32px] px-[16px] bg-[rgba(255,255,255,.8)] flex flex-col justify-center items-center">
+          <Image
+            alt="Mountains"
+            src="/logo_square.svg"
+            quality={100}
+            width={60}
+            height={60}
+          ></Image>
+          <div className="text-[#13325D] my-2 font-bold font-serif leading-[1.5] tracking-[1px] text-[32px]">{title}</div>
+          <div className="text-[16px] font-serif leading-[2] tracking-[1px] mb-3 text-justify">{subtitle}</div>
+          <div className="text-[14px] font-sans text-[#4E4E4E] leading-[1.8] text-center">{description}</div>
+        </div>
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 }
