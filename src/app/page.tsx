@@ -2,7 +2,6 @@ import Banner from "@/components/Banner";
 import Typography from "@/components/Typography";
 
 import { Metadata } from "next";
-import styles from "./page.module.css";
 import Image from "next/image";
 
 export const metadata: Metadata = {
@@ -15,7 +14,7 @@ const description = `​Hankel International Academy is Taiwan's top choice for 
 
 export default function Home() {
   return (
-    <main className={styles.main}>
+    <main>
       <Banner
         size="big"
         src="/banners/home.png"
@@ -107,21 +106,34 @@ export default function Home() {
         </div>
       </section>
       <section>
-        <Banner
-          size="small"
-          src="/subBanners/teach.png"
-          title="“Education is not the filling of a pail, but the lighting of a fire.”"
-        ></Banner>
+        <Banner size="small" src="/subBanners/teach.png">
+          <div className="ml-auto mr-[76px] px-[52px] py-[28px] bg-white border-b border-blue border-l-8 relative">
+            <Typography varient="h4" className="font-serif text-textGray">
+              “Education is not the filling of a pail, but the lighting of a
+              fire.”
+            </Typography>
+            <Typography varient="h5" className="font-serif text-textGray text-right mt=[12px]">
+              ------ William Butler Yeats
+            </Typography>
+            <Image
+              src="/icons/Quotes.svg"
+              alt="hankel quote"
+              width="41"
+              height="35"
+              className="absolute top-[-17px] left-[-23px]"
+            ></Image>
+          </div>
+        </Banner>
       </section>
       <section className="text-center pt-[66px] pb-[115px] px-[80px] flex flex-col items-center bg-gray">
-        <div className="mb-[60px] border-b border-[#13325D] w-fit">
+        <div className="mb-[60px] border-b border-deepBlue w-fit">
           <Typography varient="h1" className="font-serif text-deepBlue">
             Latest News
           </Typography>
         </div>
       </section>
       <section className="text-center mt-[66px] mb-[115px] mx-[80px] flex flex-col items-center">
-        <div className="mb-[60px] border-b border-[#13325D] w-fit">
+        <div className="mb-[60px] border-b border-deepBlue w-fit">
           <Typography varient="h1" className="font-serif text-deepBlue">
             Contact Us
           </Typography>

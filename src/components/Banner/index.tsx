@@ -8,6 +8,7 @@ interface BannerProps {
   title?: string;
   subtitle?: string;
   description?: string;
+  children?: ReactElement;
 }
 export default function Banner({
   className,
@@ -16,6 +17,7 @@ export default function Banner({
   src,
   subtitle,
   size = "big",
+  children,
 }: BannerProps) {
   return (
     <div
@@ -66,6 +68,7 @@ export default function Banner({
           </div>
         )
       )}
+      {children}
     </div>
   );
 }
