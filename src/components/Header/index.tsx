@@ -1,7 +1,13 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import Typography from "../Typography";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
+  const pathname = usePathname();
+
   return (
     <header className="fixed start-0 w-full h-[80px] px-[80px] flex flex-row items-center bg-white z-10">
       <div className="flex items-center mr-auto flex-1">
@@ -13,31 +19,141 @@ export default function Header() {
         ></Image>
       </div>
       <div className="flex flex-row  items-center gap-x-[56px]">
-        <Link href="/" className="text-base" rel="noopener noreferrer">
-          <div className="text-base">Home</div>
-        </Link>
-        <Link href="/about" className="text-base" rel="noopener noreferrer">
-          <div className="text-base">About</div>
-        </Link>
-        <Link href="/dayCare" className="text-base" rel="noopener noreferrer">
-          <div className="text-base">Day Care</div>
-        </Link>
         <Link
-          href="/elementary"
-          className="text-base"
+          href="/"
+          className={`py-1 ${pathname === "/" ? "border-b-2" : ""}`}
           rel="noopener noreferrer"
         >
-          <div className="text-base">Elementary</div>
+          <Typography
+            varient="h6"
+            className={`${pathname === "/" ? "font-bold" : ""}`}
+          >
+            Home
+          </Typography>
         </Link>
+        <button
+          className="flex flex-row items-center relative"
+          id="schools-button"
+          aria-expanded="true"
+          aria-haspopup="true"
+        >
+          <Typography varient="h6">Schools</Typography>
+          <Image
+            src="/icons/ChevronRightFilled.svg"
+            alt="hankel chevron bottom"
+            width="24"
+            height="24"
+            className="rotate-90 ml-1"
+          ></Image>
+          <div
+            className="absolute top-10 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+            role="menu"
+            aria-orientation="vertical"
+            aria-labelledby="schools-button"
+            tabIndex={-1}
+          >
+            <div className="py-1" role="none">
+              <Link
+                href="/dayCare"
+                className={`py-1 ${
+                  pathname === "/dayCare" ? "border-b-2" : ""
+                }`}
+                rel="noopener noreferrer"
+              >
+                <Typography
+                  varient="h6"
+                  className={`${pathname === "/dayCare" ? "font-bold" : ""}`}
+                >
+                  dayCare
+                </Typography>
+              </Link>
+              <Link
+                href="/elementary"
+                className={`py-1 ${
+                  pathname === "/elementary" ? "border-b-2" : ""
+                }`}
+                rel="noopener noreferrer"
+              >
+                <Typography
+                  varient="h6"
+                  className={`${pathname === "/elementary" ? "font-bold" : ""}`}
+                >
+                  elementary
+                </Typography>
+              </Link>
+              <Link
+                href="/kindergarten"
+                className={`py-1 ${
+                  pathname === "/kindergarten" ? "border-b-2" : ""
+                }`}
+                rel="noopener noreferrer"
+              >
+                <Typography
+                  varient="h6"
+                  className={`${
+                    pathname === "/kindergarten" ? "font-bold" : ""
+                  }`}
+                >
+                  kindergarten
+                </Typography>
+              </Link>
+              <Link
+                href="/middleSchool"
+                className={`py-1 ${
+                  pathname === "/middleSchool" ? "border-b-2" : ""
+                }`}
+                rel="noopener noreferrer"
+              >
+                <Typography
+                  varient="h6"
+                  className={`${
+                    pathname === "/middleSchool" ? "font-bold" : ""
+                  }`}
+                >
+                  middleSchool
+                </Typography>
+              </Link>
+            </div>
+          </div>
+        </button>
         <Link
-          href="/kindergarten"
-          className="text-base"
+          href="/about"
+          className={`py-1 ${pathname === "/about" ? "border-b-2" : ""}`}
           rel="noopener noreferrer"
         >
-          <div className="text-base">Kindergarten</div>
+          <Typography
+            varient="h6"
+            className={`${pathname === "/about" ? "font-bold" : ""}`}
+          >
+            About
+          </Typography>
         </Link>
-        <Link href="/middleSchool" className="" rel="noopener noreferrer">
-          <div className="text-base">Middle School</div>
+        <Link
+          href="/news"
+          className={`py-1 ${pathname === "/news" ? "border-b-2" : ""}`}
+          rel="noopener noreferrer"
+        >
+          <Typography
+            varient="h6"
+            className={`${pathname === "/news" ? "font-bold" : ""}`}
+          >
+            News
+          </Typography>
+        </Link>
+        <Link
+          href="/contact"
+          className={`py-1 ${pathname === "/contact" ? "border-b-2" : ""}`}
+          rel="noopener noreferrer"
+        >
+          <Typography
+            varient="h6"
+            className={`${pathname === "/contact" ? "font-bold" : ""}`}
+          >
+            Contact
+          </Typography>
+        </Link>
+        <Link href="https://google.com" className="text-base" rel="noreferrer">
+          <Typography varient="h6">Student Portal</Typography>
         </Link>
       </div>
       <div className="ml-[80px] flex flex-row items-center">
