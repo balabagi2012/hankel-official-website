@@ -20,8 +20,8 @@ export default function About() {
         description={description}
       ></Banner>
       <section className="bg-gray py-[60px] flex flex-row justify-center">
-        <div className="flex flex-row w-[1024px] justify-center items-stretch">
-          <div className="flex-1 flex flex-col mr-[65px] gap-y-3">
+        <div className="flex flex-row w-[1180px] justify-center items-stretch">
+          <div className="flex flex-col mr-[65px] gap-y-3">
             <Image
               src="/about/1.png"
               alt="hankel about 1"
@@ -54,7 +54,7 @@ export default function About() {
               </Typography>
               <Typography
                 varient="h5"
-                className="font-serif text-textGray text-start"
+                className="text-textGray text-start"
               >
                 Welcome to Hankel International Academy (HIA), the pinnacle of
                 educational excellence and innovation. As the flagship
@@ -74,7 +74,7 @@ export default function About() {
               </Typography>
               <Typography
                 varient="h5"
-                className="font-serif text-textGray text-start"
+                className="text-textGray text-start"
               >
                 Nestled in the serene suburban enclave of Linkou, New Taipei
                 City, HIA boasts a purpose-built campus that embodies our
@@ -85,6 +85,47 @@ export default function About() {
               </Typography>
             </div>
           </div>
+        </div>
+      </section>
+      <section className="bg-white py-[60px] flex flex-row justify-center">
+        <div className="flex flex-row w-[1180px] justify-center items-stretch">
+          <div className="flex flex-col mr-[65px] gap-y-3 flex-1">
+            <div className="mb-8 border-b border-deepBlue w-full">
+              <Typography
+                varient="h1"
+                className="font-serif text-deepBlue text-start"
+              >
+                Our Story
+              </Typography>
+            </div>
+            <Typography
+              varient="h5"
+              className="text-textGray text-start mb-8"
+            >
+              Since its inauguration in August 2020, HIA has swiftly integrated
+              itself within the community, garnering a robust reputation among
+              parents. This achievement is largely attributed to the relentless
+              dedication of our hardworking staff and educators who have made
+              fostering academic excellence, character development, and a love
+              for learning their mission.
+            </Typography>
+            <Typography
+              varient="h5"
+              className="text-textGray text-start"
+            >
+              At HIA, we embody the values of "Thrive," "Strive," and "Learn,"
+              fostering holistic growth, unyielding pursuit of excellence, and
+              innovative educational methods. Join us on a journey where young
+              minds flourish, curiosity thrives, and every student is empowered
+              to reach their full potential.
+            </Typography>
+          </div>
+          <Image
+            src="/about/3.png"
+            alt="hankel about 3"
+            width="667"
+            height="429"
+          ></Image>
         </div>
       </section>
     </main>
