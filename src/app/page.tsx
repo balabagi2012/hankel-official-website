@@ -112,7 +112,10 @@ export default function Home() {
               “Education is not the filling of a pail, but the lighting of a
               fire.”
             </Typography>
-            <Typography varient="h5" className="font-serif text-textGray text-right mt=[12px]">
+            <Typography
+              varient="h5"
+              className="font-serif text-textGray text-right mt=[12px]"
+            >
               ------ William Butler Yeats
             </Typography>
             <Image
@@ -130,6 +133,38 @@ export default function Home() {
           <Typography varient="h1" className="font-serif text-deepBlue">
             Latest News
           </Typography>
+        </div>
+        <div className="flex flex-row mb-[52px] gap-4">
+          {[1, 2, 3, 4, 5].map((element) => (
+            <div className="relative" key={`news ${element}`}>
+              <Image
+                src={`/news/${element}.png`}
+                alt={`hankel news ${element}`}
+                width="233"
+                height="415"
+              ></Image>
+              <div className="absolute bottom-[18px] h-[100px] left-0 bg-deepBlue/[0.8] pl-[12px] pr-[4px] py-[8px] flex flex-col items-start">
+                <Typography varient="h4" color="white font-serif text-start">
+                  Coding in class
+                </Typography>
+                <Typography varient="body" color="white font-serif text-start">
+                  Programming classes in camp
+                </Typography>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="px-[32px] py-[8px] border rounded border-blue w-fit flex flex-row justify-center items-center">
+          <Typography varient="h6" className="font-bold">
+            View More
+          </Typography>
+          <Image
+            src="/icons/ChevronRightFilled.svg"
+            alt="hankel ChevronRightFilled"
+            width="24"
+            height="24"
+            className="ml-[10px]"
+          ></Image>
         </div>
       </section>
       <section className="text-center mt-[66px] mb-[115px] mx-[80px] flex flex-col items-center">
