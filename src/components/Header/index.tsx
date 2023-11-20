@@ -4,8 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import Typography from "../Typography";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 
 export default function Header() {
+  const [openDropDown, setOpenDropDown] = useState(false);
   const pathname = usePathname();
 
   return (
@@ -33,31 +35,30 @@ export default function Header() {
         </Link>
         <button
           className="flex flex-row items-center relative"
-          id="schools-button"
-          aria-expanded="true"
-          aria-haspopup="true"
+          onClick={() => setOpenDropDown(!openDropDown)}
         >
           <Typography varient="h6">Schools</Typography>
           <Image
-            src="/icons/ChevronRightFilled.svg"
+            src="/icons/ChevronTopFilled.svg"
             alt="hankel chevron bottom"
             width="24"
             height="24"
-            className="rotate-90 ml-1"
+            className={`${openDropDown ? "rotate-00" : "rotate-180"} ml-1`}
           ></Image>
           <div
-            className="absolute top-10 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+            className={`${
+              openDropDown ? "hidden" : "block"
+            } absolute top-10 z-10  origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
             role="menu"
             aria-orientation="vertical"
             aria-labelledby="schools-button"
             tabIndex={-1}
+            id="dropdown"
           >
-            <div className="py-1" role="none">
+            <div className="p-4" role="none">
               <Link
                 href="/dayCare"
-                className={`py-1 ${
-                  pathname === "/dayCare" ? "border-b-2" : ""
-                }`}
+                className={`mb-4 h-[25px] flex flex-row justify-start`}
                 rel="noopener noreferrer"
               >
                 <Typography
@@ -69,9 +70,7 @@ export default function Header() {
               </Link>
               <Link
                 href="/elementary"
-                className={`py-1 ${
-                  pathname === "/elementary" ? "border-b-2" : ""
-                }`}
+                className={`mb-4 h-[25px] flex flex-row justify-start`}
                 rel="noopener noreferrer"
               >
                 <Typography
@@ -83,9 +82,7 @@ export default function Header() {
               </Link>
               <Link
                 href="/kindergarten"
-                className={`py-1 ${
-                  pathname === "/kindergarten" ? "border-b-2" : ""
-                }`}
+                className={`mb-4 h-[25px] flex flex-row justify-start`}
                 rel="noopener noreferrer"
               >
                 <Typography
@@ -99,9 +96,7 @@ export default function Header() {
               </Link>
               <Link
                 href="/middleSchool"
-                className={`py-1 ${
-                  pathname === "/middleSchool" ? "border-b-2" : ""
-                }`}
+                className={`h-[25px] flex flex-row justify-start`}
                 rel="noopener noreferrer"
               >
                 <Typography
