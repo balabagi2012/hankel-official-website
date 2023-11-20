@@ -47,7 +47,7 @@ export default function Header() {
           ></Image>
           <div
             className={`${
-              openDropDown ? "hidden" : "block"
+              openDropDown ? "block" : "hidden"
             } absolute top-10 z-10  origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
             role="menu"
             aria-orientation="vertical"
