@@ -9,14 +9,17 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    colors: {
-      white: "white",
-      lightYellow: "#fff4e3",
-      lightBlue: "#ceecf0",
-      blue: "#1e56a0",
-      deepBlue: "#13325d",
+    extend: {
+      colors: {
+        white: "white",
+        gray: "#F9F9F9",
+        textGray: "#4E4E4E",
+        lightYellow: "#fff4e3",
+        lightBlue: "#ceecf0",
+        blue: "#1e56a0",
+        deepBlue: "#13325D",
+      },
     },
-    extend: {},
   },
   plugins: [],
 };
