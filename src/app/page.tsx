@@ -1,4 +1,6 @@
 import Banner from "@/components/Banner";
+import Typography from "@/components/Typography";
+
 import { Metadata } from "next";
 import styles from "./page.module.css";
 import Image from "next/image";
@@ -21,17 +23,45 @@ export default function Home() {
         subtitle={subtitle}
         description={description}
       ></Banner>
-      <section className="text-center">
-        <div className="font-bold">Our Program</div>
-        <div className="flex-row flex justify-center">
-          <div>Hankel Kindergarten</div>
-          <div>Hankel Elementary</div>
-          <div>Hankel Middle School</div>
-          <div>Hankel Day Care</div>
+      <section className="text-center pt-[66px] pb-[115px] px-[80px] flex flex-col items-center bg-gray">
+        <div className="mb-[60px] border-b border-deepBlue w-fit">
+          <Typography varient="h1" className="font-serif text-deepBlue">
+            Our Program
+          </Typography>
         </div>
-        <div>
-          <div className="font-bold">Hankel Kindergarten</div>
-          <div>
+        <div className="flex-row flex justify-center gap-x-6 items-center mb-[66px]">
+          <div className="py-[8px] px-[16px] bg-blue">
+            <Typography varient="h5" color="white" className="font-bold">
+              Hankel Kindergarten
+            </Typography>
+          </div>
+          <span className="w-[6px] h-[6px] border rounded bg-blue"></span>
+          <div className="">
+            <Typography varient="h5" color="blue">
+              Hankel Elementary
+            </Typography>
+          </div>
+          <span className="w-[6px] h-[6px] border rounded bg-blue"></span>
+          <div className="">
+            <Typography varient="h5" color="blue">
+              Hankel Middle School
+            </Typography>
+          </div>
+          <span className="w-[6px] h-[6px] border rounded bg-blue"></span>
+          <div className="">
+            <Typography varient="h5" color="blue">
+              Hankel Day Care
+            </Typography>
+          </div>
+        </div>
+        <div className="flex flex-col bg-white px-[60px] pt-[48px] pb-[32px] w-[1042px] items-center">
+          <Typography
+            varient="h2"
+            className="font-serif text-deepBlue mb-[15px]"
+          >
+            Hankel Kindergarten
+          </Typography>
+          <Typography varient="h5" className="text-textGray">
             Hankel International Academy&#39;s Kindergarten provides a nurturing
             environment for young minds to flourish. Our experienced educators
             prioritize hands-on learning, creativity, and critical thinking,
@@ -39,8 +69,8 @@ export default function Home() {
             and discovery, children grow with confidence and joy, supported by a
             welcoming and inclusive atmosphere. Parents can trust their
             child&#39;s early education in our caring hands.
-          </div>
-          <div className="flex flex-row flex-1 justify-center">
+          </Typography>
+          <div className="flex flex-row flex-1 justify-center my-[28px]">
             <Image
               src="/icons/InstagramBlue.svg"
               alt="hankel Instagram"
@@ -62,7 +92,18 @@ export default function Home() {
               height="24"
             ></Image>
           </div>
-          <div>Learn More</div>
+          <div className="px-[32px] py-[8px] border rounded border-blue w-fit flex flex-row justify-center items-center">
+            <Typography varient="h6" className="font-bold">
+              Learn More
+            </Typography>
+            <Image
+              src="/icons/ChevronRightFilled.svg"
+              alt="hankel ChevronRightFilled"
+              width="24"
+              height="24"
+              className="ml-[10px]"
+            ></Image>
+          </div>
         </div>
       </section>
       <section>
@@ -72,11 +113,19 @@ export default function Home() {
           title="“Education is not the filling of a pail, but the lighting of a fire.”"
         ></Banner>
       </section>
-      <section>
-        <div>Latest News</div>
+      <section className="text-center pt-[66px] pb-[115px] px-[80px] flex flex-col items-center bg-gray">
+        <div className="mb-[60px] border-b border-[#13325D] w-fit">
+          <Typography varient="h1" className="font-serif text-deepBlue">
+            Latest News
+          </Typography>
+        </div>
       </section>
-      <section>
-        <div>Contact Us</div>
+      <section className="text-center mt-[66px] mb-[115px] mx-[80px] flex flex-col items-center">
+        <div className="mb-[60px] border-b border-[#13325D] w-fit">
+          <Typography varient="h1" className="font-serif text-deepBlue">
+            Contact Us
+          </Typography>
+        </div>
       </section>
     </main>
   );

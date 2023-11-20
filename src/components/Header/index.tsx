@@ -49,7 +49,7 @@ export default function Header() {
         ></Image>
         <div className="ml-1 mr-2 font-bold">EN</div>
         <Image
-          src="/icons/ChevronRightFilled.svg"
+          src="/icons/ChevronTopFilled.svg"
           alt="hankel chevron right"
           width="24"
           height="24"

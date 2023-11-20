@@ -43,7 +43,7 @@ export default function Typography(props: TypographyProps) {
   return (
     <p
       className={`${typographyClassName} ${className} ${
-        color ? `text-[${color}]` : ""
+        color ? `text-${color}` : ""
       }`}
     >
       {children}
