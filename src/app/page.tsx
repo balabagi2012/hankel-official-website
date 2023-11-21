@@ -294,7 +294,7 @@ export default function Home() {
               </div>
               <textarea className="border h-[130px] rounded border-textGray" />
             </div>
-            <div className="bg-blue h-[44px] flex flex-row items-center justify-center">
+            <div className="bg-blue h-[44px] flex flex-row items-center justify-center rounded">
               <Typography varient="h5" color="white">
                 Send
               </Typography>
