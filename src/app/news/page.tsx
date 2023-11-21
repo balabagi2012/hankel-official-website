@@ -20,19 +20,19 @@ export default function News() {
         title={title}
         description={description}
       ></Banner>
-      <section className="flex flex-row">
-        <div className="flex flex-col mx-[55px]">
+      <section className="flex flex-row bg-gray">
+        <div className="flex flex-col mx-[55px] gap-4 bg-white rounded-xl p-4 h-fit mt-[160px]">
           <div>
             <Typography varient="h4">Important News</Typography>
           </div>
           <div>
-            <Typography varient="h4">Latest News</Typography>
+            <Typography varient="h4" className="font-thin">Latest News</Typography>
           </div>
           <div>
-            <Typography varient="h4">Events</Typography>
+            <Typography varient="h4" className="font-thin">Events</Typography>
           </div>
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col mt-[60px]">
           <div className="flex flex-row">
             <div className="mb-9 border-b border-deepBlue w-full">
               <Typography
