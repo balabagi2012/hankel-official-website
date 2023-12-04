@@ -4,6 +4,7 @@ import Banner from "@/components/Banner";
 import Typography from "@/components/Typography";
 import Image from "next/image";
 import Title from "@/components/Title";
+import Card from "@/components/Card";
 
 export const metadata: Metadata = {
   title: "Hankel - News",
@@ -45,48 +46,26 @@ export default function News() {
           </div>
           <div className="flex flex-row mb-[52px] gap-4">
             {[1, 2, 3, 4].map((element) => (
-              <div className="relative" key={`news ${element}`}>
-                <Image
-                  src={`/news/${element}.png`}
-                  alt={`hankel news ${element}`}
-                  width="254"
-                  height="350"
-                ></Image>
-                <div className="absolute bottom-[18px] h-[100px] left-0 bg-deepBlue/[0.8] pl-[12px] pr-[4px] py-[8px] flex flex-col items-start">
-                  <Typography varient="h4" color="white font-serif text-start">
-                    Coding in class
-                  </Typography>
-                  <Typography
-                    varient="body"
-                    color="white font-serif text-start"
-                  >
-                    Programming classes in camp
-                  </Typography>
-                </div>
-              </div>
+              <Card
+                key={`news ${element}`}
+                type="news"
+                img={`/news/${element}.png`}
+                alt={`hankel news ${element}`}
+                title="Coding in class"
+                description="Programming classes in camp"
+              ></Card>
             ))}
           </div>
           <div className="flex flex-row mb-[52px] gap-4">
             {[5, 6, 7, 8].map((element) => (
-              <div className="relative" key={`news ${element}`}>
-                <Image
-                  src={`/news/${element}.png`}
-                  alt={`hankel news ${element}`}
-                  width="254"
-                  height="350"
-                ></Image>
-                <div className="absolute bottom-[18px] h-[100px] left-0 bg-deepBlue/[0.8] pl-[12px] pr-[4px] py-[8px] flex flex-col items-start">
-                  <Typography varient="h4" color="white font-serif text-start">
-                    Coding in class
-                  </Typography>
-                  <Typography
-                    varient="body"
-                    color="white font-serif text-start"
-                  >
-                    Programming classes in camp
-                  </Typography>
-                </div>
-              </div>
+              <Card
+                key={`news ${element}`}
+                type="news"
+                img={`/news/${element}.png`}
+                alt={`hankel news ${element}`}
+                title="Coding in class"
+                description="Programming classes in camp"
+              ></Card>
             ))}
           </div>
         </div>

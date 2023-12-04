@@ -1,4 +1,5 @@
 import Banner from "@/components/Banner";
+import Card from "@/components/Card";
 import Title from "@/components/Title";
 import Typography from "@/components/Typography";
 
@@ -113,25 +114,17 @@ export default function Home() {
         ></Banner>
       </section>
       <section className="text-center pt-[66px] pb-[115px] px-[80px] flex flex-col items-center bg-gray">
-        <Title> Latest News</Title>
+        <Title>Latest News</Title>
         <div className="flex flex-row mb-[52px] gap-4">
           {[1, 2, 3, 4, 5].map((element) => (
-            <div className="relative" key={`news ${element}`}>
-              <Image
-                src={`/news/${element}.png`}
-                alt={`hankel news ${element}`}
-                width="233"
-                height="415"
-              ></Image>
-              <div className="absolute bottom-[18px] h-[100px] left-0 bg-deepBlue/[0.8] pl-[12px] pr-[4px] py-[8px] flex flex-col items-start">
-                <Typography varient="h4" color="white font-serif text-start">
-                  Coding in class
-                </Typography>
-                <Typography varient="body" color="white font-serif text-start">
-                  Programming classes in camp
-                </Typography>
-              </div>
-            </div>
+            <Card
+              key={`news ${element}`}
+              type="news"
+              img={`/news/${element}.png`}
+              alt={`hankel news ${element}`}
+              title="Coding in class"
+              description="Programming classes in camp"
+            ></Card>
           ))}
         </div>
         <div className="px-[32px] py-[8px] border rounded border-blue w-fit flex flex-row justify-center items-center">
