@@ -8,6 +8,8 @@ import { useState } from "react";
 
 export default function Header() {
   const [openDropDown, setOpenDropDown] = useState(false);
+  const [language, setLanguage] = useState("english");
+  const [openLanguageDropDown, setOpenLanguageDropDown] = useState(false);
   const pathname = usePathname();
 
   return (
@@ -151,21 +153,63 @@ export default function Header() {
           <Typography varient="h6">Student Portal</Typography>
         </Link>
       </div>
-      <div className="ml-[80px] flex flex-row items-center">
+      <button
+        className="ml-[80px] flex flex-row items-center"
+        onClick={() => setOpenLanguageDropDown(!openLanguageDropDown)}
+      >
         <Image
           src="/icons/LanguageOutlined.svg"
           alt="hankel language"
           width="24"
           height="24"
         ></Image>
-        <div className="ml-1 mr-2 font-bold">EN</div>
+        <div className="ml-1 mr-2 font-bold">
+          {language === "english" ? "EN" : "ZH"}
+        </div>
         <Image
           src="/icons/ChevronTopFilled.svg"
           alt="hankel chevron right"
           width="24"
           height="24"
         ></Image>
-      </div>
+        <div
+          className={`${
+            openLanguageDropDown ? "block" : "hidden"
+          } absolute top-20 z-10  origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
+          role="menu"
+          aria-orientation="vertical"
+          aria-labelledby="language-button"
+          tabIndex={-1}
+          id="language-dropdown"
+        >
+          <div className="p-4" role="none">
+            <button
+              onClick={() => setLanguage("english")}
+              className={`mb-4 h-[25px] flex flex-row justify-start`}
+              rel="noopener noreferrer"
+            >
+              <Typography
+                varient="h6"
+                className={`${language === "english" ? "font-bold" : ""}`}
+              >
+                English
+              </Typography>
+            </button>
+            <button
+              onClick={() => setLanguage("中文")}
+              className={`h-[25px] flex flex-row justify-start`}
+              rel="noopener noreferrer"
+            >
+              <Typography
+                varient="h6"
+                className={`${language === "中文" ? "font-bold" : ""}`}
+              >
+                中文
+              </Typography>
+            </button>
+          </div>
+        </div>
+      </button>
     </header>
   );
 }
