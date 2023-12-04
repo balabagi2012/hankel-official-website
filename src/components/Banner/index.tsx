@@ -44,7 +44,7 @@ export default function Banner({
         className="z-[-1] absolute"
         quality={100}
         fill
-        objectFit="fill"
+        style={{ objectFit: "fill" }}
       ></Image>
       {size === "big" && (
         <div className="z-[-1] absolute w-[530px] pt-[20px] pb-[32px] px-[16px] bg-[rgba(255,255,255,.8)] flex flex-col justify-center items-center">

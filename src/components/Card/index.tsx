@@ -2,7 +2,7 @@ import Image from "next/image";
 import Typography from "../Typography";
 
 interface CardProps {
-  type: "news" | "course";
+  type: "news" | "course" | "facility";
   title: string;
   img: string;
   alt: string;
@@ -35,6 +35,23 @@ export default function Card(props: CardProps) {
               {title}
             </Typography>
             <Typography varient="h6" className="text-textGray text-center">
+              {description}
+            </Typography>
+          </div>
+        </div>
+      );
+    case "facility":
+      return (
+        <div className="flex flex-col w-[400px]">
+          <Image src={img} alt={alt} width="400" height="270"></Image>
+          <div className="flex flex-col items-start py-[16px]">
+            <Typography
+              varient="h4"
+              className="text-textGray mb-[2px] font-serif"
+            >
+              {title}
+            </Typography>
+            <Typography varient="h5" className="text-textGray">
               {description}
             </Typography>
           </div>
