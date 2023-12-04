@@ -106,7 +106,7 @@ export default function Home() {
         </div>
       </section>
       <section>
-        <Banner size="small" src="/subBanners/teach.png">
+        <Banner size="medium" src="/subBanners/teach.png">
           <div className="ml-auto mr-[76px] px-[52px] py-[28px] bg-white border-b border-blue border-l-8 relative">
             <Typography varient="h4" className="font-serif text-textGray">
               “Education is not the filling of a pail, but the lighting of a
@@ -258,7 +258,10 @@ export default function Home() {
                     *
                   </Typography>
                 </div>
-                <input type="text" className="border rounded border-textGray h-9" />
+                <input
+                  type="text"
+                  className="border rounded border-textGray h-9"
+                />
               </div>
               <div className="flex flex-col flex-1">
                 <div className="flex flex-row align-top gap-4">
@@ -269,7 +272,10 @@ export default function Home() {
                     *
                   </Typography>
                 </div>
-                <input type="text" className="border rounded border-textGray h-9" />
+                <input
+                  type="text"
+                  className="border rounded border-textGray h-9"
+                />
               </div>
             </div>
             <div className="flex flex-1 flex-col mb-5">

@@ -30,7 +30,7 @@ export default function MiddleSchool() {
   ];
   return (
     <main>
-      <Banner size="medium" src="/banners/school.png" />
+      <Banner size="small" src="/banners/school.png" />
       <section className="flex flex-col items-center py-[70px] bg-gray">
         <div className="mb-[60px] border-b border-deepBlue w-fit">
           <Typography varient="h1" className="font-serif text-deepBlue">
@@ -95,7 +95,7 @@ export default function MiddleSchool() {
         </div>
       </section>
       <section>
-        <Banner size="small" src="/subBanners/teach.png">
+        <Banner size="medium" src="/subBanners/teach.png">
           <div className="ml-auto mr-[76px] px-[52px] py-[28px] bg-white border-b border-blue border-l-8 relative">
             <Typography varient="h4" className="font-serif text-textGray">
               “Education is not the filling of a pail, but the lighting of a

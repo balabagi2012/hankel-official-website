@@ -27,7 +27,9 @@ export default function Banner({
           : size === "medium"
           ? "h-[400px]"
           : "h-[350px]"
-      } relative ${className} pt-[80px] flex flex-row justify-center items-center`}
+      } relative ${
+        size === "small" ? "mt-[200px]" : size === "big" ? "mt-[80px]" : ""
+      } flex flex-row justify-center items-center ${className ?? ""}`}
     >
       <Image
         alt="banner home"
