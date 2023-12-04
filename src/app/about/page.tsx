@@ -15,7 +15,7 @@ export default function About() {
   return (
     <main>
       <Banner
-        size="medium"
+        size="large"
         src="/banners/about.png"
         title={title}
         description={description}

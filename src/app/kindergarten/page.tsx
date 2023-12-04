@@ -95,27 +95,14 @@ export default function Kindergarten() {
         </div>
       </section>
       <section>
-        <Banner size="medium" src="/subBanners/teach.png">
-          <div className="ml-auto mr-[76px] px-[52px] py-[28px] bg-white border-b border-blue border-l-8 relative">
-            <Typography varient="h4" className="font-serif text-textGray">
-              “Education is not the filling of a pail, but the lighting of a
-              fire.”
-            </Typography>
-            <Typography
-              varient="h5"
-              className="font-serif text-textGray text-right mt=[12px]"
-            >
-              ------ William Butler Yeats
-            </Typography>
-            <Image
-              src="/icons/Quotes.svg"
-              alt="hankel quote"
-              width="41"
-              height="35"
-              className="absolute top-[-17px] left-[-23px]"
-            ></Image>
-          </div>
-        </Banner>
+        <Banner
+          size="medium"
+          src="/subBanners/teach.png"
+          title="“Education is not the filling of a pail, but the lighting of a
+              fire.”"
+          description="------ William Butler Yeats
+              "
+        ></Banner>
       </section>
       <section className="text-center pt-[66px] pb-[115px] px-[80px] flex flex-col items-center bg-white">
         <div className="mb-[60px] border-b border-deepBlue w-fit">

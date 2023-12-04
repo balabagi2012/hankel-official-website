@@ -15,7 +15,7 @@ export default function Contact() {
   return (
     <main>
       <Banner
-        size="medium"
+        size="large"
         src="/banners/contact.png"
         title={title}
         description={description}

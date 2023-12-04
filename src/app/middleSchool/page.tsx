@@ -95,7 +95,7 @@ export default function MiddleSchool() {
         </div>
       </section>
       <section>
-        <Banner size="medium" src="/subBanners/teach.png">
+        <Banner size="" src="/subBanners/teach.png">
           <div className="ml-auto mr-[76px] px-[52px] py-[28px] bg-white border-b border-blue border-l-8 relative">
             <Typography varient="h4" className="font-serif text-textGray">
               “Education is not the filling of a pail, but the lighting of a

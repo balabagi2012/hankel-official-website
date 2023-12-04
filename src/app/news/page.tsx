@@ -16,7 +16,7 @@ export default function News() {
   return (
     <main>
       <Banner
-        size="medium"
+        size="large"
         src="/banners/news.png"
         title={title}
         description={description}
