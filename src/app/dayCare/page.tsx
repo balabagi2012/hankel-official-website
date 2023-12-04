@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Banner from "@/components/Banner";
 import Typography from "@/components/Typography";
 import Image from "next/image";
+import Title from "@/components/Title";
 
 export const metadata: Metadata = {
   title: "Hankel - DayCare",
@@ -32,11 +33,7 @@ export default function DayCare() {
     <main>
       <Banner size="small" src="/banners/school.png" />
       <section className="flex flex-col items-center py-[70px] bg-gray">
-        <div className="mb-[60px] border-b border-deepBlue w-fit">
-          <Typography varient="h1" className="font-serif text-deepBlue">
-            The Hankel Experience
-          </Typography>
-        </div>
+        <Title align="center">The Hankel Experience</Title>
         <div className="w-[1024px]">
           <Typography varient="h5" className="mb-[80px]">
             {sectionTexts[0]}
@@ -118,11 +115,7 @@ export default function DayCare() {
         </Banner>
       </section>
       <section className="text-center pt-[66px] pb-[115px] px-[80px] flex flex-col items-center bg-white">
-        <div className="mb-[60px] border-b border-deepBlue w-fit">
-          <Typography varient="h1" className="font-serif text-deepBlue">
-            Latest News
-          </Typography>
-        </div>
+        <Title align="center">Latest News</Title>
         <div className="flex flex-row mb-[52px] gap-4">
           {[1, 2, 3, 4, 5].map((element) => (
             <div className="relative" key={`news ${element}`}>
@@ -157,11 +150,7 @@ export default function DayCare() {
         </div>
       </section>
       <section className="text-center pt-[66px] pb-[115px] px-[80px] flex flex-col items-center bg-gray">
-        <div className="mb-[60px] border-b border-deepBlue w-fit">
-          <Typography varient="h1" className="font-serif text-deepBlue">
-            Social Media Post
-          </Typography>
-        </div>
+        <Title align="center">Social Media Post</Title>
         <div className="flex flex-row mb-[52px] gap-4">
           <div className="flex flex-col">
             <Typography varient="h2" className="font-serif text-deepBlue mb-5">
@@ -233,11 +222,9 @@ export default function DayCare() {
       <section className="text-center mt-[66px] mb-[115px] flex flex-col items-center">
         <div className="flex flex-row w-[1024px] items-stretch">
           <div className="flex flex-1 flex-col items-start justify-around">
-            <div className="border-b border-deepBlue w-full text-start flex-1 mb-6">
-              <Typography varient="h1" className="font-serif text-deepBlue">
-                Contact Us
-              </Typography>
-            </div>
+            <Title full align="left">
+              Contact Us
+            </Title>
             <Typography varient="h5" className="text-start flex-1">
               Do you have more questions and curiosity about us? Feel free to
               get in touch! We are eagerly looking forward to hearing your

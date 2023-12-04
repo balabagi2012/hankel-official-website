@@ -1,4 +1,5 @@
 import Banner from "@/components/Banner";
+import Title from "@/components/Title";
 import Typography from "@/components/Typography";
 
 import { Metadata } from "next";
@@ -23,11 +24,7 @@ export default function Home() {
         description={description}
       ></Banner>
       <section className="text-center pt-[66px] pb-[115px] px-[80px] flex flex-col items-center bg-gray">
-        <div className="mb-[60px] border-b border-deepBlue w-fit">
-          <Typography varient="h1" className="font-serif text-deepBlue">
-            Our Program
-          </Typography>
-        </div>
+        <Title>Our Program</Title>
         <div className="flex-row flex justify-center gap-x-6 items-center mb-[66px]">
           <div className="py-[8px] px-[16px] bg-blue">
             <Typography varient="h5" color="white" className="font-bold">
@@ -129,11 +126,7 @@ export default function Home() {
         </Banner>
       </section>
       <section className="text-center pt-[66px] pb-[115px] px-[80px] flex flex-col items-center bg-gray">
-        <div className="mb-[60px] border-b border-deepBlue w-fit">
-          <Typography varient="h1" className="font-serif text-deepBlue">
-            Latest News
-          </Typography>
-        </div>
+        <Title> Latest News</Title>
         <div className="flex flex-row mb-[52px] gap-4">
           {[1, 2, 3, 4, 5].map((element) => (
             <div className="relative" key={`news ${element}`}>
@@ -170,11 +163,9 @@ export default function Home() {
       <section className="text-center mt-[66px] mb-[115px] flex flex-col items-center">
         <div className="flex flex-row w-[1024px] items-stretch">
           <div className="flex flex-1 flex-col items-start justify-around">
-            <div className="border-b border-deepBlue w-full text-start flex-1 mb-6">
-              <Typography varient="h1" className="font-serif text-deepBlue">
-                Contact Us
-              </Typography>
-            </div>
+            <Title full align="left">
+              Contact Us
+            </Title>
             <Typography varient="h5" className="text-start flex-1">
               Do you have more questions and curiosity about us? Feel free to
               get in touch! We are eagerly looking forward to hearing your

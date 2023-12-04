@@ -1,4 +1,5 @@
 import Banner from "@/components/Banner";
+import Title from "@/components/Title";
 import Typography from "@/components/Typography";
 import { Metadata } from "next";
 import Image from "next/image";
@@ -36,14 +37,9 @@ export default function About() {
             ></Image>
           </div>
           <div className="flex-1 flex flex-col justify-between">
-            <div className="mb-9 border-b border-deepBlue w-full">
-              <Typography
-                varient="h1"
-                className="font-serif text-deepBlue text-start"
-              >
-                About Us
-              </Typography>
-            </div>
+            <Title full align="left">
+              About Us
+            </Title>
             <div className="flex flex-1 flex-col">
               <Typography
                 varient="h4"
@@ -52,10 +48,7 @@ export default function About() {
                 Bilingual programs specifically cater to the development of
                 young learners
               </Typography>
-              <Typography
-                varient="h5"
-                className="text-textGray text-start"
-              >
+              <Typography varient="h5" className="text-textGray text-start">
                 Welcome to Hankel International Academy (HIA), the pinnacle of
                 educational excellence and innovation. As the flagship
                 institution under Shane Education, HIA stands distinct in
@@ -72,10 +65,7 @@ export default function About() {
               >
                 HIA's Purpose-Built Campus: A Commitment to Nurturing Education
               </Typography>
-              <Typography
-                varient="h5"
-                className="text-textGray text-start"
-              >
+              <Typography varient="h5" className="text-textGray text-start">
                 Nestled in the serene suburban enclave of Linkou, New Taipei
                 City, HIA boasts a purpose-built campus that embodies our
                 commitment to providing a nurturing and stimulating environment.
@@ -90,18 +80,10 @@ export default function About() {
       <section className="bg-white py-[60px] flex flex-row justify-center">
         <div className="flex flex-row w-[1180px] justify-center items-stretch">
           <div className="flex flex-col mr-[65px] gap-y-3 flex-1">
-            <div className="mb-8 border-b border-deepBlue w-full">
-              <Typography
-                varient="h1"
-                className="font-serif text-deepBlue text-start"
-              >
-                Our Story
-              </Typography>
-            </div>
-            <Typography
-              varient="h5"
-              className="text-textGray text-start mb-8"
-            >
+            <Title full align="left">
+              Our Story
+            </Title>
+            <Typography varient="h5" className="text-textGray text-start mb-8">
               Since its inauguration in August 2020, HIA has swiftly integrated
               itself within the community, garnering a robust reputation among
               parents. This achievement is largely attributed to the relentless
@@ -109,10 +91,7 @@ export default function About() {
               fostering academic excellence, character development, and a love
               for learning their mission.
             </Typography>
-            <Typography
-              varient="h5"
-              className="text-textGray text-start"
-            >
+            <Typography varient="h5" className="text-textGray text-start">
               At HIA, we embody the values of "Thrive," "Strive," and "Learn,"
               fostering holistic growth, unyielding pursuit of excellence, and
               innovative educational methods. Join us on a journey where young

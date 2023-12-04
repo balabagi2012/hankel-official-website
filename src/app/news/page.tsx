@@ -3,6 +3,7 @@ import styles from "./page.module.css";
 import Banner from "@/components/Banner";
 import Typography from "@/components/Typography";
 import Image from "next/image";
+import Title from "@/components/Title";
 
 export const metadata: Metadata = {
   title: "Hankel - News",
@@ -26,22 +27,21 @@ export default function News() {
             <Typography varient="h4">Important News</Typography>
           </div>
           <div>
-            <Typography varient="h4" className="font-thin">Latest News</Typography>
+            <Typography varient="h4" className="font-thin">
+              Latest News
+            </Typography>
           </div>
           <div>
-            <Typography varient="h4" className="font-thin">Events</Typography>
+            <Typography varient="h4" className="font-thin">
+              Events
+            </Typography>
           </div>
         </div>
         <div className="flex flex-col mt-[60px]">
           <div className="flex flex-row">
-            <div className="mb-9 border-b border-deepBlue w-full">
-              <Typography
-                varient="h1"
-                className="font-serif text-deepBlue text-start"
-              >
-                News
-              </Typography>
-            </div>
+            <Title full align="left">
+              News
+            </Title>
           </div>
           <div className="flex flex-row mb-[52px] gap-4">
             {[1, 2, 3, 4].map((element) => (

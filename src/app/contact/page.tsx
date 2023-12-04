@@ -1,4 +1,5 @@
 import Banner from "@/components/Banner";
+import Title from "@/components/Title";
 import Typography from "@/components/Typography";
 import { Metadata } from "next";
 import Image from "next/image";
@@ -21,14 +22,9 @@ export default function Contact() {
       ></Banner>
       <section className="flex flex-col py-[70px] items-center bg-gray">
         <div className="flex flex-col w-[700px]">
-          <div className="mb-8 border-b border-deepBlue w-full">
-            <Typography
-              varient="h1"
-              className="font-serif text-deepBlue text-center"
-            >
-              Contact Us
-            </Typography>
-          </div>
+          <Title full align="center">
+            Contact Us
+          </Title>
           <Typography varient="h5" className="text-textGray text-center">
             Do you have more questions and curiosity about us? Feel free to get
             in touch! We are eagerly looking forward to hearing your feedback,
