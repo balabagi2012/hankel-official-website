@@ -1,6 +1,6 @@
-import { Metadata } from "next";
-import styles from "./page.module.css";
 import Banner from "@/components/Banner";
+import Information from "@/components/Information";
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Hankel - Elementary",
@@ -8,8 +8,9 @@ export const metadata: Metadata = {
 
 export default function ElementaryInformation() {
   return (
-    <main className={styles.main}>
+    <main>
       <Banner size="small" src="/banners/school.png"></Banner>
+      <Information />
     </main>
   );
 }

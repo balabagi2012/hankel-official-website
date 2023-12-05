@@ -1,5 +1,6 @@
+import Banner from "@/components/Banner";
+import Information from "@/components/Information";
 import { Metadata } from "next";
-import styles from "./page.module.css";
 
 export const metadata: Metadata = {
   title: "Hankel - DayCare",
@@ -7,10 +8,9 @@ export const metadata: Metadata = {
 
 export default function DayCareInformation() {
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>DayCareInformation</p>
-      </div>
+    <main>
+      <Banner size="small" src="/banners/school.png"></Banner>
+      <Information />
     </main>
   );
 }

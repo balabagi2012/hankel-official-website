@@ -1,9 +1,10 @@
 import Image from "next/image";
 import { ReactElement } from "react";
+import Typography from "../Typography";
 
 interface BannerProps {
   className?: string;
-  size?: "big" | "medium" | "small";
+  size?: "big" | "large" | "medium" | "small";
   src: string;
   title?: string;
   subtitle?: string;
@@ -24,10 +25,18 @@ export default function Banner({
       className={`w-full ${
         size === "big"
           ? "h-screen"
+          : size === "large"
+          ? "h-[420px]"
           : size === "medium"
           ? "h-[400px]"
           : "h-[350px]"
-      } relative ${className} pt-[80px] flex flex-row justify-center items-center`}
+      } relative ${
+        size === "small"
+          ? "mt-[200px]"
+          : size === "big" || size === "large"
+          ? "mt-[80px]"
+          : ""
+      } flex flex-row justify-center items-center ${className ?? ""}`}
     >
       <Image
         alt="banner home"
@@ -35,9 +44,9 @@ export default function Banner({
         className="z-[-1] absolute"
         quality={100}
         fill
-        objectFit="fill"
+        style={{ objectFit: "fill" }}
       ></Image>
-      {size === "big" ? (
+      {size === "big" && (
         <div className="z-[-1] absolute w-[530px] pt-[20px] pb-[32px] px-[16px] bg-[rgba(255,255,255,.8)] flex flex-col justify-center items-center">
           <Image
             alt="Mountains"
@@ -56,17 +65,46 @@ export default function Banner({
             {description}
           </div>
         </div>
-      ) : (
-        size === "medium" && (
-          <div className="z-[-1] absolute w-full px-[80px] flex flex-col justify-center items-start flex-1">
-            <div className="text-white my-2 font-bold font-serif leading-[1.5] tracking-[1px] text-[52px]">
-              {title}
-            </div>
-            <div className="text-[18px] font-serif font-bold text-white leading-[2] tracking-[1px]">
-              {description}
-            </div>
+      )}
+      {size === "large" && (
+        <div className="z-[-1] absolute w-full px-[80px] flex flex-col justify-center items-start flex-1">
+          <div className="text-white my-2 font-bold font-serif leading-[1.5] tracking-[1px] text-[52px]">
+            {title}
           </div>
-        )
+          <div className="text-[18px] font-serif font-bold text-white leading-[2] tracking-[1px]">
+            {description}
+          </div>
+        </div>
+      )}
+      {size === "large" && (
+        <div className="z-[-1] absolute w-full px-[80px] flex flex-col justify-center items-start flex-1">
+          <div className="text-white my-2 font-bold font-serif leading-[1.5] tracking-[1px] text-[52px]">
+            {title}
+          </div>
+          <div className="text-[18px] font-serif font-bold text-white leading-[2] tracking-[1px]">
+            {description}
+          </div>
+        </div>
+      )}
+      {size === "medium" && title && description && (
+        <div className="ml-auto mr-[76px] px-[52px] py-[28px] bg-white border-b border-blue border-l-8 relative">
+          <Typography varient="h4" className="font-serif text-textGray">
+            {title}
+          </Typography>
+          <Typography
+            varient="h5"
+            className="font-serif text-textGray text-right mt=[12px]"
+          >
+            {description}
+          </Typography>
+          <Image
+            src="/icons/Quotes.svg"
+            alt="hankel quote"
+            width="41"
+            height="35"
+            className="absolute top-[-17px] left-[-23px]"
+          ></Image>
+        </div>
       )}
       {children}
     </div>
