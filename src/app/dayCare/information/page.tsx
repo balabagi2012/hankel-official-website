@@ -1,3 +1,5 @@
+import Banner from "@/components/Banner";
+import Information from "@/components/Information";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -5,5 +7,10 @@ export const metadata: Metadata = {
 };
 
 export default function DayCareInformation() {
-  return <main></main>;
+  return (
+    <main>
+      <Banner size="small" src="/banners/school.png"></Banner>
+      <Information />
+    </main>
+  );
 }
