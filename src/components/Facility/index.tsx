@@ -42,7 +42,7 @@ export default function Facility() {
           <div className="flex flex-row justify-between">
             {[1, 2, 3].map((element) => (
               <Card
-                key={`facility ${element}`}
+                key={` ${element}`}
                 type="facility"
                 img={`/facility/${element}.png`}
                 alt={`hankel facility ${element}`}
