@@ -1,7 +1,6 @@
 import Image from "next/image";
-import Typography from "../Typography";
 import Title from "../Title";
-import { kindergarten } from "@/app/styles/fonts";
+import Typography from "../Typography";
 
 export interface ContactInfoProps {
   type?: "subschool" | "home" | "kindergarten";
@@ -10,11 +9,7 @@ export default function ContactInfo(props: ContactInfoProps) {
   const { type = "subschool" } = props;
   return (
     <div className="flex flex-1 flex-col items-start justify-around">
-      <Title
-        full
-        align="left"
-        className={type === "kindergarten" ? kindergarten.className : ""}
-      >
+      <Title full align="left" type={type}>
         Contact Us
       </Title>
       <Typography

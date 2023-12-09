@@ -5,6 +5,7 @@ import Link from "next/link";
 import Typography from "../Typography";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { kindergarten, notoSans } from "@/app/styles/fonts";
 
 export default function Header() {
   const [openDropDown, setOpenDropDown] = useState(false);
@@ -60,26 +61,52 @@ export default function Header() {
       >
         {isSubHeader ? (
           <div className="flex flex-col h-full">
-            <div className="flex flex-col w-fit mx-auto">
-              <p className="self-star font-serif text-[18px] text-deepBlue leading-none tracking-[1px]">
+            <div className="flex flex-col w-fit min-w-[400px] mx-auto">
+              <p
+                className={`self-star ${
+                  subSchool === "kindergarten"
+                    ? notoSans.className
+                    : "font-serif"
+                } text-[18px] text-deepBlue leading-none tracking-[1px]`}
+              >
                 Small steps towards a
               </p>
-              <p className="self-end font-serif text-[40px] text-deepBlue mr-4 leading-none tracking-[1px]">
+              <p
+                className={`self-end ${
+                  subSchool === "kindergarten"
+                    ? kindergarten.className
+                    : "font-serif"
+                } ${
+                  subSchool === "kindergarten" ? "mt-2" : ""
+                } text-[40px] text-deepBlue mr-4 leading-none tracking-[1px]`}
+              >
                 BIG FUTURE
               </p>
-              <p className="self-center text-[10px] leading-normal mt-2 tracking-[1px]">
-                Welcome to Hankel International Academy for Primary Education
+              <p
+                className={`${
+                  subSchool === "kindergarten" ? "self-end" : "self-center"
+                } text-[10px] leading-normal ${
+                  subSchool === "kindergarten" ? "mt-4" : "mt-2"
+                } tracking-[1px]`}
+              >
+                {subSchool !== "kindergarten"
+                  ? "Welcome to Hankel International Academy for Primary Education"
+                  : "Welcome to Hankel International Kindergarten"}
               </p>
             </div>
             <div className="flex flex-row items-end mt-auto gap-x-[16px]">
               <Link href={`/${subSchool}`} rel="noopener noreferrer">
                 <Typography
                   varient="h6"
-                  className={
+                  className={`${
                     pathname === `/${subSchool}`
-                      ? "font-bold text-blue"
+                      ? `font-bold text-blue ${
+                          subSchool === "kindergarten"
+                            ? kindergarten.className
+                            : notoSans.className
+                        }`
                       : "text-deepBlue"
-                  }
+                  }`}
                 >
                   {`Hankel ${
                     subSchool.charAt(0).toUpperCase() + subSchool.slice(1)
@@ -89,11 +116,15 @@ export default function Header() {
               <Link href={`/${subSchool}/curriculum`} rel="noopener noreferrer">
                 <Typography
                   varient="h6"
-                  className={
+                  className={`${
                     pathname === `/${subSchool}/curriculum`
-                      ? "font-bold text-blue"
+                      ? `font-bold text-blue ${
+                          subSchool === "kindergarten"
+                            ? kindergarten.className
+                            : notoSans.className
+                        }`
                       : "text-deepBlue"
-                  }
+                  }`}
                 >
                   Our Curriculum
                 </Typography>
@@ -101,11 +132,15 @@ export default function Header() {
               <Link href={`/${subSchool}/facilities`} rel="noopener noreferrer">
                 <Typography
                   varient="h6"
-                  className={
+                  className={`${
                     pathname === `/${subSchool}/facilities`
-                      ? "font-bold text-blue"
+                      ? `font-bold text-blue ${
+                          subSchool === "kindergarten"
+                            ? kindergarten.className
+                            : notoSans.className
+                        }`
                       : "text-deepBlue"
-                  }
+                  }`}
                 >
                   Our Facilities
                 </Typography>
@@ -113,11 +148,15 @@ export default function Header() {
               <Link href={`/${subSchool}/team`} rel="noopener noreferrer">
                 <Typography
                   varient="h6"
-                  className={
+                  className={`${
                     pathname === `/${subSchool}/team`
-                      ? "font-bold text-blue"
+                      ? `font-bold text-blue ${
+                          subSchool === "kindergarten"
+                            ? kindergarten.className
+                            : notoSans.className
+                        }`
                       : "text-deepBlue"
-                  }
+                  }`}
                 >
                   Our Team
                 </Typography>
@@ -125,11 +164,15 @@ export default function Header() {
               <Link href={`/${subSchool}/about`} rel="noopener noreferrer">
                 <Typography
                   varient="h6"
-                  className={
+                  className={`${
                     pathname === `/${subSchool}/about`
-                      ? "font-bold text-blue"
+                      ? `font-bold text-blue ${
+                          subSchool === "kindergarten"
+                            ? kindergarten.className
+                            : notoSans.className
+                        }`
                       : "text-deepBlue"
-                  }
+                  }`}
                 >
                   About
                 </Typography>
@@ -140,11 +183,15 @@ export default function Header() {
               >
                 <Typography
                   varient="h6"
-                  className={
+                  className={`${
                     pathname === `/${subSchool}/information`
-                      ? "font-bold text-blue"
+                      ? `font-bold text-blue ${
+                          subSchool === "kindergarten"
+                            ? kindergarten.className
+                            : notoSans.className
+                        }`
                       : "text-deepBlue"
-                  }
+                  }`}
                 >
                   Information
                 </Typography>
@@ -152,11 +199,15 @@ export default function Header() {
               <Link href={`/${subSchool}/contact`} rel="noopener noreferrer">
                 <Typography
                   varient="h6"
-                  className={
+                  className={`${
                     pathname === `/${subSchool}/contact`
-                      ? "font-bold text-blue"
+                      ? `font-bold text-blue ${
+                          subSchool === "kindergarten"
+                            ? kindergarten.className
+                            : notoSans.className
+                        }`
                       : "text-deepBlue"
-                  }
+                  }`}
                 >
                   Contact
                 </Typography>
@@ -164,11 +215,15 @@ export default function Header() {
               <Link href={`/${subSchool}/portal`} rel="noopener noreferrer">
                 <Typography
                   varient="h6"
-                  className={
+                  className={`${
                     pathname === `/${subSchool}/portal`
-                      ? "font-bold text-blue"
+                      ? `font-bold text-blue ${
+                          subSchool === "kindergarten"
+                            ? kindergarten.className
+                            : notoSans.className
+                        }`
                       : "text-deepBlue"
-                  }
+                  }`}
                 >
                   Portal
                 </Typography>

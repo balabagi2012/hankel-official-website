@@ -1,3 +1,4 @@
+import { kindergarten } from "@/app/styles/fonts";
 import Image from "next/image";
 import Banner from "../Banner";
 import Card from "../Card";
@@ -5,7 +6,6 @@ import ContactForm from "../ContactForm";
 import ContactInfo from "../ContactInfo";
 import Title from "../Title";
 import Typography from "../Typography";
-import { kindergarten } from "@/app/styles/fonts";
 
 interface SubschoolProps {
   banner?: string;
@@ -37,10 +37,7 @@ export default function Subschool(props: SubschoolProps) {
     <main>
       <Banner size="small" src={banner} />
       <section className="flex flex-col items-center py-[70px] bg-gray">
-        <Title
-          align="center"
-          className={type === "kindergarten" ? kindergarten.className : ""}
-        >
+        <Title align="center" type={type}>
           The Hankel Experience
         </Title>
         <div className="w-[1024px]">
@@ -72,10 +69,7 @@ export default function Subschool(props: SubschoolProps) {
         ></Banner>
       </section>
       <section className="text-center pt-[66px] pb-[115px] px-[80px] flex flex-col items-center bg-white">
-        <Title
-          align="center"
-          className={type === "kindergarten" ? kindergarten.className : ""}
-        >
+        <Title align="center" type={type}>
           Latest News
         </Title>
         <div className="flex flex-row mb-[52px] gap-4">
@@ -104,10 +98,7 @@ export default function Subschool(props: SubschoolProps) {
         </div>
       </section>
       <section className="text-center pt-[66px] pb-[115px] px-[80px] flex flex-col items-center bg-gray">
-        <Title
-          align="center"
-          className={type === "kindergarten" ? kindergarten.className : ""}
-        >
+        <Title align="center" type={type}>
           Social Media Post
         </Title>
         <div className="flex flex-row mb-[52px] gap-4">

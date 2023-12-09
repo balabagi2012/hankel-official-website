@@ -1,3 +1,6 @@
+import { Noto_Sans_TC } from "next/font/google";
 import localFont from "next/font/local";
 const kindergarten = localFont({ src: "./OtomanopeeOne.ttf" });
-export { kindergarten };
+const notoSans = Noto_Sans_TC({ subsets: ["latin"] });
+
+export { kindergarten, notoSans };
