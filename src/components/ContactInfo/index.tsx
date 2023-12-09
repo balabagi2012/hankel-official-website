@@ -1,14 +1,27 @@
 import Image from "next/image";
 import Typography from "../Typography";
 import Title from "../Title";
+import { kindergarten } from "@/app/styles/fonts";
 
-export default function ContactInfo() {
+export interface ContactInfoProps {
+  type?: "subschool" | "home" | "kindergarten";
+}
+export default function ContactInfo(props: ContactInfoProps) {
+  const { type = "subschool" } = props;
   return (
     <div className="flex flex-1 flex-col items-start justify-around">
-      <Title full align="left">
+      <Title
+        full
+        align="left"
+        className={type === "kindergarten" ? kindergarten.className : ""}
+      >
         Contact Us
       </Title>
-      <Typography varient="h5" className="text-start flex-1 mt-[-40px]" color="textGray">
+      <Typography
+        varient="h5"
+        className="text-start flex-1 mt-[-40px]"
+        color="textGray"
+      >
         Do you have more questions and curiosity about us? Feel free to get in
         touch! We are eagerly looking forward to hearing your feedback,
         inquiries, and suggestions.
