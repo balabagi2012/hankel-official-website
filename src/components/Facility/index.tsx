@@ -14,7 +14,7 @@ export default function Facility(props: FacilityProps) {
   const { type = "subschool", banner = "/banners/school.png" } = props;
 
   return (
-    <main className="pt-[200px]">
+    <main className="pt-[50px] md:pt-[200px]">
       <Banner size="small" src={banner}></Banner>
       <section className="flex flex-col py-[70px] items-center bg-gray">
         <div className="flex flex-col w-[700px]">

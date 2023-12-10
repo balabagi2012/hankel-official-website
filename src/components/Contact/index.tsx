@@ -12,7 +12,7 @@ export interface ContactProps {
 export default function Contact(props: ContactProps) {
   const { type = "subschool", title, description, banner } = props;
   return (
-    <main className={type === "home" ? "pt-[80px]" : "pt-[200px]"}>
+    <main className={`pt-[50px] ${type === "home" ? "md:pt-[80px]" : "md:pt-[200px]"}`}>
       <Banner
         size={type === "home" ? "large" : "small"}
         src={banner ?? "/banners/contact.png"}
