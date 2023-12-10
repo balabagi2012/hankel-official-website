@@ -11,14 +11,11 @@ const description = `Finding Inspiration in Every Turn`;
 
 export default function HomeAbout() {
   return (
-    <main className="pt-[80px]">
-      <Banner
-        size="large"
-        src="/banners/about.png"
-        title={title}
-        description={description}
-      ></Banner>
-      <About />
-    </main>
+    <About
+      type="home"
+      title={title}
+      description={description}
+      banner="/banners/about.png"
+    />
   );
 }

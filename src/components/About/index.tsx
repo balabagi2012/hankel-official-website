@@ -2,14 +2,24 @@ import Image from "next/image";
 import Title from "../Title";
 import Typography from "../Typography";
 import { kindergarten } from "@/app/styles/fonts";
+import Banner from "../Banner";
 
 export interface AboutProps {
-  type?: "kindergarten";
+  type?: "kindergarten" | "subschool" | "home";
+  title?: string;
+  description?: string;
+  banner?: string;
 }
 export default function About(props: AboutProps) {
-  const { type = "" } = props;
+  const { type = "subschool", title, description, banner } = props;
   return (
-    <>
+    <main className={type === "home" ? "pt-[80px]" : "pt-[200px]"}>
+      <Banner
+        size={type === "home" ? "large" : "small"}
+        src={banner ?? "/banners/school.png"}
+        title={title}
+        description={description}
+      ></Banner>
       <section className="bg-gray py-[60px] flex flex-row justify-center">
         <div className="flex flex-row w-[1180px] justify-center items-stretch">
           <div className="flex flex-col mr-[65px] gap-y-3">
@@ -101,6 +111,6 @@ export default function About(props: AboutProps) {
           ></Image>
         </div>
       </section>
-    </>
+    </main>
   );
 }
