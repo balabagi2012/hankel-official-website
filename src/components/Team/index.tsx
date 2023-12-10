@@ -2,12 +2,18 @@ import Card from "../Card";
 import Title from "../Title";
 import Typography from "../Typography";
 
-export default function Team() {
+export interface TeamProps {
+  type?: "kindergarten";
+}
+
+export default function Team(props: TeamProps) {
+  const { type = "" } = props;
+
   return (
     <>
       <section className="flex flex-col py-[70px] items-center bg-gray">
         <div className="flex flex-col w-[1068px]">
-          <Title full align="center">
+          <Title full align="center" type={type}>
             Leading Foreign team
           </Title>
           <Typography varient="h5" className="text-textGray text-center">
@@ -35,7 +41,7 @@ export default function Team() {
       </section>
       <section className="flex flex-col py-[70px] items-center bg-white">
         <div className="flex flex-col w-[1068px]">
-          <Title full align="center">
+          <Title full align="center" type={type}>
             Local Expert team
           </Title>
           <Typography varient="h5" className="text-textGray text-center">

@@ -9,8 +9,8 @@ export const metadata: Metadata = {
 export default function KindergartenContact() {
   return (
     <main>
-      <Banner size="small" src="/banners/school.png"></Banner>
-      <Contact />
+      <Banner size="small" src="/banners/kindergarten.png"></Banner>
+      <Contact type="kindergarten" />
     </main>
   );
 }

@@ -3,12 +3,19 @@ import Title from "../Title";
 import Typography from "../Typography";
 import facilitiyImg from "../../../public/facility/home.png";
 import Card from "../Card";
-export default function Facility() {
+
+export interface FacilityProps {
+  type?: "kindergarten";
+}
+
+export default function Facility(props: FacilityProps) {
+  const { type = "" } = props;
+
   return (
     <>
       <section className="flex flex-col py-[70px] items-center bg-gray">
         <div className="flex flex-col w-[700px]">
-          <Title full align="center">
+          <Title full align="center" type={type}>
             Appearance Overview
           </Title>
           <Typography varient="h5" className="text-textGray text-center">
@@ -36,7 +43,7 @@ export default function Facility() {
       </section>
       <section className="flex flex-col py-[70px] items-center bg-gray">
         <div className="flex flex-col w-[1268px]">
-          <Title full align="left">
+          <Title full align="left" type={type}>
             Facilities
           </Title>
           <div className="flex flex-row justify-between">

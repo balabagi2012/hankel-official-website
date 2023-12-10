@@ -2,7 +2,11 @@ import Image from "next/image";
 import Title from "../Title";
 import Typography from "../Typography";
 
-export default function About() {
+export interface AboutProps {
+  type?: "kindergarten";
+}
+export default function About(props: AboutProps) {
+  const { type = "" } = props;
   return (
     <>
       <section className="bg-gray py-[60px] flex flex-row justify-center">
@@ -22,7 +26,7 @@ export default function About() {
             ></Image>
           </div>
           <div className="flex-1 flex flex-col justify-between">
-            <Title full align="left">
+            <Title full align="left" type={type}>
               About Us
             </Title>
             <div className="flex flex-1 flex-col">
@@ -65,7 +69,7 @@ export default function About() {
       <section className="bg-white py-[60px] flex flex-row justify-center">
         <div className="flex flex-row w-[1180px] justify-center items-stretch">
           <div className="flex flex-col mr-[65px] gap-y-3 flex-1">
-            <Title full align="left">
+            <Title full align="left" type={type}>
               Our Story
             </Title>
             <Typography varient="h5" className="text-textGray text-start mb-8">
