@@ -15,7 +15,7 @@ export default function Curriculum(props: CurriculumProps) {
     <main className="pt-[50px] md:pt-[200px]">
       <Banner size="small" src={banner}></Banner>
       <Section className="bg-gray">
-        <div className="flex flex-col w-[700px]">
+        <div className="flex flex-col w-full md:w-[700px]">
           <Title full align="center" type={type}>
             Our Curriculum
           </Title>
@@ -38,11 +38,11 @@ export default function Curriculum(props: CurriculumProps) {
         </div>
       </Section>
       <Section className="bg-white">
-        <div className="flex flex-col w-[1268px]">
+        <div className="flex flex-col w-full md:w-[1268px]">
           <Title full align="left" type={type}>
             Curriculum
           </Title>
-          <div className="flex flex-row justify-between">
+          <div className="flex flex-col md:flex-row justify-between items-center">
             {[1, 2, 3, 4].map((element) => (
               <Card
                 key={`curriculum ${element}`}
@@ -54,7 +54,7 @@ export default function Curriculum(props: CurriculumProps) {
               ></Card>
             ))}
           </div>
-          <div className="flex flex-row justify-between mt-10">
+          <div className="flex flex-col md:flex-row justify-between items-center md:mt-10">
             {[5, 6].map((element) => (
               <Card
                 key={`curriculum ${element}`}
