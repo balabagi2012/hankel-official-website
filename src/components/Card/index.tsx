@@ -89,8 +89,8 @@ export default function Card(props: CardProps) {
       );
     case "team":
       return (
-        <div className="flex flex-col w-[322px] rounded-xl shadow-md">
-          <Image src={img} alt={alt} width="322" height="310"></Image>
+        <div className="flex flex-col w-full md:w-[322px] rounded-xl shadow-md">
+          <Image src={img} alt={alt} width="322" height="310" className="w-full md:w-[322px] h:auto"></Image>
           <div className="flex flex-col items-center py-[16px] px-[16px]">
             <Typography varient="h3" className="font-serif mb-[12px]">
               {title}
