@@ -16,6 +16,41 @@ export default function Header() {
   const [openLanguageDropDown, setOpenLanguageDropDown] = useState(false);
   const pathname = usePathname();
 
+  const homepageNavItemList = [
+    {
+      path: `/`,
+      label: `Home`,
+    },
+    {
+      path: `/dayCare`,
+      label: `Day Care`,
+    },
+    {
+      path: `/elementary`,
+      label: `Elementary`,
+    },
+    {
+      path: `/kindergarten`,
+      label: `Kindergarten`,
+    },
+    {
+      path: `/middleSchool`,
+      label: `Middle School`,
+    },
+    {
+      path: `/about`,
+      label: `About`,
+    },
+    {
+      path: `/contact`,
+      label: `Contact`,
+    },
+    {
+      path: `https://google.com`,
+      label: `Student Portal`,
+    },
+  ];
+
   const subSchoolNavItemList = [
     {
       path: `/${subSchool}`,
@@ -50,6 +85,7 @@ export default function Header() {
       label: `Portal`,
     },
   ];
+
   useEffect(() => {
     if (pathname) {
       const subSchool = [
@@ -65,6 +101,7 @@ export default function Header() {
         setIsSubHeader(false);
         setSubSchool("");
       }
+      setOpenDropDown(false);
     }
   }, [pathname]);
 
@@ -101,7 +138,7 @@ export default function Header() {
         <Link
           href="/"
           rel="noopener noreferrer"
-          className="flex items-center w-full md:w-fit mr-auto ml-3 md:ml-0"
+          className="flex items-center w-[150px] h-[32px] md:w-[200px] md:[h-42px] mr-auto ml-3 md:ml-0"
         >
           <Image
             src="/logo.svg"
@@ -364,14 +401,55 @@ export default function Header() {
             </div>
           </div>
         </div>
-        <div className="flex md:hidden mr-3">
+        <div className="flex md:hidden mr-3 relative">
           <Image
             src="/icons/MenuFilled.svg"
             alt="hankel menu"
             width="24"
             height="24"
             className="w-auto h-auto"
+            onClick={() => {
+              setOpenDropDown(true);
+            }}
           ></Image>
+          {openDropDown && (
+            <div
+              className={`${
+                openDropDown ? "fixed" : "hidden"
+              } top-0 right-0 h-screen p-5 bg-[#E4F0F1] z-10`}
+            >
+              <div
+                className="ml-auto flex flex-row justify-center items-center p-[10px] w-11 h-11 bg-white"
+                onClick={() => {
+                  setOpenDropDown(!openDropDown);
+                }}
+              >
+                <Image
+                  src="/icons/CloseFilled.svg"
+                  alt="hankel close"
+                  width="24"
+                  height="24"
+                  className="w-auto h-auto"
+                ></Image>
+              </div>
+              <div className="flex flex-col justify-center items-start">
+                {(isSubHeader ? subSchoolNavItemList : homepageNavItemList).map(
+                  ({ path, label }) => {
+                    return (
+                      <Link
+                        key={label}
+                        href={path}
+                        className={`mt-3`}
+                        rel="noopener noreferrer"
+                      >
+                        <Typography varient="h5">{label}</Typography>
+                      </Link>
+                    );
+                  }
+                )}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </header>
