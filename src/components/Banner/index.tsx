@@ -29,7 +29,7 @@ export default function Banner({
           ? "h-[233px] md:h-[420px]"
           : size === "medium"
           ? "h-[343px] md:h-[400px]"
-          : "h-[350px]"
+          : "h-[170px] md:h-[350px]"
       } relative flex flex-row justify-center items-center ${className ?? ""}`}
     >
       <Image

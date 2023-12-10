@@ -46,7 +46,7 @@ export default function Subschool(props: SubschoolProps) {
           <Typography varient="h5" className="mb-[80px]">
             {sectionTexts[0]}
           </Typography>
-          <div className="flex flex-row flex-wrap gap-4">
+          <div className="flex flex-col items-center md:flex-row gap-4">
             {[1, 2, 3].map((element) => (
               <Card
                 key={`course ${element}`}
@@ -60,7 +60,6 @@ export default function Subschool(props: SubschoolProps) {
           </div>
         </div>
       </Section>
-
       <Banner
         size="medium"
         src="/subBanners/teach.png"
@@ -166,7 +165,7 @@ export default function Subschool(props: SubschoolProps) {
         </div>
       </Section>
       <Section>
-        <div className="flex flex-row w-[1024px] items-stretch">
+        <div className="flex flex-col md:flex-row w-full lg:w-[1024px] items-stretch">
           <ContactInfo type="kindergarten" />
           <ContactForm />
         </div>
