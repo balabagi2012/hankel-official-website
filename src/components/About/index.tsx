@@ -27,7 +27,7 @@ export default function About(props: AboutProps) {
       ></Banner>
       <Section className="bg-gray">
         <div className="flex flex-col-reverse md:flex-row w-full md:w-[1180px] justify-center items-stretch">
-          <div className="flex flex-col mr-[65px] gap-y-3">
+          <div className="flex flex-col md:mr-[65px] gap-y-3">
             <Image
               src="/about/1.png"
               alt="hankel about 1"
@@ -91,7 +91,7 @@ export default function About(props: AboutProps) {
       </Section>
       <Section className="bg-white">
         <div className="flex flex-col md:flex-row w-full md:w-[1180px] justify-center items-stretch">
-          <div className="flex flex-col mr-[65px] gap-y-3 flex-1">
+          <div className="flex flex-col md:mr-[65px] gap-y-3 flex-1">
             <Title full align="left" type={type}>
               Our Story
             </Title>
