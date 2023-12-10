@@ -26,19 +26,18 @@ export default function Banner({
         size === "big"
           ? "h-screen"
           : size === "large"
-          ? "h-[420px]"
+          ? "h-[233px] md:h-[420px]"
           : size === "medium"
-          ? "h-[400px]"
+          ? "h-[343px] md:h-[400px]"
           : "h-[350px]"
       } relative flex flex-row justify-center items-center ${className ?? ""}`}
     >
       <Image
         alt="banner home"
         src={src}
-        className="z-[-1] absolute w-auto h-auto"
+        className="z-[-1] absolute w-auto h-auto object-center object-cover"
         quality={100}
         fill
-        style={{ objectFit: "fill" }}
       ></Image>
       {size === "big" && (
         <div className="z-[-1] absolute w-full h-full md:h-fit md:w-[530px] pt-[50px] md:pt-[20px] pb-[32px] px-[16px] bg-[rgba(255,255,255,.8)] flex flex-col justify-center items-center">
@@ -82,7 +81,7 @@ export default function Banner({
         </div>
       )}
       {size === "medium" && title && description && (
-        <div className="ml-auto mr-[76px] px-[52px] py-[28px] bg-white border-b border-blue border-l-8 relative">
+        <div className=" ml-[16px] md:ml-auto mr-[16px] md:mr-[76px] px-[52px] py-[28px] bg-[rgba(255,255,255,.7)] md:bg-white border-b border-blue border-l-8 relative">
           <Typography varient="h4" className="font-serif text-textGray">
             {title}
           </Typography>
