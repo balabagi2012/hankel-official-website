@@ -22,7 +22,7 @@ export function Program() {
     <li
       className={`whitespace-nowrap ${
         activeProgram === name ? "px-[16px] bg-blue w-fit" : ""
-      } h-9 flex flex-row justify-center items-center`}
+      } h-9 flex flex-row justify-center items-center min-h-fit min-w-fit`}
       onClick={() => setActiveProgram(name)}
     >
       <Typography
@@ -38,7 +38,7 @@ export function Program() {
   return (
     <section className="text-center pt-8 md:pt-[66px] pb-10 md:pb-[115px] px-4 md:px-[80px] flex flex-col items-center bg-gray">
       <Title>Our Program</Title>
-      <ul className="w-full md:w-fit overflow-x-scroll flex-row flex justify-center gap-x-6 items-center mb-7 md:mb-[66px]">
+      <ul className="w-full md:w-fit overflow-x-scroll flex-row flex justify-start gap-x-6 items-center mb-7 md:mb-[66px]">
         {ProgramNavItemList.map((name) => (
           <ProgramNavItem name={name} key={name} />
         ))}

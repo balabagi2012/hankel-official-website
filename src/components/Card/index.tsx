@@ -15,8 +15,14 @@ export default function Card(props: CardProps) {
   switch (type) {
     case "news":
       return (
-        <div className="relative">
-          <Image src={img} alt={alt} width="254" height="350"></Image>
+        <div className="relative min-h-fit min-w-fit">
+          <Image
+            src={img}
+            alt={alt}
+            width="254"
+            height="350"
+            className="w-[171px] h-[262px] md:w-[254px] md:h-[350px]"
+          ></Image>
           <div className="absolute bottom-[18px] h-[100px] left-0 bg-deepBlue/[0.8] pl-[12px] pr-[4px] py-[8px] flex flex-col items-start">
             <Typography varient="h4" color="white font-serif text-start">
               {title}

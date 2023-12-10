@@ -38,9 +38,9 @@ export default function Home() {
               "
         ></Banner>
       </section>
-      <section className="text-center pt-[66px] pb-[115px] px-[80px] flex flex-col items-center bg-gray">
+      <section className="text-center py-10 md:pt-[66px] md:pb-[115px] px-4 md:px-[80px] flex flex-col items-center bg-gray">
         <Title>Latest News</Title>
-        <div className="flex flex-row mb-[52px] gap-4">
+        <div className="w-full flex flex-row overflow-x-scroll mb-[52px] gap-4">
           {[1, 2, 3, 4, 5].map((element) => (
             <Card
               key={`news ${element}`}
