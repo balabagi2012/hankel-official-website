@@ -4,16 +4,19 @@ import Title from "../Title";
 import Typography from "../Typography";
 
 import CalendarImg from "../../../public/information/calendar.png";
+import Banner from "../Banner";
 
 export interface InformationProps {
-  type?: "kindergarten";
+  type?: "kindergarten" | "subschool";
+  banner?: string;
 }
 
 export default function Information(props: InformationProps) {
-  const { type = "" } = props;
+  const { type = "subschool", banner = "/banners/school.png" } = props;
 
   return (
-    <>
+    <main className="pt-[200px]">
+      <Banner size="small" src={banner}></Banner>
       <section className="flex flex-col py-[70px] items-center bg-gray">
         <div className="flex flex-col w-[1024px]">
           <Title full align="center" type={type}>
@@ -99,6 +102,6 @@ export default function Information(props: InformationProps) {
           </div>
         </div>
       </section>
-    </>
+    </main>
   );
 }

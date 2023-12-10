@@ -1,4 +1,3 @@
-import Banner from "@/components/Banner";
 import Information from "@/components/Information";
 import { Metadata } from "next";
 
@@ -7,10 +6,5 @@ export const metadata: Metadata = {
 };
 
 export default function KindergartenInformation() {
-  return (
-    <main className="pt-[200px]">
-      <Banner size="small" src="/banners/kindergarten.png"></Banner>
-      <Information type="kindergarten" />
-    </main>
-  );
+  return <Information type="kindergarten" banner="/banners/kindergarten.png" />;
 }
