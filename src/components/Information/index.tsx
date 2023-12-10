@@ -19,7 +19,7 @@ export default function Information(props: InformationProps) {
     <main className="pt-[50px] md:pt-[200px]">
       <Banner size="small" src={banner}></Banner>
       <Section className="bg-gray">
-        <div className="flex flex-col w-[1024px]">
+        <div className="flex flex-col w-full md:w-[1024px]">
           <Title full align="center" type={type}>
             Admission Brochure
           </Title>
@@ -43,8 +43,8 @@ export default function Information(props: InformationProps) {
         </div>
       </Section>
       <Section className="bg-white">
-        <div className="flex flex-row w-[1268px] justify-center items-stretch">
-          <div className="flex flex-col mr-[65px] gap-y-3 flex-1">
+        <div className="flex flex-col md:flex-row w-full md:w-[1268px] justify-center items-stretch">
+          <div className="flex flex-col md:mr-[65px] gap-y-3 flex-1">
             <Title full align="left" type={type}>
               Information Session
             </Title>
@@ -62,11 +62,12 @@ export default function Information(props: InformationProps) {
             alt="hankel about 3"
             width="582"
             height="370"
+            className="w-full md:w-[582px] h-auto"
           ></Image>
         </div>
       </Section>
       <Section className="bg-gray">
-        <div className="flex flex-col w-[1268px] justify-center items-stretch">
+        <div className="flex flex-col w-full md:w-[1268px] justify-center items-stretch">
           <Title full align="left" type={type}>
             Lunch Menu
           </Title>
@@ -85,7 +86,7 @@ export default function Information(props: InformationProps) {
         </div>
       </Section>
       <Section className="bg-white">
-        <div className="flex flex-col w-[1268px] justify-center items-stretch">
+        <div className="flex flex-col w-full md:w-[1268px] justify-center items-stretch">
           <Title full align="left" type={type}>
             Calendar
           </Title>
