@@ -35,7 +35,7 @@ export default function Banner({
       <Image
         alt="banner home"
         src={src}
-        className="z-[-1] absolute"
+        className="z-[-1] absolute w-auto h-auto"
         quality={100}
         fill
         style={{ objectFit: "fill" }}
@@ -48,6 +48,7 @@ export default function Banner({
             quality={100}
             width={60}
             height={60}
+            className="w-auto h-auto"
           ></Image>
           <div className="text-[#13325D] my-2 font-bold font-serif leading-[1.5] tracking-[1px] text-[32px]">
             {title}

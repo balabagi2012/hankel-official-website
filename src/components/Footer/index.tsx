@@ -10,6 +10,7 @@ export default function Footer() {
             alt="hankel footer logo"
             width="62"
             height="77"
+            className="w-auto h-auto"
           ></Image>
         </div>
         <div className="flex md:hidden flex-row justify-center items-center mb-9">

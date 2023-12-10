@@ -181,7 +181,7 @@ export default function Header() {
                   alt="hankel chevron bottom"
                   width="24"
                   height="24"
-                  className={`${
+                  className={`w-auto h-auto ${
                     openDropDown ? "rotate-00" : "rotate-180"
                   } ml-1`}
                 ></Image>
@@ -314,6 +314,7 @@ export default function Header() {
             alt="hankel language"
             width="24"
             height="24"
+            className="w-auto h-auto"
           ></Image>
           <div className="ml-1 mr-2 font-bold">
             {language === "english" ? "EN" : "ZH"}
@@ -323,6 +324,7 @@ export default function Header() {
             alt="hankel chevron bottom"
             width="24"
             height="24"
+            className="w-auto h-auto"
           ></Image>
           <div
             className={`${
@@ -368,6 +370,8 @@ export default function Header() {
             alt="hankel menu"
             width="24"
             height="24"
+            className="w-auto h-auto"
+
           ></Image>
         </div>
       </div>
