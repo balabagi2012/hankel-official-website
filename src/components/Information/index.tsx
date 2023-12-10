@@ -5,6 +5,7 @@ import Typography from "../Typography";
 
 import CalendarImg from "../../../public/information/calendar.png";
 import Banner from "../Banner";
+import Section from "../Section";
 
 export interface InformationProps {
   type?: "kindergarten" | "subschool";
@@ -17,7 +18,7 @@ export default function Information(props: InformationProps) {
   return (
     <main className="pt-[50px] md:pt-[200px]">
       <Banner size="small" src={banner}></Banner>
-      <section className="flex flex-col py-[70px] items-center bg-gray">
+      <Section className="bg-gray">
         <div className="flex flex-col w-[1024px]">
           <Title full align="center" type={type}>
             Admission Brochure
@@ -40,8 +41,8 @@ export default function Information(props: InformationProps) {
             ></Image>
           </div>
         </div>
-      </section>
-      <section className="bg-white py-[60px] flex flex-row justify-center">
+      </Section>
+      <Section className="bg-white">
         <div className="flex flex-row w-[1268px] justify-center items-stretch">
           <div className="flex flex-col mr-[65px] gap-y-3 flex-1">
             <Title full align="left" type={type}>
@@ -63,8 +64,8 @@ export default function Information(props: InformationProps) {
             height="370"
           ></Image>
         </div>
-      </section>
-      <section className="bg-white py-[60px] flex flex-row justify-center">
+      </Section>
+      <Section className="bg-gray">
         <div className="flex flex-col w-[1268px] justify-center items-stretch">
           <Title full align="left" type={type}>
             Lunch Menu
@@ -82,8 +83,8 @@ export default function Information(props: InformationProps) {
             ></Image>
           </div>
         </div>
-      </section>
-      <section className="bg-white py-[60px] flex flex-row justify-center">
+      </Section>
+      <Section className="bg-white">
         <div className="flex flex-col w-[1268px] justify-center items-stretch">
           <Title full align="left" type={type}>
             Calendar
@@ -101,7 +102,7 @@ export default function Information(props: InformationProps) {
             ></Image>
           </div>
         </div>
-      </section>
+      </Section>
     </main>
   );
 }

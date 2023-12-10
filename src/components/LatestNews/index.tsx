@@ -2,15 +2,14 @@ import Image from "next/image";
 import Card from "../Card";
 import Title from "../Title";
 import Typography from "../Typography";
+import Section from "../Section";
 
 export interface LatestNewsProps {
   className?: string;
 }
 export default function LatestNews({ className = "" }: LatestNewsProps) {
   return (
-    <section
-      className={`text-center py-10 md:pt-[66px] md:pb-[115px] px-4 md:px-[80px] flex flex-col items-center bg-gray ${className}`}
-    >
+    <Section className={`bg-gray ${className}`}>
       <Title>Latest News</Title>
       <div className="w-full flex flex-row overflow-x-scroll mb-[52px] gap-4">
         {[1, 2, 3, 4, 5].map((element) => (
@@ -36,6 +35,6 @@ export default function LatestNews({ className = "" }: LatestNewsProps) {
           className="ml-[10px]"
         ></Image>
       </div>
-    </section>
+    </Section>
   );
 }

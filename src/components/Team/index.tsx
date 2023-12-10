@@ -1,5 +1,6 @@
 import Banner from "../Banner";
 import Card from "../Card";
+import Section from "../Section";
 import Title from "../Title";
 import Typography from "../Typography";
 
@@ -14,7 +15,7 @@ export default function Team(props: TeamProps) {
   return (
     <main className="pt-[50px] md:pt-[200px]">
       <Banner size="small" src="/banners/school.png"></Banner>
-      <section className="flex flex-col py-[70px] items-center bg-gray">
+      <Section className="bg-gray">
         <div className="flex flex-col w-[1068px]">
           <Title full align="center" type={type}>
             Leading Foreign team
@@ -41,8 +42,8 @@ export default function Team(props: TeamProps) {
             ))}
           </div>
         </div>
-      </section>
-      <section className="flex flex-col py-[70px] items-center bg-white">
+      </Section>
+      <Section className="bg-white">
         <div className="flex flex-col w-[1068px]">
           <Title full align="center" type={type}>
             Local Expert team
@@ -68,7 +69,7 @@ export default function Team(props: TeamProps) {
             ))}
           </div>
         </div>
-      </section>
+      </Section>
     </main>
   );
 }

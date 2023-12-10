@@ -1,5 +1,6 @@
 import Banner from "../Banner";
 import Card from "../Card";
+import Section from "../Section";
 import Title from "../Title";
 import Typography from "../Typography";
 
@@ -13,7 +14,7 @@ export default function Curriculum(props: CurriculumProps) {
   return (
     <main className="pt-[50px] md:pt-[200px]">
       <Banner size="small" src={banner}></Banner>
-      <section className="flex flex-col py-[70px] items-center bg-gray">
+      <Section className="bg-gray">
         <div className="flex flex-col w-[700px]">
           <Title full align="center" type={type}>
             Our Curriculum
@@ -35,8 +36,8 @@ export default function Curriculum(props: CurriculumProps) {
             impact the increasingly interconnected world.`}
           </Typography>
         </div>
-      </section>
-      <section className="flex flex-col py-[70px] items-center bg-white">
+      </Section>
+      <Section className="bg-white">
         <div className="flex flex-col w-[1268px]">
           <Title full align="left" type={type}>
             Curriculum
@@ -66,7 +67,7 @@ export default function Curriculum(props: CurriculumProps) {
             ))}
           </div>
         </div>
-      </section>
+      </Section>
     </main>
   );
 }

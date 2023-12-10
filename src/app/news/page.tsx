@@ -5,6 +5,7 @@ import Typography from "@/components/Typography";
 import Image from "next/image";
 import Title from "@/components/Title";
 import Card from "@/components/Card";
+import Section from "@/components/Section";
 
 export const metadata: Metadata = {
   title: "Hankel - News",
@@ -22,8 +23,8 @@ export default function News() {
         title={title}
         description={description}
       ></Banner>
-      <section className="flex flex-row bg-gray">
-        <div className="hidden md:flex flex-col mx-[55px] gap-4 bg-white rounded-xl p-4 h-fit mt-[40px] md:mt-[160px]">
+      <Section className="bg-gray">
+        {/* <div className="hidden md:flex flex-col mx-[55px] gap-4 bg-white rounded-xl p-4 h-fit mt-[40px] md:mt-[160px]">
           <div>
             <Typography varient="h4">Important News</Typography>
           </div>
@@ -37,8 +38,8 @@ export default function News() {
               Events
             </Typography>
           </div>
-        </div>
-        <div className="flex flex-col p-4 md:p-0 md:mt-[60px]">
+        </div> */}
+        <div className="flex flex-col p-4 md:p-0">
           <div className="flex flex-row">
             <Title full align="left">
               News
@@ -69,7 +70,7 @@ export default function News() {
             ))}
           </div>
         </div>
-      </section>
+      </Section>
     </main>
   );
 }

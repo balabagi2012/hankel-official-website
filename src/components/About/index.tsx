@@ -3,6 +3,7 @@ import Title from "../Title";
 import Typography from "../Typography";
 import { kindergarten } from "@/app/styles/fonts";
 import Banner from "../Banner";
+import Section from "../Section";
 
 export interface AboutProps {
   type?: "kindergarten" | "subschool" | "home";
@@ -24,7 +25,7 @@ export default function About(props: AboutProps) {
         title={title}
         description={description}
       ></Banner>
-      <section className="bg-gray px-4 md:px-0 py-8 md:py-[60px] flex flex-row justify-center">
+      <Section className="bg-gray">
         <div className="flex flex-col-reverse md:flex-row w-full md:w-[1180px] justify-center items-stretch">
           <div className="flex flex-col mr-[65px] gap-y-3">
             <Image
@@ -73,7 +74,10 @@ export default function About(props: AboutProps) {
               >
                 {`HIA's Purpose-Built Campus: A Commitment to Nurturing Education`}
               </Typography>
-              <Typography varient="h5" className="text-textGray text-start mb-8 md:mb-0">
+              <Typography
+                varient="h5"
+                className="text-textGray text-start mb-8 md:mb-0"
+              >
                 Nestled in the serene suburban enclave of Linkou, New Taipei
                 City, HIA boasts a purpose-built campus that embodies our
                 commitment to providing a nurturing and stimulating environment.
@@ -84,8 +88,8 @@ export default function About(props: AboutProps) {
             </div>
           </div>
         </div>
-      </section>
-      <section className="bg-white px-4 md:px-0 py-8 md:py-[60px] flex flex-row justify-center">
+      </Section>
+      <Section className="bg-white">
         <div className="flex flex-col md:flex-row w-full md:w-[1180px] justify-center items-stretch">
           <div className="flex flex-col mr-[65px] gap-y-3 flex-1">
             <Title full align="left" type={type}>
@@ -99,7 +103,10 @@ export default function About(props: AboutProps) {
               fostering academic excellence, character development, and a love
               for learning their mission.
             </Typography>
-            <Typography varient="h5" className="text-textGray text-start mb-8 md:mb-0">
+            <Typography
+              varient="h5"
+              className="text-textGray text-start mb-8 md:mb-0"
+            >
               {`At HIA, we embody the values of "Thrive," "Strive," and "Learn,"
               fostering holistic growth, unyielding pursuit of excellence, and
               innovative educational methods. Join us on a journey where young
@@ -114,7 +121,7 @@ export default function About(props: AboutProps) {
             height="429"
           ></Image>
         </div>
-      </section>
+      </Section>
     </main>
   );
 }

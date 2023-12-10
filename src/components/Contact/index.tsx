@@ -2,6 +2,7 @@ import Image from "next/image";
 import Typography from "../Typography";
 import Title from "../Title";
 import Banner from "../Banner";
+import Section from "../Section";
 
 export interface ContactProps {
   type?: "kindergarten" | "subschool" | "home";
@@ -12,14 +13,18 @@ export interface ContactProps {
 export default function Contact(props: ContactProps) {
   const { type = "subschool", title, description, banner } = props;
   return (
-    <main className={`pt-[50px] ${type === "home" ? "md:pt-[80px]" : "md:pt-[200px]"}`}>
+    <main
+      className={`pt-[50px] ${
+        type === "home" ? "md:pt-[80px]" : "md:pt-[200px]"
+      }`}
+    >
       <Banner
         size={type === "home" ? "large" : "small"}
         src={banner ?? "/banners/contact.png"}
         title={title}
         description={description}
       ></Banner>
-      <section className="flex flex-col p-4 md:py-[70px] items-center bg-gray">
+      <Section className="bg-gray">
         <div className="flex flex-col w-full md:w-[700px]">
           <Title full align="center" type={type}>
             Contact Us
@@ -98,8 +103,8 @@ export default function Contact(props: ContactProps) {
             </div>
           </div>
         </div>
-      </section>
-      <section className="flex flex-col p-4 md:py-[70px] items-center bg-white">
+      </Section>
+      <Section>
         <div className="flex flex-col w-full md:w-[700px]">
           <div className="flex flex-col md:flex-row gap-4 mb-5">
             <div className="flex flex-col flex-1">
@@ -159,7 +164,7 @@ export default function Contact(props: ContactProps) {
             </Typography>
           </div>
         </div>
-      </section>
+      </Section>
     </main>
   );
 }

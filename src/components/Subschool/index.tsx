@@ -7,6 +7,7 @@ import ContactInfo from "../ContactInfo";
 import Title from "../Title";
 import Typography from "../Typography";
 import LatestNews from "../LatestNews";
+import Section from "../Section";
 
 interface SubschoolProps {
   banner?: string;
@@ -37,7 +38,7 @@ export default function Subschool(props: SubschoolProps) {
   return (
     <main className="pt-[50px] md:pt-[200px]">
       <Banner size="small" src={banner} />
-      <section className="flex flex-col items-center px-4 md:px-0 py-[30px] md:py-[70px] bg-gray">
+      <Section className="bg-gray">
         <Title align="center" type={type}>
           The Hankel Experience
         </Title>
@@ -58,19 +59,18 @@ export default function Subschool(props: SubschoolProps) {
             ))}
           </div>
         </div>
-      </section>
-      <section>
-        <Banner
-          size="medium"
-          src="/subBanners/teach.png"
-          title="“Education is not the filling of a pail, but the lighting of a
+      </Section>
+
+      <Banner
+        size="medium"
+        src="/subBanners/teach.png"
+        title="“Education is not the filling of a pail, but the lighting of a
               fire.”"
-          description="------ William Butler Yeats
+        description="------ William Butler Yeats
               "
-        ></Banner>
-      </section>
+      ></Banner>
       <LatestNews className="bg-white" />
-      <section className="text-center pt-[30px] md:pt-[66px] pb-[60px] md:pb-[115px] px-4 md:px-[80px] flex flex-col items-center bg-gray">
+      <Section className="bg-gray">
         <Title align="center" type={type}>
           Social Media Post
         </Title>
@@ -164,13 +164,13 @@ export default function Subschool(props: SubschoolProps) {
             />
           </div>
         </div>
-      </section>
-      <section className="text-center mt-[66px] mb-[115px] flex flex-col items-center">
+      </Section>
+      <Section>
         <div className="flex flex-row w-[1024px] items-stretch">
           <ContactInfo type="kindergarten" />
           <ContactForm />
         </div>
-      </section>
+      </Section>
     </main>
   );
 }

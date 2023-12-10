@@ -1,14 +1,11 @@
 import Banner from "@/components/Banner";
-import Card from "@/components/Card";
 import ContactForm from "@/components/ContactForm";
 import ContactInfo from "@/components/ContactInfo";
 import LatestNews from "@/components/LatestNews";
 import { Program } from "@/components/Program";
-import Title from "@/components/Title";
-import Typography from "@/components/Typography";
+import Section from "@/components/Section";
 
 import { Metadata } from "next";
-import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Hankel",
@@ -29,23 +26,21 @@ export default function Home() {
         description={description}
       ></Banner>
       <Program />
-      <section>
-        <Banner
-          size="medium"
-          src="/subBanners/teach.png"
-          title="“Education is not the filling of a pail, but the lighting of a
+      <Banner
+        size="medium"
+        src="/subBanners/teach.png"
+        title="“Education is not the filling of a pail, but the lighting of a
               fire.”"
-          description="------ William Butler Yeats
+        description="------ William Butler Yeats
               "
-        ></Banner>
-      </section>
+      ></Banner>
       <LatestNews />
-      <section className="text-center my-6 md:mt-[66px] md:mb-[115px] flex flex-col items-center">
+      <Section>
         <div className="flex flex-col md:flex-row w-full md:w-[1024px] items-stretch">
           <ContactInfo />
           <ContactForm />
         </div>
-      </section>
+      </Section>
     </main>
   );
 }

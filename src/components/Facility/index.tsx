@@ -4,6 +4,7 @@ import Typography from "../Typography";
 import facilitiyImg from "../../../public/facility/home.png";
 import Card from "../Card";
 import Banner from "../Banner";
+import Section from "../Section";
 
 export interface FacilityProps {
   type?: "kindergarten" | "subschool";
@@ -16,7 +17,7 @@ export default function Facility(props: FacilityProps) {
   return (
     <main className="pt-[50px] md:pt-[200px]">
       <Banner size="small" src={banner}></Banner>
-      <section className="flex flex-col py-[70px] items-center bg-gray">
+      <Section className="bg-gray">
         <div className="flex flex-col w-[700px]">
           <Title full align="center" type={type}>
             Appearance Overview
@@ -43,8 +44,8 @@ export default function Facility(props: FacilityProps) {
             }}
           ></Image>
         </div>
-      </section>
-      <section className="flex flex-col py-[70px] items-center bg-gray">
+      </Section>
+      <Section className="bg-white">
         <div className="flex flex-col w-[1268px]">
           <Title full align="left" type={type}>
             Facilities
@@ -62,7 +63,7 @@ export default function Facility(props: FacilityProps) {
             ))}
           </div>
         </div>
-      </section>
+      </Section>
     </main>
   );
 }

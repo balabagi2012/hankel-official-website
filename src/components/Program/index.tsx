@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import Title from "../Title";
 import Typography from "../Typography";
+import Section from "../Section";
 
 export function Program() {
   const [activeProgram, setActiveProgram] = useState("Hankel Kindergarten");
@@ -36,7 +37,7 @@ export function Program() {
     </li>
   );
   return (
-    <section className="text-center pt-8 md:pt-[66px] pb-10 md:pb-[115px] px-4 md:px-[80px] flex flex-col items-center bg-gray">
+    <Section className="bg-gray">
       <Title>Our Program</Title>
       <ul className="w-full md:w-fit overflow-x-scroll flex-row flex justify-start gap-x-6 items-center mb-7 md:mb-[66px]">
         {ProgramNavItemList.map((name) => (
@@ -91,6 +92,6 @@ export function Program() {
           ></Image>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
