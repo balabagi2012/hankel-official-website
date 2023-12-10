@@ -60,24 +60,14 @@ export default function Banner({
           </div>
         </div>
       )}
-      {size === "large" && (
-        <div className="z-[-1] absolute w-full px-[80px] flex flex-col justify-center items-start flex-1">
-          <div className="text-white my-2 font-bold font-serif leading-[1.5] tracking-[1px] text-[52px]">
+      {size === "large" && title && description && (
+        <div className="z-[-1] absolute w-full px-4 md:px-[80px] flex flex-col justify-center items-start flex-1">
+          <Typography varient="h2" className="font-serif text-white">
             {title}
-          </div>
-          <div className="text-[18px] font-serif font-bold text-white leading-[2] tracking-[1px]">
+          </Typography>
+          <Typography varient="h5" className="font-serif text-white">
             {description}
-          </div>
-        </div>
-      )}
-      {size === "large" && (
-        <div className="z-[-1] absolute w-full px-[80px] flex flex-col justify-center items-start flex-1">
-          <div className="text-white my-2 font-bold font-serif leading-[1.5] tracking-[1px] text-[52px]">
-            {title}
-          </div>
-          <div className="text-[18px] font-serif font-bold text-white leading-[2] tracking-[1px]">
-            {description}
-          </div>
+          </Typography>
         </div>
       )}
       {size === "medium" && title && description && (

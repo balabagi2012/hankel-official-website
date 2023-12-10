@@ -13,15 +13,19 @@ export interface AboutProps {
 export default function About(props: AboutProps) {
   const { type = "subschool", title, description, banner } = props;
   return (
-    <main className={type === "home" ? "pt-[80px]" : "pt-[200px]"}>
+    <main
+      className={`pt-[50px] ${
+        type === "home" ? "md:pt-[80px]" : "md:pt-[200px]"
+      }`}
+    >
       <Banner
         size={type === "home" ? "large" : "small"}
         src={banner ?? "/banners/school.png"}
         title={title}
         description={description}
       ></Banner>
-      <section className="bg-gray py-[60px] flex flex-row justify-center">
-        <div className="flex flex-row w-[1180px] justify-center items-stretch">
+      <section className="bg-gray px-4 md:px-0 py-8 md:py-[60px] flex flex-row justify-center">
+        <div className="flex flex-col-reverse md:flex-row w-full md:w-[1180px] justify-center items-stretch">
           <div className="flex flex-col mr-[65px] gap-y-3">
             <Image
               src="/about/1.png"
@@ -69,7 +73,7 @@ export default function About(props: AboutProps) {
               >
                 {`HIA's Purpose-Built Campus: A Commitment to Nurturing Education`}
               </Typography>
-              <Typography varient="h5" className="text-textGray text-start">
+              <Typography varient="h5" className="text-textGray text-start mb-8 md:mb-0">
                 Nestled in the serene suburban enclave of Linkou, New Taipei
                 City, HIA boasts a purpose-built campus that embodies our
                 commitment to providing a nurturing and stimulating environment.
@@ -81,8 +85,8 @@ export default function About(props: AboutProps) {
           </div>
         </div>
       </section>
-      <section className="bg-white py-[60px] flex flex-row justify-center">
-        <div className="flex flex-row w-[1180px] justify-center items-stretch">
+      <section className="bg-white px-4 md:px-0 py-8 md:py-[60px] flex flex-row justify-center">
+        <div className="flex flex-col md:flex-row w-full md:w-[1180px] justify-center items-stretch">
           <div className="flex flex-col mr-[65px] gap-y-3 flex-1">
             <Title full align="left" type={type}>
               Our Story
@@ -95,7 +99,7 @@ export default function About(props: AboutProps) {
               fostering academic excellence, character development, and a love
               for learning their mission.
             </Typography>
-            <Typography varient="h5" className="text-textGray text-start">
+            <Typography varient="h5" className="text-textGray text-start mb-8 md:mb-0">
               {`At HIA, we embody the values of "Thrive," "Strive," and "Learn,"
               fostering holistic growth, unyielding pursuit of excellence, and
               innovative educational methods. Join us on a journey where young
