@@ -74,7 +74,7 @@ export default function Header() {
   }
 
   const SubSchoolNavItem = ({ path, label }: SubSchoolNavItemProps) => (
-    <Link href={`/${subSchool}`} rel="noopener noreferrer">
+    <Link href={path} rel="noopener noreferrer">
       <Typography
         varient="h6"
         className={`${
@@ -371,7 +371,6 @@ export default function Header() {
             width="24"
             height="24"
             className="w-auto h-auto"
-
           ></Image>
         </div>
       </div>
