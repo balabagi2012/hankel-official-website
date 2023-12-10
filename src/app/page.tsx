@@ -65,8 +65,8 @@ export default function Home() {
           ></Image>
         </div>
       </section>
-      <section className="text-center mt-[66px] mb-[115px] flex flex-col items-center">
-        <div className="flex flex-row w-[1024px] items-stretch">
+      <section className="text-center my-6 md:mt-[66px] md:mb-[115px] flex flex-col items-center">
+        <div className="flex flex-col md:flex-row w-full md:w-[1024px] items-stretch">
           <ContactInfo />
           <ContactForm />
         </div>
