@@ -5,12 +5,18 @@ import Typography from "../Typography";
 
 import CalendarImg from "../../../public/information/calendar.png";
 
-export default function Information() {
+export interface InformationProps {
+  type?: "kindergarten";
+}
+
+export default function Information(props: InformationProps) {
+  const { type = "" } = props;
+
   return (
     <>
       <section className="flex flex-col py-[70px] items-center bg-gray">
         <div className="flex flex-col w-[1024px]">
-          <Title full align="center">
+          <Title full align="center" type={type}>
             Admission Brochure
           </Title>
           <Typography varient="h5" className="text-textGray">
@@ -35,7 +41,7 @@ export default function Information() {
       <section className="bg-white py-[60px] flex flex-row justify-center">
         <div className="flex flex-row w-[1268px] justify-center items-stretch">
           <div className="flex flex-col mr-[65px] gap-y-3 flex-1">
-            <Title full align="left">
+            <Title full align="left" type={type}>
               Information Session
             </Title>
             <Typography varient="h5" className="text-textGray text-start mb-8">
@@ -57,7 +63,7 @@ export default function Information() {
       </section>
       <section className="bg-white py-[60px] flex flex-row justify-center">
         <div className="flex flex-col w-[1268px] justify-center items-stretch">
-          <Title full align="left">
+          <Title full align="left" type={type}>
             Lunch Menu
           </Title>
           <div className="w-full">
@@ -76,7 +82,7 @@ export default function Information() {
       </section>
       <section className="bg-white py-[60px] flex flex-row justify-center">
         <div className="flex flex-col w-[1268px] justify-center items-stretch">
-          <Title full align="left">
+          <Title full align="left" type={type}>
             Calendar
           </Title>
           <div className="w-full">

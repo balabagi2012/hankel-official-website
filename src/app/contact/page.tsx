@@ -11,7 +11,7 @@ const description = `Contact to Habkel`;
 
 export default function HomeContact() {
   return (
-    <main>
+    <main className="pt-[80px]">
       <Banner
         size="large"
         src="/banners/contact.png"

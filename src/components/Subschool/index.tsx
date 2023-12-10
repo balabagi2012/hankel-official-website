@@ -1,3 +1,4 @@
+import { kindergarten } from "@/app/styles/fonts";
 import Image from "next/image";
 import Banner from "../Banner";
 import Card from "../Card";
@@ -6,7 +7,12 @@ import ContactInfo from "../ContactInfo";
 import Title from "../Title";
 import Typography from "../Typography";
 
-export default function Subschool() {
+interface SubschoolProps {
+  banner?: string;
+  type?: "subSchool" | "kindergarten";
+}
+export default function Subschool(props: SubschoolProps) {
+  const { banner = "/banners/school.png", type = "subSchool" } = props;
   const sectionTexts = [
     `Hankel Education cultivates students' curiosity, creativity, and
       academic excellence with the spirit of seeking truth, fostering
@@ -28,10 +34,12 @@ export default function Subschool() {
       innovative skills necessary for their future. `,
   ];
   return (
-    <main>
-      <Banner size="small" src="/banners/school.png" />
+    <main className="pt-[200px]">
+      <Banner size="small" src={banner} />
       <section className="flex flex-col items-center py-[70px] bg-gray">
-        <Title align="center">The Hankel Experience</Title>
+        <Title align="center" type={type}>
+          The Hankel Experience
+        </Title>
         <div className="w-[1024px]">
           <Typography varient="h5" className="mb-[80px]">
             {sectionTexts[0]}
@@ -61,7 +69,9 @@ export default function Subschool() {
         ></Banner>
       </section>
       <section className="text-center pt-[66px] pb-[115px] px-[80px] flex flex-col items-center bg-white">
-        <Title align="center">Latest News</Title>
+        <Title align="center" type={type}>
+          Latest News
+        </Title>
         <div className="flex flex-row mb-[52px] gap-4">
           {[1, 2, 3, 4, 5].map((element) => (
             <Card
@@ -88,10 +98,17 @@ export default function Subschool() {
         </div>
       </section>
       <section className="text-center pt-[66px] pb-[115px] px-[80px] flex flex-col items-center bg-gray">
-        <Title align="center">Social Media Post</Title>
+        <Title align="center" type={type}>
+          Social Media Post
+        </Title>
         <div className="flex flex-row mb-[52px] gap-4">
           <div className="flex flex-col">
-            <Typography varient="h2" className="font-serif text-deepBlue mb-5">
+            <Typography
+              varient="h2"
+              className={`font-serif text-deepBlue mb-5 ${
+                type === "kindergarten" ? kindergarten.className : ""
+              }`}
+            >
               Instagram
             </Typography>
             <div className="flex flex-col gap-y-5">
@@ -150,7 +167,12 @@ export default function Subschool() {
             </div>
           </div>
           <div>
-            <Typography varient="h2" className="font-serif text-deepBlue mb-5">
+            <Typography
+              varient="h2"
+              className={`font-serif text-deepBlue mb-5 ${
+                type === "kindergarten" ? kindergarten.className : ""
+              }`}
+            >
               Facebook
             </Typography>
             <iframe
@@ -164,7 +186,7 @@ export default function Subschool() {
       </section>
       <section className="text-center mt-[66px] mb-[115px] flex flex-col items-center">
         <div className="flex flex-row w-[1024px] items-stretch">
-          <ContactInfo />
+          <ContactInfo type="kindergarten" />
           <ContactForm />
         </div>
       </section>

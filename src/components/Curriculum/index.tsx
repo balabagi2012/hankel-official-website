@@ -3,12 +3,17 @@ import Card from "../Card";
 import Title from "../Title";
 import Typography from "../Typography";
 
-export default function Curriculum() {
+export interface CurriculumProps {
+  type?: "kindergarten";
+}
+export default function Curriculum(props: CurriculumProps) {
+  const { type = "" } = props;
+
   return (
     <>
       <section className="flex flex-col py-[70px] items-center bg-gray">
         <div className="flex flex-col w-[700px]">
-          <Title full align="center">
+          <Title full align="center" type={type}>
             Our Curriculum
           </Title>
           <Typography varient="h5" className="text-textGray text-center">
@@ -31,8 +36,8 @@ export default function Curriculum() {
       </section>
       <section className="flex flex-col py-[70px] items-center bg-white">
         <div className="flex flex-col w-[1268px]">
-          <Title full align="left">
-            Facilities
+          <Title full align="left" type={type}>
+            Curriculum
           </Title>
           <div className="flex flex-row justify-between">
             {[1, 2, 3, 4].map((element) => (

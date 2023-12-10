@@ -2,12 +2,16 @@ import Image from "next/image";
 import Typography from "../Typography";
 import Title from "../Title";
 
-export default function Contact() {
+export interface ContactProps {
+  type?: "kindergarten";
+}
+export default function Contact(props: ContactProps) {
+  const { type = "" } = props;
   return (
     <>
       <section className="flex flex-col py-[70px] items-center bg-gray">
         <div className="flex flex-col w-[700px]">
-          <Title full align="center">
+          <Title full align="center" type={type}>
             Contact Us
           </Title>
           <Typography varient="h5" className="text-textGray text-center">
