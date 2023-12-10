@@ -24,7 +24,7 @@ export default function Typography(props: TypographyProps) {
       break;
 
     case "h4":
-      typographyClassName += "text-[18px] font-bold leading-[2] tracking-[1px]";
+      typographyClassName += "text-[16px] md:text-[18px] font-bold leading-[2] tracking-[1px]";
       break;
 
     case "h5":

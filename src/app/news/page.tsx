@@ -15,7 +15,7 @@ const description = `About more news in Hankel`;
 
 export default function News() {
   return (
-    <main className="pt-[80px]">
+    <main className="pt-[50px] md:pt-[80px]">
       <Banner
         size="large"
         src="/banners/news.png"
@@ -23,7 +23,7 @@ export default function News() {
         description={description}
       ></Banner>
       <section className="flex flex-row bg-gray">
-        <div className="flex flex-col mx-[55px] gap-4 bg-white rounded-xl p-4 h-fit mt-[160px]">
+        <div className="hidden md:flex flex-col mx-[55px] gap-4 bg-white rounded-xl p-4 h-fit mt-[40px] md:mt-[160px]">
           <div>
             <Typography varient="h4">Important News</Typography>
           </div>
@@ -38,13 +38,13 @@ export default function News() {
             </Typography>
           </div>
         </div>
-        <div className="flex flex-col mt-[60px]">
+        <div className="flex flex-col p-4 md:p-0 md:mt-[60px]">
           <div className="flex flex-row">
             <Title full align="left">
               News
             </Title>
           </div>
-          <div className="flex flex-row mb-[52px] gap-4">
+          <div className="flex flex-row flex-wrap mb-2 md:mb-[52px] gap-2 md:gap-4">
             {[1, 2, 3, 4].map((element) => (
               <Card
                 key={`news ${element}`}
@@ -56,7 +56,7 @@ export default function News() {
               ></Card>
             ))}
           </div>
-          <div className="flex flex-row mb-[52px] gap-4">
+          <div className="flex flex-row flex-wrap mb-2 md:mb-[52px] gap-2 md:gap-4">
             {[5, 6, 7, 8].map((element) => (
               <Card
                 key={`news ${element}`}

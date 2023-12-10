@@ -21,7 +21,7 @@ export default function Card(props: CardProps) {
             alt={alt}
             width="254"
             height="350"
-            className="w-[171px] h-[262px] md:w-[254px] md:h-[350px]"
+            className="w-[160px] h-[220px] md:w-[254px] md:h-[350px]"
           ></Image>
           <div className="absolute bottom-[18px] h-[100px] left-0 bg-deepBlue/[0.8] pl-[12px] pr-[4px] py-[8px] flex flex-col items-start">
             <Typography varient="h4" color="white font-serif text-start">
