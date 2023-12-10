@@ -1,16 +1,18 @@
-import Image from "next/image";
+import Banner from "../Banner";
 import Card from "../Card";
 import Title from "../Title";
 import Typography from "../Typography";
 
 export interface CurriculumProps {
-  type?: "kindergarten";
+  type?: "kindergarten" | "subschool";
+  banner?: string;
 }
 export default function Curriculum(props: CurriculumProps) {
-  const { type = "" } = props;
+  const { type = "subschool", banner = "/banners/school.png" } = props;
 
   return (
-    <>
+    <main className="pt-[200px]">
+      <Banner size="small" src={banner}></Banner>
       <section className="flex flex-col py-[70px] items-center bg-gray">
         <div className="flex flex-col w-[700px]">
           <Title full align="center" type={type}>
@@ -65,6 +67,6 @@ export default function Curriculum(props: CurriculumProps) {
           </div>
         </div>
       </section>
-    </>
+    </main>
   );
 }

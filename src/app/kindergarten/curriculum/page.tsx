@@ -8,9 +8,9 @@ export const metadata: Metadata = {
 
 export default function KindergartenCurriculum() {
   return (
-    <main className="pt-[200px]">
-      <Banner size="small" src="/banners/kindergarten.png"></Banner>
-      <Curriculum type="kindergarten"></Curriculum>
-    </main>
+    <Curriculum
+      type="kindergarten"
+      banner="/banners/kindergarten.png"
+    ></Curriculum>
   );
 }
