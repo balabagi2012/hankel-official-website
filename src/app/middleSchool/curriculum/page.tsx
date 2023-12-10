@@ -1,4 +1,3 @@
-import Banner from "@/components/Banner";
 import Curriculum from "@/components/Curriculum";
 import { Metadata } from "next";
 
@@ -8,9 +7,6 @@ export const metadata: Metadata = {
 
 export default function MiddleSchoolCurriculum() {
   return (
-    <main>
-      <Banner size="small" src="/banners/school.png"></Banner>
-      <Curriculum></Curriculum>
-    </main>
+    <Curriculum type="subschool" banner="/banners/school.png"></Curriculum>
   );
 }

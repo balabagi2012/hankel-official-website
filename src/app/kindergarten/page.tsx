@@ -6,5 +6,5 @@ export const metadata: Metadata = {
 };
 
 export default function Kindergarten() {
-  return <Subschool />;
+  return <Subschool banner="/banners/kindergarten.png" type="kindergarten" />;
 }

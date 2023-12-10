@@ -1,10 +1,8 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import type { Metadata } from "next";
-import { Noto_Sans_TC } from "next/font/google";
 import "./globals.scss";
-
-const notoSans = Noto_Sans_TC({ subsets: ["latin"] });
+import { notoSans } from "./styles/fonts";
 
 export const metadata: Metadata = {
   title: "Create Next App",

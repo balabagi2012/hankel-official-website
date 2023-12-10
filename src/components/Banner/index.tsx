@@ -26,34 +26,29 @@ export default function Banner({
         size === "big"
           ? "h-screen"
           : size === "large"
-          ? "h-[420px]"
+          ? "h-[233px] md:h-[420px]"
           : size === "medium"
-          ? "h-[400px]"
-          : "h-[350px]"
-      } relative ${
-        size === "small"
-          ? "mt-[200px]"
-          : size === "big" || size === "large"
-          ? "mt-[80px]"
-          : ""
-      } flex flex-row justify-center items-center ${className ?? ""}`}
+          ? "h-[343px] md:h-[400px]"
+          : "h-[170px] md:h-[350px]"
+      } relative flex flex-row justify-center items-center ${className ?? ""}`}
     >
       <Image
         alt="banner home"
         src={src}
-        className="z-[-1] absolute"
+        className="z-[-1] absolute w-auto h-auto object-center object-cover"
         quality={100}
         fill
-        style={{ objectFit: "fill" }}
       ></Image>
+      <div className="z-[-1] absolute w-full h-full  bg-[rgba(0,0,0,.2)]"></div>
       {size === "big" && (
-        <div className="z-[-1] absolute w-[530px] pt-[20px] pb-[32px] px-[16px] bg-[rgba(255,255,255,.8)] flex flex-col justify-center items-center">
+        <div className="z-[-1] absolute w-full h-full md:h-fit md:w-[530px] pt-[50px] md:pt-[20px] pb-[32px] px-[16px] bg-[rgba(255,255,255,.8)] flex flex-col justify-center items-center">
           <Image
             alt="Mountains"
             src="/logo_square.svg"
             quality={100}
             width={60}
             height={60}
+            className="w-auto h-auto"
           ></Image>
           <div className="text-[#13325D] my-2 font-bold font-serif leading-[1.5] tracking-[1px] text-[32px]">
             {title}
@@ -66,28 +61,18 @@ export default function Banner({
           </div>
         </div>
       )}
-      {size === "large" && (
-        <div className="z-[-1] absolute w-full px-[80px] flex flex-col justify-center items-start flex-1">
-          <div className="text-white my-2 font-bold font-serif leading-[1.5] tracking-[1px] text-[52px]">
+      {size === "large" && title && description && (
+        <div className="z-[-1] absolute w-full px-4 md:px-[80px] flex flex-col justify-center items-start flex-1">
+          <Typography varient="h2" className="font-serif text-white">
             {title}
-          </div>
-          <div className="text-[18px] font-serif font-bold text-white leading-[2] tracking-[1px]">
+          </Typography>
+          <Typography varient="h5" className="font-serif text-white">
             {description}
-          </div>
-        </div>
-      )}
-      {size === "large" && (
-        <div className="z-[-1] absolute w-full px-[80px] flex flex-col justify-center items-start flex-1">
-          <div className="text-white my-2 font-bold font-serif leading-[1.5] tracking-[1px] text-[52px]">
-            {title}
-          </div>
-          <div className="text-[18px] font-serif font-bold text-white leading-[2] tracking-[1px]">
-            {description}
-          </div>
+          </Typography>
         </div>
       )}
       {size === "medium" && title && description && (
-        <div className="ml-auto mr-[76px] px-[52px] py-[28px] bg-white border-b border-blue border-l-8 relative">
+        <div className=" ml-[16px] md:ml-auto mr-[16px] md:mr-[76px] px-[52px] py-[28px] bg-[rgba(255,255,255,.7)] md:bg-white border-b border-blue border-l-8 relative">
           <Typography varient="h4" className="font-serif text-textGray">
             {title}
           </Typography>

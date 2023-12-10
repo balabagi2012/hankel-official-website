@@ -1,5 +1,5 @@
 import Banner from "@/components/Banner";
-import ContactSection from "@/components/Contact";
+import Contact from "@/components/Contact";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -10,15 +10,5 @@ const title = "Contact Us";
 const description = `Contact to Habkel`;
 
 export default function HomeContact() {
-  return (
-    <main>
-      <Banner
-        size="large"
-        src="/banners/contact.png"
-        title={title}
-        description={description}
-      ></Banner>
-      <ContactSection />
-    </main>
-  );
+  return <Contact type="home" title={title} description={description} />;
 }

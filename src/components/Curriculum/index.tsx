@@ -1,14 +1,22 @@
-import Image from "next/image";
+import Banner from "../Banner";
 import Card from "../Card";
+import Section from "../Section";
 import Title from "../Title";
 import Typography from "../Typography";
 
-export default function Curriculum() {
+export interface CurriculumProps {
+  type?: "kindergarten" | "subschool";
+  banner?: string;
+}
+export default function Curriculum(props: CurriculumProps) {
+  const { type = "subschool", banner = "/banners/school.png" } = props;
+
   return (
-    <>
-      <section className="flex flex-col py-[70px] items-center bg-gray">
-        <div className="flex flex-col w-[700px]">
-          <Title full align="center">
+    <main className="pt-[50px] md:pt-[200px]">
+      <Banner size="small" src={banner}></Banner>
+      <Section className="bg-gray">
+        <div className="flex flex-col w-full md:w-[700px]">
+          <Title full align="center" type={type}>
             Our Curriculum
           </Title>
           <Typography varient="h5" className="text-textGray text-center">
@@ -28,13 +36,13 @@ export default function Curriculum() {
             impact the increasingly interconnected world.`}
           </Typography>
         </div>
-      </section>
-      <section className="flex flex-col py-[70px] items-center bg-white">
-        <div className="flex flex-col w-[1268px]">
-          <Title full align="left">
-            Facilities
+      </Section>
+      <Section className="bg-white">
+        <div className="flex flex-col w-full md:w-[1268px]">
+          <Title full align="left" type={type}>
+            Curriculum
           </Title>
-          <div className="flex flex-row justify-between">
+          <div className="flex flex-col md:flex-row justify-between items-center">
             {[1, 2, 3, 4].map((element) => (
               <Card
                 key={`curriculum ${element}`}
@@ -46,7 +54,7 @@ export default function Curriculum() {
               ></Card>
             ))}
           </div>
-          <div className="flex flex-row justify-between mt-10">
+          <div className="flex flex-col md:flex-row justify-between items-center md:mt-10">
             {[5, 6].map((element) => (
               <Card
                 key={`curriculum ${element}`}
@@ -59,7 +67,7 @@ export default function Curriculum() {
             ))}
           </div>
         </div>
-      </section>
-    </>
+      </Section>
+    </main>
   );
 }
