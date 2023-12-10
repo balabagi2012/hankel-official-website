@@ -2,6 +2,7 @@ import Banner from "@/components/Banner";
 import Card from "@/components/Card";
 import ContactForm from "@/components/ContactForm";
 import ContactInfo from "@/components/ContactInfo";
+import LatestNews from "@/components/LatestNews";
 import { Program } from "@/components/Program";
 import Title from "@/components/Title";
 import Typography from "@/components/Typography";
@@ -38,33 +39,7 @@ export default function Home() {
               "
         ></Banner>
       </section>
-      <section className="text-center py-10 md:pt-[66px] md:pb-[115px] px-4 md:px-[80px] flex flex-col items-center bg-gray">
-        <Title>Latest News</Title>
-        <div className="w-full flex flex-row overflow-x-scroll mb-[52px] gap-4">
-          {[1, 2, 3, 4, 5].map((element) => (
-            <Card
-              key={`news ${element}`}
-              type="news"
-              img={`/news/${element}.png`}
-              alt={`hankel news ${element}`}
-              title="Coding in class"
-              description="Programming classes in camp"
-            ></Card>
-          ))}
-        </div>
-        <div className="px-[32px] py-[8px] border rounded border-blue w-fit flex flex-row justify-center items-center">
-          <Typography varient="h6" className="font-bold">
-            View More
-          </Typography>
-          <Image
-            src="/icons/ChevronRightFilled.svg"
-            alt="hankel ChevronRightFilled"
-            width="24"
-            height="24"
-            className="ml-[10px]"
-          ></Image>
-        </div>
-      </section>
+      <LatestNews />
       <section className="text-center my-6 md:mt-[66px] md:mb-[115px] flex flex-col items-center">
         <div className="flex flex-col md:flex-row w-full md:w-[1024px] items-stretch">
           <ContactInfo />

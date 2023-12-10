@@ -6,6 +6,7 @@ import ContactForm from "../ContactForm";
 import ContactInfo from "../ContactInfo";
 import Title from "../Title";
 import Typography from "../Typography";
+import LatestNews from "../LatestNews";
 
 interface SubschoolProps {
   banner?: string;
@@ -36,15 +37,15 @@ export default function Subschool(props: SubschoolProps) {
   return (
     <main className="pt-[50px] md:pt-[200px]">
       <Banner size="small" src={banner} />
-      <section className="flex flex-col items-center py-[70px] bg-gray">
+      <section className="flex flex-col items-center px-4 md:px-0 py-[30px] md:py-[70px] bg-gray">
         <Title align="center" type={type}>
           The Hankel Experience
         </Title>
-        <div className="w-[1024px]">
+        <div className="w-full md:w-[1024px] flex-col items-center">
           <Typography varient="h5" className="mb-[80px]">
             {sectionTexts[0]}
           </Typography>
-          <div className="flex flex-row justify-between">
+          <div className="flex flex-row flex-wrap gap-4">
             {[1, 2, 3].map((element) => (
               <Card
                 key={`course ${element}`}
@@ -68,40 +69,12 @@ export default function Subschool(props: SubschoolProps) {
               "
         ></Banner>
       </section>
-      <section className="text-center pt-[66px] pb-[115px] px-[80px] flex flex-col items-center bg-white">
-        <Title align="center" type={type}>
-          Latest News
-        </Title>
-        <div className="flex flex-row mb-[52px] gap-4">
-          {[1, 2, 3, 4, 5].map((element) => (
-            <Card
-              key={`news ${element}`}
-              type="news"
-              img={`/news/${element}.png`}
-              alt={`hankel news ${element}`}
-              title="Coding in class"
-              description="Programming classes in camp"
-            ></Card>
-          ))}
-        </div>
-        <div className="px-[32px] py-[8px] border rounded border-blue w-fit flex flex-row justify-center items-center">
-          <Typography varient="h6" className="font-bold">
-            View More
-          </Typography>
-          <Image
-            src="/icons/ChevronRightFilled.svg"
-            alt="hankel ChevronRightFilled"
-            width="24"
-            height="24"
-            className="ml-[10px]"
-          ></Image>
-        </div>
-      </section>
-      <section className="text-center pt-[66px] pb-[115px] px-[80px] flex flex-col items-center bg-gray">
+      <LatestNews className="bg-white" />
+      <section className="text-center pt-[30px] md:pt-[66px] pb-[60px] md:pb-[115px] px-4 md:px-[80px] flex flex-col items-center bg-gray">
         <Title align="center" type={type}>
           Social Media Post
         </Title>
-        <div className="flex flex-row mb-[52px] gap-4">
+        <div className="flex flex-col md:flex-row mb-[52px] gap-4">
           <div className="flex flex-col">
             <Typography
               varient="h2"
@@ -112,61 +85,69 @@ export default function Subschool(props: SubschoolProps) {
               Instagram
             </Typography>
             <div className="flex flex-col gap-y-5">
-              <div className="flex flex-row flex-1 justify-between">
+              <div className="flex flex-row flex-1 flex-wrap gap-5 justify-between">
                 <Image
                   src="/instagram/1.png"
                   alt="hankel Instagram"
                   width="200"
                   height="200"
+                  className="w-[160px] h-[160px] md:w-[200px] md:h-[200px]"
                 ></Image>
                 <Image
                   src="/instagram/2.png"
                   alt="hankel Facebook"
                   width="200"
                   height="200"
+                  className="w-[160px] h-[160px] md:w-[200px] md:h-[200px]"
                 ></Image>
                 <Image
                   src="/instagram/3.png"
                   alt="hankel Youtube"
                   width="200"
                   height="200"
+                  className="w-[160px] h-[160px] md:w-[200px] md:h-[200px]"
                 ></Image>
                 <Image
                   src="/instagram/4.png"
                   alt="hankel Line"
                   width="200"
                   height="200"
+                  className="w-[160px] h-[160px] md:w-[200px] md:h-[200px]"
                 ></Image>
               </div>
-              <div className="flex flex-row flex-1 justify-between">
+              <div className="flex flex-row flex-1 flex-wrap gap-5 justify-between">
                 <Image
                   src="/instagram/5.png"
                   alt="hankel Instagram"
                   width="200"
                   height="200"
+                  className="w-[160px] h-[160px] md:w-[200px] md:h-[200px]"
                 ></Image>
                 <Image
                   src="/instagram/6.png"
                   alt="hankel Facebook"
                   width="200"
                   height="200"
+                  className="w-[160px] h-[160px] md:w-[200px] md:h-[200px]"
                 ></Image>
                 <Image
                   src="/instagram/7.png"
                   alt="hankel Youtube"
                   width="200"
                   height="200"
+                  className="w-[160px] h-[160px] md:w-[200px] md:h-[200px]"
                 ></Image>
                 <Image
                   src="/instagram/8.png"
                   alt="hankel Line"
                   width="200"
                   height="200"
+                  className="w-[160px] h-[160px] md:w-[200px] md:h-[200px]"
                 ></Image>
               </div>
             </div>
           </div>
-          <div>
+          <div className="flex flex-col items-center">
             <Typography
               varient="h2"
               className={`font-serif text-deepBlue mb-5 ${
