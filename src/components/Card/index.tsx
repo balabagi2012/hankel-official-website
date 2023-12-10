@@ -49,8 +49,8 @@ export default function Card(props: CardProps) {
       );
     case "facility":
       return (
-        <div className="flex flex-col w-[400px]">
-          <Image src={img} alt={alt} width="400" height="270"></Image>
+        <div className="flex flex-col w-full md:w-[400px]">
+          <Image src={img} alt={alt} width="400" height="270" className="w-full md:w-[400px] h-auto"></Image>
           <div className="flex flex-col items-start py-[16px]">
             <Typography
               varient="h4"
@@ -58,7 +58,7 @@ export default function Card(props: CardProps) {
             >
               {title}
             </Typography>
-            <Typography varient="h5" className="text-textGray">
+            <Typography varient="h5" className="text-textGray text-start">
               {description}
             </Typography>
           </div>

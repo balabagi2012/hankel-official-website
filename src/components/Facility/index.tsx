@@ -18,7 +18,7 @@ export default function Facility(props: FacilityProps) {
     <main className="pt-[50px] md:pt-[200px]">
       <Banner size="small" src={banner}></Banner>
       <Section className="bg-gray">
-        <div className="flex flex-col w-[700px]">
+        <div className="flex flex-col w-full md:w-[700px]">
           <Title full align="center" type={type}>
             Appearance Overview
           </Title>
@@ -46,11 +46,11 @@ export default function Facility(props: FacilityProps) {
         </div>
       </Section>
       <Section className="bg-white">
-        <div className="flex flex-col w-[1268px]">
+        <div className="flex flex-col w-full lg:w-[1268px]">
           <Title full align="left" type={type}>
             Facilities
           </Title>
-          <div className="flex flex-row justify-between">
+          <div className="flex flex-col md:flex-row justify-center items-center md:justify-between">
             {[1, 2, 3].map((element) => (
               <Card
                 key={` ${element}`}
