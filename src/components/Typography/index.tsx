@@ -10,12 +10,12 @@ export default function Typography(props: TypographyProps) {
   switch (varient) {
     case "h1":
       typographyClassName +=
-        "text-[52px] font-bold leading-[1.5] tracking-[1px]";
+        "text-[24px] md:text-[52px] font-bold leading-[1.5] tracking-[1px]";
       break;
 
     case "h2":
       typographyClassName +=
-        "text-[32px] font-bold leading-[1.5] tracking-[1px]";
+        "text-[24px] md:text-[32px] font-bold leading-[1.5] tracking-[1px]";
       break;
 
     case "h3":
@@ -28,7 +28,7 @@ export default function Typography(props: TypographyProps) {
       break;
 
     case "h5":
-      typographyClassName += "text-[16px] leading-[2] tracking-[1px]";
+      typographyClassName += "text-[14px] md:text-[16px] leading-[2] tracking-[1px]";
       break;
 
     case "h6":

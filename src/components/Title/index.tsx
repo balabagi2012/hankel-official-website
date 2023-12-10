@@ -19,7 +19,7 @@ export default function Title(props: TitleProps) {
   } = props;
   return (
     <div
-      className={`mb-[60px] border-b ${full ? "w-full" : "w-fit"} ${
+      className={`mb-10 md:mb-[60px] border-b ${full ? "w-full" : "w-fit"} ${
         type === "kindergarten"
           ? "border-dashed border-orange"
           : "border-solid border-deepBlue"
