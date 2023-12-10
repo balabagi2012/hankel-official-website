@@ -1,18 +1,22 @@
+import Banner from "../Banner";
 import Card from "../Card";
+import Section from "../Section";
 import Title from "../Title";
 import Typography from "../Typography";
 
 export interface TeamProps {
-  type?: "kindergarten";
+  type?: "kindergarten" | "subschool";
+  banner?: string;
 }
 
 export default function Team(props: TeamProps) {
-  const { type = "" } = props;
+  const { type = "subschool", banner = "/banners/school.png" } = props;
 
   return (
-    <>
-      <section className="flex flex-col py-[70px] items-center bg-gray">
-        <div className="flex flex-col w-[1068px]">
+    <main className="pt-[50px] md:pt-[200px]">
+      <Banner size="small" src={banner}></Banner>
+      <Section className="bg-gray">
+        <div className="flex flex-col w-full md:w-[1068px]">
           <Title full align="center" type={type}>
             Leading Foreign team
           </Title>
@@ -24,7 +28,7 @@ export default function Team(props: TeamProps) {
             international talents, offering dual-certified, high-quality
             international faculty and staff. 
           </Typography>
-          <div className="flex flex-row justify-between mt-[70px]">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-y-4 mt-8">
             {[1, 2, 3].map((element) => (
               <Card
                 key={`team ${element}`}
@@ -38,9 +42,9 @@ export default function Team(props: TeamProps) {
             ))}
           </div>
         </div>
-      </section>
-      <section className="flex flex-col py-[70px] items-center bg-white">
-        <div className="flex flex-col w-[1068px]">
+      </Section>
+      <Section className="bg-white">
+        <div className="flex flex-col w-full md:w-[1068px]">
           <Title full align="center" type={type}>
             Local Expert team
           </Title>
@@ -51,7 +55,7 @@ export default function Team(props: TeamProps) {
             teaching quality through collaborative curriculum preparation and
             teaching workshops. 
           </Typography>
-          <div className="flex flex-row justify-between">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-y-4 mt-8">
             {[1, 2, 3].map((element) => (
               <Card
                 key={`team ${element + 3}`}
@@ -65,7 +69,7 @@ export default function Team(props: TeamProps) {
             ))}
           </div>
         </div>
-      </section>
-    </>
+      </Section>
+    </main>
   );
 }

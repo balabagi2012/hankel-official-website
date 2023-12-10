@@ -8,20 +8,20 @@ export interface ContactInfoProps {
 export default function ContactInfo(props: ContactInfoProps) {
   const { type = "subschool" } = props;
   return (
-    <div className="flex flex-1 flex-col items-start justify-around">
+    <div className="flex p-4 md:p-0 flex-1 flex-col items-start justify-around">
       <Title full align="left" type={type}>
         Contact Us
       </Title>
       <Typography
         varient="h5"
-        className="text-start flex-1 mt-[-40px]"
+        className="text-start flex-1 md:mt-[-40px]"
         color="textGray"
       >
         Do you have more questions and curiosity about us? Feel free to get in
         touch! We are eagerly looking forward to hearing your feedback,
         inquiries, and suggestions.
       </Typography>
-      <div className="flex flex-row items-center flex-1">
+      <div className="flex flex-row items-center flex-1 mt-4 md:mt-0">
         <Image
           src="/icons/PhoneOutlined.svg"
           alt="hankel PhoneOutlined"
@@ -33,7 +33,7 @@ export default function ContactInfo(props: ContactInfoProps) {
           (02) 7751-9199
         </Typography>
       </div>
-      <div className="flex flex-row items-center flex-1">
+      <div className="flex flex-row items-center flex-1 mt-3 md:mt-0">
         <Image
           src="/icons/MailOutlined.svg"
           alt="hankel MailOutlined"
@@ -45,7 +45,7 @@ export default function ContactInfo(props: ContactInfoProps) {
           hankel@heipe.edu.tw
         </Typography>
       </div>
-      <div className="flex flex-row items-start flex-1">
+      <div className="flex flex-row items-start flex-1 mt-3 md:mt-0">
         <Image
           src="/icons/LocationOnOutlined.svg"
           alt="hankel LocationOnOutlined"
@@ -58,7 +58,7 @@ export default function ContactInfo(props: ContactInfoProps) {
           244
         </Typography>
       </div>
-      <div className="flex flex-row flex-1">
+      <div className="flex flex-row flex-1 mt-4 md:mt-0">
         <Image
           src="/icons/InstagramBlue.svg"
           alt="hankel Instagram"

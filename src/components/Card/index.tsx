@@ -15,8 +15,14 @@ export default function Card(props: CardProps) {
   switch (type) {
     case "news":
       return (
-        <div className="relative">
-          <Image src={img} alt={alt} width="254" height="350"></Image>
+        <div className="relative min-h-fit min-w-fit">
+          <Image
+            src={img}
+            alt={alt}
+            width="254"
+            height="350"
+            className="w-[160px] h-[220px] md:w-[254px] md:h-[350px]"
+          ></Image>
           <div className="absolute bottom-[18px] h-[100px] left-0 bg-deepBlue/[0.8] pl-[12px] pr-[4px] py-[8px] flex flex-col items-start">
             <Typography varient="h4" color="white font-serif text-start">
               {title}
@@ -43,8 +49,14 @@ export default function Card(props: CardProps) {
       );
     case "facility":
       return (
-        <div className="flex flex-col w-[400px]">
-          <Image src={img} alt={alt} width="400" height="270"></Image>
+        <div className="flex flex-col w-full md:w-[400px]">
+          <Image
+            src={img}
+            alt={alt}
+            width="400"
+            height="270"
+            className="w-full md:w-[400px] h-auto"
+          ></Image>
           <div className="flex flex-col items-start py-[16px]">
             <Typography
               varient="h4"
@@ -52,7 +64,7 @@ export default function Card(props: CardProps) {
             >
               {title}
             </Typography>
-            <Typography varient="h5" className="text-textGray">
+            <Typography varient="h5" className="text-textGray text-start">
               {description}
             </Typography>
           </div>
@@ -60,16 +72,16 @@ export default function Card(props: CardProps) {
       );
     case "curriculum":
       return (
-        <div className="flex flex-col w-[254px]">
-          <Image src={img} alt={alt} width="254" height="351"></Image>
+        <div className="flex flex-col w-full md:w-[254px]">
+          <Image src={img} alt={alt} width="254" height="351" className="w-full md:w-[254px] h-auto"></Image>
           <div className="flex flex-col items-start py-[16px]">
             <Typography
               varient="h4"
-              className="text-textGray mb-[2px] font-serif"
+              className="text-textGray mb-[2px] font-serif text-start"
             >
               {title}
             </Typography>
-            <Typography varient="h5" className="text-textGray">
+            <Typography varient="h5" className="text-textGray text-start">
               {description}
             </Typography>
           </div>
@@ -77,8 +89,8 @@ export default function Card(props: CardProps) {
       );
     case "team":
       return (
-        <div className="flex flex-col w-[322px] rounded-xl shadow-md">
-          <Image src={img} alt={alt} width="322" height="310"></Image>
+        <div className="flex flex-col w-full md:w-[322px] rounded-xl shadow-md">
+          <Image src={img} alt={alt} width="322" height="310" className="w-full md:w-[322px] h:auto"></Image>
           <div className="flex flex-col items-center py-[16px] px-[16px]">
             <Typography varient="h3" className="font-serif mb-[12px]">
               {title}

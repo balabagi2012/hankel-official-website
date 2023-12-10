@@ -1,16 +1,31 @@
 import Image from "next/image";
 import Typography from "../Typography";
 import Title from "../Title";
+import Banner from "../Banner";
+import Section from "../Section";
 
 export interface ContactProps {
-  type?: "kindergarten";
+  type?: "kindergarten" | "subschool" | "home";
+  title?: string;
+  description?: string;
+  banner?: string;
 }
 export default function Contact(props: ContactProps) {
-  const { type = "" } = props;
+  const { type = "subschool", title, description, banner } = props;
   return (
-    <>
-      <section className="flex flex-col py-[70px] items-center bg-gray">
-        <div className="flex flex-col w-[700px]">
+    <main
+      className={`pt-[50px] ${
+        type === "home" ? "md:pt-[80px]" : "md:pt-[200px]"
+      }`}
+    >
+      <Banner
+        size={type === "home" ? "large" : "small"}
+        src={banner ?? "/banners/contact.png"}
+        title={title}
+        description={description}
+      ></Banner>
+      <Section className="bg-gray">
+        <div className="flex flex-col w-full md:w-[700px]">
           <Title full align="center" type={type}>
             Contact Us
           </Title>
@@ -88,10 +103,10 @@ export default function Contact(props: ContactProps) {
             </div>
           </div>
         </div>
-      </section>
-      <section className="flex flex-col py-[70px] items-center bg-white">
-        <div className="flex flex-col w-[700px]">
-          <div className="flex flex-row gap-4 mb-5">
+      </Section>
+      <Section>
+        <div className="flex flex-col w-full md:w-[700px]">
+          <div className="flex flex-col md:flex-row gap-4 mb-5">
             <div className="flex flex-col flex-1">
               <div className="flex flex-row align-top">
                 <Typography varient="h5" className="text-deepBlue">
@@ -149,7 +164,7 @@ export default function Contact(props: ContactProps) {
             </Typography>
           </div>
         </div>
-      </section>
-    </>
+      </Section>
+    </main>
   );
 }

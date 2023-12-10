@@ -3,18 +3,22 @@ import Title from "../Title";
 import Typography from "../Typography";
 import facilitiyImg from "../../../public/facility/home.png";
 import Card from "../Card";
+import Banner from "../Banner";
+import Section from "../Section";
 
 export interface FacilityProps {
-  type?: "kindergarten";
+  type?: "kindergarten" | "subschool";
+  banner?: string;
 }
 
 export default function Facility(props: FacilityProps) {
-  const { type = "" } = props;
+  const { type = "subschool", banner = "/banners/school.png" } = props;
 
   return (
-    <>
-      <section className="flex flex-col py-[70px] items-center bg-gray">
-        <div className="flex flex-col w-[700px]">
+    <main className="pt-[50px] md:pt-[200px]">
+      <Banner size="small" src={banner}></Banner>
+      <Section className="bg-gray">
+        <div className="flex flex-col w-full md:w-[700px]">
           <Title full align="center" type={type}>
             Appearance Overview
           </Title>
@@ -40,13 +44,13 @@ export default function Facility(props: FacilityProps) {
             }}
           ></Image>
         </div>
-      </section>
-      <section className="flex flex-col py-[70px] items-center bg-gray">
-        <div className="flex flex-col w-[1268px]">
+      </Section>
+      <Section className="bg-white">
+        <div className="flex flex-col w-full lg:w-[1268px]">
           <Title full align="left" type={type}>
             Facilities
           </Title>
-          <div className="flex flex-row justify-between">
+          <div className="flex flex-col md:flex-row justify-center items-center md:justify-between">
             {[1, 2, 3].map((element) => (
               <Card
                 key={` ${element}`}
@@ -59,7 +63,7 @@ export default function Facility(props: FacilityProps) {
             ))}
           </div>
         </div>
-      </section>
-    </>
+      </Section>
+    </main>
   );
 }

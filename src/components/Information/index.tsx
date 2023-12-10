@@ -4,18 +4,22 @@ import Title from "../Title";
 import Typography from "../Typography";
 
 import CalendarImg from "../../../public/information/calendar.png";
+import Banner from "../Banner";
+import Section from "../Section";
 
 export interface InformationProps {
-  type?: "kindergarten";
+  type?: "kindergarten" | "subschool";
+  banner?: string;
 }
 
 export default function Information(props: InformationProps) {
-  const { type = "" } = props;
+  const { type = "subschool", banner = "/banners/school.png" } = props;
 
   return (
-    <>
-      <section className="flex flex-col py-[70px] items-center bg-gray">
-        <div className="flex flex-col w-[1024px]">
+    <main className="pt-[50px] md:pt-[200px]">
+      <Banner size="small" src={banner}></Banner>
+      <Section className="bg-gray">
+        <div className="flex flex-col w-full md:w-[1024px]">
           <Title full align="center" type={type}>
             Admission Brochure
           </Title>
@@ -37,10 +41,10 @@ export default function Information(props: InformationProps) {
             ></Image>
           </div>
         </div>
-      </section>
-      <section className="bg-white py-[60px] flex flex-row justify-center">
-        <div className="flex flex-row w-[1268px] justify-center items-stretch">
-          <div className="flex flex-col mr-[65px] gap-y-3 flex-1">
+      </Section>
+      <Section className="bg-white">
+        <div className="flex flex-col md:flex-row w-full md:w-[1268px] justify-center items-stretch">
+          <div className="flex flex-col md:mr-[65px] gap-y-3 flex-1">
             <Title full align="left" type={type}>
               Information Session
             </Title>
@@ -58,11 +62,12 @@ export default function Information(props: InformationProps) {
             alt="hankel about 3"
             width="582"
             height="370"
+            className="w-full md:w-[582px] h-auto"
           ></Image>
         </div>
-      </section>
-      <section className="bg-white py-[60px] flex flex-row justify-center">
-        <div className="flex flex-col w-[1268px] justify-center items-stretch">
+      </Section>
+      <Section className="bg-gray">
+        <div className="flex flex-col w-full md:w-[1268px] justify-center items-stretch">
           <Title full align="left" type={type}>
             Lunch Menu
           </Title>
@@ -79,9 +84,9 @@ export default function Information(props: InformationProps) {
             ></Image>
           </div>
         </div>
-      </section>
-      <section className="bg-white py-[60px] flex flex-row justify-center">
-        <div className="flex flex-col w-[1268px] justify-center items-stretch">
+      </Section>
+      <Section className="bg-white">
+        <div className="flex flex-col w-full md:w-[1268px] justify-center items-stretch">
           <Title full align="left" type={type}>
             Calendar
           </Title>
@@ -98,7 +103,7 @@ export default function Information(props: InformationProps) {
             ></Image>
           </div>
         </div>
-      </section>
-    </>
+      </Section>
+    </main>
   );
 }

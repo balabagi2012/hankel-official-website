@@ -2,8 +2,8 @@ import Typography from "../Typography";
 
 export default function ContactForm() {
   return (
-    <div className="flex-1 pl-[70px] flex flex-col pt-7 justify-between">
-      <div className="flex flex-row gap-4 mb-5">
+    <div className="flex-1 ml-4 md:ml-[70px] mr-4 md:mr-0 flex flex-col pt-7 justify-between">
+      <div className="flex flex-col md:flex-row gap-4 mb-5">
         <div className="flex flex-col flex-1">
           <div className="flex flex-row align-top">
             <Typography varient="h5" className="text-deepBlue">
