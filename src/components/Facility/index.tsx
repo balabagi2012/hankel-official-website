@@ -3,16 +3,19 @@ import Title from "../Title";
 import Typography from "../Typography";
 import facilitiyImg from "../../../public/facility/home.png";
 import Card from "../Card";
+import Banner from "../Banner";
 
 export interface FacilityProps {
-  type?: "kindergarten";
+  type?: "kindergarten" | "subschool";
+  banner?: string;
 }
 
 export default function Facility(props: FacilityProps) {
-  const { type = "" } = props;
+  const { type = "subschool", banner = "/banners/school.png" } = props;
 
   return (
-    <>
+    <main className="pt-[200px]">
+      <Banner size="small" src={banner}></Banner>
       <section className="flex flex-col py-[70px] items-center bg-gray">
         <div className="flex flex-col w-[700px]">
           <Title full align="center" type={type}>
@@ -60,6 +63,6 @@ export default function Facility(props: FacilityProps) {
           </div>
         </div>
       </section>
-    </>
+    </main>
   );
 }
