@@ -15,7 +15,7 @@ const description = `About more news in Hankel`;
 
 export default function News() {
   return (
-    <main>
+    <main className="pt-[80px]">
       <Banner
         size="large"
         src="/banners/news.png"

@@ -34,7 +34,7 @@ export default function Subschool(props: SubschoolProps) {
       innovative skills necessary for their future. `,
   ];
   return (
-    <main>
+    <main className="pt-[200px]">
       <Banner size="small" src={banner} />
       <section className="flex flex-col items-center py-[70px] bg-gray">
         <Title align="center" type={type}>

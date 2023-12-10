@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Title from "../Title";
 import Typography from "../Typography";
+import { kindergarten } from "@/app/styles/fonts";
 
 export interface AboutProps {
   type?: "kindergarten";
@@ -32,7 +33,9 @@ export default function About(props: AboutProps) {
             <div className="flex flex-1 flex-col">
               <Typography
                 varient="h4"
-                className="font-serif text-blue text-start mb-5"
+                className={`font-serif text-blue text-start mb-5 ${
+                  type === "kindergarten" ? kindergarten.className : ""
+                }`}
               >
                 Bilingual programs specifically cater to the development of
                 young learners
@@ -50,7 +53,9 @@ export default function About(props: AboutProps) {
             <div className="flex flex-1 flex-col mt-[60px]">
               <Typography
                 varient="h4"
-                className="font-serif text-blue text-start mb-5"
+                className={`font-serif text-blue text-start mb-5 ${
+                  type === "kindergarten" ? kindergarten.className : ""
+                }`}
               >
                 {`HIA's Purpose-Built Campus: A Commitment to Nurturing Education`}
               </Typography>

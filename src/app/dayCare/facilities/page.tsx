@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function DayCareFacilities() {
   return (
-    <main>
+    <main className="pt-[200px]">
       <Banner size="small" src="/banners/school.png"></Banner>
       <Facility />
     </main>
