@@ -39,6 +39,7 @@ export default function Banner({
         quality={100}
         fill
       ></Image>
+      <div className="z-[-1] absolute w-full h-full  bg-[rgba(0,0,0,.2)]"></div>
       {size === "big" && (
         <div className="z-[-1] absolute w-full h-full md:h-fit md:w-[530px] pt-[50px] md:pt-[20px] pb-[32px] px-[16px] bg-[rgba(255,255,255,.8)] flex flex-col justify-center items-center">
           <Image

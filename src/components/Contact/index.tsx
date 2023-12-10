@@ -19,8 +19,8 @@ export default function Contact(props: ContactProps) {
         title={title}
         description={description}
       ></Banner>
-      <section className="flex flex-col py-[70px] items-center bg-gray">
-        <div className="flex flex-col w-[700px]">
+      <section className="flex flex-col p-4 md:py-[70px] items-center bg-gray">
+        <div className="flex flex-col w-full md:w-[700px]">
           <Title full align="center" type={type}>
             Contact Us
           </Title>
@@ -99,9 +99,9 @@ export default function Contact(props: ContactProps) {
           </div>
         </div>
       </section>
-      <section className="flex flex-col py-[70px] items-center bg-white">
-        <div className="flex flex-col w-[700px]">
-          <div className="flex flex-row gap-4 mb-5">
+      <section className="flex flex-col p-4 md:py-[70px] items-center bg-white">
+        <div className="flex flex-col w-full md:w-[700px]">
+          <div className="flex flex-col md:flex-row gap-4 mb-5">
             <div className="flex flex-col flex-1">
               <div className="flex flex-row align-top">
                 <Typography varient="h5" className="text-deepBlue">
