@@ -41,7 +41,7 @@ export default function Banner({
         style={{ objectFit: "fill" }}
       ></Image>
       {size === "big" && (
-        <div className="z-[-1] absolute w-[530px] pt-[20px] pb-[32px] px-[16px] bg-[rgba(255,255,255,.8)] flex flex-col justify-center items-center">
+        <div className="z-[-1] absolute w-full h-full md:h-fit md:w-[530px] pt-[50px] md:pt-[20px] pb-[32px] px-[16px] bg-[rgba(255,255,255,.8)] flex flex-col justify-center items-center">
           <Image
             alt="Mountains"
             src="/logo_square.svg"
