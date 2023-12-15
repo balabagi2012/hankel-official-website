@@ -6,5 +6,5 @@ export const metadata: Metadata = {
 };
 
 export default function MiddleSchoolAbout() {
-  return <About type="subschool" />;
+  return <About name="middleSchool" type="subschool" />;
 }

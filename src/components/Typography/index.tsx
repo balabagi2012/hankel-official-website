@@ -6,7 +6,7 @@ interface TypographyProps {
 }
 export default function Typography(props: TypographyProps) {
   const { varient, children, className = "", color } = props;
-  let typographyClassName = "";
+  let typographyClassName = "whitespace-pre-line ";
   switch (varient) {
     case "h1":
       typographyClassName +=
@@ -24,11 +24,13 @@ export default function Typography(props: TypographyProps) {
       break;
 
     case "h4":
-      typographyClassName += "text-[16px] md:text-[18px] font-bold leading-[2] tracking-[1px]";
+      typographyClassName +=
+        "text-[16px] md:text-[18px] font-bold leading-[2] tracking-[1px]";
       break;
 
     case "h5":
-      typographyClassName += "text-[14px] md:text-[16px] leading-[2] tracking-[1px]";
+      typographyClassName +=
+        "text-[14px] md:text-[16px] leading-[2] tracking-[1px]";
       break;
 
     case "h6":

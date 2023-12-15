@@ -1,4 +1,4 @@
-import { connectToDatabase } from "@/api/utils/mongodb";
+import { connectToDatabase } from "@/utils/mongodb";
 
 export interface AboutEntity {
   name: string;

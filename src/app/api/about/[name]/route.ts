@@ -1,4 +1,4 @@
-import { connectToDatabase } from "@/api/utils/mongodb";
+import { connectToDatabase } from "@/utils/mongodb";
 import { AboutEntity } from "../route";
 // GET /api/about/:name
 export async function GET(

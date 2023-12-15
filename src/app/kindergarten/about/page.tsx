@@ -6,5 +6,5 @@ export const metadata: Metadata = {
 };
 
 export default function KindergartenAbout() {
-  return <About type="kindergarten" />;
+  return <About name="kindergarten" type="kindergarten" />;
 }

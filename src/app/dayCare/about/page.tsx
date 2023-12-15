@@ -6,5 +6,5 @@ export const metadata: Metadata = {
 };
 
 export default function DayCareAbout() {
-  return <About type="subschool" />;
+  return <About name="dayCare" type="subschool" />;
 }
