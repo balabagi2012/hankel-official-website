@@ -1,14 +1,17 @@
 import { connectToDatabase } from "@/utils/mongodb";
 import { AboutEntity } from "../route";
+import { NextRequest } from "next/server";
 // GET /api/about/:name
 export async function GET(
-  req: Request,
+  request: NextRequest,
   { params }: { params: { name: string } }
 ) {
   try {
+    const searchParams = request.nextUrl.searchParams;
+    const lang = searchParams.get("lang") ?? "en";
     const { name } = params;
     const db = await connectToDatabase();
-    const about = await db.collection("about").findOne({ name });
+    const about = await db.collection("about").findOne({ name, lang });
     if (!about) {
       return Response.json({ error: "About data not found" }, { status: 404 });
     }
@@ -28,9 +31,8 @@ export async function PATCH(
 ) {
   try {
     const { name } = params;
-    const { title, description, banner, sections } = await req.json();
-
-    if (!title || !description || !banner || !sections) {
+    const { title, lang, description, banner, sections } = await req.json();
+    if (!title || !lang || !description || !banner || !sections) {
       return Response.json(
         { error: "Missing required fields" },
         { status: 400 }
@@ -40,13 +42,16 @@ export async function PATCH(
     const db = await connectToDatabase();
     const about: AboutEntity = {
       name,
+      lang,
       title,
       description,
       banner,
       sections,
     };
 
-    const result = await db.collection("about").replaceOne({ name }, about);
+    const result = await db
+      .collection("about")
+      .replaceOne({ name, lang }, about);
     if (result.modifiedCount === 0) {
       return Response.json({ error: "About data not found" }, { status: 404 });
     }

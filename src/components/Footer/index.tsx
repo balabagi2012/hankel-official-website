@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="flex flex-col flex-1 items-stretch">
         <div className="flex flex-1 mb-[8px]">
           <Image
-            src="/logo_square.svg"
+            src="/icons/logo_square.svg"
             alt="hankel footer logo"
             width="62"
             height="77"

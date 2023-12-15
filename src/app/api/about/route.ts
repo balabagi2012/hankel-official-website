@@ -2,6 +2,7 @@ import { connectToDatabase } from "@/utils/mongodb";
 
 export interface AboutEntity {
   name: string;
+  lang: "zh" | "en";
   title: string;
   description: string;
   banner: string;
@@ -23,7 +24,7 @@ export interface AboutSectionText {
 export async function GET() {
   try {
     const db = await connectToDatabase();
-    const about = await db.collection("about").find({});
+    const about = await db.collection("about").find({}).toArray();
     return Response.json({ about }, { status: 200 });
   } catch (error) {
     return Response.json(
@@ -36,9 +37,10 @@ export async function GET() {
 // POST /api/about
 export async function POST(req: Request) {
   try {
-    const { title, name, description, banner, sections } = await req.json();
+    const { title, name, lang, description, banner, sections } =
+      await req.json();
 
-    if (!title || !name || !description || !banner || !sections) {
+    if (!title || !name || !lang || !description || !banner || !sections) {
       return Response.json(
         { error: "Missing required fields" },
         { status: 400 }
@@ -49,6 +51,7 @@ export async function POST(req: Request) {
 
     const about: AboutEntity = {
       name,
+      lang,
       title,
       description,
       banner,

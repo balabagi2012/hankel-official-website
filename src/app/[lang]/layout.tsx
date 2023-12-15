@@ -2,7 +2,7 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import type { Metadata } from "next";
 import "./globals.scss";
-import { notoSans } from "./styles/fonts";
+import { notoSans } from "@/app/styles/fonts";
 
 export const metadata: Metadata = {
   title: "Create Next App",

@@ -3,47 +3,28 @@
 import Image from "next/image";
 import Link from "next/link";
 import Typography from "../Typography";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { kindergarten, notoSans } from "@/app/styles/fonts";
 
 export default function Header() {
   const [openDropDown, setOpenDropDown] = useState(false);
   const [isSubHeader, setIsSubHeader] = useState(false);
-  const [language, setLanguage] = useState("english");
+  const [language, setLanguage] = useState("en");
   const [subSchool, setSubSchool] = useState("");
 
   const [openLanguageDropDown, setOpenLanguageDropDown] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
 
-  const homepageNavItemList = [
+  const otherNavItemList = [
     {
-      path: `/`,
-      label: `Home`,
+      path: `/${language}/about`,
+      label: language === "zh" ? "關於" : `About`,
     },
     {
-      path: `/dayCare`,
-      label: `Day Care`,
-    },
-    {
-      path: `/elementary`,
-      label: `Elementary`,
-    },
-    {
-      path: `/kindergarten`,
-      label: `Kindergarten`,
-    },
-    {
-      path: `/middleSchool`,
-      label: `Middle School`,
-    },
-    {
-      path: `/about`,
-      label: `About`,
-    },
-    {
-      path: `/contact`,
-      label: `Contact`,
+      path: `/${language}/contact`,
+      label: language === "zh" ? "聯絡" : `Contact`,
     },
     {
       path: `https://google.com`,
@@ -51,34 +32,79 @@ export default function Header() {
     },
   ];
 
+  const subSchoolDropDownItemList = [
+    {
+      path: `/${language}/dayCare`,
+      label: language === "zh" ? "安親班" : `DayCare`,
+    },
+    {
+      path: `/${language}/elementary`,
+      label: language === "zh" ? "小學" : `Elementary`,
+    },
+    {
+      path: `/${language}/kindergarten`,
+      label: language === "zh" ? "幼稚園" : `Kindergarten`,
+    },
+    {
+      path: `/${language}/middleSchool`,
+      label: language === "zh" ? "中學" : `MiddleSchool`,
+    },
+  ];
+
+  const homepageNavItemList = [
+    {
+      path: `/${language}`,
+      label: language === "zh" ? "首頁" : `Home`,
+    },
+    ...subSchoolDropDownItemList,
+  ];
+
+  const getSubSchoolZhLabel = (subSchool: string) => {
+    switch (subSchool) {
+      case "dayCare":
+        return "安親班";
+      case "elementary":
+        return "小學";
+      case "kindergarten":
+        return "幼稚園";
+      case "middleSchool":
+        return "中學";
+      default:
+        return "";
+    }
+  };
+
   const subSchoolNavItemList = [
     {
-      path: `/${subSchool}`,
-      label: `Hankel ${subSchool.charAt(0).toUpperCase() + subSchool.slice(1)}`,
+      path: `/${language}/${subSchool}`,
+      label:
+        language === "zh"
+          ? getSubSchoolZhLabel(subSchool)
+          : `Hankel ${subSchool.charAt(0).toUpperCase() + subSchool.slice(1)}`,
     },
     {
-      path: `/${subSchool}/curriculum`,
-      label: `Our Curriculum`,
+      path: `/${language}/${subSchool}/curriculum`,
+      label: language === "zh" ? "課程" : `Our Curriculum`,
     },
     {
-      path: `/${subSchool}/facilities`,
-      label: `Our Facilities`,
+      path: `/${language}/${subSchool}/facilities`,
+      label: language === "zh" ? "設施" : `Our Facilities`,
     },
     {
-      path: `/${subSchool}/team`,
-      label: `Our Team`,
+      path: `/${language}/${subSchool}/team`,
+      label: language === "zh" ? "團隊" : `Our Team`,
     },
     {
-      path: `/${subSchool}/about`,
-      label: `About`,
+      path: `/${language}/${subSchool}/about`,
+      label: language === "zh" ? "關於" : `About`,
     },
     {
-      path: `/${subSchool}/information`,
-      label: `Information`,
+      path: `/${language}/${subSchool}/information`,
+      label: language === "zh" ? "資訊" : `Information`,
     },
     {
-      path: `/${subSchool}/contact`,
-      label: `Contact`,
+      path: `/${language}/${subSchool}/contact`,
+      label: language === "zh" ? "聯絡" : `Contact`,
     },
     {
       path: `https://google.com`,
@@ -88,6 +114,9 @@ export default function Header() {
 
   useEffect(() => {
     if (pathname) {
+      if (pathname.slice(1, 3) !== language) {
+        setLanguage(pathname.slice(1, 3));
+      }
       const subSchool = [
         "dayCare",
         "elementary",
@@ -103,7 +132,12 @@ export default function Header() {
       }
       setOpenDropDown(false);
     }
-  }, [pathname]);
+  }, [pathname, router, language]);
+
+  const handleLanguageChange = (lang: string) => {
+    setLanguage(lang);
+    router.replace(`/${lang}${pathname.slice(3)}`);
+  };
 
   interface SubSchoolNavItemProps {
     path: string;
@@ -115,7 +149,7 @@ export default function Header() {
       <Typography
         varient="h6"
         className={`${
-          pathname === path
+          pathname.includes(path)
             ? `font-bold text-blue ${
                 subSchool === "kindergarten"
                   ? kindergarten.className
@@ -141,7 +175,7 @@ export default function Header() {
           className="flex items-center w-[150px] h-[32px] md:w-[200px] md:[h-42px] mr-auto ml-3 md:ml-0"
         >
           <Image
-            src="/logo.svg"
+            src="/icons/logo.svg"
             alt="hankel logo"
             className="w-[150px] h-[32px] md:w-[200px] md:[h-42px]"
             width="200"
@@ -197,22 +231,28 @@ export default function Header() {
           ) : (
             <div className="flex flex-row  items-center gap-x-[56px]">
               <Link
-                href="/"
-                className={`py-1 ${pathname === "/" ? "border-b-2" : ""}`}
+                href={`/${language}`}
+                className={`py-1 ${
+                  pathname === `/${language}` ? "border-b-2" : ""
+                }`}
                 rel="noopener noreferrer"
               >
                 <Typography
                   varient="h6"
-                  className={`${pathname === "/" ? "font-bold" : ""}`}
+                  className={`${
+                    pathname === `/${language}` ? "font-bold" : ""
+                  }`}
                 >
-                  Home
+                  {language === "zh" ? "首頁" : `Home`}
                 </Typography>
               </Link>
               <div
                 className="flex flex-row items-center relative"
                 onClick={() => setOpenDropDown(!openDropDown)}
               >
-                <Typography varient="h6">Schools</Typography>
+                <Typography varient="h6">
+                  {language === "zh" ? "學校" : "Schools"}
+                </Typography>
                 <Image
                   src="/icons/ChevronTopFilled.svg"
                   alt="hankel chevron bottom"
@@ -224,8 +264,8 @@ export default function Header() {
                 ></Image>
                 <div
                   className={`${
-                    openDropDown ? "block" : "hidden"
-                  } absolute top-10 z-10  origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
+                    openDropDown ? "flex" : "hidden"
+                  } absolute top-10 z-10 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
                   role="menu"
                   aria-orientation="vertical"
                   aria-labelledby="schools-button"
@@ -233,110 +273,41 @@ export default function Header() {
                   id="dropdown"
                 >
                   <div className="p-4" role="none">
-                    <Link
-                      href="/dayCare"
-                      className={`mb-4 h-[25px] flex flex-row justify-start`}
-                      rel="noopener noreferrer"
-                    >
-                      <Typography
-                        varient="h6"
-                        className={`${
-                          pathname === "/dayCare" ? "font-bold" : ""
-                        }`}
+                    {subSchoolDropDownItemList.map(({ path, label }) => (
+                      <Link
+                        key={label}
+                        href={path}
+                        className={`mb-4 h-[25px] flex flex-row justify-start`}
+                        rel="noopener noreferrer"
                       >
-                        dayCare
-                      </Typography>
-                    </Link>
-                    <Link
-                      href="/elementary"
-                      className={`mb-4 h-[25px] flex flex-row justify-start`}
-                      rel="noopener noreferrer"
-                    >
-                      <Typography
-                        varient="h6"
-                        className={`${
-                          pathname === "/elementary" ? "font-bold" : ""
-                        }`}
-                      >
-                        elementary
-                      </Typography>
-                    </Link>
-                    <Link
-                      href="/kindergarten"
-                      className={`mb-4 h-[25px] flex flex-row justify-start`}
-                      rel="noopener noreferrer"
-                    >
-                      <Typography
-                        varient="h6"
-                        className={`${
-                          pathname === "/kindergarten" ? "font-bold" : ""
-                        }`}
-                      >
-                        kindergarten
-                      </Typography>
-                    </Link>
-                    <Link
-                      href="/middleSchool"
-                      className={`h-[25px] flex flex-row justify-start`}
-                      rel="noopener noreferrer"
-                    >
-                      <Typography
-                        varient="h6"
-                        className={`${
-                          pathname === "/middleSchool" ? "font-bold" : ""
-                        }`}
-                      >
-                        middleSchool
-                      </Typography>
-                    </Link>
+                        <Typography
+                          varient="h6"
+                          className={`whitespace-nowrap	${
+                            pathname === path ? "font-bold" : ""
+                          }`}
+                        >
+                          {label}
+                        </Typography>
+                      </Link>
+                    ))}
                   </div>
                 </div>
               </div>
-              <Link
-                href="/about"
-                className={`py-1 ${pathname === "/about" ? "border-b-2" : ""}`}
-                rel="noopener noreferrer"
-              >
-                <Typography
-                  varient="h6"
-                  className={`${pathname === "/about" ? "font-bold" : ""}`}
+              {otherNavItemList.map(({ path, label }) => (
+                <Link
+                  key={label}
+                  href={path}
+                  className={`py-1 ${pathname === path ? "border-b-2" : ""}`}
+                  rel="noopener noreferrer"
                 >
-                  About
-                </Typography>
-              </Link>
-              <Link
-                href="/news"
-                className={`py-1 ${pathname === "/news" ? "border-b-2" : ""}`}
-                rel="noopener noreferrer"
-              >
-                <Typography
-                  varient="h6"
-                  className={`${pathname === "/news" ? "font-bold" : ""}`}
-                >
-                  News
-                </Typography>
-              </Link>
-              <Link
-                href="/contact"
-                className={`py-1 ${
-                  pathname === "/contact" ? "border-b-2" : ""
-                }`}
-                rel="noopener noreferrer"
-              >
-                <Typography
-                  varient="h6"
-                  className={`${pathname === "/contact" ? "font-bold" : ""}`}
-                >
-                  Contact
-                </Typography>
-              </Link>
-              <Link
-                href="https://google.com"
-                className="text-base"
-                rel="noreferrer"
-              >
-                <Typography varient="h6">Student Portal</Typography>
-              </Link>
+                  <Typography
+                    varient="h6"
+                    className={`${pathname === path ? "font-bold" : ""}`}
+                  >
+                    {label}
+                  </Typography>
+                </Link>
+              ))}
             </div>
           )}
         </div>
@@ -354,7 +325,7 @@ export default function Header() {
             className="w-auto h-auto"
           ></Image>
           <div className="ml-1 mr-2 font-bold">
-            {language === "english" ? "EN" : "ZH"}
+            {language === "en" ? "EN" : "中文"}
           </div>
           <Image
             src="/icons/ChevronBottomFilled.svg"
@@ -375,25 +346,25 @@ export default function Header() {
           >
             <div className="p-4" role="none">
               <div
-                onClick={() => setLanguage("english")}
+                onClick={() => handleLanguageChange("en")}
                 className={`mb-4 h-[25px] flex flex-row justify-start`}
                 rel="noopener noreferrer"
               >
                 <Typography
                   varient="h6"
-                  className={`${language === "english" ? "font-bold" : ""}`}
+                  className={`${language === "en" ? "font-bold" : ""}`}
                 >
                   English
                 </Typography>
               </div>
               <div
-                onClick={() => setLanguage("中文")}
+                onClick={() => handleLanguageChange("zh")}
                 className={`h-[25px] flex flex-row justify-start`}
                 rel="noopener noreferrer"
               >
                 <Typography
                   varient="h6"
-                  className={`${language === "中文" ? "font-bold" : ""}`}
+                  className={`${language === "zh" ? "font-bold" : ""}`}
                 >
                   中文
                 </Typography>

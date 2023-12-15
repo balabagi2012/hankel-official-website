@@ -8,13 +8,17 @@ import { AboutEntity } from "@/app/api/about/route";
 
 export interface AboutProps {
   name: string;
+  lang: "en" | "zh";
   type?: "kindergarten" | "subschool" | "home";
 }
 
-async function getAbout(name: string): Promise<AboutEntity> {
-  const res = await fetch(`http://localhost:3000/api/about/${name}`, {
-    cache: "no-cache",
-  });
+async function getAbout(name: string, lang: "en" | "zh"): Promise<AboutEntity> {
+  const res = await fetch(
+    `http://localhost:3000/api/about/${name}?lang=${lang}`,
+    {
+      cache: "no-cache",
+    }
+  );
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
     throw new Error("Failed to fetch data");
@@ -24,8 +28,8 @@ async function getAbout(name: string): Promise<AboutEntity> {
 }
 
 export default async function About(props: AboutProps) {
-  const { name, type = "subschool" } = props;
-  const data = await getAbout(name);
+  const { name, lang, type = "subschool" } = props;
+  const data = await getAbout(name, lang);
   return (
     <main
       className={`pt-[50px] ${
