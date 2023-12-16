@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const getContact = async (
   name: string,
-  lang: string
+  lang: "en" | "zh"
 ): Promise<ContactEntity> => {
   const res = await fetch(
     `${process.env.API_URI}/api/contact/${name}?lang=${lang}`,
@@ -21,7 +21,7 @@ const getContact = async (
 };
 
 export interface FooterProps {
-  lang?: string;
+  lang: "en" | "zh";
   name?: string;
 }
 
@@ -62,7 +62,7 @@ export default async function Footer(props: FooterProps) {
         </div>
         <div className="text-white flex flex-1 mb-7 md:mb-0">
           {lang === "zh" ? "地址 : " : "Address : "}
-          {contact?.address[lang] ??
+          {contact.address[lang] ??
             "No. 457, Section 2, Wenhua 3rd Rd, Linkou District, NewTaipei City, 244"}
         </div>
         <div className="flex flex-row flex-1 gap-x-6">
