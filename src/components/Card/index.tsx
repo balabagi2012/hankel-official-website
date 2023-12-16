@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Typography from "../Typography";
+import Link from "next/link";
 
 interface CardProps {
   type: "news" | "course" | "facility" | "curriculum" | "team";
@@ -7,11 +8,24 @@ interface CardProps {
   img: string;
   alt: string;
   tag?: string;
+  facebook?: string;
+  twitter?: string;
+  linkedin?: string;
   description: string;
 }
 
 export default function Card(props: CardProps) {
-  const { type, img, alt, title, tag, description } = props;
+  const {
+    type,
+    img,
+    alt,
+    title,
+    tag,
+    description,
+    facebook,
+    twitter,
+    linkedin,
+  } = props;
   switch (type) {
     case "news":
       return (
@@ -73,7 +87,13 @@ export default function Card(props: CardProps) {
     case "curriculum":
       return (
         <div className="flex flex-col w-full md:w-[254px]">
-          <Image src={img} alt={alt} width="254" height="351" className="w-full md:w-[254px] h-auto"></Image>
+          <Image
+            src={img}
+            alt={alt}
+            width="254"
+            height="351"
+            className="w-full md:w-[254px] h-auto"
+          ></Image>
           <div className="flex flex-col items-start py-[16px]">
             <Typography
               varient="h4"
@@ -90,7 +110,13 @@ export default function Card(props: CardProps) {
     case "team":
       return (
         <div className="flex flex-col w-full md:w-[322px] rounded-xl shadow-md">
-          <Image src={img} alt={alt} width="322" height="310" className="w-full md:w-[322px] h:auto"></Image>
+          <Image
+            src={img}
+            alt={alt}
+            width="322"
+            height="310"
+            className="w-full md:w-[322px] h:auto"
+          ></Image>
           <div className="flex flex-col items-center py-[16px] px-[16px]">
             <Typography varient="h3" className="font-serif mb-[12px]">
               {title}
@@ -103,27 +129,38 @@ export default function Card(props: CardProps) {
             <Typography varient="h6" className="text-textGray  text-center">
               {description}
             </Typography>
-            <div className="flex flex-row flex-1 justify-center my-4">
-              <Image
-                src="/icons/FacebookDeepBlue.svg"
-                alt="hankel Instagram"
-                width="24"
-                height="24"
-                className="mr-[24px]"
-              ></Image>
-              <Image
-                src="/icons/TwitterDeepBlue.svg"
-                alt="hankel Facebook"
-                width="24"
-                height="24"
-                className="mr-[24px]"
-              ></Image>
-              <Image
-                src="/icons/LinkedInDeepBlue.svg"
-                alt="hankel Youtube"
-                width="24"
-                height="24"
-              ></Image>
+            <div className="flex flex-row flex-1 justify-center my-4 gap-x-6">
+              {facebook && (
+                <Link href={facebook}>
+                  <Image
+                    src="/icons/FacebookDeepBlue.svg"
+                    alt="hankel Instagram"
+                    width="24"
+                    height="24"
+                  ></Image>
+                </Link>
+              )}
+              {twitter && (
+                <Link href={twitter}>
+                  <Image
+                    src="/icons/TwitterDeepBlue.svg"
+                    alt="hankel Facebook"
+                    width="24"
+                    height="24"
+                    className="mr-[24px]"
+                  ></Image>
+                </Link>
+              )}
+              {linkedin && (
+                <Link href={linkedin}>
+                  <Image
+                    src="/icons/LinkedInDeepBlue.svg"
+                    alt="hankel Youtube"
+                    width="24"
+                    height="24"
+                  ></Image>
+                </Link>
+              )}
             </div>
           </div>
         </div>
