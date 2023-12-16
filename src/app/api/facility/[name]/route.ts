@@ -1,0 +1,57 @@
+import { connectToDatabase } from "@/utils/mongodb";
+import { NextRequest } from "next/server";
+
+// GET /api/facility/:name
+export async function GET(
+  req: NextRequest,
+  { params }: { params: { name: string } }
+) {
+  try {
+    const { name } = params;
+    const db = await connectToDatabase();
+    const facility = await db.collection("facility").findOne({ name });
+    return Response.json(facility, { status: 200 });
+  } catch (error) {
+    return Response.json(
+      { error: "Failed to fetch facility data" },
+      { status: 500 }
+    );
+  }
+}
+
+// PATCH /api/facility/:name
+export async function PATCH(
+  req: Request,
+  { params }: { params: { name: string } }
+) {
+  try {
+    const { name } = params;
+    const body = await req.json();
+    if (!body.name) {
+      return Response.json(
+        { error: "Missing required fields" },
+        { status: 400 }
+      );
+    }
+
+    const db = await connectToDatabase();
+    await db.collection("facility").updateOne(
+      { name },
+      {
+        $set: {
+          ...body,
+        },
+      },
+      { upsert: true }
+    );
+    return Response.json(
+      { message: "Facility data updated successfully" },
+      { status: 200 }
+    );
+  } catch (error) {
+    return Response.json(
+      { error: "Failed to update facility data" },
+      { status: 500 }
+    );
+  }
+}

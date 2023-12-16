@@ -5,6 +5,10 @@ export const metadata: Metadata = {
   title: "Hankel - MiddleSchool",
 };
 
-export default function MiddleSchoolFacilities() {
-  return <Facility type="subschool" banner="/banners/school.png" />;
+export default function MiddleSchoolFacilities({
+  params: { lang },
+}: {
+  params: { lang: "en" | "zh" };
+}) {
+  return <Facility type="subschool" lang={lang} name="middleSchool" />;
 }
