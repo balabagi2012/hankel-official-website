@@ -27,6 +27,10 @@ export default function Header() {
       label: language === "zh" ? "聯絡" : `Contact`,
     },
     {
+      path: `/${language}/news`,
+      label: language === "zh" ? "新聞" : `News`,
+    },
+    {
       path: `https://google.com`,
       label: language === "zh" ? "學生資訊系統" : `Student Portal`,
     },
