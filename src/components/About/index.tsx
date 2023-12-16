@@ -14,7 +14,7 @@ export interface AboutProps {
 
 async function getAbout(name: string, lang: "en" | "zh"): Promise<AboutEntity> {
   const res = await fetch(
-    `http://localhost:3000/api/about/${name}?lang=${lang}`,
+    `${process.env.API_URI}/api/about/${name}?lang=${lang}`,
     {
       cache: "no-cache",
     }
