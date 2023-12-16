@@ -9,23 +9,28 @@ import Typography from "../Typography";
 import LatestNews from "../LatestNews";
 import Section from "../Section";
 import { ContactEntity } from "@/app/api/contact/route";
+import { SubschoolEntity } from "@/app/api/subschool/route";
 
 interface SubschoolProps {
   name: "dayCare" | "elementary" | "kindergarten" | "middleSchool";
   lang: "en" | "zh";
-  banner?: string;
 }
 
-const getContact = async (
-  name: string,
-  lang: string
-): Promise<ContactEntity> => {
-  const res = await fetch(
-    `${process.env.API_URI}/api/contact/${name}?lang=${lang}`,
-    {
-      cache: "no-cache",
-    }
-  );
+const getSubschool = async (name: string): Promise<SubschoolEntity> => {
+  const res = await fetch(`${process.env.API_URI}/api/subschool/${name}`, {
+    cache: "no-cache",
+  });
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+};
+const getContact = async (name: string): Promise<ContactEntity> => {
+  const res = await fetch(`${process.env.API_URI}/api/contact/${name}`, {
+    cache: "no-cache",
+  });
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
     throw new Error("Failed to fetch data");
@@ -35,56 +40,39 @@ const getContact = async (
 };
 
 const getSubschoolData = async (name: string, lang: "en" | "zh") => {
-  const contact = await getContact(name, lang);
+  const subschool = await getSubschool(name);
+  const contact = await getContact(name);
   return {
+    ...subschool,
     contact,
   };
 };
 
 export default async function Subschool(props: SubschoolProps) {
-  const { name, lang, banner = "/banners/school.png" } = props;
-  const sectionTexts = [
-    `Hankel Education cultivates students' curiosity, creativity, and
-      academic excellence with the spirit of seeking truth, fostering
-      virtue, and pursuing aesthetics. Through our distinctive teaching
-      approach of "Multilingualism," "Scientific Research," and
-      "Activities," we shape well-rounded individuals, preparing them for
-      a future of unlimited possibilities.`,
-    `"Thriving Growth" embodies our commitment to nurturing the
-      potential of every student. Through innovative methods, we
-      encourage them to explore, challenge themselves, and build
-      confidence. `,
-    `"Pursuit of Excellence" represents our dedication to
-      outstanding education. We inspire students to embrace
-      challenges, cultivate resilience, and foster a passion for
-      learning through innovative methods.`,
-    `The value of "Learning" underscores our emphasis on knowledge
-      and creativity. We encourage curiosity, critical thinking, and
-      problem-solving skills, providing students with superior and
-      innovative skills necessary for their future. `,
-  ];
+  const { name, lang } = props;
+
   const data = await getSubschoolData(name, lang);
 
   return (
     <main className="pt-[50px] md:pt-[200px]">
-      <Banner size="small" src={banner} />
+      <Banner size="small" src={data.banner} />
       <Section className="bg-gray">
         <Title align="center" type={name}>
-          The Hankel Experience
+          {data.title[lang]}
         </Title>
         <div className="w-full md:w-[1024px] flex-col items-center">
           <Typography varient="h5" className="mb-[80px]">
-            {sectionTexts[0]}
+            {data.description[lang]}
           </Typography>
-          <div className="flex flex-col items-center md:flex-row gap-4">
-            {[1, 2, 3].map((element) => (
+          <div className="flex flex-col items-start md:flex-row gap-4">
+            {data.experiences.map((element, index) => (
               <Card
-                key={`course ${element}`}
+                key={`experience ${index}`}
                 type="course"
-                img={`/course/${element}.png`}
-                alt={`hankel news ${element}`}
-                title="Coding in class"
-                description={sectionTexts[element]}
+                img={element.img}
+                alt={element.title[lang]}
+                title={element.title[lang]}
+                description={element.description[lang]}
               ></Card>
             ))}
           </div>
@@ -92,16 +80,14 @@ export default async function Subschool(props: SubschoolProps) {
       </Section>
       <Banner
         size="medium"
-        src="/subBanners/teach.png"
-        title="“Education is not the filling of a pail, but the lighting of a
-              fire.”"
-        description="------ William Butler Yeats
-              "
+        src={data.subBanner.img}
+        title={data.subBanner.title[lang]}
+        description={data.subBanner.description[lang]}
       ></Banner>
       <LatestNews className="bg-white" />
       <Section className="bg-gray">
         <Title align="center" type={name}>
-          Social Media Post
+          {lang === "en" ? "Social Media Post" : "社群媒體"}
         </Title>
         <div className="flex flex-col md:flex-row mb-[52px] gap-4">
           <div className="flex flex-col">
