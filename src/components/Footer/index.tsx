@@ -48,7 +48,7 @@ export default async function Footer(props: FooterProps) {
               height="150"
               style={{ border: 0 }}
               referrerPolicy="no-referrer-when-downgrade"
-              src={`https://www.google.com/maps/embed/v1/place?key=${process.env.GOOGLE_MAP_API_KEY}&q=${contact?.address}`}
+              src={`https://www.google.com/maps/embed/v1/place?key=${process.env.GOOGLE_MAP_API_KEY}&q=${contact?.address[lang]}`}
             ></iframe>
           )}
         </div>
@@ -62,7 +62,7 @@ export default async function Footer(props: FooterProps) {
         </div>
         <div className="text-white flex flex-1 mb-7 md:mb-0">
           {lang === "zh" ? "地址 : " : "Address : "}
-          {contact?.address ??
+          {contact?.address[lang] ??
             "No. 457, Section 2, Wenhua 3rd Rd, Linkou District, NewTaipei City, 244"}
         </div>
         <div className="flex flex-row flex-1 gap-x-6">
@@ -115,7 +115,7 @@ export default async function Footer(props: FooterProps) {
             height="250"
             style={{ border: 0, marginLeft: "auto" }}
             referrerPolicy="no-referrer-when-downgrade"
-            src={`https://www.google.com/maps/embed/v1/place?key=${process.env.GOOGLE_MAP_API_KEY}&q=${contact?.address}`}
+            src={`https://www.google.com/maps/embed/v1/place?key=${process.env.GOOGLE_MAP_API_KEY}&q=${contact?.address[lang]}`}
           ></iframe>
         )}
       </div>

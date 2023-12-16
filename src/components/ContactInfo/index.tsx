@@ -5,22 +5,23 @@ import { ContactEntity } from "@/app/api/contact/route";
 import Link from "next/link";
 
 export interface ContactInfoProps {
-  type?: "subschool" | "home" | "kindergarten";
+  type: "subschool" | "kindergarten";
+  lang: "en" | "zh";
   contact: ContactEntity;
 }
 export default function ContactInfo(props: ContactInfoProps) {
-  const { type = "subschool", contact } = props;
+  const { type = "subschool", contact, lang } = props;
   return (
     <div className="flex p-4 md:p-0 flex-1 flex-col items-start justify-around">
       <Title full align="left" type={type}>
-        {contact.title}
+        {contact.title[lang]}
       </Title>
       <Typography
         varient="h5"
         className="text-start flex-1 md:mt-[-40px]"
         color="textGray"
       >
-        {contact.description}
+        {contact.description[lang]}
       </Typography>
       <div className="flex flex-row items-center flex-1 mt-4 md:mt-0">
         <Image
@@ -55,7 +56,7 @@ export default function ContactInfo(props: ContactInfoProps) {
           className="mr-3 mt-2"
         ></Image>
         <Typography varient="h5" className="text-start flex-wrap">
-          {contact.address}
+          {contact.address[lang]}
         </Typography>
       </div>
       <div className="flex flex-row flex-1 mt-4 md:mt-0 gap-x-6">

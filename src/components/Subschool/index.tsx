@@ -14,7 +14,6 @@ interface SubschoolProps {
   name: "dayCare" | "elementary" | "kindergarten" | "middleSchool";
   lang: "en" | "zh";
   banner?: string;
-  type?: "subSchool" | "kindergarten";
 }
 
 const getContact = async (
@@ -43,12 +42,7 @@ const getSubschoolData = async (name: string, lang: "en" | "zh") => {
 };
 
 export default async function Subschool(props: SubschoolProps) {
-  const {
-    name,
-    lang,
-    banner = "/banners/school.png",
-    type = "subSchool",
-  } = props;
+  const { name, lang, banner = "/banners/school.png" } = props;
   const sectionTexts = [
     `Hankel Education cultivates students' curiosity, creativity, and
       academic excellence with the spirit of seeking truth, fostering
@@ -75,7 +69,7 @@ export default async function Subschool(props: SubschoolProps) {
     <main className="pt-[50px] md:pt-[200px]">
       <Banner size="small" src={banner} />
       <Section className="bg-gray">
-        <Title align="center" type={type}>
+        <Title align="center" type={name}>
           The Hankel Experience
         </Title>
         <div className="w-full md:w-[1024px] flex-col items-center">
@@ -106,7 +100,7 @@ export default async function Subschool(props: SubschoolProps) {
       ></Banner>
       <LatestNews className="bg-white" />
       <Section className="bg-gray">
-        <Title align="center" type={type}>
+        <Title align="center" type={name}>
           Social Media Post
         </Title>
         <div className="flex flex-col md:flex-row mb-[52px] gap-4">
@@ -114,7 +108,7 @@ export default async function Subschool(props: SubschoolProps) {
             <Typography
               varient="h2"
               className={`font-serif text-deepBlue mb-5 ${
-                type === "kindergarten" ? kindergarten.className : ""
+                name === "kindergarten" ? kindergarten.className : ""
               }`}
             >
               Instagram
@@ -186,7 +180,7 @@ export default async function Subschool(props: SubschoolProps) {
             <Typography
               varient="h2"
               className={`font-serif text-deepBlue mb-5 ${
-                type === "kindergarten" ? kindergarten.className : ""
+                name === "kindergarten" ? kindergarten.className : ""
               }`}
             >
               Facebook
@@ -202,7 +196,11 @@ export default async function Subschool(props: SubschoolProps) {
       </Section>
       <Section>
         <div className="flex flex-col md:flex-row w-full lg:w-[1024px] items-stretch">
-          <ContactInfo type="kindergarten" contact={data.contact} />
+          <ContactInfo
+            lang={lang}
+            type={name === "kindergarten" ? "kindergarten" : "subschool"}
+            contact={data.contact}
+          />
           <ContactForm lang={lang} />
         </div>
       </Section>

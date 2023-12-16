@@ -1,32 +1,32 @@
 import { connectToDatabase } from "@/utils/mongodb";
+import { Text } from "../model";
 
 export interface ContactBanner {
   img: string;
-  title?: string;
-  description?: string;
+  title?: Text;
+  description?: Text;
 }
 
 export interface ContactEntity {
-  lang: "zh" | "en";
   name: string;
   banner: ContactBanner;
-  title: string;
-  description: string;
+  title: Text;
+  description: Text;
   facebook?: string;
   instagram?: string;
   youtube?: string;
   line?: string;
   phone: string;
   email: string;
-  address: string;
+  address: Text;
 }
 
 // GET /api/contact
 export async function GET() {
   try {
     const db = await connectToDatabase();
-    const about = await db.collection("contact").find({}).toArray();
-    return Response.json({ about }, { status: 200 });
+    const contact = await db.collection("contact").find({}).toArray();
+    return Response.json({ contact }, { status: 200 });
   } catch (error) {
     return Response.json(
       { error: "Failed to fetch contact data" },
@@ -41,9 +41,9 @@ export async function POST(req: Request) {
     const {
       lang,
       name,
+      banner,
       title,
       description,
-      banner,
       facebook,
       instagram,
       youtube,
@@ -52,20 +52,28 @@ export async function POST(req: Request) {
       email,
       address,
     } = await req.json();
-    if (!lang || !name) {
+    if (
+      !lang ||
+      !name ||
+      !banner ||
+      !title ||
+      !description ||
+      !phone ||
+      !email ||
+      !address
+    ) {
       return Response.json(
         { error: "Missing required fields" },
         { status: 400 }
       );
     }
-
     const db = await connectToDatabase();
-    const result = await db.collection("contact").insertOne({
+    await db.collection("contact").insertOne({
       lang,
       name,
+      banner,
       title,
       description,
-      banner,
       facebook,
       instagram,
       youtube,
@@ -74,7 +82,10 @@ export async function POST(req: Request) {
       email,
       address,
     });
-    return Response.json({ result }, { status: 200 });
+    return Response.json(
+      { message: "Contact data created successfully" },
+      { status: 200 }
+    );
   } catch (error) {
     return Response.json(
       { error: "Failed to create contact data" },

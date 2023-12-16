@@ -64,7 +64,7 @@ export default async function HomePage(props: HomePageProps) {
       <LatestNews />
       <Section>
         <div className="flex flex-col md:flex-row w-full md:w-[1024px] items-stretch">
-          <ContactInfo contact={data.contact} />
+          <ContactInfo lang={lang} type="subschool" contact={data.contact} />
           <ContactForm lang={lang} />
         </div>
       </Section>

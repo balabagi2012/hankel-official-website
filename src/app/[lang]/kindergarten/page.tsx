@@ -15,7 +15,6 @@ export default function Kindergarten({
       lang={lang}
       name="kindergarten"
       banner="/banners/kindergarten.png"
-      type="kindergarten"
     />
   );
 }

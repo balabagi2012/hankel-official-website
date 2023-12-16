@@ -15,16 +15,10 @@ export interface ContactProps {
   banner?: string;
 }
 
-const getContact = async (
-  name: string,
-  lang: "en" | "zh"
-): Promise<ContactEntity> => {
-  const res = await fetch(
-    `${process.env.API_URI}/api/contact/${name}?lang=${lang}`,
-    {
-      cache: "no-cache",
-    }
-  );
+const getContact = async (name: string): Promise<ContactEntity> => {
+  const res = await fetch(`${process.env.API_URI}/api/contact/${name}`, {
+    cache: "no-cache",
+  });
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
     throw new Error("Failed to fetch data");
@@ -34,7 +28,7 @@ const getContact = async (
 
 export default async function Contact(props: ContactProps) {
   const { lang, name, type = "subschool" } = props;
-  const data = await getContact(name, lang);
+  const data = await getContact(name);
   return (
     <main
       className={`pt-[50px] ${
@@ -44,16 +38,16 @@ export default async function Contact(props: ContactProps) {
       <Banner
         size={type === "home" ? "large" : "small"}
         src={data.banner.img ?? "/banners/contact.png"}
-        title={data.banner.title}
-        description={data.banner.description}
+        title={data.banner.title?.[lang]}
+        description={data.banner?.description?.[lang]}
       ></Banner>
       <Section className="bg-gray">
         <div className="flex flex-col w-full md:w-[700px]">
           <Title full align="center" type={type}>
-            {data.title}
+            {data.title[lang]}
           </Title>
           <Typography varient="h5" className="text-textGray text-center">
-            {data.description}
+            {data.description[lang]}
           </Typography>
           <div className="flex flex-row my-[40px] justify-center gap-x-6">
             {data.instagram && (
@@ -131,7 +125,7 @@ export default async function Contact(props: ContactProps) {
                 className="mr-3 mt-2"
               ></Image>
               <Typography varient="h5" className="text-start flex-wrap">
-                {data.address}
+                {data.address[lang]}
               </Typography>
             </div>
           </div>

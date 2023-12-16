@@ -7,11 +7,9 @@ export async function GET(
   { params }: { params: { name: string } }
 ) {
   try {
-    const searchParams = request.nextUrl.searchParams;
-    const lang = searchParams.get("lang") ?? "en";
     const { name } = params;
     const db = await connectToDatabase();
-    const about = await db.collection("contact").findOne({ name, lang });
+    const about = await db.collection("contact").findOne({ name });
     if (!about) {
       return Response.json(
         { error: "Contact data not found" },
