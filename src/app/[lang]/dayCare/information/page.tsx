@@ -5,6 +5,10 @@ export const metadata: Metadata = {
   title: "Hankel - DayCare",
 };
 
-export default function DayCareInformation() {
-  return <Information type="subschool" banner="/banners/school.png" />;
+export default function DayCareInformation({
+  params: { lang },
+}: {
+  params: { lang: "en" | "zh" };
+}) {
+  return <Information type="subschool" lang={lang} name="dayCare" />;
 }

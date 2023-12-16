@@ -41,7 +41,7 @@ export default async function Team(props: TeamProps) {
           <div className="flex flex-col md:flex-row justify-between items-center gap-y-4 mt-8">
             {team.foreignTeam.teachers.map((element, index) => (
               <Card
-                key={`foreign team ${element}`}
+                key={`foreign team ${index}`}
                 type="team"
                 img={element.img}
                 alt={element.title[lang]}
@@ -67,7 +67,7 @@ export default async function Team(props: TeamProps) {
           <div className="flex flex-col md:flex-row justify-between items-center gap-y-4 mt-8">
             {team.localTeam.teachers.map((element, index) => (
               <Card
-                key={`local team ${element}`}
+                key={`local team ${index}`}
                 type="team"
                 img={element.img}
                 alt={element.title[lang]}
