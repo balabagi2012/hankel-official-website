@@ -3,15 +3,38 @@ import Typography from "../Typography";
 import Title from "../Title";
 import Banner from "../Banner";
 import Section from "../Section";
+import { ContactEntity } from "@/app/api/contact/route";
+import Link from "next/link";
 
 export interface ContactProps {
   type?: "kindergarten" | "subschool" | "home";
+  name: string;
   title?: string;
+  lang: "en" | "zh";
   description?: string;
   banner?: string;
 }
-export default function Contact(props: ContactProps) {
-  const { type = "subschool", title, description, banner } = props;
+
+const getContact = async (
+  name: string,
+  lang: "en" | "zh"
+): Promise<ContactEntity> => {
+  const res = await fetch(
+    `${process.env.API_URI}/api/contact/${name}?lang=${lang}`,
+    {
+      cache: "no-cache",
+    }
+  );
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
+  }
+  return res.json();
+};
+
+export default async function Contact(props: ContactProps) {
+  const { lang, name, type = "subschool" } = props;
+  const data = await getContact(name, lang);
   return (
     <main
       className={`pt-[50px] ${
@@ -20,48 +43,59 @@ export default function Contact(props: ContactProps) {
     >
       <Banner
         size={type === "home" ? "large" : "small"}
-        src={banner ?? "/banners/contact.png"}
-        title={title}
-        description={description}
+        src={data.banner.img ?? "/banners/contact.png"}
+        title={data.banner.title}
+        description={data.banner.description}
       ></Banner>
       <Section className="bg-gray">
         <div className="flex flex-col w-full md:w-[700px]">
           <Title full align="center" type={type}>
-            Contact Us
+            {data.title}
           </Title>
           <Typography varient="h5" className="text-textGray text-center">
-            Do you have more questions and curiosity about us? Feel free to get
-            in touch! We are eagerly looking forward to hearing your feedback,
-            inquiries, and suggestions.
+            {data.description}
           </Typography>
-          <div className="flex flex-row my-[40px] justify-center">
-            <Image
-              src="/icons/InstagramBlue.svg"
-              alt="hankel Instagram"
-              width="24"
-              height="24"
-              className="mr-[24px]"
-            ></Image>
-            <Image
-              src="/icons/FacebookBlue.svg"
-              alt="hankel Facebook"
-              width="24"
-              height="24"
-              className="mr-[24px]"
-            ></Image>
-            <Image
-              src="/icons/YoutubeBlue.svg"
-              alt="hankel Youtube"
-              width="24"
-              height="24"
-              className="mr-[24px]"
-            ></Image>
-            <Image
-              src="/icons/Line.svg"
-              alt="hankel Line"
-              width="24"
-              height="24"
-            ></Image>
+          <div className="flex flex-row my-[40px] justify-center gap-x-6">
+            {data.instagram && (
+              <Link href={data.instagram} rel="noopener noreferrer">
+                <Image
+                  src="/icons/InstagramBlue.svg"
+                  alt="hankel Instagram"
+                  width="24"
+                  height="24"
+                ></Image>
+              </Link>
+            )}
+            {data.facebook && (
+              <Link href={data.facebook} rel="noopener noreferrer">
+                <Image
+                  src="/icons/FacebookBlue.svg"
+                  alt="hankel Facebook"
+                  width="24"
+                  height="24"
+                ></Image>
+              </Link>
+            )}
+            {data.youtube && (
+              <Link href={data.youtube} rel="noopener noreferrer">
+                <Image
+                  src="/icons/YoutubeBlue.svg"
+                  alt="hankel Youtube"
+                  width="24"
+                  height="24"
+                ></Image>
+              </Link>
+            )}
+            {data.line && (
+              <Link href={data.line} rel="noopener noreferrer">
+                <Image
+                  src="/icons/LineBlue.svg"
+                  alt="hankel line"
+                  width="24"
+                  height="24"
+                ></Image>
+              </Link>
+            )}
           </div>
           <div className="bg-white flex flex-col shadow-2xl px-9 py-[18px]">
             <div className="flex flex-row items-center flex-1 mb-6">
@@ -73,7 +107,7 @@ export default function Contact(props: ContactProps) {
                 className="mr-3"
               ></Image>
               <Typography varient="h5" className="text-start">
-                (02) 7751-9199
+                {data.phone}
               </Typography>
             </div>
             <div className="flex flex-row items-center flex-1 mb-6">
@@ -85,7 +119,7 @@ export default function Contact(props: ContactProps) {
                 className="mr-3"
               ></Image>
               <Typography varient="h5" className="text-start">
-                hankel@heipe.edu.tw
+                {data.email}
               </Typography>
             </div>
             <div className="flex flex-row items-start flex-1">
@@ -97,8 +131,7 @@ export default function Contact(props: ContactProps) {
                 className="mr-3 mt-2"
               ></Image>
               <Typography varient="h5" className="text-start flex-wrap">
-                No. 457, Section 2, Wenhua 3rd Rd, Linkou District, New Taipei
-                City, 244
+                {data.address}
               </Typography>
             </div>
           </div>
@@ -110,7 +143,7 @@ export default function Contact(props: ContactProps) {
             <div className="flex flex-col flex-1">
               <div className="flex flex-row align-top">
                 <Typography varient="h5" className="text-deepBlue">
-                  Name
+                  {lang === "zh" ? "名稱" : "Name"}
                 </Typography>
                 <Typography varient="h5" className="text-[#D40000]">
                   *
@@ -124,7 +157,7 @@ export default function Contact(props: ContactProps) {
             <div className="flex flex-col flex-1">
               <div className="flex flex-row align-top gap-4">
                 <Typography varient="h5" className="text-deepBlue">
-                  Phone
+                  {lang === "zh" ? "電話" : "Phone"}
                 </Typography>
                 <Typography varient="h5" className="text-[#D40000]">
                   *
@@ -139,7 +172,7 @@ export default function Contact(props: ContactProps) {
           <div className="flex flex-1 flex-col mb-5">
             <div className="flex flex-row align-top gap-4">
               <Typography varient="h5" className="text-deepBlue">
-                Email
+                {lang === "zh" ? "信箱" : "Email"}
               </Typography>
               <Typography varient="h5" className="text-[#D40000]">
                 *
@@ -150,7 +183,7 @@ export default function Contact(props: ContactProps) {
           <div className="flex flex-1 flex-col mb-8">
             <div className="flex flex-row align-top">
               <Typography varient="h5" className="text-deepBlue">
-                Message
+                {lang === "zh" ? "訊息" : "Message"}
               </Typography>
               <Typography varient="h5" className="text-[#D40000]">
                 *
@@ -160,7 +193,7 @@ export default function Contact(props: ContactProps) {
           </div>
           <div className="bg-blue h-[44px] flex flex-row items-center justify-center rounded">
             <Typography varient="h5" color="white">
-              Send
+              {lang === "zh" ? "寄出" : "Send"}
             </Typography>
           </div>
         </div>

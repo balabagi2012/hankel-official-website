@@ -5,6 +5,10 @@ export const metadata: Metadata = {
   title: "Hankel - Kindergarten",
 };
 
-export default function KindergartenContact() {
-  return <Contact type="kindergarten" />;
+export default function KindergartenContact({
+  params: { lang },
+}: {
+  params: { lang: "en" | "zh" };
+}) {
+  return <Contact lang={lang} name={"kindergarten"} type="kindergarten" />;
 }

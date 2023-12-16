@@ -6,9 +6,10 @@ export const metadata: Metadata = {
   title: "Hankel - Contact",
 };
 
-const title = "Contact Us";
-const description = `Contact to Habkel`;
-
-export default function HomeContact() {
-  return <Contact type="home" title={title} description={description} />;
+export default function HomeContact({
+  params: { lang },
+}: {
+  params: { lang: "en" | "zh" };
+}) {
+  return <Contact lang={lang} name="home" type="home" />;
 }

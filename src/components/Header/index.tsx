@@ -28,7 +28,7 @@ export default function Header() {
     },
     {
       path: `https://google.com`,
-      label: `Student Portal`,
+      label: language === "zh" ? "學生資訊系統" : `Student Portal`,
     },
   ];
 
@@ -108,7 +108,7 @@ export default function Header() {
     },
     {
       path: `https://google.com`,
-      label: `Portal`,
+      label: language === "zh" ? "學生資訊系統" : `Student Portal`,
     },
   ];
 
@@ -170,7 +170,7 @@ export default function Header() {
     >
       <div className="h-full flex flex-row items-center md:px-[80px]">
         <Link
-          href="/"
+          href={`/${language}`}
           rel="noopener noreferrer"
           className="flex items-center w-[150px] h-[32px] md:w-[200px] md:[h-42px] mr-auto ml-3 md:ml-0"
         >

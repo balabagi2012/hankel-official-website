@@ -11,5 +11,5 @@ export default function Home({
 }: {
   params: { lang: "en" | "zh" };
 }) {
-  return <HomePage lang={lang}></HomePage>;
+  return <HomePage lang={lang} name="home"></HomePage>;
 }

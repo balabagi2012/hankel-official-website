@@ -5,6 +5,17 @@ export const metadata: Metadata = {
   title: "Hankel - Kindergarten",
 };
 
-export default function Kindergarten() {
-  return <Subschool banner="/banners/kindergarten.png" type="kindergarten" />;
+export default function Kindergarten({
+  params: { lang },
+}: {
+  params: { lang: "en" | "zh" };
+}) {
+  return (
+    <Subschool
+      lang={lang}
+      name="kindergarten"
+      banner="/banners/kindergarten.png"
+      type="kindergarten"
+    />
+  );
 }

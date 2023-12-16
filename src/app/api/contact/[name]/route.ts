@@ -1,7 +1,8 @@
 import { connectToDatabase } from "@/utils/mongodb";
-import { AboutEntity } from "../route";
 import { NextRequest } from "next/server";
-// GET /api/about/:name
+import { ContactEntity } from "../route";
+
+// GET /api/contact/:name
 export async function GET(
   request: NextRequest,
   { params }: { params: { name: string } }
@@ -11,20 +12,23 @@ export async function GET(
     const lang = searchParams.get("lang") ?? "en";
     const { name } = params;
     const db = await connectToDatabase();
-    const about = await db.collection("about").findOne({ name, lang });
+    const about = await db.collection("contact").findOne({ name, lang });
     if (!about) {
-      return Response.json({ error: "About data not found" }, { status: 404 });
+      return Response.json(
+        { error: "Contact data not found" },
+        { status: 404 }
+      );
     }
     return Response.json(about, { status: 200 });
   } catch (error) {
     return Response.json(
-      { error: "Failed to fetch about data" },
+      { error: "Failed to fetch contact data" },
       { status: 500 }
     );
   }
 }
 
-// PATCH /api/about/:name
+// PATCH /api/contact/:name
 export async function PATCH(
   req: Request,
   { params }: { params: { name: string } }
@@ -38,42 +42,59 @@ export async function PATCH(
         { status: 400 }
       );
     }
+
     const db = await connectToDatabase();
-    await db
-      .collection("about")
-      .findOneAndUpdate({ name, lang: body.lang }, { $set: { ...body } });
+    await db.collection("contact").updateOne(
+      { name, lang: body.lang },
+      {
+        $set: {
+          ...body,
+        },
+      },
+      { upsert: true }
+    );
     return Response.json(
-      { message: "About data updated successfully" },
+      { message: "Contact data updated successfully" },
       { status: 200 }
     );
   } catch (error) {
     return Response.json(
-      { error: "Failed to update about data" },
+      { error: "Failed to update contact data" },
       { status: 500 }
     );
   }
 }
 
-// DELETE /api/about/:name
+// DELETE /api/contact/:name
 export async function DELETE(
   req: Request,
   { params }: { params: { name: string } }
 ) {
   try {
     const { name } = params;
-    const db = await connectToDatabase();
-    const result = await db.collection("about").deleteOne({ name });
+    const { lang } = await req.json();
+    if (!lang) {
+      return Response.json(
+        { error: "Missing required fields" },
+        { status: 400 }
+      );
+    }
 
+    const db = await connectToDatabase();
+    const result = await db.collection("contact").deleteOne({ name, lang });
     if (result.deletedCount === 0) {
-      return Response.json({ error: "About data not found" }, { status: 404 });
+      return Response.json(
+        { error: "Contact data not found" },
+        { status: 404 }
+      );
     }
     return Response.json(
-      { message: "About data deleted successfully" },
+      { message: "Contact data deleted successfully" },
       { status: 200 }
     );
   } catch (error) {
     return Response.json(
-      { error: "Failed to delete about data" },
+      { error: "Failed to delete contact data" },
       { status: 500 }
     );
   }

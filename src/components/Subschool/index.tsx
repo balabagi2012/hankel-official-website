@@ -8,13 +8,47 @@ import Title from "../Title";
 import Typography from "../Typography";
 import LatestNews from "../LatestNews";
 import Section from "../Section";
+import { ContactEntity } from "@/app/api/contact/route";
 
 interface SubschoolProps {
+  name: "dayCare" | "elementary" | "kindergarten" | "middleSchool";
+  lang: "en" | "zh";
   banner?: string;
   type?: "subSchool" | "kindergarten";
 }
-export default function Subschool(props: SubschoolProps) {
-  const { banner = "/banners/school.png", type = "subSchool" } = props;
+
+const getContact = async (
+  name: string,
+  lang: string
+): Promise<ContactEntity> => {
+  const res = await fetch(
+    `${process.env.API_URI}/api/contact/${name}?lang=${lang}`,
+    {
+      cache: "no-cache",
+    }
+  );
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+};
+
+const getSubschoolData = async (name: string, lang: "en" | "zh") => {
+  const contact = await getContact(name, lang);
+  return {
+    contact,
+  };
+};
+
+export default async function Subschool(props: SubschoolProps) {
+  const {
+    name,
+    lang,
+    banner = "/banners/school.png",
+    type = "subSchool",
+  } = props;
   const sectionTexts = [
     `Hankel Education cultivates students' curiosity, creativity, and
       academic excellence with the spirit of seeking truth, fostering
@@ -35,6 +69,8 @@ export default function Subschool(props: SubschoolProps) {
       problem-solving skills, providing students with superior and
       innovative skills necessary for their future. `,
   ];
+  const data = await getSubschoolData(name, lang);
+
   return (
     <main className="pt-[50px] md:pt-[200px]">
       <Banner size="small" src={banner} />
@@ -166,8 +202,8 @@ export default function Subschool(props: SubschoolProps) {
       </Section>
       <Section>
         <div className="flex flex-col md:flex-row w-full lg:w-[1024px] items-stretch">
-          <ContactInfo type="kindergarten" />
-          <ContactForm />
+          <ContactInfo type="kindergarten" contact={data.contact} />
+          <ContactForm lang={lang} />
         </div>
       </Section>
     </main>

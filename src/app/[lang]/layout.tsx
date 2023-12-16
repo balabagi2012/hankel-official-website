@@ -10,24 +10,18 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
+  params: { lang },
   children,
 }: {
   children: React.ReactNode;
+  params: { lang: "en" | "zh" };
 }) {
   return (
-    <html lang="en">
-      <head>
-        <link
-          rel="icon"
-          href="/icon/logo_square.svg"
-          type="image/svg+xml"
-          sizes="32x32"
-        />
-      </head>
+    <html lang={lang === "en" ? "en" : "zh-tw"}>
       <body className={notoSans.className}>
         <Header />
         {children}
-        <Footer />
+        <Footer lang={lang} />
       </body>
     </html>
   );

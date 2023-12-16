@@ -50,7 +50,7 @@ export function Program(props: ProgramProps) {
         <Typography varient="h5" className="text-textGray">
           {activeProgram.content}
         </Typography>
-        <div className="flex flex-row flex-1 justify-center my-[28px]">
+        <div className="flex flex-row flex-1 justify-center gap-x-6 my-[28px]">
           {activeProgram.instagram && (
             <Link href={activeProgram.instagram} rel="noopener noreferrer">
               <Image
@@ -58,7 +58,6 @@ export function Program(props: ProgramProps) {
                 alt="hankel Instagram"
                 width="24"
                 height="24"
-                className="mr-[24px]"
               ></Image>
             </Link>
           )}
@@ -69,7 +68,6 @@ export function Program(props: ProgramProps) {
                 alt="hankel Facebook"
                 width="24"
                 height="24"
-                className="mr-[24px]"
               ></Image>
             </Link>
           )}
@@ -80,18 +78,16 @@ export function Program(props: ProgramProps) {
                 alt="hankel Youtube"
                 width="24"
                 height="24"
-                className="mr-[24px]"
               ></Image>
             </Link>
           )}
           {activeProgram.line && (
             <Link href={activeProgram.line} rel="noopener noreferrer">
               <Image
-                src="/icons/Line.svg"
+                src="/icons/LineBlue.svg"
                 alt="hankel line"
                 width="24"
                 height="24"
-                className="mr-[24px]"
               ></Image>
             </Link>
           )}
