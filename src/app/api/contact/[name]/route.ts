@@ -1,6 +1,5 @@
 import { connectToDatabase } from "@/utils/mongodb";
 import { NextRequest } from "next/server";
-import { ContactEntity } from "../route";
 
 // GET /api/contact/:name
 export async function GET(

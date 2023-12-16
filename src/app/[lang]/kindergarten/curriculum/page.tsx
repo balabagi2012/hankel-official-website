@@ -6,11 +6,16 @@ export const metadata: Metadata = {
   title: "Hankel - Kindergarten",
 };
 
-export default function KindergartenCurriculum() {
+export default function KindergartenCurriculum({
+  params: { lang },
+}: {
+  params: { lang: "en" | "zh" };
+}) {
   return (
     <Curriculum
+      lang={lang}
+      name="kindergarten"
       type="kindergarten"
-      banner="/banners/kindergarten.png"
     ></Curriculum>
   );
 }

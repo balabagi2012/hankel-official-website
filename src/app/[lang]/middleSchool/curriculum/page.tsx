@@ -5,8 +5,16 @@ export const metadata: Metadata = {
   title: "Hankel - MiddleSchool",
 };
 
-export default function MiddleSchoolCurriculum() {
+export default function MiddleSchoolCurriculum({
+  params: { lang },
+}: {
+  params: { lang: "en" | "zh" };
+}) {
   return (
-    <Curriculum type="subschool" banner="/banners/school.png"></Curriculum>
+    <Curriculum
+      lang={lang}
+      name="middleSchool"
+      type="subschool"
+    ></Curriculum>
   );
 }

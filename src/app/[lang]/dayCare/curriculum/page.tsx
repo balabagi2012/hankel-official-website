@@ -5,8 +5,16 @@ export const metadata: Metadata = {
   title: "Hankel - DayCare",
 };
 
-export default function DayCareCurriculum() {
+export default function DayCareCurriculum({
+  params: { lang },
+}: {
+  params: { lang: "en" | "zh" };
+}) {
   return (
-    <Curriculum type="subschool" banner="/banners/school.png"></Curriculum>
+    <Curriculum
+      lang={lang}
+      name="dayCare"
+      type="subschool"
+    ></Curriculum>
   );
 }
