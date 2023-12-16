@@ -20,7 +20,7 @@ export default function Header() {
   const otherNavItemList = [
     {
       path: `/${language}/about`,
-      label: language === "zh" ? "關於" : `About`,
+      label: language === "zh" ? "關於我們" : `About`,
     },
     {
       path: `/${language}/contact`,
@@ -35,19 +35,19 @@ export default function Header() {
   const subSchoolDropDownItemList = [
     {
       path: `/${language}/dayCare`,
-      label: language === "zh" ? "安親班" : `DayCare`,
+      label: language === "zh" ? "翰科安親班" : `DayCare`,
     },
     {
       path: `/${language}/elementary`,
-      label: language === "zh" ? "小學" : `Elementary`,
+      label: language === "zh" ? "翰科小學" : `Elementary`,
     },
     {
       path: `/${language}/kindergarten`,
-      label: language === "zh" ? "幼稚園" : `Kindergarten`,
+      label: language === "zh" ? "翰科幼稚園" : `Kindergarten`,
     },
     {
       path: `/${language}/middleSchool`,
-      label: language === "zh" ? "中學" : `MiddleSchool`,
+      label: language === "zh" ? "翰科中學" : `MiddleSchool`,
     },
   ];
 
@@ -62,13 +62,13 @@ export default function Header() {
   const getSubSchoolZhLabel = (subSchool: string) => {
     switch (subSchool) {
       case "dayCare":
-        return "安親班";
+        return "翰科安親班";
       case "elementary":
-        return "小學";
+        return "翰科小學";
       case "kindergarten":
-        return "幼稚園";
+        return "翰科幼稚園";
       case "middleSchool":
-        return "中學";
+        return "翰科中學";
       default:
         return "";
     }
@@ -84,23 +84,23 @@ export default function Header() {
     },
     {
       path: `/${language}/${subSchool}/curriculum`,
-      label: language === "zh" ? "課程" : `Our Curriculum`,
+      label: language === "zh" ? "課程內容" : `Our Curriculum`,
     },
     {
       path: `/${language}/${subSchool}/facilities`,
-      label: language === "zh" ? "設施" : `Our Facilities`,
+      label: language === "zh" ? "設施概略" : `Our Facilities`,
     },
     {
       path: `/${language}/${subSchool}/team`,
-      label: language === "zh" ? "團隊" : `Our Team`,
+      label: language === "zh" ? "團隊介紹" : `Our Team`,
     },
     {
       path: `/${language}/${subSchool}/about`,
-      label: language === "zh" ? "關於" : `About`,
+      label: language === "zh" ? "關於我們" : `About`,
     },
     {
       path: `/${language}/${subSchool}/information`,
-      label: language === "zh" ? "資訊" : `Information`,
+      label: language === "zh" ? "其他資訊" : `Information`,
     },
     {
       path: `/${language}/${subSchool}/contact`,
@@ -149,7 +149,7 @@ export default function Header() {
       <Typography
         varient="h6"
         className={`${
-          pathname.includes(path)
+          pathname === path
             ? `font-bold text-blue ${
                 subSchool === "kindergarten"
                   ? kindergarten.className

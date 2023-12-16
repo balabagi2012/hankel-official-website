@@ -5,6 +5,10 @@ export const metadata: Metadata = {
   title: "Hankel - DayCare",
 };
 
-export default function DayCareAbout() {
-  return <About name="dayCare" type="subschool" />;
+export default function DayCareAbout({
+  params: { lang },
+}: {
+  params: { lang: "en" | "zh" };
+}) {
+  return <About lang={lang} name="dayCare" type="subschool" />;
 }

@@ -16,6 +16,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link
+          rel="icon"
+          href="/icon/logo_square.svg"
+          type="image/svg+xml"
+          sizes="32x32"
+        />
+      </head>
       <body className={notoSans.className}>
         <Header />
         {children}
