@@ -5,6 +5,10 @@ export const metadata: Metadata = {
   title: "Hankel - Kindergarten",
 };
 
-export default function KindergartenTeam() {
-  return <Team type="kindergarten" banner="/banners/kindergarten.png" />;
+export default function KindergartenTeam({
+  params: { lang },
+}: {
+  params: { lang: "en" | "zh" };
+}) {
+  return <Team type="kindergarten" lang={lang} name="kindergarten" />;
 }
