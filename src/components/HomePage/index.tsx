@@ -50,16 +50,20 @@ export default async function HomePage(props: HomePageProps) {
       <Banner
         size="big"
         src={data.banner}
-        title={data.title}
-        subtitle={data.subtitle}
-        description={data.description}
+        title={data.title[lang]}
+        subtitle={data.subtitle[lang]}
+        description={data.description[lang]}
       ></Banner>
-      <Program lang={lang} title={data.programTitle} programs={data.programs} />
+      <Program
+        lang={lang}
+        title={data.programTitle[lang]}
+        programs={data.programs}
+      />
       <Banner
         size="medium"
         src={data.subBanner.img}
-        title={data.subBanner.title}
-        description={data.subBanner.description}
+        title={data.subBanner.title[lang]}
+        description={data.subBanner.description[lang]}
       ></Banner>
       <LatestNews />
       <Section>
