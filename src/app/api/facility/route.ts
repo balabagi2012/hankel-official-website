@@ -22,7 +22,7 @@ export async function GET() {
   try {
     const db = await connectToDatabase();
     const facility = await db.collection("facility").find({}).toArray();
-    return Response.json({ facility }, { status: 200 });
+    return Response.json(facility, { status: 200 });
   } catch (error) {
     return Response.json(
       { error: "Failed to fetch facility data" },

@@ -1,7 +1,7 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import type { Metadata } from "next";
-import "./globals.scss";
+import "@/app/styles/globals.scss";
 import { notoSans } from "@/app/styles/fonts";
 
 export const metadata: Metadata = {

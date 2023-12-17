@@ -55,3 +55,31 @@ export async function PATCH(
     );
   }
 }
+
+// DELETE /api/facility/:name
+export async function DELETE(
+  req: Request,
+  { params }: { params: { name: string } }
+) {
+  try {
+    const { name } = params;
+    const db = await connectToDatabase();
+    const result = await db.collection("facility").deleteOne({ name });
+
+    if (result.deletedCount === 0) {
+      return Response.json(
+        { error: "Facility data not found" },
+        { status: 404 }
+      );
+    }
+    return Response.json(
+      { message: "Facility data deleted successfully" },
+      { status: 200 }
+    );
+  } catch (error) {
+    return Response.json(
+      { error: "Failed to delete facility data" },
+      { status: 500 }
+    );
+  }
+}

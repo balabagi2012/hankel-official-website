@@ -1,4 +1,5 @@
 import { connectToDatabase } from "@/utils/mongodb";
+
 import { Text } from "../model";
 
 export interface AboutEntity {
@@ -25,7 +26,7 @@ export async function GET() {
   try {
     const db = await connectToDatabase();
     const about = await db.collection("about").find({}).toArray();
-    return Response.json({ about }, { status: 200 });
+    return Response.json(about, { status: 200 });
   } catch (error) {
     return Response.json(
       { error: "Failed to fetch about data" },

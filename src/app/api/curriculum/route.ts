@@ -21,7 +21,7 @@ export async function GET() {
   try {
     const db = await connectToDatabase();
     const curriculum = await db.collection("curriculum").find({}).toArray();
-    return Response.json({ curriculum }, { status: 200 });
+    return Response.json(curriculum, { status: 200 });
   } catch (error) {
     return Response.json(
       { error: "Failed to fetch curriculum data" },
