@@ -56,7 +56,7 @@ export default async function Subschool(props: SubschoolProps) {
   return (
     <main className="pt-[50px] md:pt-[200px]">
       <Banner size="small" src={data.banner} />
-      <Section className="bg-gray">
+      <Section className="bg-bgGray">
         <Title align="center" type={name}>
           {data.title[lang]}
         </Title>
@@ -85,7 +85,7 @@ export default async function Subschool(props: SubschoolProps) {
         description={data.subBanner.description[lang]}
       ></Banner>
       <LatestNews className="bg-white" />
-      <Section className="bg-gray">
+      <Section className="bg-bgGray">
         <Title align="center" type={name}>
           {lang === "en" ? "Social Media Post" : "社群媒體"}
         </Title>

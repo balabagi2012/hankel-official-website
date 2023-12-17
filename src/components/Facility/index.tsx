@@ -29,7 +29,7 @@ export default async function Facility(props: FacilityProps) {
   return (
     <main className="pt-[50px] md:pt-[200px]">
       <Banner size="small" src={facility.banner}></Banner>
-      <Section className="bg-gray">
+      <Section className="bg-bgGray">
         <div className="flex flex-col w-full md:w-[700px]">
           <Title full align="center" type={type}>
             {facility.title[lang]}

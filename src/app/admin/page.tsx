@@ -1,8 +1,8 @@
 "use client";
 
-import Typography from "@/components/Typography";
+import Image from "next/image";
 import { useEffect, useState } from "react";
-import { SubmitHandler, set, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 export default function AdminPage() {
   const apiList = [
@@ -97,7 +97,7 @@ export default function AdminPage() {
         return <div key={fullKey}>{renderRecursive(value, fullKey)}</div>;
       } else if (typeof value === "string" && key !== "_id") {
         return (
-          <div key={fullKey}>
+          <div key={fullKey} className="bg-white p-6 rounded shadow mt-4">
             <label>
               {fullKey.replace(".zh", " [中文]").replace(".en", " [英文]")}
             </label>
@@ -124,52 +124,80 @@ export default function AdminPage() {
   }
 
   return (
-    <main className="flex flex-row w-full h-full">
-      <div className="flex flex-col w-[300px] h-full bg-deepBlue text-white p-4 items-start justify-start">
-        <Typography varient="h2" className="w-full text-white mb-6 border-b-2">
-          Admin Page
-        </Typography>
-        <ul className="flex flex-col gap-y-6">
+    <main className="relative flex-row w-full h-full">
+      <aside className="fixed w-64 h-full bg-gray-800 text-white items-start justify-start">
+        <div className="flex items-center justify-between w-full bg-gray-900 p-4 h-16 ">
+          <div className="flex items-center">
+            <Image
+              src="/icons/logo_square.svg"
+              width={24}
+              height={24}
+              alt="logo"
+            ></Image>
+            <span className="text-xl font-semibold mx-2 text-gray-300">
+              {activePage.charAt(0).toUpperCase() + activePage.slice(1)}
+            </span>
+          </div>
+        </div>
+        <ul className="flex flex-col px-2 py-6 w-full">
           {apiList.map((api) => (
-            <li key={api} onClick={() => setActivePage(api)}>
-              <Typography varient="h3" className="text-white">
+            <li
+              key={api}
+              className="px-2 py-3 mt-2 hover:bg-gray-900 focus:outline-none focus:text-gray-500 rounded w-full flex items-center"
+              onClick={() => setActivePage(api)}
+            >
+              <svg
+                className="w-6 text-gray-500"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+              </svg>
+              <span className="mx-2 text-gray-300">
                 {api.charAt(0).toUpperCase() + api.slice(1)}
-              </Typography>
+              </span>
             </li>
           ))}
         </ul>
-      </div>
-      <div className="flex flex-col flex-1 items-center p-4">
-        <div className="relaive w-full mb-6 border-b-2 flex flex-row justify-center items-center">
-          <Typography varient="h1" className="">
-            {activePage}
-          </Typography>
-          <button
-            disabled={loading}
-            className="absolute right-6 bg-blue text-white rounded-lg px-4 py-2"
-            onClick={() => updateActiveTabData(activeTabData)}
-          >
-            Save
-          </button>
+      </aside>
+      <div className="flex flex-col w-full items-center h-full bg-gray-200 pl-64">
+        <div className="fixed left-64 right-0">
+          <div className="flex bg-white py-4 px-8 shadow-md h-16 flex-row justify-end items-center">
+            <button
+              disabled={loading}
+              className="px-3 py-1 bg-deepBlue font-base text-white border border-gray-300 rounded-lg focus:outline-none"
+              onClick={() => updateActiveTabData(activeTabData)}
+            >
+              Save
+            </button>
+          </div>
         </div>
-        <div className="flex flex-row gap-4 mb-6">
+        <div className="flex flex-row gap-6 px-8 w-full bg-white mt-16">
           {tabs?.length > 1 &&
             tabs.map((tab: string) => (
-              <button key={tab} onClick={() => setActiveTab(tab)}>
-                <Typography varient="h3" className="">
-                  {tab}
-                </Typography>
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`py-3 px-2 font-serif ${tab === activeTab ? "font-bold border-b-2 border-deepBlue text-blue" : "text-blue"}`}
+              >
+                {tab}
               </button>
             ))}
         </div>
-        <div className="w-full overflow-scroll">
-          {loading && activeTabData ? (
-            "loading..."
-          ) : (
-            <form onSubmit={handleSubmit(onSubmit)}>
-              {activeTabData && renderRecursive(activeTabData)}
-            </form>
-          )}
+        <div className="px-8 py-6 w-full h-screen bg-gray-200">
+          <div className="w-full h-full overflow-scroll">
+            {loading && activeTabData ? (
+              "loading..."
+            ) : (
+              <form onSubmit={handleSubmit(onSubmit)}>
+                {activeTabData && renderRecursive(activeTabData)}
+              </form>
+            )}
+          </div>
         </div>
       </div>
     </main>

@@ -42,7 +42,7 @@ export default async function About(props: AboutProps) {
         title={data.title[lang]}
         description={data.description[lang]}
       ></Banner>
-      <Section className="bg-gray">
+      <Section className="bg-bgGray">
         <div className="flex flex-col-reverse md:flex-row w-full md:w-[1180px] justify-center items-stretch">
           <div className="flex flex-col md:mr-[65px] gap-y-3">
             {data.sections[0].imgs.map((img) => (

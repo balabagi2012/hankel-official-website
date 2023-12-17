@@ -41,7 +41,7 @@ export default async function Contact(props: ContactProps) {
         title={data.banner.title?.[lang]}
         description={data.banner?.description?.[lang]}
       ></Banner>
-      <Section className="bg-gray">
+      <Section className="bg-bgGray">
         <div className="flex flex-col w-full md:w-[700px]">
           <Title full align="center" type={type}>
             {data.title[lang]}

@@ -9,7 +9,7 @@ export interface LatestNewsProps {
 }
 export default function LatestNews({ className = "" }: LatestNewsProps) {
   return (
-    <Section className={`bg-gray ${className}`}>
+    <Section className={`bg-bgGray ${className}`}>
       <Title>Latest News</Title>
       <div className="w-full flex flex-row overflow-x-scroll mb-[52px] gap-4">
         {[1, 2, 3, 4, 5].map((element) => (

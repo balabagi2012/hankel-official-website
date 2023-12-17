@@ -30,7 +30,7 @@ export default async function Team(props: TeamProps) {
   return (
     <main className="pt-[50px] md:pt-[200px]">
       <Banner size="small" src={team.banner}></Banner>
-      <Section className="bg-gray">
+      <Section className="bg-bgGray">
         <div className="flex flex-col w-full md:w-[1068px]">
           <Title full align="center" type={type}>
             {team.foreignTeam.title[lang]}

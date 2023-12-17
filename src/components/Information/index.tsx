@@ -35,7 +35,7 @@ export default async function Information(props: InformationProps) {
   return (
     <main className="pt-[50px] md:pt-[200px]">
       <Banner size="small" src={information.banner}></Banner>
-      <Section className="bg-gray">
+      <Section className="bg-bgGray">
         <div className="flex flex-col w-full md:w-[1024px]">
           <Title full align="center" type={type}>
             {information.admissionBrochure.title[lang]}
@@ -79,7 +79,7 @@ export default async function Information(props: InformationProps) {
           ></Image>
         </div>
       </Section>
-      <Section className="bg-gray">
+      <Section className="bg-bgGray">
         <div className="flex flex-col w-full md:w-[1268px] justify-center items-stretch">
           <Title full align="left" type={type}>
             {information.lunchMenu.title[lang]}
