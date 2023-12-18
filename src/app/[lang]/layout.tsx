@@ -18,6 +18,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang={lang === "en" ? "en" : "zh-tw"}>
+      <head>
+        <link rel="icon" href="/uploads/favicon.ico" sizes="24x24" />
+      </head>
       <body className={notoSans.className}>
         <Header />
         {children}

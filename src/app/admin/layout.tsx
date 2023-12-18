@@ -12,6 +12,9 @@ export default function AdminLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/uploads/favicon.ico" sizes="24x24" />
+      </head>
       <body>{children}</body>
     </html>
   );
