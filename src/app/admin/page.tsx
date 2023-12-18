@@ -35,7 +35,24 @@ export default function AdminPage() {
     values: activeTabData,
   });
 
-  const onSubmit: SubmitHandler<any> = (data: any) => console.log(data);
+  const onSubmit: SubmitHandler<any> = async (data: any) => {
+    setLoading(true);
+    const url =
+      activePage === "home"
+        ? `/api/${activePage}`
+        : `/api/${activePage}/${activeTab}`;
+    const { _id, ...body } = data;
+    const res = await fetch(url, {
+      method: "PATCH",
+      body: JSON.stringify(body),
+    });
+    setLoading(false);
+    if (!res.ok) {
+      // This will activate the closest `error.js` Error Boundary
+      return window.alert("Failed to update data");
+    }
+    return window.alert("Successed to update data");
+  };
 
   const fetchPageData = async (page: string) => {
     const url = `/api/${page}`;
@@ -70,25 +87,6 @@ export default function AdminPage() {
         : {}
     );
   }, [activePage, activePageData, activeTab]);
-
-  const updateActiveTabData = async (data: any) => {
-    setLoading(true);
-    const url =
-      activePage === "home"
-        ? `/api/${activePage}`
-        : `/api/${activePage}/${activeTab}`;
-    const { _id, ...body } = data;
-    const res = await fetch(url, {
-      method: "PATCH",
-      body: JSON.stringify(body),
-    });
-    setLoading(false);
-    if (!res.ok) {
-      // This will activate the closest `error.js` Error Boundary
-      return window.alert("Failed to update data");
-    }
-    return window.alert("Successed to update data");
-  };
 
   function renderRecursive(obj: object, parentKey = "") {
     return Object.entries(obj).map(([key, value]) => {
@@ -149,9 +147,9 @@ export default function AdminPage() {
               <svg
                 className="w-6 text-gray-500"
                 fill="none"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
@@ -170,7 +168,7 @@ export default function AdminPage() {
             <button
               disabled={loading}
               className="px-3 py-1 bg-deepBlue font-base text-white border border-gray-300 rounded-lg focus:outline-none"
-              onClick={() => updateActiveTabData(activeTabData)}
+              onClick={handleSubmit(onSubmit)}
             >
               Save
             </button>
@@ -182,7 +180,11 @@ export default function AdminPage() {
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`py-3 px-2 font-serif ${tab === activeTab ? "font-bold border-b-2 border-deepBlue text-blue" : "text-blue"}`}
+                className={`py-3 px-2 font-serif ${
+                  tab === activeTab
+                    ? "font-bold border-b-2 border-deepBlue text-blue"
+                    : "text-blue"
+                }`}
               >
                 {tab}
               </button>

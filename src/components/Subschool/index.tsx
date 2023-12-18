@@ -27,6 +27,7 @@ const getSubschool = async (name: string): Promise<SubschoolEntity> => {
 
   return res.json();
 };
+
 const getContact = async (name: string): Promise<ContactEntity> => {
   const res = await fetch(`${process.env.API_URI}/api/contact/${name}`, {
     cache: "no-cache",
@@ -39,19 +40,53 @@ const getContact = async (name: string): Promise<ContactEntity> => {
   return res.json();
 };
 
-const getSubschoolData = async (name: string, lang: "en" | "zh") => {
-  const subschool = await getSubschool(name);
-  const contact = await getContact(name);
+interface InstagramPost {
+  id: string;
+  media_url: string;
+}
+
+interface InstagramPostsResponse {
+  data: InstagramPost[];
+}
+
+const getInstagramPosts = async (
+  accessToken: string
+): Promise<InstagramPostsResponse> => {
+  const res = await fetch(
+    `https://graph.instagram.com/me/media?fields=id,media_url&access_token=${accessToken}`,
+    {
+      cache: "no-cache",
+    }
+  );
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+};
+
+const getSubschoolData = async (name: string) => {
+  const [subschool, contact] = await Promise.all([
+    getSubschool(name),
+    getContact(name),
+  ]);
+
+  const instagramPosts = await getInstagramPosts(
+    subschool.socialMedia.instagram
+  );
+
   return {
     ...subschool,
     contact,
+    instagramPosts,
   };
 };
 
 export default async function Subschool(props: SubschoolProps) {
   const { name, lang } = props;
 
-  const data = await getSubschoolData(name, lang);
+  const data = await getSubschoolData(name);
 
   return (
     <main className="pt-[50px] md:pt-[200px]">
@@ -101,64 +136,28 @@ export default async function Subschool(props: SubschoolProps) {
             </Typography>
             <div className="flex flex-col gap-y-5">
               <div className="flex flex-row flex-1 flex-wrap gap-5 justify-between">
-                <Image
-                  src="/instagram/1.png"
-                  alt="hankel Instagram"
-                  width="200"
-                  height="200"
-                  className="w-[160px] h-[160px] md:w-[200px] md:h-[200px]"
-                ></Image>
-                <Image
-                  src="/instagram/2.png"
-                  alt="hankel Facebook"
-                  width="200"
-                  height="200"
-                  className="w-[160px] h-[160px] md:w-[200px] md:h-[200px]"
-                ></Image>
-                <Image
-                  src="/instagram/3.png"
-                  alt="hankel Youtube"
-                  width="200"
-                  height="200"
-                  className="w-[160px] h-[160px] md:w-[200px] md:h-[200px]"
-                ></Image>
-                <Image
-                  src="/instagram/4.png"
-                  alt="hankel Line"
-                  width="200"
-                  height="200"
-                  className="w-[160px] h-[160px] md:w-[200px] md:h-[200px]"
-                ></Image>
+                {data?.instagramPosts?.data?.slice(0, 4).map((post) => (
+                  <Image
+                    key={post.id}
+                    src={post.media_url}
+                    alt={post.id}
+                    width="200"
+                    height="200"
+                    className="w-[160px] h-[160px] md:w-[200px] md:h-[200px]"
+                  ></Image>
+                ))}
               </div>
               <div className="flex flex-row flex-1 flex-wrap gap-5 justify-between">
-                <Image
-                  src="/instagram/5.png"
-                  alt="hankel Instagram"
-                  width="200"
-                  height="200"
-                  className="w-[160px] h-[160px] md:w-[200px] md:h-[200px]"
-                ></Image>
-                <Image
-                  src="/instagram/6.png"
-                  alt="hankel Facebook"
-                  width="200"
-                  height="200"
-                  className="w-[160px] h-[160px] md:w-[200px] md:h-[200px]"
-                ></Image>
-                <Image
-                  src="/instagram/7.png"
-                  alt="hankel Youtube"
-                  width="200"
-                  height="200"
-                  className="w-[160px] h-[160px] md:w-[200px] md:h-[200px]"
-                ></Image>
-                <Image
-                  src="/instagram/8.png"
-                  alt="hankel Line"
-                  width="200"
-                  height="200"
-                  className="w-[160px] h-[160px] md:w-[200px] md:h-[200px]"
-                ></Image>
+                {data?.instagramPosts?.data?.slice(5, 9).map((post) => (
+                  <Image
+                    key={post.id}
+                    src={post.media_url}
+                    alt={post.id}
+                    width="200"
+                    height="200"
+                    className="w-[160px] h-[160px] md:w-[200px] md:h-[200px]"
+                  ></Image>
+                ))}
               </div>
             </div>
           </div>
@@ -172,7 +171,7 @@ export default async function Subschool(props: SubschoolProps) {
               Facebook
             </Typography>
             <iframe
-              src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FHIAPE.LK&tabs=timeline&width=280&height=420&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=1540608879363126"
+              src={`https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com/${data.socialMedia.facebook}&tabs=timeline&width=280&height=420&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=1540608879363126`}
               width="280"
               height="420"
               allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
