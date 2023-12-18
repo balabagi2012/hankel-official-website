@@ -1,10 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 export default function AdminPage() {
+  const schoolList = ["dayCare", "elementary", "kindergarten", "middleSchool"];
   const apiList = [
     "about",
     "contact",
@@ -20,18 +21,15 @@ export default function AdminPage() {
   const [activeTabData, setActiveTabData] = useState({} as any);
   const [activeTab, setActiveTab] = useState("");
   const [loading, setLoading] = useState(false);
+
   const tabs =
     activePage === "home"
-      ? [activePage]
-      : Array.isArray(activePageData)
-      ? activePageData.map((item: any) => item.name)
-      : [];
+      ? ["home"]
+      : ["about", "contact"].includes(activePage)
+      ? ["home", ...schoolList]
+      : schoolList;
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
+  const { register, handleSubmit } = useForm({
     values: activeTabData,
   });
 
@@ -51,6 +49,7 @@ export default function AdminPage() {
       // This will activate the closest `error.js` Error Boundary
       return window.alert("Failed to update data");
     }
+    loadPageData(activePage);
     return window.alert("Successed to update data");
   };
 
@@ -67,14 +66,18 @@ export default function AdminPage() {
     return res.json();
   };
 
-  useEffect(() => {
+  const loadPageData = useCallback(async (page: string) => {
     setLoading(true);
-    fetchPageData(activePage).then((data) => {
+    fetchPageData(page).then((data) => {
       setActivePageData(data);
-      setActiveTab(activePage === "home" ? activePage : data[0].name);
+      setActiveTab(page === "home" ? page : data[0].name);
       setLoading(false);
     });
-  }, [activePage]);
+  }, []);
+
+  useEffect(() => {
+    loadPageData(activePage);
+  }, [loadPageData, activePage]);
 
   useEffect(() => {
     setActiveTabData(
@@ -175,20 +178,19 @@ export default function AdminPage() {
           </div>
         </div>
         <div className="flex flex-row gap-6 px-8 w-full bg-white mt-16">
-          {tabs?.length > 1 &&
-            tabs.map((tab: string) => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`py-3 px-2 font-serif ${
-                  tab === activeTab
-                    ? "font-bold border-b-2 border-deepBlue text-blue"
-                    : "text-blue"
-                }`}
-              >
-                {tab}
-              </button>
-            ))}
+          {tabs.map((tab: string) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`py-3 px-2 font-serif ${
+                tab === activeTab
+                  ? "font-bold border-b-2 border-deepBlue text-blue"
+                  : "text-blue"
+              }`}
+            >
+              {tab}
+            </button>
+          ))}
         </div>
         <div className="px-8 py-6 w-full h-screen bg-gray-200">
           <div className="w-full h-full overflow-scroll">
