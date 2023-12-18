@@ -4,6 +4,7 @@ import ContactInfo from "../ContactInfo";
 import LatestNews from "../LatestNews";
 import { Program } from "../Program";
 import Section from "../Section";
+
 const getHome = async (lang: "en" | "zh") => {
   const res = await fetch(`${process.env.API_URI}/api/home/?lang=${lang}`, {
     cache: "no-cache",
@@ -69,7 +70,7 @@ export default async function HomePage(props: HomePageProps) {
       <Section>
         <div className="flex flex-col md:flex-row w-full md:w-[1024px] items-stretch">
           <ContactInfo lang={lang} type="subschool" contact={data.contact} />
-          <ContactForm lang={lang} />
+          <ContactForm lang={lang} name={name} />
         </div>
       </Section>
     </main>

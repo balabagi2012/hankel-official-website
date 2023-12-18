@@ -61,6 +61,7 @@ export default function Header() {
       label: language === "zh" ? "首頁" : `Home`,
     },
     ...subSchoolDropDownItemList,
+    ...otherNavItemList,
   ];
 
   const getSubSchoolZhLabel = (subSchool: string) => {
@@ -236,7 +237,7 @@ export default function Header() {
             <div className="flex flex-row  items-center gap-x-[56px]">
               <Link
                 href={`/${language}`}
-                className={`py-1 ${
+                className={`py-1 border-deepBlue ${
                   pathname === `/${language}` ? "border-b-2" : ""
                 }`}
                 rel="noopener noreferrer"
@@ -301,7 +302,7 @@ export default function Header() {
                 <Link
                   key={label}
                   href={path}
-                  className={`py-1 ${pathname === path ? "border-b-2" : ""}`}
+                  className={`py-1 border-deepBlue ${pathname === path ? "border-b-2" : ""}`}
                   rel="noopener noreferrer"
                 >
                   <Typography

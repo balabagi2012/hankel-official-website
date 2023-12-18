@@ -186,7 +186,7 @@ export default async function Subschool(props: SubschoolProps) {
             type={name === "kindergarten" ? "kindergarten" : "subschool"}
             contact={data.contact}
           />
-          <ContactForm lang={lang} />
+          <ContactForm lang={lang} name={name} />
         </div>
       </Section>
     </main>

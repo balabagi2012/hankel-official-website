@@ -1,8 +1,8 @@
+import { ContactEntity } from "@/app/api/contact/route";
 import Image from "next/image";
+import Link from "next/link";
 import Title from "../Title";
 import Typography from "../Typography";
-import { ContactEntity } from "@/app/api/contact/route";
-import Link from "next/link";
 
 export interface ContactInfoProps {
   type: "subschool" | "kindergarten";
@@ -12,7 +12,7 @@ export interface ContactInfoProps {
 export default function ContactInfo(props: ContactInfoProps) {
   const { type = "subschool", contact, lang } = props;
   return (
-    <div className="flex p-4 md:p-0 flex-1 flex-col items-start justify-around">
+    <div className="flex p-4 md:p-0 flex-1 flex-col items-start justify-around md:mr-[70px]">
       <Title full align="left" type={type}>
         {contact.title[lang]}
       </Title>
@@ -59,7 +59,7 @@ export default function ContactInfo(props: ContactInfoProps) {
           {contact.address[lang]}
         </Typography>
       </div>
-      <div className="flex flex-row flex-1 mt-4 md:mt-0 gap-x-6">
+      <div className="flex flex-row flex-1 mt-4 gap-x-6">
         {contact.instagram && (
           <Link href={contact.instagram} rel="noopener noreferrer">
             <Image
