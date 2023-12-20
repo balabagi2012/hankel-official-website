@@ -42,7 +42,7 @@ export default async function Team(props: TeamProps) {
             {team.foreignTeam.teachers.map((element, index) => (
               <Card
                 key={`foreign team ${index}`}
-                type="team"
+                type={`team${name === "kindergarten" ? `-kindergarten` : ""}`}
                 img={element.img}
                 alt={element.title[lang]}
                 title={element.title[lang]}
@@ -68,7 +68,7 @@ export default async function Team(props: TeamProps) {
             {team.localTeam.teachers.map((element, index) => (
               <Card
                 key={`local team ${index}`}
-                type="team"
+                type={`team${name === "kindergarten" ? `-kindergarten` : ""}`}
                 img={element.img}
                 alt={element.title[lang]}
                 title={element.title[lang]}

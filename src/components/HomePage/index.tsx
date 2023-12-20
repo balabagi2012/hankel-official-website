@@ -66,7 +66,7 @@ export default async function HomePage(props: HomePageProps) {
         title={data.subBanner.title[lang]}
         description={data.subBanner.description[lang]}
       ></Banner>
-      <LatestNews />
+      <LatestNews lang={lang} name={name} />
       <Section>
         <div className="flex flex-col md:flex-row w-full md:w-[1024px] items-stretch">
           <ContactInfo lang={lang} type="subschool" contact={data.contact} />

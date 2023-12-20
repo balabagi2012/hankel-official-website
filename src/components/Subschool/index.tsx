@@ -103,7 +103,7 @@ export default async function Subschool(props: SubschoolProps) {
             {data.experiences.map((element, index) => (
               <Card
                 key={`experience ${index}`}
-                type="course"
+                type={`course${name === "kindergarten" ? `-kindergarten` : ""}`}
                 img={element.img}
                 alt={element.title[lang]}
                 title={element.title[lang]}
@@ -118,8 +118,9 @@ export default async function Subschool(props: SubschoolProps) {
         src={data.subBanner.img}
         title={data.subBanner.title[lang]}
         description={data.subBanner.description[lang]}
+        name={name}
       ></Banner>
-      <LatestNews className="bg-white" />
+      <LatestNews lang={lang} name={name} className="bg-white" />
       <Section className="bg-bgGray">
         <Title align="center" type={name}>
           {lang === "en" ? "Social Media Post" : "社群媒體"}

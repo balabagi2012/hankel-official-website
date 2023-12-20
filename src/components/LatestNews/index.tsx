@@ -3,19 +3,26 @@ import Card from "../Card";
 import Title from "../Title";
 import Typography from "../Typography";
 import Section from "../Section";
+import { kindergarten } from "@/app/styles/fonts";
 
 export interface LatestNewsProps {
   className?: string;
+  name: string;
+  lang: "en" | "zh";
 }
-export default function LatestNews({ className = "" }: LatestNewsProps) {
+export default function LatestNews({
+  lang,
+  name,
+  className = "",
+}: LatestNewsProps) {
   return (
     <Section className={`bg-bgGray ${className}`}>
-      <Title>Latest News</Title>
+      <Title type={name}>{lang === "en" ? "Latest News" : "最新消息"}</Title>
       <div className="w-full flex flex-row overflow-x-scroll mb-[52px] gap-4">
         {[1, 2, 3, 4, 5].map((element) => (
           <Card
             key={`news ${element}`}
-            type="news"
+            type={`news${name === "kindergarten" ? `-kindergarten` : ""}`}
             img={`/news/${element}.png`}
             alt={`hankel news ${element}`}
             title="Coding in class"

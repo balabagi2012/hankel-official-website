@@ -13,7 +13,6 @@ export interface CurriculumProps {
 }
 
 const getCurriculum = async (name: string): Promise<CurriculumEntity> => {
-  console.log(`${process.env.API_URI}/api/curriculum/${name}`)
   const res = await fetch(`${process.env.API_URI}/api/curriculum/${name}`, {
     cache: "no-cache",
   });
@@ -49,7 +48,9 @@ export default async function Curriculum(props: CurriculumProps) {
             {curriculum.curriculums.map((element, index) => (
               <Card
                 key={`curriculum-${index}`}
-                type="curriculum"
+                type={`curriculum${
+                  name === "kindergarten" ? `-kindergarten` : ""
+                }`}
                 img={element.img}
                 alt={element.title[lang]}
                 title={element.title[lang]}
