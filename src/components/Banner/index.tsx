@@ -53,7 +53,7 @@ export default function Banner({
           <div className="text-[#13325D] my-2 font-bold font-serif leading-[1.5] tracking-[1px] text-[32px]">
             {title}
           </div>
-          <div className="text-[16px] font-serif leading-[2] tracking-[1px] mb-3 text-justify">
+          <div className="text-deepBlue text-[16px] font-serif leading-[2] tracking-[1px] mb-3 text-justify">
             {subtitle}
           </div>
           <div className="text-[14px] font-sans text-[#4E4E4E] leading-[1.8] text-center">

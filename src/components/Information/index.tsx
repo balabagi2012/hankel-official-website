@@ -98,7 +98,7 @@ export default async function Information(props: InformationProps) {
           </div>
         </div>
       </Section>
-      <Section className="bg-white">
+      {/* <Section className="bg-white">
         <div className="flex flex-col w-full md:w-[1268px] justify-center items-stretch">
           <Title full align="left" type={type}>
             {lang === "en" ? "Calendar" : "行事曆"}
@@ -116,7 +116,7 @@ export default async function Information(props: InformationProps) {
             ></Image>
           </div>
         </div>
-      </Section>
+      </Section> */}
     </main>
   );
 }
