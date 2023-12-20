@@ -116,12 +116,12 @@ export default function AdminPage() {
           name={key}
           control={control}
           render={({ field }) => (
-            <div className="flex flex-col items-start">
+            <div className="flex flex-col items-start justify-start mt-2">
               <input
                 type="file"
                 accept="images/*"
                 id={`file-${key}}`}
-                className="invisible"
+                className="invisible h-0"
                 onChange={(event) => {
                   const file = event.target.files?.[0];
                   if (file) {
@@ -154,7 +154,7 @@ export default function AdminPage() {
         <textarea
           key={key}
           disabled={key.includes("type")}
-          className="w-full border px-4 py-2 mb-4 h-[200px]"
+          className="w-full border px-4 py-2 mb-4 mt-2 h-[200px]"
           {...register(key)}
         ></textarea>
       );
@@ -163,7 +163,7 @@ export default function AdminPage() {
         <input
           key={key}
           disabled={key.includes("type")}
-          className="w-full border px-4 py-2 mb-4"
+          className="w-full border px-4 py-2 mb-4 mt-2"
           {...register(key)}
         ></input>
       );
@@ -174,9 +174,9 @@ export default function AdminPage() {
       const fullKey = parentKey ? `${parentKey}.${key}` : key;
       if (typeof value === "object") {
         return <div key={fullKey}>{renderRecursive(value, fullKey)}</div>;
-      } else if (typeof value === "string" && key !== "_id") {
+      } else if (typeof value === "string" && key !== "_id" && key !== "name") {
         return (
-          <div key={fullKey} className="bg-white p-6 rounded shadow mt-4">
+          <div key={fullKey} className="bg-white px-6 py-3 rounded shadow mt-4">
             <label>
               {fullKey.replace(".zh", " [中文]").replace(".en", " [英文]")}
             </label>
