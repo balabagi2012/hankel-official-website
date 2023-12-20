@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 
 export default function AdminPage() {
   const schoolList = ["dayCare", "elementary", "kindergarten", "middleSchool"];
@@ -21,6 +21,7 @@ export default function AdminPage() {
   const [activeTabData, setActiveTabData] = useState({} as any);
   const [activeTab, setActiveTab] = useState("");
   const [loading, setLoading] = useState(false);
+  const [uploading, setUploading] = useState(false);
 
   const tabs =
     activePage === "home"
@@ -29,7 +30,7 @@ export default function AdminPage() {
       ? ["home", ...schoolList]
       : schoolList;
 
-  const { register, handleSubmit } = useForm({
+  const { register, control, handleSubmit } = useForm({
     values: activeTabData,
   });
 
@@ -91,7 +92,84 @@ export default function AdminPage() {
     );
   }, [activePage, activePageData, activeTab]);
 
-  function renderRecursive(obj: object, parentKey = "") {
+  const uploadFile = async (file: File) => {
+    setUploading(true);
+    const url = `/api/file`;
+    const form = new FormData();
+    form.append("file", file);
+    const res = await fetch(url, {
+      method: "POST",
+      body: form,
+    });
+    setUploading(false);
+    if (!res.ok) {
+      // This will activate the closest `error.js` Error Boundary
+      return window.alert("Failed to upload file");
+    }
+    return res.json();
+  };
+
+  const renderField = (key: string, value: string) => {
+    if (value.startsWith("/")) {
+      return (
+        <Controller
+          name={key}
+          control={control}
+          render={({ field }) => (
+            <div className="flex flex-col items-start">
+              <input
+                type="file"
+                accept="images/*"
+                id={`file-${key}}`}
+                className="invisible"
+                onChange={(event) => {
+                  const file = event.target.files?.[0];
+                  if (file) {
+                    uploadFile(file).then((data) => {
+                      field.onChange(data.file);
+                    });
+                  }
+                }}
+              />
+              {field.value && (
+                <Image src={field.value} alt={key} width={500} height={500} />
+              )}
+              <button
+                className="bg-blue mt-1 px-2 py-2 rounded text-white"
+                disabled={uploading}
+                onClick={(event) => {
+                  event.preventDefault();
+                  event.stopPropagation();
+                  document.getElementById(`file-${key}}`)?.click();
+                }}
+              >
+                {uploading ? "上傳圖片中" : "更換圖片"}
+              </button>
+            </div>
+          )}
+        />
+      );
+    } else if (value?.length > 80) {
+      return (
+        <textarea
+          key={key}
+          disabled={key.includes("type")}
+          className="w-full border px-4 py-2 mb-4 h-[200px]"
+          {...register(key)}
+        ></textarea>
+      );
+    } else {
+      return (
+        <input
+          key={key}
+          disabled={key.includes("type")}
+          className="w-full border px-4 py-2 mb-4"
+          {...register(key)}
+        ></input>
+      );
+    }
+  };
+  const renderRecursive = (obj: object, parentKey = "") => {
     return Object.entries(obj).map(([key, value]) => {
       const fullKey = parentKey ? `${parentKey}.${key}` : key;
       if (typeof value === "object") {
@@ -102,27 +180,13 @@ export default function AdminPage() {
             <label>
               {fullKey.replace(".zh", " [中文]").replace(".en", " [英文]")}
             </label>
-            {value?.length > 80 ? (
-              <textarea
-                key={fullKey}
-                disabled={fullKey.includes("type")}
-                className="w-full border px-4 py-2 mb-4 h-[200px]"
-                {...register(fullKey)}
-              ></textarea>
-            ) : (
-              <input
-                key={fullKey}
-                disabled={fullKey.includes("type")}
-                className="w-full border px-4 py-2 mb-4"
-                {...register(fullKey)}
-              ></input>
-            )}
+            {renderField(fullKey, value)}
           </div>
         );
       }
       return null;
     });
-  }
+  };
 
   return (
     <main className="relative flex-row w-full h-full">
@@ -169,6 +233,7 @@ export default function AdminPage() {
         <div className="fixed left-64 right-0">
           <div className="flex bg-white py-4 px-8 shadow-md h-16 flex-row justify-end items-center">
             <button
+              id="save-button"
               disabled={loading}
               className="px-3 py-1 bg-deepBlue font-base text-white border border-gray-300 rounded-lg focus:outline-none"
               onClick={handleSubmit(onSubmit)}

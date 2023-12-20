@@ -36,7 +36,10 @@ export const POST = async (req: NextRequest) => {
       buffer
     );
     return Response.json(
-      { message: "File created successfully", file: filePath },
+      {
+        message: "File created successfully",
+        file: filePath.replaceAll("/public", ""),
+      },
       { status: 201 }
     );
   } catch (error) {

@@ -25,6 +25,6 @@ export const config = {
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
      */
-    "/((?!icons|uploads|admin|api|_next|favicon.ico).*)",
+    "/((?!icons|uploads|admin|public|about|banners|course|curriculum|facility|information|news|subBanners|team|api|_next|favicon.ico).*)",
   ],
 };
