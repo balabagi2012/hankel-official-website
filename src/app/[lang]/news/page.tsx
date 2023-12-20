@@ -1,11 +1,8 @@
-import { Metadata } from "next";
-import styles from "./page.module.css";
 import Banner from "@/components/Banner";
-import Typography from "@/components/Typography";
-import Image from "next/image";
-import Title from "@/components/Title";
 import Card from "@/components/Card";
 import Section from "@/components/Section";
+import Title from "@/components/Title";
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Hankel - News",

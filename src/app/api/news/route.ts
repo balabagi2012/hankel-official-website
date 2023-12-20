@@ -3,7 +3,7 @@ import { connectToDatabase } from "@/utils/mongodb";
 export interface NewsEntity {
   title: string;
   description: string;
-  category: string;
+  name: string;
   banner: string;
   content: string;
   createdAt: Date;
@@ -14,7 +14,7 @@ export interface NewsEntity {
 export async function GET() {
   try {
     const db = await connectToDatabase();
-    const news = await db.collection("news").find({});
+    const news = await db.collection("news").find({}).toArray();
     if (!news) {
       return Response.json({ error: "News data not found" }, { status: 404 });
     }
@@ -33,8 +33,8 @@ export async function GET() {
 // POST /api/news
 export async function POST(req: Request) {
   try {
-    const { title, description, category, banner, content } = await req.json();
-    if (!title || !description || !category || !banner || !content) {
+    const { title, description, name, banner, content } = await req.json();
+    if (!title || !description || !name || !banner || !content) {
       return Response.json(
         { error: "Missing required fields" },
         { status: 400 }
@@ -44,7 +44,7 @@ export async function POST(req: Request) {
     const news = await db.collection("news").insertOne({
       title,
       description,
-      category,
+      name,
       banner,
       content,
       createdAt: new Date(),

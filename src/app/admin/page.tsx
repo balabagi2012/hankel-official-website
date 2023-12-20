@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 
@@ -15,6 +16,7 @@ export default function AdminPage() {
     "information",
     "subschool",
     "team",
+    "news",
   ];
   const [activePage, setActivePage] = useState(apiList[0]);
   const [activePageData, setActivePageData] = useState([] as any);
@@ -71,7 +73,9 @@ export default function AdminPage() {
     setLoading(true);
     fetchPageData(page).then((data) => {
       setActivePageData(data);
-      setActiveTab(page === "home" ? page : data[0].name);
+      setActiveTab(
+        page === "home" ? page : page === "news" ? "dayCare" : data[0].name
+      );
       setLoading(false);
     });
   }, []);
@@ -117,6 +121,10 @@ export default function AdminPage() {
           control={control}
           render={({ field }) => (
             <div className="flex flex-col items-start justify-start mt-2">
+              <input
+                className="w-full border px-4 py-2 mb-4 mt-2"
+                {...register(key)}
+              ></input>
               <input
                 type="file"
                 accept="images/*"
@@ -169,6 +177,7 @@ export default function AdminPage() {
       );
     }
   };
+
   const renderRecursive = (obj: object, parentKey = "") => {
     return Object.entries(obj).map(([key, value]) => {
       const fullKey = parentKey ? `${parentKey}.${key}` : key;
@@ -232,14 +241,23 @@ export default function AdminPage() {
       <div className="flex flex-col w-full items-center h-full bg-gray-200 pl-64">
         <div className="fixed left-64 right-0">
           <div className="flex bg-white py-4 px-8 shadow-md h-16 flex-row justify-end items-center">
-            <button
-              id="save-button"
-              disabled={loading}
-              className="px-3 py-1 bg-deepBlue font-base text-white border border-gray-300 rounded-lg focus:outline-none"
-              onClick={handleSubmit(onSubmit)}
-            >
-              Save
-            </button>
+            {activePage === "news" ? (
+              <Link
+                href="/admin/news"
+                className="px-3 py-1 bg-deepBlue font-base text-white border border-gray-300 rounded-lg focus:outline-none"
+              >
+                Create
+              </Link>
+            ) : (
+              <button
+                id="save-button"
+                disabled={loading}
+                className="px-3 py-1 bg-deepBlue font-base text-white border border-gray-300 rounded-lg focus:outline-none"
+                onClick={handleSubmit(onSubmit)}
+              >
+                Save
+              </button>
+            )}
           </div>
         </div>
         <div className="flex flex-row gap-6 px-8 w-full bg-white mt-16">
