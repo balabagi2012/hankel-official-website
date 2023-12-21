@@ -4,6 +4,7 @@ import Title from "../Title";
 import Typography from "../Typography";
 import Section from "../Section";
 import { kindergarten } from "@/app/styles/fonts";
+import Link from "next/link";
 
 export interface LatestNewsProps {
   className?: string;
@@ -30,9 +31,12 @@ export default function LatestNews({
           ></Card>
         ))}
       </div>
-      <div className="px-[32px] py-[8px] border rounded border-blue w-fit flex flex-row justify-center items-center">
-        <Typography varient="h6" className="font-bold">
-          View More
+      <Link
+        href={`/${lang}/news`}
+        className="px-[32px] py-[8px] border rounded border-blue w-fit flex flex-row justify-center items-center"
+      >
+        <Typography varient="h6" className="font-bold text-blue">
+          {lang === "en" ? "View More" : "查看更多"}
         </Typography>
         <Image
           src="/icons/ChevronRightFilled.svg"
@@ -41,7 +45,7 @@ export default function LatestNews({
           height="24"
           className="ml-[10px]"
         ></Image>
-      </div>
+      </Link>
     </Section>
   );
 }

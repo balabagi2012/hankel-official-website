@@ -51,7 +51,7 @@ export default async function Contact(props: ContactProps) {
             {data.description[lang]}
           </Typography>
           <div className="flex flex-row my-[40px] justify-center gap-x-6">
-            {data.instagram && (
+            {data.instagram && data.instagram.length > 0 && (
               <Link href={data.instagram} rel="noopener noreferrer">
                 <Image
                   src="/icons/InstagramBlue.svg"
@@ -61,7 +61,7 @@ export default async function Contact(props: ContactProps) {
                 ></Image>
               </Link>
             )}
-            {data.facebook && (
+            {data.facebook && data.facebook.length > 0 && (
               <Link href={data.facebook} rel="noopener noreferrer">
                 <Image
                   src="/icons/FacebookBlue.svg"
@@ -71,7 +71,7 @@ export default async function Contact(props: ContactProps) {
                 ></Image>
               </Link>
             )}
-            {data.youtube && (
+            {data.youtube && data.youtube.length > 0 && (
               <Link href={data.youtube} rel="noopener noreferrer">
                 <Image
                   src="/icons/YoutubeBlue.svg"
@@ -81,7 +81,7 @@ export default async function Contact(props: ContactProps) {
                 ></Image>
               </Link>
             )}
-            {data.line && (
+            {data.line && data.line.length > 0 && (
               <Link href={data.line} rel="noopener noreferrer">
                 <Image
                   src="/icons/LineBlue.svg"

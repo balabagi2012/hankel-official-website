@@ -291,7 +291,7 @@ export default function Card(props: CardProps) {
               {description}
             </Typography>
             <div className="flex flex-row flex-1 justify-center my-4 gap-x-6">
-              {facebook && (
+              {facebook && facebook.length > 0 && (
                 <Link href={facebook}>
                   <Image
                     src="/icons/FacebookDeepBlue.svg"
@@ -301,7 +301,7 @@ export default function Card(props: CardProps) {
                   ></Image>
                 </Link>
               )}
-              {twitter && (
+              {twitter && twitter.length > 0 && (
                 <Link href={twitter}>
                   <Image
                     src="/icons/TwitterDeepBlue.svg"
@@ -312,7 +312,7 @@ export default function Card(props: CardProps) {
                   ></Image>
                 </Link>
               )}
-              {linkedin && (
+              {linkedin && linkedin.length > 0 && (
                 <Link href={linkedin}>
                   <Image
                     src="/icons/LinkedInDeepBlue.svg"
