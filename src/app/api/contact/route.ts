@@ -26,7 +26,7 @@ export async function GET() {
   try {
     const db = await connectToDatabase();
     const contact = await db.collection("contact").find({}).toArray();
-    return Response.json({ contact }, { status: 200 });
+    return Response.json(contact, { status: 200 });
   } catch (error) {
     return Response.json(
       { error: "Failed to fetch contact data" },

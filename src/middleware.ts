@@ -10,7 +10,6 @@ export function middleware(request: NextRequest) {
   );
 
   if (pathnameHasLocale) return;
-
   // Redirect if there is no locale
   const locale = "en";
   request.nextUrl.pathname = `/${locale}${pathname}`;
@@ -26,6 +25,6 @@ export const config = {
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
      */
-    "/((?!icons|api|_next|favicon.ico).*)",
+    "/((?!icons|uploads|admin|public|about|banners|course|curriculum|facility|information|news|subBanners|team|api|_next|favicon.ico).*)",
   ],
 };

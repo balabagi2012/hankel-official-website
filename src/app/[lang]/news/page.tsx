@@ -1,11 +1,8 @@
-import { Metadata } from "next";
-import styles from "./page.module.css";
 import Banner from "@/components/Banner";
-import Typography from "@/components/Typography";
-import Image from "next/image";
-import Title from "@/components/Title";
 import Card from "@/components/Card";
 import Section from "@/components/Section";
+import Title from "@/components/Title";
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Hankel - News",
@@ -23,7 +20,7 @@ export default function News() {
         title={title}
         description={description}
       ></Banner>
-      <Section className="bg-gray">
+      <Section className="bg-bgGray">
         {/* <div className="hidden md:flex flex-col mx-[55px] gap-4 bg-white rounded-xl p-4 h-fit mt-[40px] md:mt-[160px]">
           <div>
             <Typography varient="h4">Important News</Typography>

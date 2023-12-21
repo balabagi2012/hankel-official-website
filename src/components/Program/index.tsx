@@ -36,7 +36,7 @@ export function Program(props: ProgramProps) {
     </li>
   );
   return (
-    <Section className="bg-gray">
+    <Section className="bg-bgGray">
       <Title>{title}</Title>
       <ul className="w-full md:w-fit overflow-x-scroll flex-row flex justify-start gap-x-6 items-center mb-7 md:mb-[66px]">
         {programs.map((program) => (

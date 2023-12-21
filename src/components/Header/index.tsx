@@ -61,6 +61,7 @@ export default function Header() {
       label: language === "zh" ? "首頁" : `Home`,
     },
     ...subSchoolDropDownItemList,
+    ...otherNavItemList,
   ];
 
   const getSubSchoolZhLabel = (subSchool: string) => {
@@ -236,14 +237,14 @@ export default function Header() {
             <div className="flex flex-row  items-center gap-x-[56px]">
               <Link
                 href={`/${language}`}
-                className={`py-1 ${
+                className={`py-1 border-deepBlue text-blue ${
                   pathname === `/${language}` ? "border-b-2" : ""
                 }`}
                 rel="noopener noreferrer"
               >
                 <Typography
                   varient="h6"
-                  className={`${
+                  className={`text-blue ${
                     pathname === `/${language}` ? "font-bold" : ""
                   }`}
                 >
@@ -254,7 +255,7 @@ export default function Header() {
                 className="flex flex-row items-center relative"
                 onClick={() => setOpenDropDown(!openDropDown)}
               >
-                <Typography varient="h6">
+                <Typography varient="h6" className="text-blue">
                   {language === "zh" ? "學校" : "Schools"}
                 </Typography>
                 <Image
@@ -286,7 +287,7 @@ export default function Header() {
                       >
                         <Typography
                           varient="h6"
-                          className={`whitespace-nowrap	${
+                          className={`text-deepBlue whitespace-nowrap	${
                             pathname === path ? "font-bold" : ""
                           }`}
                         >
@@ -301,7 +302,7 @@ export default function Header() {
                 <Link
                   key={label}
                   href={path}
-                  className={`py-1 ${pathname === path ? "border-b-2" : ""}`}
+                  className={`py-1 border-deepBlue text-blue ${pathname === path ? "border-b-2" : ""}`}
                   rel="noopener noreferrer"
                 >
                   <Typography

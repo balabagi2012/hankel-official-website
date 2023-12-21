@@ -42,9 +42,9 @@ export default async function About(props: AboutProps) {
         title={data.title[lang]}
         description={data.description[lang]}
       ></Banner>
-      <Section className="bg-gray">
+      <Section className="bg-bgGray">
         <div className="flex flex-col-reverse md:flex-row w-full md:w-[1180px] justify-center items-stretch">
-          <div className="flex flex-col md:mr-[65px] gap-y-3">
+          <div className="flex flex-col md:mr-[65px] gap-y-5">
             {data.sections[0].imgs.map((img) => (
               <Image
                 key={img}
@@ -52,6 +52,7 @@ export default async function About(props: AboutProps) {
                 alt={img}
                 width="585"
                 height="369"
+                className={`${name === "kindergarten" ? "rounded-[50px]" : ""}`}
               ></Image>
             ))}
           </div>
@@ -122,6 +123,7 @@ export default async function About(props: AboutProps) {
               alt={img}
               width="667"
               height="429"
+              className={`${name === "kindergarten" ? "rounded-[50px]" : ""}`}
             ></Image>
           ))}
         </div>

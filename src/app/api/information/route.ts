@@ -32,7 +32,7 @@ export async function GET() {
   try {
     const db = await connectToDatabase();
     const information = await db.collection("information").find({}).toArray();
-    return Response.json({ information }, { status: 200 });
+    return Response.json(information, { status: 200 });
   } catch (error) {
     return Response.json(
       { error: "Failed to fetch information data" },

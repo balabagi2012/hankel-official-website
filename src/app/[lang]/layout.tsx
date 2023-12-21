@@ -1,7 +1,7 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import type { Metadata } from "next";
-import "./globals.scss";
+import "@/app/styles/globals.scss";
 import { notoSans } from "@/app/styles/fonts";
 
 export const metadata: Metadata = {
@@ -18,6 +18,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang={lang === "en" ? "en" : "zh-tw"}>
+      <head>
+        <link rel="icon" href="/uploads/favicon.ico" sizes="24x24" />
+      </head>
       <body className={notoSans.className}>
         <Header />
         {children}

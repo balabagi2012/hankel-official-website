@@ -29,7 +29,7 @@ export default async function Facility(props: FacilityProps) {
   return (
     <main className="pt-[50px] md:pt-[200px]">
       <Banner size="small" src={facility.banner}></Banner>
-      <Section className="bg-gray">
+      <Section className="bg-bgGray">
         <div className="flex flex-col w-full md:w-[700px]">
           <Title full align="center" type={type}>
             {facility.title[lang]}
@@ -44,7 +44,9 @@ export default async function Facility(props: FacilityProps) {
             alt="hankel Facility Image"
             width="1024"
             height="400"
-            className="w-full h-auto"
+            className={`w-full h-auto ${
+              name === "kindergarten" ? "rounded-3xl" : ""
+            }`}
           ></Image>
         </div>
       </Section>
@@ -57,7 +59,9 @@ export default async function Facility(props: FacilityProps) {
             {facility.facilities.map((element, index) => (
               <Card
                 key={`facility ${index}`}
-                type="facility"
+                type={`facility${
+                  name === "kindergarten" ? `-kindergarten` : ""
+                }`}
                 img={element.img}
                 alt={`hankel facility ${index}`}
                 title={element.title[lang]}

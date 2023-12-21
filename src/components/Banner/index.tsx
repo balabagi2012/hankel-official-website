@@ -1,10 +1,12 @@
 import Image from "next/image";
 import { ReactElement } from "react";
 import Typography from "../Typography";
+import { kindergarten } from "@/app/styles/fonts";
 
 interface BannerProps {
   className?: string;
   size?: "big" | "large" | "medium" | "small";
+  name?: string;
   src: string;
   title?: string;
   subtitle?: string;
@@ -18,6 +20,7 @@ export default function Banner({
   src,
   subtitle,
   size = "big",
+  name,
   children,
 }: BannerProps) {
   return (
@@ -53,7 +56,7 @@ export default function Banner({
           <div className="text-[#13325D] my-2 font-bold font-serif leading-[1.5] tracking-[1px] text-[32px]">
             {title}
           </div>
-          <div className="text-[16px] font-serif leading-[2] tracking-[1px] mb-3 text-justify">
+          <div className="text-deepBlue text-[16px] font-serif leading-[2] tracking-[1px] mb-3 text-justify">
             {subtitle}
           </div>
           <div className="text-[14px] font-sans text-[#4E4E4E] leading-[1.8] text-center">
@@ -73,12 +76,18 @@ export default function Banner({
       )}
       {size === "medium" && title && description && (
         <div className=" ml-[16px] md:ml-auto mr-[16px] md:mr-[76px] px-[52px] py-[28px] bg-[rgba(255,255,255,.7)] md:bg-white border-b border-blue border-l-8 relative">
-          <Typography varient="h4" className="font-serif text-textGray">
+          <Typography
+            varient="h4"
+            className={`${
+              name === "kindergarten" ? kindergarten.className : "font-serif"
+            } text-textGray`}
+          >
             {title}
           </Typography>
           <Typography
             varient="h5"
-            className="font-serif text-textGray text-right mt=[12px]"
+            className={`${name === "kindergarten" ? "" : "font-serif"}
+              text-textGray text-right mt=[12px]`}
           >
             {description}
           </Typography>

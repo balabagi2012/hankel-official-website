@@ -1,10 +1,11 @@
-import Image from "next/image";
-import Typography from "../Typography";
-import Title from "../Title";
-import Banner from "../Banner";
-import Section from "../Section";
 import { ContactEntity } from "@/app/api/contact/route";
+import Image from "next/image";
 import Link from "next/link";
+import Banner from "../Banner";
+import ContactForm from "../ContactForm";
+import Section from "../Section";
+import Title from "../Title";
+import Typography from "../Typography";
 
 export interface ContactProps {
   type?: "kindergarten" | "subschool" | "home";
@@ -41,7 +42,7 @@ export default async function Contact(props: ContactProps) {
         title={data.banner.title?.[lang]}
         description={data.banner?.description?.[lang]}
       ></Banner>
-      <Section className="bg-gray">
+      <Section className="bg-bgGray">
         <div className="flex flex-col w-full md:w-[700px]">
           <Title full align="center" type={type}>
             {data.title[lang]}
@@ -133,63 +134,7 @@ export default async function Contact(props: ContactProps) {
       </Section>
       <Section>
         <div className="flex flex-col w-full md:w-[700px]">
-          <div className="flex flex-col md:flex-row gap-4 mb-5">
-            <div className="flex flex-col flex-1">
-              <div className="flex flex-row align-top">
-                <Typography varient="h5" className="text-deepBlue">
-                  {lang === "zh" ? "名稱" : "Name"}
-                </Typography>
-                <Typography varient="h5" className="text-[#D40000]">
-                  *
-                </Typography>
-              </div>
-              <input
-                type="text"
-                className="border rounded border-textGray h-9"
-              />
-            </div>
-            <div className="flex flex-col flex-1">
-              <div className="flex flex-row align-top gap-4">
-                <Typography varient="h5" className="text-deepBlue">
-                  {lang === "zh" ? "電話" : "Phone"}
-                </Typography>
-                <Typography varient="h5" className="text-[#D40000]">
-                  *
-                </Typography>
-              </div>
-              <input
-                type="text"
-                className="border rounded border-textGray h-9"
-              />
-            </div>
-          </div>
-          <div className="flex flex-1 flex-col mb-5">
-            <div className="flex flex-row align-top gap-4">
-              <Typography varient="h5" className="text-deepBlue">
-                {lang === "zh" ? "信箱" : "Email"}
-              </Typography>
-              <Typography varient="h5" className="text-[#D40000]">
-                *
-              </Typography>
-            </div>
-            <input type="text" className="border rounded border-textGray" />
-          </div>
-          <div className="flex flex-1 flex-col mb-8">
-            <div className="flex flex-row align-top">
-              <Typography varient="h5" className="text-deepBlue">
-                {lang === "zh" ? "訊息" : "Message"}
-              </Typography>
-              <Typography varient="h5" className="text-[#D40000]">
-                *
-              </Typography>
-            </div>
-            <textarea className="border h-[130px] rounded border-textGray" />
-          </div>
-          <div className="bg-blue h-[44px] flex flex-row items-center justify-center rounded">
-            <Typography varient="h5" color="white">
-              {lang === "zh" ? "寄出" : "Send"}
-            </Typography>
-          </div>
+          <ContactForm name={name} lang={lang} />
         </div>
       </Section>
     </main>

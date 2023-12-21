@@ -31,11 +31,11 @@ export async function PATCH(
     const { name } = params;
     const body = await req.json();
     const db = await connectToDatabase();
-    await db
+    const result = await db
       .collection("about")
-      .findOneAndUpdate({ name }, { $set: { ...body } });
+      .findOneAndUpdate({ name }, { $set: { ...body } }, {});
     return Response.json(
-      { message: "About data updated successfully" },
+      { message: "About data updated successfully", result },
       { status: 200 }
     );
   } catch (error) {
