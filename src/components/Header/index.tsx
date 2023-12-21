@@ -27,10 +27,6 @@ export default function Header() {
       label: language === "zh" ? "聯絡" : `Contact`,
     },
     {
-      path: `/${language}/news`,
-      label: language === "zh" ? "新聞" : `News`,
-    },
-    {
       path: `https://google.com`,
       label: language === "zh" ? "學生資訊系統" : `Student Portal`,
     },
@@ -79,43 +75,106 @@ export default function Header() {
     }
   };
 
-  const subSchoolNavItemList = [
-    {
-      path: `/${language}/${subSchool}`,
-      label:
-        language === "zh"
-          ? getSubSchoolZhLabel(subSchool)
-          : `Hankel ${subSchool.charAt(0).toUpperCase() + subSchool.slice(1)}`,
-    },
-    {
-      path: `/${language}/${subSchool}/curriculum`,
-      label: language === "zh" ? "課程內容" : `Our Curriculum`,
-    },
-    {
-      path: `/${language}/${subSchool}/facilities`,
-      label: language === "zh" ? "設施概略" : `Our Facilities`,
-    },
-    {
-      path: `/${language}/${subSchool}/team`,
-      label: language === "zh" ? "團隊介紹" : `Our Team`,
-    },
-    {
-      path: `/${language}/${subSchool}/about`,
-      label: language === "zh" ? "關於我們" : `About`,
-    },
-    {
-      path: `/${language}/${subSchool}/information`,
-      label: language === "zh" ? "其他資訊" : `Information`,
-    },
-    {
-      path: `/${language}/${subSchool}/contact`,
-      label: language === "zh" ? "聯絡" : `Contact`,
-    },
-    {
-      path: `https://google.com`,
-      label: language === "zh" ? "學生資訊系統" : `Student Portal`,
-    },
-  ];
+  const subSchoolNavItemList =
+    subSchool === "dayCare"
+      ? [
+          {
+            path: `/${language}/${subSchool}`,
+            label:
+              language === "zh"
+                ? getSubSchoolZhLabel(subSchool)
+                : `Hankel ${
+                    subSchool.charAt(0).toUpperCase() + subSchool.slice(1)
+                  }`,
+          },
+          {
+            path: `/${language}/${subSchool}/about`,
+            label: language === "zh" ? "關於我們" : `About`,
+          },
+          {
+            path: `/${language}/${subSchool}/information`,
+            label: language === "zh" ? "其他資訊" : `Information`,
+          },
+          {
+            path: `/${language}/${subSchool}/contact`,
+            label: language === "zh" ? "聯絡" : `Contact`,
+          },
+          {
+            path: `https://google.com`,
+            label: language === "zh" ? "學生資訊系統" : `Student Portal`,
+          },
+        ]
+      : subSchool === "kindergarten"
+      ? [
+          {
+            path: `/${language}/${subSchool}`,
+            label:
+              language === "zh"
+                ? getSubSchoolZhLabel(subSchool)
+                : `Hankel ${
+                    subSchool.charAt(0).toUpperCase() + subSchool.slice(1)
+                  }`,
+          },
+          {
+            path: `/${language}/${subSchool}/curriculum`,
+            label: language === "zh" ? "課程內容" : `Our Curriculum`,
+          },
+          {
+            path: `/${language}/${subSchool}/facilities`,
+            label: language === "zh" ? "設施概略" : `Our Facilities`,
+          },
+          {
+            path: `/${language}/${subSchool}/team`,
+            label: language === "zh" ? "團隊介紹" : `Our Team`,
+          },
+          {
+            path: `/${language}/${subSchool}/about`,
+            label: language === "zh" ? "關於我們" : `About`,
+          },
+          {
+            path: `/${language}/${subSchool}/information`,
+            label: language === "zh" ? "其他資訊" : `Information`,
+          },
+          {
+            path: `/${language}/${subSchool}/contact`,
+            label: language === "zh" ? "聯絡" : `Contact`,
+          },
+        ]
+      : [
+          {
+            path: `/${language}/${subSchool}`,
+            label:
+              language === "zh"
+                ? getSubSchoolZhLabel(subSchool)
+                : `Hankel ${
+                    subSchool.charAt(0).toUpperCase() + subSchool.slice(1)
+                  }`,
+          },
+          {
+            path: `/${language}/${subSchool}/curriculum`,
+            label: language === "zh" ? "課程內容" : `Our Curriculum`,
+          },
+          {
+            path: `/${language}/${subSchool}/facilities`,
+            label: language === "zh" ? "設施概略" : `Our Facilities`,
+          },
+          {
+            path: `/${language}/${subSchool}/team`,
+            label: language === "zh" ? "團隊介紹" : `Our Team`,
+          },
+          {
+            path: `/${language}/${subSchool}/about`,
+            label: language === "zh" ? "關於我們" : `About`,
+          },
+          {
+            path: `/${language}/${subSchool}/information`,
+            label: language === "zh" ? "其他資訊" : `Information`,
+          },
+          {
+            path: `/${language}/${subSchool}/contact`,
+            label: language === "zh" ? "聯絡" : `Contact`,
+          },
+        ];
 
   useEffect(() => {
     if (pathname) {
@@ -196,7 +255,7 @@ export default function Header() {
             <div className="flex flex-col h-full">
               <div className="flex flex-col w-fit min-w-[400px] mx-auto">
                 <p
-                  className={`self-star ${
+                  className={`animate__animated animate__fadeIn self-star ${
                     subSchool === "kindergarten"
                       ? notoSans.className
                       : "font-serif"
@@ -205,7 +264,7 @@ export default function Header() {
                   Small steps towards a
                 </p>
                 <p
-                  className={`self-end ${
+                  className={`animate__animated animate__fadeIn animate__delay-1s self-end ${
                     subSchool === "kindergarten"
                       ? kindergarten.className
                       : "font-serif"
@@ -216,7 +275,7 @@ export default function Header() {
                   BIG FUTURE
                 </p>
                 <p
-                  className={`${
+                  className={`animate__animated animate__zoomIn animate__delay-1s ${
                     subSchool === "kindergarten" ? "self-end" : "self-center"
                   } text-[10px] leading-normal ${
                     subSchool === "kindergarten" ? "mt-4" : "mt-2"
@@ -302,7 +361,9 @@ export default function Header() {
                 <Link
                   key={label}
                   href={path}
-                  className={`py-1 border-deepBlue text-blue ${pathname === path ? "border-b-2" : ""}`}
+                  className={`py-1 border-deepBlue text-blue ${
+                    pathname === path ? "border-b-2" : ""
+                  }`}
                   rel="noopener noreferrer"
                 >
                   <Typography
@@ -329,7 +390,7 @@ export default function Header() {
             height="24"
             className="w-auto h-auto"
           ></Image>
-          <div className="ml-1 mr-2 font-bold">
+          <div className="ml-1 mr-2 font-bold text-blue">
             {language === "en" ? "EN" : "中文"}
           </div>
           <Image

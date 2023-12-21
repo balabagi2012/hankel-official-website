@@ -66,7 +66,7 @@ export default async function Footer(props: FooterProps) {
             "No. 457, Section 2, Wenhua 3rd Rd, Linkou District, NewTaipei City, 244"}
         </div>
         <div className="flex flex-row flex-1 gap-x-6">
-          {contact?.instagram && (
+          {contact?.instagram && contact?.instagram?.length > 0 && (
             <Link href={contact.instagram} rel="noopener noreferrer">
               <Image
                 src="/icons/Instagram.svg"
@@ -76,7 +76,7 @@ export default async function Footer(props: FooterProps) {
               ></Image>
             </Link>
           )}
-          {contact?.facebook && (
+          {contact?.facebook && contact?.facebook?.length > 0 && (
             <Link href={contact.facebook} rel="noopener noreferrer">
               <Image
                 src="/icons/Facebook.svg"
@@ -86,7 +86,7 @@ export default async function Footer(props: FooterProps) {
               ></Image>
             </Link>
           )}
-          {contact?.youtube && (
+          {contact?.youtube && contact?.youtube?.length > 0 && (
             <Link href={contact.youtube} rel="noopener noreferrer">
               <Image
                 src="/icons/Youtube.svg"
@@ -96,7 +96,7 @@ export default async function Footer(props: FooterProps) {
               ></Image>
             </Link>
           )}
-          {contact?.line && (
+          {contact?.line && contact?.line?.length > 0 && (
             <Link href={contact.line} rel="noopener noreferrer">
               <Image
                 src="/icons/Line.svg"

@@ -60,7 +60,7 @@ export default function ContactInfo(props: ContactInfoProps) {
         </Typography>
       </div>
       <div className="flex flex-row flex-1 mt-4 gap-x-6">
-        {contact.instagram && (
+        {contact.instagram && contact.instagram.length > 0 && (
           <Link href={contact.instagram} rel="noopener noreferrer">
             <Image
               src="/icons/InstagramBlue.svg"
@@ -70,7 +70,7 @@ export default function ContactInfo(props: ContactInfoProps) {
             ></Image>
           </Link>
         )}
-        {contact.facebook && (
+        {contact.facebook && contact.facebook.length > 0 && (
           <Link href={contact.facebook} rel="noopener noreferrer">
             <Image
               src="/icons/FacebookBlue.svg"
@@ -80,7 +80,7 @@ export default function ContactInfo(props: ContactInfoProps) {
             ></Image>
           </Link>
         )}
-        {contact.youtube && (
+        {contact.youtube && contact.youtube.length > 0 && (
           <Link href={contact.youtube} rel="noopener noreferrer">
             <Image
               src="/icons/YoutubeBlue.svg"
@@ -90,7 +90,7 @@ export default function ContactInfo(props: ContactInfoProps) {
             ></Image>
           </Link>
         )}
-        {contact.line && (
+        {contact.line && contact.line.length > 0 && (
           <Link href={contact.line} rel="noopener noreferrer">
             <Image
               src="/icons/LineBlue.svg"

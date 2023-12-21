@@ -30,32 +30,34 @@ export default async function Team(props: TeamProps) {
   return (
     <main className="pt-[50px] md:pt-[200px]">
       <Banner size="small" src={team.banner}></Banner>
-      <Section className="bg-bgGray">
-        <div className="flex flex-col w-full md:w-[1068px]">
-          <Title full align="center" type={type}>
-            {team.foreignTeam.title[lang]}
-          </Title>
-          <Typography varient="h5" className="text-textGray text-center">
-            {team.foreignTeam.description[lang]}
-          </Typography>
-          <div className="flex flex-col md:flex-row justify-between items-center gap-y-4 mt-8">
-            {team.foreignTeam.teachers.map((element, index) => (
-              <Card
-                key={`foreign team ${index}`}
-                type={`team${name === "kindergarten" ? `-kindergarten` : ""}`}
-                img={element.img}
-                alt={element.title[lang]}
-                title={element.title[lang]}
-                tag={element.tag[lang]}
-                description={element.description[lang]}
-                facebook={element.facebook}
-                linkedin={element.linkedin}
-                twitter={element.twitter}
-              ></Card>
-            ))}
+      {team.foreignTeam.teachers?.length >= 1 && (
+        <Section className="bg-bgGray">
+          <div className="flex flex-col w-full md:w-[1068px]">
+            <Title full align="center" type={type}>
+              {team.foreignTeam.title[lang]}
+            </Title>
+            <Typography varient="h5" className="text-textGray text-center">
+              {team.foreignTeam.description[lang]}
+            </Typography>
+            <div className="flex flex-col md:flex-row justify-between items-center gap-y-4 mt-8">
+              {team.foreignTeam.teachers.map((element, index) => (
+                <Card
+                  key={`foreign team ${index}`}
+                  type={`team${name === "kindergarten" ? `-kindergarten` : ""}`}
+                  img={element.img}
+                  alt={element.title[lang]}
+                  title={element.title[lang]}
+                  tag={element.tag[lang]}
+                  description={element.description[lang]}
+                  facebook={element.facebook}
+                  linkedin={element.linkedin}
+                  twitter={element.twitter}
+                ></Card>
+              ))}
+            </div>
           </div>
-        </div>
-      </Section>
+        </Section>
+      )}
       <Section className="bg-white">
         <div className="flex flex-col w-full md:w-[1068px]">
           <Title full align="center" type={type}>
