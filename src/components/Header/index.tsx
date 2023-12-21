@@ -27,10 +27,6 @@ export default function Header() {
       label: language === "zh" ? "聯絡" : `Contact`,
     },
     {
-      path: `/${language}/news`,
-      label: language === "zh" ? "新聞" : `News`,
-    },
-    {
       path: `https://google.com`,
       label: language === "zh" ? "學生資訊系統" : `Student Portal`,
     },
@@ -196,7 +192,7 @@ export default function Header() {
             <div className="flex flex-col h-full">
               <div className="flex flex-col w-fit min-w-[400px] mx-auto">
                 <p
-                  className={`self-star ${
+                  className={`animate__animated animate__fadeIn self-star ${
                     subSchool === "kindergarten"
                       ? notoSans.className
                       : "font-serif"
@@ -205,7 +201,7 @@ export default function Header() {
                   Small steps towards a
                 </p>
                 <p
-                  className={`self-end ${
+                  className={`animate__animated animate__fadeIn animate__delay-1s self-end ${
                     subSchool === "kindergarten"
                       ? kindergarten.className
                       : "font-serif"
@@ -216,7 +212,7 @@ export default function Header() {
                   BIG FUTURE
                 </p>
                 <p
-                  className={`${
+                  className={`animate__animated animate__zoomIn animate__delay-1s ${
                     subSchool === "kindergarten" ? "self-end" : "self-center"
                   } text-[10px] leading-normal ${
                     subSchool === "kindergarten" ? "mt-4" : "mt-2"

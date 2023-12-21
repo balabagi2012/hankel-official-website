@@ -53,23 +53,23 @@ export default function Banner({
             height={60}
             className="w-auto h-auto"
           ></Image>
-          <div className="text-[#13325D] my-2 font-bold font-serif leading-[1.5] tracking-[1px] text-[32px]">
+          <div className="text-[#13325D] my-2 font-bold font-serif leading-[1.5] tracking-[1px] text-[32px] animate__animated animate__fadeIn">
             {title}
           </div>
-          <div className="text-deepBlue text-[16px] font-serif leading-[2] tracking-[1px] mb-3 text-justify">
+          <div className="text-deepBlue text-[16px] font-serif leading-[2] tracking-[1px] mb-3 text-justify animate__animated animate__fadeIn danimate__elay-1s">
             {subtitle}
           </div>
-          <div className="text-[14px] font-sans text-[#4E4E4E] leading-[1.8] text-center">
+          <div className="text-[14px] font-sans text-[#4E4E4E] leading-[1.8] text-center aanimate__nimated animate__fadeIn animate__delay-2s">
             {description}
           </div>
         </div>
       )}
       {size === "large" && title && description && (
         <div className="z-[-1] absolute w-full px-4 md:px-[80px] flex flex-col justify-center items-start flex-1">
-          <Typography varient="h2" className="font-serif text-white">
+          <Typography varient="h2" className="animate__animated animate__fadeIn font-serif text-white">
             {title}
           </Typography>
-          <Typography varient="h5" className="font-serif text-white">
+          <Typography varient="h5" className="animate__animated animate__fadeIn animate__delay-1s font-serif text-white">
             {description}
           </Typography>
         </div>
