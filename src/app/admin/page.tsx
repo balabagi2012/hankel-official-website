@@ -123,7 +123,10 @@ export default function AdminPage() {
             <div className="flex flex-col items-start justify-start mt-2">
               <input
                 className="w-full border px-4 py-2 mb-4 mt-2"
-                {...register(key)}
+                value={field.value}
+                onChange={(event) => {
+                  field.onChange(event.target.value);
+                }}
               ></input>
               <input
                 type="file"
