@@ -187,7 +187,7 @@ export default async function Subschool(props: SubschoolProps) {
         </div>
       </Section>
       <Section>
-        <div className="flex flex-col md:flex-row w-full lg:w-[1024px] items-stretch">
+        <div className="flex flex-col md:flex-row w-full lg:w-[1024px]">
           <ContactInfo
             lang={lang}
             type={name === "kindergarten" ? "kindergarten" : "subschool"}
