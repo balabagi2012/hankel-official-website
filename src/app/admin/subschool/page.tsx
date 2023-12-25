@@ -1,36 +1,24 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 
-export default function AdminPage() {
-  const schoolList = ["dayCare", "elementary", "kindergarten", "highSchool"];
-  const apiList = [
-    "about",
-    "contact",
-    "curriculum",
-    "facility",
-    "home",
-    "information",
-    "subschool",
-    "team",
-    "news",
-  ];
-  const [activePage, setActivePage] = useState(apiList[0]);
+export default function AdminSubschoolPage() {
+  const pageName = "subschool";
+  const tabList = useMemo(
+    () => ["dayCare", "elementary", "kindergarten", "highSchool"],
+    []
+  );
   const [activePageData, setActivePageData] = useState([] as any);
-  const [activeTabData, setActiveTabData] = useState({} as any);
   const [activeTab, setActiveTab] = useState("");
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
-
-  const tabs =
-    activePage === "home"
-      ? ["home"]
-      : ["about", "contact"].includes(activePage)
-      ? ["home", ...schoolList]
-      : schoolList;
+  const activeTabData = useMemo(
+    () =>
+      activePageData?.find(({ name }: { name: string }) => name === activeTab),
+    [activePageData, activeTab]
+  );
 
   const { register, control, handleSubmit } = useForm({
     values: activeTabData,
@@ -38,10 +26,7 @@ export default function AdminPage() {
 
   const onSubmit: SubmitHandler<any> = async (data: any) => {
     setLoading(true);
-    const url =
-      activePage === "home"
-        ? `/api/${activePage}`
-        : `/api/${activePage}/${activeTab}`;
+    const url = `/api/${pageName}/${activeTab}`;
     const { _id, ...body } = data;
     const res = await fetch(url, {
       method: "PATCH",
@@ -52,12 +37,12 @@ export default function AdminPage() {
       // This will activate the closest `error.js` Error Boundary
       return window.alert("Failed to update data");
     }
-    loadPageData(activePage);
+    loadPageData();
     return window.alert("Successed to update data");
   };
 
-  const fetchPageData = async (page: string) => {
-    const url = `/api/${page}`;
+  const fetchPageData = async () => {
+    const url = `/api/${pageName}`;
     const res = await fetch(url, {
       cache: "no-cache",
     });
@@ -65,36 +50,21 @@ export default function AdminPage() {
       // This will activate the closest `error.js` Error Boundary
       throw new Error("Failed to fetch data");
     }
-
     return res.json();
   };
 
-  const loadPageData = useCallback(async (page: string) => {
+  const loadPageData = useCallback(async () => {
     setLoading(true);
-    fetchPageData(page).then((data) => {
+    fetchPageData().then((data) => {
       setActivePageData(data);
-      setActiveTab(
-        page === "home" ? page : page === "news" ? "dayCare" : data[0].name
-      );
+      setActiveTab(tabList[0]);
       setLoading(false);
     });
-  }, []);
+  }, [tabList]);
 
   useEffect(() => {
-    loadPageData(activePage);
-  }, [loadPageData, activePage]);
-
-  useEffect(() => {
-    setActiveTabData(
-      activePage === "home"
-        ? activePageData
-        : Array.isArray(activePageData)
-        ? activePageData?.find(
-            ({ name }: { name: string }) => name === activeTab
-          )
-        : {}
-    );
-  }, [activePage, activePageData, activeTab]);
+    loadPageData();
+  }, [loadPageData]);
 
   const uploadFile = async (file: File) => {
     setUploading(true);
@@ -204,27 +174,18 @@ export default function AdminPage() {
     <div className="flex flex-col w-full items-center h-full ">
       <div className="fixed left-64 right-0">
         <div className="flex bg-white py-4 px-8 shadow-md h-16 flex-row justify-end items-center">
-          {activePage === "news" ? (
-            <Link
-              href="/admin/news"
-              className="px-3 py-1 bg-deepBlue font-base text-white border border-gray-300 rounded-lg focus:outline-none"
-            >
-              Create
-            </Link>
-          ) : (
-            <button
-              id="save-button"
-              disabled={loading}
-              className="px-3 py-1 bg-deepBlue font-base text-white border border-gray-300 rounded-lg focus:outline-none"
-              onClick={handleSubmit(onSubmit)}
-            >
-              Save
-            </button>
-          )}
+          <button
+            id="save-button"
+            disabled={loading}
+            className="px-3 py-1 bg-deepBlue font-base text-white border border-gray-300 rounded-lg focus:outline-none"
+            onClick={handleSubmit(onSubmit)}
+          >
+            Save
+          </button>
         </div>
       </div>
       <div className="flex flex-row gap-6 px-8 w-full bg-white mt-16">
-        {tabs.map((tab: string) => (
+        {tabList.map((tab: string) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
