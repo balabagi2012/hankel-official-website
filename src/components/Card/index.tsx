@@ -102,11 +102,13 @@ export default function Card(props: CardProps) {
           <div className="flex flex-col items-center p-[16px]">
             <Typography
               varient="h3"
-              className={`mb-[12px] ${kindergarten.className}`}
+              className={`mb-[12px] ${
+                lang === "en" ? kindergarten.className : ""
+              }`}
             >
               {title}
             </Typography>
-            <Typography varient="h6" className="text-textGray text-center">
+            <Typography varient="h6" className="text-textGray text-left">
               {description}
             </Typography>
           </div>
@@ -120,7 +122,7 @@ export default function Card(props: CardProps) {
             <Typography varient="h3" className="mb-[12px]">
               {title}
             </Typography>
-            <Typography varient="h6" className="text-textGray text-center">
+            <Typography varient="h6" className="text-textGray text-left">
               {description}
             </Typography>
           </div>
@@ -139,7 +141,9 @@ export default function Card(props: CardProps) {
           <div className="flex flex-col items-start py-[16px]">
             <Typography
               varient="h4"
-              className={`text-textGray mb-[2px] ${kindergarten.className}`}
+              className={`text-textGray mb-[2px] ${
+                lang === "en" ? kindergarten.className : ""
+              }`}
             >
               {title}
             </Typography>
@@ -187,7 +191,9 @@ export default function Card(props: CardProps) {
           <div className="flex flex-col items-start py-[16px]">
             <Typography
               varient="h4"
-              className={`text-textGray mb-1 ${kindergarten.className} text-start`}
+              className={`text-textGray mb-1 ${
+                lang === "en" ? kindergarten.className : ""
+              } text-start`}
             >
               {title}
             </Typography>
@@ -235,7 +241,9 @@ export default function Card(props: CardProps) {
           <div className="flex flex-col items-center py-[16px] px-[16px]">
             <Typography
               varient="h3"
-              className={`${kindergarten.className} mb-[12px]`}
+              className={`${
+                lang === "en" ? kindergarten.className : ""
+              } mb-[12px]`}
             >
               {title}
             </Typography>

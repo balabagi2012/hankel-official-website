@@ -32,10 +32,10 @@ export default function Title(props: TitleProps) {
         className={`text-deepBlue ${
           align === "center" ? "text-center" : "text-left"
         } ${
-          type === "kindergarten"
-            ? kindergarten.className
-            : lang === "en"
-            ? "font-serif"
+          lang === "en"
+            ? type === "kindergarten"
+              ? kindergarten.className
+              : "font-serif"
             : ""
         } ${className}`}
       >
