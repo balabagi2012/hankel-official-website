@@ -41,6 +41,7 @@ export default async function About(props: AboutProps) {
         src={data.banner ?? "/banners/school.png"}
         title={data.title[lang]}
         description={data.description[lang]}
+        lang={lang}
       ></Banner>
       <Section className="bg-bgGray">
         <div className="flex flex-col-reverse md:flex-row w-full md:w-[1180px] justify-center items-stretch">
@@ -57,7 +58,7 @@ export default async function About(props: AboutProps) {
             ))}
           </div>
           <div className="flex-1 flex flex-col justify-between">
-            <Title full align="left" type={type}>
+            <Title full align="left" type={type} lang={lang}>
               {data?.sections[0]?.title?.[lang] ?? ""}
             </Title>
             <div className="flex flex-1 flex-col">
@@ -66,8 +67,12 @@ export default async function About(props: AboutProps) {
                   <Typography
                     key={text.content[lang]}
                     varient="h4"
-                    className={`font-serif text-blue text-start mb-5 ${
-                      type === "kindergarten" ? kindergarten.className : ""
+                    className={`text-blue text-start mb-5 ${
+                      type === "kindergarten"
+                        ? kindergarten.className
+                        : lang === "en"
+                        ? "font-serif"
+                        : ""
                     }`}
                   >
                     {text.content[lang]}
@@ -89,7 +94,7 @@ export default async function About(props: AboutProps) {
       <Section className="bg-white">
         <div className="flex flex-col md:flex-row w-full md:w-[1180px] justify-center items-stretch">
           <div className="flex flex-col md:mr-[65px] gap-y-3 flex-1">
-            <Title full align="left" type={type}>
+            <Title full align="left" type={type} lang={lang}>
               {data.sections[1].title?.[lang] ?? ""}
             </Title>
             <div className="flex flex-1 flex-col">
@@ -98,8 +103,12 @@ export default async function About(props: AboutProps) {
                   <Typography
                     key={text.content[lang]}
                     varient="h4"
-                    className={`font-serif text-blue text-start mb-5 ${
-                      type === "kindergarten" ? kindergarten.className : ""
+                    className={`text-blue text-start mb-5 ${
+                      type === "kindergarten"
+                        ? kindergarten.className
+                        : lang === "en"
+                        ? "font-serif"
+                        : ""
                     }`}
                   >
                     {text.content[lang]}

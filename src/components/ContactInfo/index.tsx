@@ -5,25 +5,25 @@ import Title from "../Title";
 import Typography from "../Typography";
 
 export interface ContactInfoProps {
-  type: "subschool" | "kindergarten";
+  type: "subschool" | "kindergarten" | "home";
   lang: "en" | "zh";
   contact: ContactEntity;
 }
 export default function ContactInfo(props: ContactInfoProps) {
   const { type = "subschool", contact, lang } = props;
   return (
-    <div className="flex p-4 md:p-0 flex-1 flex-col items-start justify-around md:mr-[70px]">
-      <Title full align="left" type={type}>
+    <div className="flex p-4 md:p-0 flex-1 flex-col items-start justify-start md:mr-[70px] gap-y-6">
+      <Title full align="left" type={type} lang={lang}>
         {contact.title[lang]}
       </Title>
       <Typography
         varient="h5"
-        className="text-start flex-1 md:mt-[-40px]"
+        className="text-start md:mt-[-40px]"
         color="textGray"
       >
         {contact.description[lang]}
       </Typography>
-      <div className="flex flex-row items-center flex-1 mt-4 md:mt-0">
+      <div className="flex flex-row items-center mt-4 md:mt-0">
         <Image
           src="/icons/PhoneOutlined.svg"
           alt="hankel PhoneOutlined"
@@ -35,7 +35,7 @@ export default function ContactInfo(props: ContactInfoProps) {
           {contact.phone}
         </Typography>
       </div>
-      <div className="flex flex-row items-center flex-1 mt-3 md:mt-0">
+      <div className="flex flex-row items-center mt-3 md:mt-0">
         <Image
           src="/icons/MailOutlined.svg"
           alt="hankel MailOutlined"
@@ -47,7 +47,11 @@ export default function ContactInfo(props: ContactInfoProps) {
           {contact.email}
         </Typography>
       </div>
-      <div className="flex flex-row items-start flex-1 mt-3 md:mt-0">
+      <div
+        className={`flex flex-row ${
+          lang === "en" ? "items-start" : "items-center"
+        } mt-3 md:mt-0`}
+      >
         <Image
           src="/icons/LocationOnOutlined.svg"
           alt="hankel LocationOnOutlined"
@@ -59,7 +63,7 @@ export default function ContactInfo(props: ContactInfoProps) {
           {contact.address[lang]}
         </Typography>
       </div>
-      <div className="flex flex-row flex-1 mt-4 gap-x-6">
+      <div className={`flex flex-row gap-x-6 mt-2`}>
         {contact.instagram && contact.instagram.length > 0 && (
           <Link href={contact.instagram} rel="noopener noreferrer">
             <Image

@@ -29,11 +29,11 @@ export default async function Team(props: TeamProps) {
   const team = await getTeam(name);
   return (
     <main className="pt-[50px] md:pt-[200px]">
-      <Banner size="small" src={team.banner}></Banner>
+      <Banner size="small" src={team.banner} lang={lang}></Banner>
       {team.foreignTeam.teachers?.length >= 1 && (
         <Section className="bg-bgGray">
           <div className="flex flex-col w-full md:w-[1068px]">
-            <Title full align="center" type={type}>
+            <Title full align="center" type={type} lang={lang}>
               {team.foreignTeam.title[lang]}
             </Title>
             <Typography varient="h5" className="text-textGray text-center">
@@ -52,6 +52,7 @@ export default async function Team(props: TeamProps) {
                   facebook={element.facebook}
                   linkedin={element.linkedin}
                   twitter={element.twitter}
+                  lang={lang}
                 ></Card>
               ))}
             </div>
@@ -60,7 +61,7 @@ export default async function Team(props: TeamProps) {
       )}
       <Section className="bg-white">
         <div className="flex flex-col w-full md:w-[1068px]">
-          <Title full align="center" type={type}>
+          <Title full align="center" type={type} lang={lang}>
             {team.localTeam.title[lang]}
           </Title>
           <Typography varient="h5" className="text-textGray text-center">
@@ -79,6 +80,7 @@ export default async function Team(props: TeamProps) {
                 facebook={element.facebook}
                 linkedin={element.linkedin}
                 twitter={element.twitter}
+                lang={lang}
               ></Card>
             ))}
           </div>

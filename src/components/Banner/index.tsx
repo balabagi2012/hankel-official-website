@@ -12,6 +12,7 @@ interface BannerProps {
   subtitle?: string;
   description?: string;
   children?: ReactElement;
+  lang?: "en" | "zh";
 }
 export default function Banner({
   className,
@@ -21,6 +22,7 @@ export default function Banner({
   subtitle,
   size = "big",
   name,
+  lang = "en",
   children,
 }: BannerProps) {
   return (
@@ -53,10 +55,18 @@ export default function Banner({
             height={60}
             className="w-auto h-auto"
           ></Image>
-          <div className="text-[#13325D] my-2 font-bold font-serif leading-[1.5] tracking-[1px] text-[32px] animate__animated animate__fadeIn">
+          <div
+            className={`text-deepBlue my-2 font-bold ${
+              lang === "en" ? "font-serif" : ""
+            } leading-[1.5] tracking-[1px] text-[32px] animate__animated animate__fadeIn`}
+          >
             {title}
           </div>
-          <div className="text-deepBlue text-[16px] font-serif leading-[2] tracking-[1px] mb-3 text-justify animate__animated animate__fadeIn danimate__elay-1s">
+          <div
+            className={`text-deepBlue text-[16px] ${
+              lang === "en" ? "font-serif" : ""
+            } leading-[2] tracking-[1px] mb-3 text-justify animate__animated animate__fadeIn animate__delay-1s`}
+          >
             {subtitle}
           </div>
           <div className="text-[14px] font-sans text-[#4E4E4E] leading-[1.8] text-center animate__animated animate__fadeIn animate__delay-1s">
@@ -66,10 +76,20 @@ export default function Banner({
       )}
       {size === "large" && title && description && (
         <div className="z-[-1] absolute w-full px-4 md:px-[80px] flex flex-col justify-center items-start flex-1">
-          <Typography varient="h2" className="animate__animated animate__fadeIn font-serif text-white">
+          <Typography
+            varient="h2"
+            className={`animate__animated animate__fadeIn ${
+              lang === "en" ? "font-serif" : ""
+            } text-white`}
+          >
             {title}
           </Typography>
-          <Typography varient="h5" className="animate__animated animate__fadeIn animate__delay-1s font-serif text-white">
+          <Typography
+            varient="h5"
+            className={`animate__animated animate__fadeIn animate__delay-1s ${
+              lang === "en" ? "font-serif" : ""
+            } text-white`}
+          >
             {description}
           </Typography>
         </div>
@@ -79,14 +99,20 @@ export default function Banner({
           <Typography
             varient="h4"
             className={`${
-              name === "kindergarten" ? kindergarten.className : "font-serif"
+              name === "kindergarten"
+                ? kindergarten.className
+                : lang === "en"
+                ? "font-serif"
+                : ""
             } text-textGray`}
           >
             {title}
           </Typography>
           <Typography
             varient="h5"
-            className={`${name === "kindergarten" ? "" : "font-serif"}
+            className={`${
+              name === "kindergarten" || lang === "zh" ? "" : "font-serif"
+            }
               text-textGray text-right mt=[12px]`}
           >
             {description}

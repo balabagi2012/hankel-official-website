@@ -2,7 +2,7 @@ import About from "@/components/About";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Hankel - MiddleSchool",
+  title: "Hankel - HighSchool",
 };
 
 export default function MiddleSchoolAbout({
@@ -10,5 +10,5 @@ export default function MiddleSchoolAbout({
 }: {
   params: { lang: "en" | "zh" };
 }) {
-  return <About lang={lang} name="middleSchool" type="subschool" />;
+  return <About lang={lang} name="highSchool" type="subschool" />;
 }

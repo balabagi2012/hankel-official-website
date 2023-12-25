@@ -28,10 +28,10 @@ export default async function Facility(props: FacilityProps) {
   const facility = await getFacility(name);
   return (
     <main className="pt-[50px] md:pt-[200px]">
-      <Banner size="small" src={facility.banner}></Banner>
+      <Banner size="small" src={facility.banner} lang={lang}></Banner>
       <Section className="bg-bgGray">
         <div className="flex flex-col w-full md:w-[700px]">
-          <Title full align="center" type={type}>
+          <Title full align="center" type={type} lang={lang}>
             {facility.title[lang]}
           </Title>
           <Typography varient="h5" className="text-textGray text-center">
@@ -52,7 +52,7 @@ export default async function Facility(props: FacilityProps) {
       </Section>
       <Section className="bg-white">
         <div className="flex flex-col w-full lg:w-[1268px]">
-          <Title full align="left" type={type}>
+          <Title full align="left" type={type} lang={lang}>
             {facility.facilityTitle[lang]}
           </Title>
           <div className="flex flex-col md:flex-row md:flex-wrap justify-center items-start md:justify-between">
@@ -66,6 +66,7 @@ export default async function Facility(props: FacilityProps) {
                 alt={`hankel facility ${index}`}
                 title={element.title[lang]}
                 description={element.description[lang]}
+                lang={lang}
               ></Card>
             ))}
           </div>

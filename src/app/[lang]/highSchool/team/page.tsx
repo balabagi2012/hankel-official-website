@@ -2,7 +2,7 @@ import Team from "@/components/Team";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Hankel - MiddleSchool",
+  title: "Hankel - HighSchool",
 };
 
 export default function MiddleSchoolTeam({
@@ -10,5 +10,5 @@ export default function MiddleSchoolTeam({
 }: {
   params: { lang: "en" | "zh" };
 }) {
-  return <Team type="subschool" lang={lang} name="middleSchool" />;
+  return <Team type="subschool" lang={lang} name="highSchool" />;
 }

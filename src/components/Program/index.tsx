@@ -37,14 +37,19 @@ export function Program(props: ProgramProps) {
   );
   return (
     <Section className="bg-bgGray">
-      <Title>{title}</Title>
+      <Title lang={lang}>{title}</Title>
       <ul className="w-full md:w-fit overflow-x-scroll flex-row flex justify-start gap-x-6 items-center mb-7 md:mb-[66px]">
         {programs.map((program) => (
           <ProgramNavItem program={program} key={program.type} />
         ))}
       </ul>
       <div className="flex flex-col bg-white px-4 md:px-[60px] pt-4 md:pt-[48px] pb-4 md:pb-[32px] rounded md:rounded-none shadow md:shadow-none w-full md:w-[1042px] items-center">
-        <Typography varient="h2" className="font-serif text-deepBlue mb-[15px]">
+        <Typography
+          varient="h2"
+          className={`${
+            lang === "en" ? "font-serif" : ""
+          } text-deepBlue mb-[15px]`}
+        >
           {activeProgram.title[lang]}
         </Typography>
         <Typography varient="h5" className="text-textGray">

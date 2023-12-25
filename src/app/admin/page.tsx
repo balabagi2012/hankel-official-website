@@ -6,7 +6,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 
 export default function AdminPage() {
-  const schoolList = ["dayCare", "elementary", "kindergarten", "middleSchool"];
+  const schoolList = ["dayCare", "elementary", "kindergarten", "highSchool"];
   const apiList = [
     "about",
     "contact",

@@ -12,7 +12,7 @@ import { ContactEntity } from "@/app/api/contact/route";
 import { SubschoolEntity } from "@/app/api/subschool/route";
 
 interface SubschoolProps {
-  name: "dayCare" | "elementary" | "kindergarten" | "middleSchool";
+  name: "dayCare" | "elementary" | "kindergarten" | "highSchool";
   lang: "en" | "zh";
 }
 
@@ -90,9 +90,9 @@ export default async function Subschool(props: SubschoolProps) {
 
   return (
     <main className="pt-[50px] md:pt-[200px]">
-      <Banner size="small" src={data.banner} />
+      <Banner size="small" src={data.banner} lang={lang} />
       <Section className="bg-bgGray">
-        <Title align="center" type={name}>
+        <Title align="center" type={name} lang={lang}>
           {data.title[lang]}
         </Title>
         <div className="w-full md:w-[1024px] flex-col items-center">
@@ -108,6 +108,7 @@ export default async function Subschool(props: SubschoolProps) {
                 alt={element.title[lang]}
                 title={element.title[lang]}
                 description={element.description[lang]}
+                lang={lang}
               ></Card>
             ))}
           </div>
@@ -119,10 +120,11 @@ export default async function Subschool(props: SubschoolProps) {
         title={data.subBanner.title[lang]}
         description={data.subBanner.description[lang]}
         name={name}
+        lang={lang}
       ></Banner>
       <LatestNews lang={lang} name={name} className="bg-white" />
       <Section className="bg-bgGray">
-        <Title align="center" type={name}>
+        <Title align="center" type={name} lang={lang}>
           {lang === "en" ? "Social Media Post" : "社群媒體"}
         </Title>
         <div className="flex flex-col md:flex-row mb-[52px] gap-4">
@@ -165,8 +167,12 @@ export default async function Subschool(props: SubschoolProps) {
           <div className="flex flex-col items-center">
             <Typography
               varient="h2"
-              className={`font-serif text-deepBlue mb-5 ${
-                name === "kindergarten" ? kindergarten.className : ""
+              className={`text-deepBlue mb-5 ${
+                name === "kindergarten"
+                  ? kindergarten.className
+                  : lang === "en"
+                  ? "font-serif"
+                  : ""
               }`}
             >
               Facebook
@@ -181,7 +187,7 @@ export default async function Subschool(props: SubschoolProps) {
         </div>
       </Section>
       <Section>
-        <div className="flex flex-col md:flex-row w-full lg:w-[1024px] items-stretch">
+        <div className="flex flex-col md:flex-row w-full lg:w-[1024px]">
           <ContactInfo
             lang={lang}
             type={name === "kindergarten" ? "kindergarten" : "subschool"}

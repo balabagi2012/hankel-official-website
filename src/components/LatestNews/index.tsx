@@ -18,7 +18,9 @@ export default function LatestNews({
 }: LatestNewsProps) {
   return (
     <Section className={`bg-bgGray ${className}`}>
-      <Title type={name}>{lang === "en" ? "Latest News" : "最新消息"}</Title>
+      <Title type={name} lang={lang}>
+        {lang === "en" ? "Latest News" : "最新消息"}
+      </Title>
       <div className="w-full flex flex-row overflow-x-scroll mb-[52px] gap-4">
         {[1, 2, 3, 4, 5].map((element) => (
           <Card
@@ -28,6 +30,7 @@ export default function LatestNews({
             alt={`hankel news ${element}`}
             title="Coding in class"
             description="Programming classes in camp"
+            lang={lang}
           ></Card>
         ))}
       </div>
