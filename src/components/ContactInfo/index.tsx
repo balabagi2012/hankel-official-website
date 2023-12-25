@@ -12,7 +12,7 @@ export interface ContactInfoProps {
 export default function ContactInfo(props: ContactInfoProps) {
   const { type = "subschool", contact, lang } = props;
   return (
-    <div className="flex p-4 md:p-0 flex-1 flex-col items-start justify-around md:mr-[70px]">
+    <div className="flex p-4 md:p-0 flex-1 flex-col items-start justify-start md:mr-[70px]">
       <Title full align="left" type={type} lang={lang}>
         {contact.title[lang]}
       </Title>
@@ -59,7 +59,11 @@ export default function ContactInfo(props: ContactInfoProps) {
           {contact.address[lang]}
         </Typography>
       </div>
-      <div className="flex flex-row flex-1 mt-4 gap-x-6">
+      <div
+        className={`flex flex-row flex-1 ${
+          type === "kindergarten" ? "mt-0" : "mt-4"
+        } gap-x-6`}
+      >
         {contact.instagram && contact.instagram.length > 0 && (
           <Link href={contact.instagram} rel="noopener noreferrer">
             <Image
