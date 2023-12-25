@@ -12,7 +12,7 @@ import { ContactEntity } from "@/app/api/contact/route";
 import { SubschoolEntity } from "@/app/api/subschool/route";
 
 interface SubschoolProps {
-  name: "dayCare" | "elementary" | "kindergarten" | "middleSchool";
+  name: "dayCare" | "elementary" | "kindergarten" | "highSchool";
   lang: "en" | "zh";
 }
 

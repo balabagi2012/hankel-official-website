@@ -113,7 +113,7 @@ export default function CreateNewsPage() {
                 >
                   <option value="dayCare">dayCare</option>
                   <option value="kindergarten">kindergarten</option>
-                  <option value="middleSchool">middleSchool</option>
+                  <option value="highSchool">highSchool</option>
                   <option value="elementary">elementary</option>
                 </select>
               </div>

@@ -2,7 +2,7 @@ import Curriculum from "@/components/Curriculum";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Hankel - MiddleSchool",
+  title: "Hankel - HighSchool",
 };
 
 export default function MiddleSchoolCurriculum({
@@ -13,7 +13,7 @@ export default function MiddleSchoolCurriculum({
   return (
     <Curriculum
       lang={lang}
-      name="middleSchool"
+      name="highSchool"
       type="subschool"
     ></Curriculum>
   );
