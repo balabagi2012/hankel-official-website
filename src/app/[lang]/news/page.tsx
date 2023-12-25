@@ -11,7 +11,11 @@ export const metadata: Metadata = {
 const title = "News";
 const description = `About more news in Hankel`;
 
-export default function News() {
+export default function News({
+  params: { lang },
+}: {
+  params: { lang: "en" | "zh" };
+}) {
   return (
     <main className="pt-[50px] md:pt-[80px]">
       <Banner
@@ -19,6 +23,7 @@ export default function News() {
         src="/banners/news.png"
         title={title}
         description={description}
+        lang={lang}
       ></Banner>
       <Section className="bg-bgGray">
         {/* <div className="hidden md:flex flex-col mx-[55px] gap-4 bg-white rounded-xl p-4 h-fit mt-[40px] md:mt-[160px]">
@@ -38,7 +43,7 @@ export default function News() {
         </div> */}
         <div className="flex flex-col p-4 md:p-0">
           <div className="flex flex-row">
-            <Title full align="left">
+            <Title full align="left" lang={lang}>
               News
             </Title>
           </div>
@@ -51,6 +56,7 @@ export default function News() {
                 alt={`hankel news ${element}`}
                 title="Coding in class"
                 description="Programming classes in camp"
+                lang={lang}
               ></Card>
             ))}
           </div>

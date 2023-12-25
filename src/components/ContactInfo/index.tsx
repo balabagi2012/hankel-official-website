@@ -13,7 +13,7 @@ export default function ContactInfo(props: ContactInfoProps) {
   const { type = "subschool", contact, lang } = props;
   return (
     <div className="flex p-4 md:p-0 flex-1 flex-col items-start justify-around md:mr-[70px]">
-      <Title full align="left" type={type}>
+      <Title full align="left" type={type} lang={lang}>
         {contact.title[lang]}
       </Title>
       <Typography

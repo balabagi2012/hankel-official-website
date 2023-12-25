@@ -54,6 +54,7 @@ export default async function HomePage(props: HomePageProps) {
         title={data.title[lang]}
         subtitle={data.subtitle[lang]}
         description={data.description[lang]}
+        lang={lang}
       ></Banner>
       <Program
         lang={lang}
@@ -65,6 +66,7 @@ export default async function HomePage(props: HomePageProps) {
         src={data.subBanner.img}
         title={data.subBanner.title[lang]}
         description={data.subBanner.description[lang]}
+        lang={lang}
       ></Banner>
       <LatestNews lang={lang} name={name} />
       <Section>

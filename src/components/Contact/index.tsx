@@ -41,10 +41,11 @@ export default async function Contact(props: ContactProps) {
         src={data.banner.img ?? "/banners/contact.png"}
         title={data.banner.title?.[lang]}
         description={data.banner?.description?.[lang]}
+        lang={lang}
       ></Banner>
       <Section className="bg-bgGray">
         <div className="flex flex-col w-full md:w-[700px]">
-          <Title full align="center" type={type}>
+          <Title full align="center" type={type} lang={lang}>
             {data.title[lang]}
           </Title>
           <Typography varient="h5" className="text-textGray text-center">

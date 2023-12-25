@@ -24,6 +24,7 @@ interface CardProps {
   twitter?: string;
   linkedin?: string;
   description: string;
+  lang?: "en" | "zh";
 }
 
 export default function Card(props: CardProps) {
@@ -37,6 +38,7 @@ export default function Card(props: CardProps) {
     facebook,
     twitter,
     linkedin,
+    lang = "en",
   } = props;
   switch (type) {
     case "news-kindergarten":
@@ -70,10 +72,18 @@ export default function Card(props: CardProps) {
             className="w-[160px] h-[220px] md:w-[254px] md:h-[350px]"
           ></Image>
           <div className="absolute bottom-[18px] h-[100px] left-0 bg-deepBlue/[0.8] pl-[12px] pr-[4px] py-[8px] flex flex-col items-start">
-            <Typography varient="h4" color="white font-serif text-start">
+            <Typography
+              varient="h4"
+              color="white"
+              className={`${lang === "en" ? "font-serif" : ""} text-start`}
+            >
               {title}
             </Typography>
-            <Typography varient="body" color="white font-serif text-start">
+            <Typography
+              varient="body"
+              color="white"
+              className={`${lang === "en" ? "font-serif" : ""} text-start`}
+            >
               {description}
             </Typography>
           </div>
@@ -152,7 +162,9 @@ export default function Card(props: CardProps) {
           <div className="flex flex-col items-start py-[16px]">
             <Typography
               varient="h4"
-              className="text-textGray mb-[2px] font-serif"
+              className={`text-textGray mb-[2px] ${
+                lang === "en" ? "font-serif" : ""
+              }`}
             >
               {title}
             </Typography>
@@ -198,7 +210,9 @@ export default function Card(props: CardProps) {
           <div className="flex flex-col items-start py-[16px]">
             <Typography
               varient="h4"
-              className="text-textGray mb-[2px] font-serif text-start"
+              className={`text-textGray mb-[2px] ${
+                lang === "en" ? "font-serif" : ""
+              } text-start`}
             >
               {title}
             </Typography>
@@ -279,7 +293,10 @@ export default function Card(props: CardProps) {
             className="w-full md:w-[322px] h:auto"
           ></Image>
           <div className="flex flex-col items-center py-[16px] px-[16px]">
-            <Typography varient="h3" className="font-serif mb-[12px]">
+            <Typography
+              varient="h3"
+              className={`${lang === "en" ? "font-serif" : ""} mb-[12px]`}
+            >
               {title}
             </Typography>
             <div className="mb-[12px] bg-deepBlue py-1 px-2 rounded-xl w-full flex flex-row justify-center items-center">
