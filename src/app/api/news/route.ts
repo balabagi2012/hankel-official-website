@@ -1,11 +1,12 @@
 import { connectToDatabase } from "@/utils/mongodb";
 
 export interface NewsEntity {
-  title: string;
-  description: string;
-  name: string;
+  _id?: string;
+  title: Text;
+  description: Text;
+  category: string;
   banner: string;
-  content: string;
+  content: Text;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -33,8 +34,8 @@ export async function GET() {
 // POST /api/news
 export async function POST(req: Request) {
   try {
-    const { title, description, name, banner, content } = await req.json();
-    if (!title || !description || !name || !banner || !content) {
+    const { title, description, category, banner, content } = await req.json();
+    if (!title || !description || !category || !banner || !content) {
       return Response.json(
         { error: "Missing required fields" },
         { status: 400 }
@@ -44,7 +45,7 @@ export async function POST(req: Request) {
     const news = await db.collection("news").insertOne({
       title,
       description,
-      name,
+      category,
       banner,
       content,
       createdAt: new Date(),

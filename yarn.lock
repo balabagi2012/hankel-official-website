@@ -51,6 +51,11 @@
   resolved "https://registry.yarnpkg.com/@eslint/js/-/js-8.48.0.tgz#642633964e217905436033a2bd08bf322849b7fb"
   integrity sha512-ZSjtmelB7IJfWD2Fvb7+Z+ChTIKWq6kjda95fLcQKNS5aheVHn4IkfgRQE3sIIzTcSLwLcLZUD9UBt+V7+h+Pw==
 
+"@heroicons/react@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@heroicons/react/-/react-2.1.1.tgz#422deb80c4d6caf3371aec6f4bee8361a354dc13"
+  integrity sha512-JyyN9Lo66kirbCMuMMRPtJxtKJoIsXKS569ebHGGRKbl8s4CtUfLnyKJxteA+vIKySocO4s1SkTkGS4xtG/yEA==
+
 "@humanwhocodes/config-array@^0.11.10":
   version "0.11.13"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.11.13.tgz#075dc9684f40a531d9b26b0822153c1e832ee297"
@@ -281,11 +286,6 @@
   version "2.1.13"
   resolved "https://registry.yarnpkg.com/@tiptap/extension-collaboration-cursor/-/extension-collaboration-cursor-2.1.13.tgz#0fa09144c83a106135189430e0da85677cb641a0"
   integrity sha512-K9HJ75GJ/IRNMHLqcbthJ9AXgVusBi8Q17NKPe41LU2/mD6gk6aKbH4P0q4SIfEsTCzP0P4fnz1D6s+z77aJZg==
-
-"@tiptap/extension-collaboration@^2.1.13":
-  version "2.1.13"
-  resolved "https://registry.yarnpkg.com/@tiptap/extension-collaboration/-/extension-collaboration-2.1.13.tgz#f3b84c2e01db59e9a1183a7deaaa11dbf2f65777"
-  integrity sha512-EGzev7lONwOCaz7vWj/LkC9f86WLZIgRmqP7sD0xA7t8R+2qdEaRPeqwwy99EOataHxm9++BEd8hKAdBV8MVdw==
 
 "@tiptap/extension-document@^2.1.13":
   version "2.1.13"

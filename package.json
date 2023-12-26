@@ -9,8 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@heroicons/react": "^2.1.1",
     "@tiptap/extension-character-count": "^2.1.13",
-    "@tiptap/extension-collaboration": "^2.1.13",
     "@tiptap/extension-collaboration-cursor": "^2.1.13",
     "@tiptap/extension-highlight": "^2.1.13",
     "@tiptap/extension-image": "^2.1.13",
