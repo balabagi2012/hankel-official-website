@@ -12,6 +12,7 @@ export default function AdminSideBar() {
     "subschool",
     "team",
     "news",
+    "event"
   ];
   return (
     <aside className="fixed w-64 h-full bg-gray-800 text-white items-start justify-start">

@@ -174,6 +174,19 @@ export default function AdminAboutPage() {
     <div className="flex flex-col w-full items-center h-full ">
       <div className="fixed left-64 right-0">
         <div className="flex bg-white py-4 px-8 shadow-md h-16 flex-row justify-end items-center">
+          <div className="flex-1 flex items-center justify-between">
+            <div className="flex-1 flex justify-start items-center mr-auto">
+              <Image
+                src="/icons/logo_square.svg"
+                width={24}
+                height={24}
+                alt="logo"
+              ></Image>
+              <span className="text-xl font-semibold mx-2 text-gray-800">
+                About
+              </span>
+            </div>
+          </div>
           <button
             id="save-button"
             disabled={loading}
