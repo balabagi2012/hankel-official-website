@@ -29,7 +29,6 @@ export async function PATCH(
     const { id } = params;
     const body = await req.json();
     const db = await connectToDatabase();
-    console.log(body);
     await db.collection("news").updateOne(
       { _id: new ObjectId(id) },
       {
@@ -60,7 +59,6 @@ export async function DELETE(
 ) {
   try {
     const { id } = params;
-    console.log(id);
     const db = await connectToDatabase();
     await db.collection("news").deleteOne({ _id: new ObjectId(id) });
     return Response.json(

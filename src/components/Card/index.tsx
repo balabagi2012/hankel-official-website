@@ -23,6 +23,7 @@ interface CardProps {
   facebook?: string;
   twitter?: string;
   linkedin?: string;
+  id?: string;
   description: string;
   lang?: "en" | "zh";
 }
@@ -39,11 +40,15 @@ export default function Card(props: CardProps) {
     twitter,
     linkedin,
     lang = "en",
+    id,
   } = props;
   switch (type) {
     case "news-kindergarten":
       return (
-        <div className="relative min-h-fit min-w-fit">
+        <Link
+          href={`/${lang}/news/${id}`}
+          className="relative min-h-fit min-w-fit bg-white hover:scale-105"
+        >
           <Image
             src={img}
             alt={alt}
@@ -51,7 +56,7 @@ export default function Card(props: CardProps) {
             height="350"
             className="w-[160px] h-[220px] md:w-[254px] md:h-[350px] rounded-lg"
           ></Image>
-          <div className="absolute bottom-[18px] h-[100px] left-0 bg-deepBlue/[0.8] pl-[12px] pr-[4px] py-[8px] flex flex-col items-start">
+          <div className="absolute bottom-[18px] h-[100px] left-0 right-0 bg-deepBlue/[0.8] pl-[12px] pr-[4px] py-[8px] flex flex-col items-start">
             <Typography varient="h4" color="white text-start">
               {title}
             </Typography>
@@ -59,11 +64,14 @@ export default function Card(props: CardProps) {
               {description}
             </Typography>
           </div>
-        </div>
+        </Link>
       );
     case "news":
       return (
-        <div className="relative min-h-fit min-w-fit">
+        <Link
+          href={`/${lang}/news/${id}`}
+          className="relative min-h-fit min-w-fit bg-white hover:scale-105"
+        >
           <Image
             src={img}
             alt={alt}
@@ -71,7 +79,7 @@ export default function Card(props: CardProps) {
             height="350"
             className="w-[160px] h-[220px] md:w-[254px] md:h-[350px]"
           ></Image>
-          <div className="absolute bottom-[18px] h-[100px] left-0 bg-deepBlue/[0.8] pl-[12px] pr-[4px] py-[8px] flex flex-col items-start">
+          <div className="absolute bottom-[18px] h-[100px] left-0 right-0 bg-deepBlue/[0.8] pl-[12px] pr-[4px] py-[8px] flex flex-col items-start">
             <Typography
               varient="h4"
               color="white"
@@ -87,7 +95,7 @@ export default function Card(props: CardProps) {
               {description}
             </Typography>
           </div>
-        </div>
+        </Link>
       );
     case "course-kindergarten":
       return (

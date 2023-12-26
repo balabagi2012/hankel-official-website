@@ -1,14 +1,13 @@
 import { Metadata } from "next";
-import styles from "./page.module.css";
 
 export const metadata: Metadata = {
   title: "Hankel - News",
 };
 
-export default function News() {
+export default function NewsDetail() {
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
+    <main>
+      <div>
         <p>News</p>
       </div>
     </main>

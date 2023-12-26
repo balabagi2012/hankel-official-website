@@ -93,8 +93,7 @@ export default function CreateNewsPage() {
                 <label>title[中文]</label>
                 <input
                   className="w-full border px-4 py-2 mb-4 mt-2"
-                  {...(register("title.zh"),
-                  {
+                  {...register("title.zh", {
                     required: true,
                   })}
                 ></input>
@@ -105,8 +104,7 @@ export default function CreateNewsPage() {
                 <label>title[EN]</label>
                 <input
                   className="w-full border px-4 py-2 mb-4 mt-2"
-                  {...(register("title.en"),
-                  {
+                  {...register("title.en", {
                     required: true,
                   })}
                 ></input>
@@ -150,7 +148,7 @@ export default function CreateNewsPage() {
             </div>
             <div className="bg-white px-6 py-3 rounded shadow mt-4">
               <div>
-                <label>banner</label>
+                <label>banner [建議尺寸254x350]</label>
                 <Controller
                   name={"banner"}
                   control={control}

@@ -1,6 +1,5 @@
 import { connectToDatabase } from "@/utils/mongodb";
 import { Text } from "../model";
-import { NextApiRequest } from "next";
 
 export interface NewsEntity {
   _id?: string;
@@ -14,13 +13,17 @@ export interface NewsEntity {
 }
 
 // GET /api/news
-export async function GET(req: NextApiRequest) {
+export async function GET(req: Request) {
   try {
     const db = await connectToDatabase();
     const filter: any = {};
-    if (req.query.category) {
-      filter.category = req.query.category;
+    const url = new URL(req.url);
+    const searchParams = new URLSearchParams(url.search);
+
+    if (searchParams.has("category")) {
+      filter.category = searchParams.get("category");
     }
+
     const news = await db
       .collection("news")
       .find(filter, { sort: { updateAt: -1 } })
@@ -30,6 +33,7 @@ export async function GET(req: NextApiRequest) {
     }
     return Response.json(news, { status: 200 });
   } catch (error) {
+    console.log(error);
     return Response.json(
       {
         error: "Failed to fetch news data",

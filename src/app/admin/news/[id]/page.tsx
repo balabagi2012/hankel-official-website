@@ -39,7 +39,6 @@ export default function EditNewsPage({
 
   const onSubmit = async (data: any) => {
     setLoading(true);
-    console.log(data);
     const url = `/api/news/${id}`;
     delete data._id;
     const res = await fetch(url, {
@@ -183,7 +182,7 @@ export default function EditNewsPage({
             </div>
             <div className="bg-white px-6 py-3 rounded shadow mt-4">
               <div>
-                <label>banner</label>
+                <label>banner [建議尺寸254x350]</label>
                 <Controller
                   name={"banner"}
                   control={control}
