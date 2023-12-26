@@ -1,4 +1,6 @@
 import { connectToDatabase } from "@/utils/mongodb";
+import { Text } from "../model";
+import { NextApiRequest } from "next";
 
 export interface NewsEntity {
   _id?: string;
@@ -12,10 +14,17 @@ export interface NewsEntity {
 }
 
 // GET /api/news
-export async function GET() {
+export async function GET(req: NextApiRequest) {
   try {
     const db = await connectToDatabase();
-    const news = await db.collection("news").find({}).toArray();
+    const filter: any = {};
+    if (req.query.category) {
+      filter.category = req.query.category;
+    }
+    const news = await db
+      .collection("news")
+      .find(filter, { sort: { updateAt: -1 } })
+      .toArray();
     if (!news) {
       return Response.json({ error: "News data not found" }, { status: 404 });
     }

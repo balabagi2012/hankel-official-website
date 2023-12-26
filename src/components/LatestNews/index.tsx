@@ -28,7 +28,7 @@ export default function LatestNews({
             type={`news${name === "kindergarten" ? `-kindergarten` : ""}`}
             img={`/news/${element}.png`}
             alt={`hankel news ${element}`}
-            title="Coding in class"
+            title="Coding in className"
             description="Programming classes in camp"
             lang={lang}
           ></Card>
