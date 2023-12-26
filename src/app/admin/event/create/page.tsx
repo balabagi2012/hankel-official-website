@@ -11,9 +11,9 @@ export default function CreateEventPage() {
   const { register, control, handleSubmit } = useForm({
     values: {
       title: { zh: "", en: "" },
-      description: { zh: "", en: "" },
       category: "dayCare",
       banner: "",
+      date: "",
       content: { zh: "", en: "" },
     },
   });
@@ -40,7 +40,7 @@ export default function CreateEventPage() {
 
   const onSubmit = async (data: any) => {
     setLoading(true);
-    const url = `/api/news`;
+    const url = `/api/event`;
     const res = await fetch(url, {
       method: "POST",
       body: JSON.stringify(data),
@@ -48,10 +48,10 @@ export default function CreateEventPage() {
     setLoading(false);
     if (!res.ok) {
       // This will activate the closest `error.js` Error Boundary
-      return window.alert("Failed to post news");
+      return window.alert("Failed to post event");
     }
-    window.alert("Successed to post news");
-    router.push("/admin/news");
+    window.alert("Successed to post event");
+    router.push("/admin/event");
   };
 
   return (
@@ -60,7 +60,7 @@ export default function CreateEventPage() {
         <div className="flex w-full bg-white py-4 px-8 shadow-md h-16 flex-row justify-end items-center">
           <div className="flex-1 flex items-center justify-between">
             <div className="flex-1 flex justify-start items-center mr-auto">
-              <Link href="/admin/news" className="mr-2">
+              <Link href="/admin/event" className="mr-2">
                 <ArrowLeftIcon className="w-6 h-6" />
               </Link>
               <Image
@@ -112,21 +112,11 @@ export default function CreateEventPage() {
             </div>
             <div className="bg-white px-6 py-3 rounded shadow mt-4">
               <div>
-                <label>description[中文]</label>
+                <label>Date</label>
                 <input
+                  type="date"
                   className="w-full border px-4 py-2 mb-4 mt-2"
-                  {...register("description.zh", {
-                    required: true,
-                  })}
-                ></input>
-              </div>
-            </div>
-            <div className="bg-white px-6 py-3 rounded shadow mt-4">
-              <div>
-                <label>description[英文]</label>
-                <input
-                  className="w-full border px-4 py-2 mb-4 mt-2"
-                  {...register("description.en", {
+                  {...register("date", {
                     required: true,
                   })}
                 ></input>
@@ -148,7 +138,7 @@ export default function CreateEventPage() {
             </div>
             <div className="bg-white px-6 py-3 rounded shadow mt-4">
               <div>
-                <label>banner [建議尺寸254x350]</label>
+                <label>banner [建議尺寸350x350]</label>
                 <Controller
                   name={"banner"}
                   control={control}

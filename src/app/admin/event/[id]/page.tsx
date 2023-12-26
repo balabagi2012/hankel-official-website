@@ -39,7 +39,7 @@ export default function EditEventPage({
 
   const onSubmit = async (data: any) => {
     setLoading(true);
-    const url = `/api/news/${id}`;
+    const url = `/api/event/${id}`;
     delete data._id;
     const res = await fetch(url, {
       method: "PATCH",
@@ -48,34 +48,37 @@ export default function EditEventPage({
     setLoading(false);
     if (!res.ok) {
       // This will activate the closest `error.js` Error Boundary
-      return window.alert("Failed to update news");
+      return window.alert("Failed to update event");
     }
-    window.alert("Successed to update news");
-    router.push("/admin/news");
+    window.alert("Successed to update event");
+    router.push("/admin/event");
   };
 
   const removeNews = async () => {
-    if (window.confirm("Do you really want to remove this news?")) {
-      const url = `/api/news/${id}`;
+    if (window.confirm("Do you really want to remove this event?")) {
+      const url = `/api/event/${id}`;
       const res = await fetch(url, {
         method: "DELETE",
       });
       if (!res.ok) {
         // This will activate the closest `error.js` Error Boundary
-        return window.alert("Failed to remove news");
+        return window.alert("Failed to remove event");
       }
-      window.alert("Successed to remove news");
-      router.push("/admin/news");
+      window.alert("Successed to remove event");
+      router.push("/admin/event");
     }
   };
 
   useEffect(() => {
     const fetchPageData = async () => {
       setLoading(true);
-      const url = `/api/news/${id}`;
+      const url = `/api/event/${id}`;
       const res = await fetch(url);
       const data = await res.json();
-      setNews(data);
+      setNews({
+        ...data,
+        date: new Date(data.date).toLocaleDateString().replaceAll("/", "-"),
+      });
       setLoading(false);
     };
     fetchPageData();
@@ -146,21 +149,11 @@ export default function EditEventPage({
             </div>
             <div className="bg-white px-6 py-3 rounded shadow mt-4">
               <div>
-                <label>description[中文]</label>
+                <label>Date</label>
                 <input
+                  type="date"
                   className="w-full border px-4 py-2 mb-4 mt-2"
-                  {...register("description.zh", {
-                    required: true,
-                  })}
-                ></input>
-              </div>
-            </div>
-            <div className="bg-white px-6 py-3 rounded shadow mt-4">
-              <div>
-                <label>description[英文]</label>
-                <input
-                  className="w-full border px-4 py-2 mb-4 mt-2"
-                  {...register("description.en", {
+                  {...register("date", {
                     required: true,
                   })}
                 ></input>
@@ -182,7 +175,7 @@ export default function EditEventPage({
             </div>
             <div className="bg-white px-6 py-3 rounded shadow mt-4">
               <div>
-                <label>banner [建議尺寸254x350]</label>
+                <label>banner [建議尺寸350x350]</label>
                 <Controller
                   name={"banner"}
                   control={control}

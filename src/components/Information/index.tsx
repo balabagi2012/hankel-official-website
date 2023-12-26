@@ -2,12 +2,12 @@ import Image from "next/image";
 import Title from "../Title";
 import Typography from "../Typography";
 
+import { InformationEntity } from "@/app/api/information/route";
 import Link from "next/link";
 import LunchMenuImg from "../../../public/information/lunch.png";
-import CalendarImg from "../../../public/information/calendar.png";
 import Banner from "../Banner";
 import Section from "../Section";
-import { InformationEntity } from "@/app/api/information/route";
+import Event from "../Event";
 
 export const getInformation = async (
   name: string
@@ -98,25 +98,14 @@ export default async function Information(props: InformationProps) {
           </div>
         </div>
       </Section>
-      {/* <Section className="bg-white">
+      <Section className="bg-white">
         <div className="flex flex-col w-full md:w-[1268px] justify-center items-stretch">
           <Title full align="left" type={type} lang={lang}>
             {lang === "en" ? "Calendar" : "行事曆"}
           </Title>
-          <div className="w-full">
-            <Image
-              src={CalendarImg}
-              alt="hankel calendar"
-              sizes="100vw"
-              style={{
-                width: "100%",
-                height: "auto",
-                objectFit: "contain",
-              }}
-            ></Image>
-          </div>
+          <Event lang={lang} category={name} />
         </div>
-      </Section> */}
+      </Section>
     </main>
   );
 }
