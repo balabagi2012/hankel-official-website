@@ -1,3 +1,4 @@
+import { NewsEntity } from "@/app/api/news/route";
 import Banner from "@/components/Banner";
 import Card from "@/components/Card";
 import Section from "@/components/Section";
@@ -11,11 +12,26 @@ export const metadata: Metadata = {
 const title = "News";
 const description = `About more news in Hankel`;
 
-export default function News({
+const fetchLatestNews = async (name: string) => {
+  const url = `${process.env.API_URI}/api/news?limit=16${
+    name === "home" ? "" : `&category=${name}`
+  }`;
+  const res = await fetch(url, {
+    cache: "no-cache",
+  });
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
+  }
+  return res.json();
+};
+
+export default async function News({
   params: { lang },
 }: {
   params: { lang: "en" | "zh" };
 }) {
+  const news = await fetchLatestNews("home");
   return (
     <main className="pt-[50px] md:pt-[80px]">
       <Banner
@@ -41,34 +57,23 @@ export default function News({
             </Typography>
           </div>
         </div> */}
-        <div className="flex flex-col p-4 md:p-0">
+        <div className="flex flex-col w-full p-4 md:p-0  md:w-[740px] lg:w-[1000px] xl:w-[1150px]">
           <div className="flex flex-row">
             <Title full align="left" lang={lang}>
               News
             </Title>
           </div>
-          <div className="flex flex-row flex-wrap mb-2 md:mb-[52px] gap-2 md:gap-4">
-            {[1, 2, 3, 4].map((element) => (
+          <div className="flex flex-row justify-between flex-wrap mb-2 md:mb-[52px] gap-4 md:gap-8">
+            {news.map((element: NewsEntity) => (
               <Card
-                key={`news ${element}`}
+                key={`news ${element._id}`}
+                id={element._id}
                 type="news"
-                img={`/news/${element}.png`}
-                alt={`hankel news ${element}`}
-                title="Coding in class"
-                description="Programming classes in camp"
+                img={element.banner}
+                alt={`hankel news ${element._id}`}
+                title={element.title[lang]}
+                description={element.description[lang]}
                 lang={lang}
-              ></Card>
-            ))}
-          </div>
-          <div className="flex flex-row flex-wrap mb-2 md:mb-[52px] gap-2 md:gap-4">
-            {[5, 6, 7, 8].map((element) => (
-              <Card
-                key={`news ${element}`}
-                type="news"
-                img={`/news/${element}.png`}
-                alt={`hankel news ${element}`}
-                title="Coding in class"
-                description="Programming classes in camp"
               ></Card>
             ))}
           </div>

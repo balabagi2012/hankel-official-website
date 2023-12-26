@@ -207,14 +207,15 @@ export default function EditNewsPage({
                           }
                         }}
                       />
-                      {field.value && (
-                        <Image
-                          src={field.value}
-                          alt={field.name}
-                          width={500}
-                          height={500}
-                        />
-                      )}
+                      {field.value?.length > 0 &&
+                        field.value.startsWith("/") && (
+                          <Image
+                            src={field.value}
+                            alt={field.name}
+                            width={200}
+                            height={200}
+                          />
+                        )}
                       <button
                         className="bg-blue mt-1 px-2 py-2 rounded text-white"
                         disabled={uploading}

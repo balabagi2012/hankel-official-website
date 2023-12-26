@@ -1,11 +1,10 @@
+import { NewsEntity } from "@/app/api/news/route";
 import Image from "next/image";
+import Link from "next/link";
 import Card from "../Card";
+import Section from "../Section";
 import Title from "../Title";
 import Typography from "../Typography";
-import Section from "../Section";
-import { kindergarten } from "@/app/styles/fonts";
-import Link from "next/link";
-import { NewsEntity } from "@/app/api/news/route";
 
 export interface LatestNewsProps {
   className?: string;
@@ -14,8 +13,8 @@ export interface LatestNewsProps {
 }
 
 const fetchLatestNews = async (name: string) => {
-  const url = `${process.env.API_URI}/api/news${
-    name === "home" ? "" : `?category=${name}`
+  const url = `${process.env.API_URI}/api/news?limit=16${
+    name === "home" ? "" : `&category=${name}`
   }`;
   const res = await fetch(url, {
     cache: "no-cache",

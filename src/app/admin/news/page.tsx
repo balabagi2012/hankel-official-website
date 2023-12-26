@@ -11,7 +11,7 @@ export default function AdminNewsPage() {
   useEffect(() => {
     const fetchPageData = async () => {
       setLoading(true);
-      const url = `/api/news`;
+      const url = `/api/news?limit=1000`;
       const res = await fetch(url);
       const data = await res.json();
       setNewsList(data);

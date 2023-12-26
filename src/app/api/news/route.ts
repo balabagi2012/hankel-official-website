@@ -9,7 +9,7 @@ export interface NewsEntity {
   banner: string;
   content: Text;
   createdAt: Date;
-  updatedAt: Date;
+  updatedAt: number;
 }
 
 // GET /api/news
@@ -24,9 +24,15 @@ export async function GET(req: Request) {
       filter.category = searchParams.get("category");
     }
 
+    let limit = 16;
+
+    if (searchParams.has("limit")) {
+      limit = parseInt(searchParams?.get("limit") ?? "16", 10);
+    }
+
     const news = await db
       .collection("news")
-      .find(filter, { sort: { updateAt: -1 } })
+      .find(filter, { sort: { updateAt: -1 }, limit })
       .toArray();
     if (!news) {
       return Response.json({ error: "News data not found" }, { status: 404 });
@@ -62,7 +68,7 @@ export async function POST(req: Request) {
       banner,
       content,
       createdAt: new Date(),
-      updatedAt: new Date(),
+      updatedAt: new Date().getTime(),
     });
     return Response.json(news, { status: 201 });
   } catch (error) {

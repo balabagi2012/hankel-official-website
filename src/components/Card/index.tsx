@@ -47,7 +47,7 @@ export default function Card(props: CardProps) {
       return (
         <Link
           href={`/${lang}/news/${id}`}
-          className="relative min-h-fit min-w-fit bg-white hover:scale-105"
+          className="relative min-h-fit min-w-fit bg-white hover:scale-105 hover:opacity-80"
         >
           <Image
             src={img}
@@ -70,7 +70,7 @@ export default function Card(props: CardProps) {
       return (
         <Link
           href={`/${lang}/news/${id}`}
-          className="relative min-h-fit min-w-fit bg-white hover:scale-105"
+          className="relative min-h-fit min-w-fit bg-white hover:scale-105 hover:opacity-80"
         >
           <Image
             src={img}

@@ -34,7 +34,7 @@ export async function PATCH(
       {
         $set: {
           ...body,
-          updatedAt: new Date(),
+          updatedAt: new Date().getTime(),
         },
       },
       { upsert: true }
