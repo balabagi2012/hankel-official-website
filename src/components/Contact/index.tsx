@@ -1,17 +1,36 @@
+import { ContactEntity } from "@/app/api/contact/route";
 import Image from "next/image";
-import Typography from "../Typography";
-import Title from "../Title";
+import Link from "next/link";
 import Banner from "../Banner";
+import ContactForm from "../ContactForm";
 import Section from "../Section";
+import Title from "../Title";
+import Typography from "../Typography";
+import ContactInfo from "../ContactInfo";
 
 export interface ContactProps {
   type?: "kindergarten" | "subschool" | "home";
+  name: string;
   title?: string;
+  lang: "en" | "zh";
   description?: string;
   banner?: string;
 }
-export default function Contact(props: ContactProps) {
-  const { type = "subschool", title, description, banner } = props;
+
+const getContact = async (name: string): Promise<ContactEntity> => {
+  const res = await fetch(`${process.env.API_URI}/api/contact/${name}`, {
+    cache: "no-cache",
+  });
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
+  }
+  return res.json();
+};
+
+export default async function Contact(props: ContactProps) {
+  const { lang, name, type = "subschool" } = props;
+  const data = await getContact(name);
   return (
     <main
       className={`pt-[50px] ${
@@ -20,149 +39,19 @@ export default function Contact(props: ContactProps) {
     >
       <Banner
         size={type === "home" ? "large" : "small"}
-        src={banner ?? "/banners/contact.png"}
-        title={title}
-        description={description}
+        src={data.banner.img ?? "/banners/contact.png"}
+        title={data.banner.title?.[lang]}
+        description={data.banner?.description?.[lang]}
+        lang={lang}
       ></Banner>
-      <Section className="bg-gray">
+      <Section className="bg-bgGray">
         <div className="flex flex-col w-full md:w-[700px]">
-          <Title full align="center" type={type}>
-            Contact Us
-          </Title>
-          <Typography varient="h5" className="text-textGray text-center">
-            Do you have more questions and curiosity about us? Feel free to get
-            in touch! We are eagerly looking forward to hearing your feedback,
-            inquiries, and suggestions.
-          </Typography>
-          <div className="flex flex-row my-[40px] justify-center">
-            <Image
-              src="/icons/InstagramBlue.svg"
-              alt="hankel Instagram"
-              width="24"
-              height="24"
-              className="mr-[24px]"
-            ></Image>
-            <Image
-              src="/icons/FacebookBlue.svg"
-              alt="hankel Facebook"
-              width="24"
-              height="24"
-              className="mr-[24px]"
-            ></Image>
-            <Image
-              src="/icons/YoutubeBlue.svg"
-              alt="hankel Youtube"
-              width="24"
-              height="24"
-              className="mr-[24px]"
-            ></Image>
-            <Image
-              src="/icons/Line.svg"
-              alt="hankel Line"
-              width="24"
-              height="24"
-            ></Image>
-          </div>
-          <div className="bg-white flex flex-col shadow-2xl px-9 py-[18px]">
-            <div className="flex flex-row items-center flex-1 mb-6">
-              <Image
-                src="/icons/PhoneOutlined.svg"
-                alt="hankel PhoneOutlined"
-                width="24"
-                height="24"
-                className="mr-3"
-              ></Image>
-              <Typography varient="h5" className="text-start">
-                (02) 7751-9199
-              </Typography>
-            </div>
-            <div className="flex flex-row items-center flex-1 mb-6">
-              <Image
-                src="/icons/MailOutlined.svg"
-                alt="hankel MailOutlined"
-                width="24"
-                height="24"
-                className="mr-3"
-              ></Image>
-              <Typography varient="h5" className="text-start">
-                hankel@heipe.edu.tw
-              </Typography>
-            </div>
-            <div className="flex flex-row items-start flex-1">
-              <Image
-                src="/icons/LocationOnOutlined.svg"
-                alt="hankel LocationOnOutlined"
-                width="24"
-                height="24"
-                className="mr-3 mt-2"
-              ></Image>
-              <Typography varient="h5" className="text-start flex-wrap">
-                No. 457, Section 2, Wenhua 3rd Rd, Linkou District, New Taipei
-                City, 244
-              </Typography>
-            </div>
-          </div>
+          <ContactInfo type={type} lang={lang} contact={data} />
         </div>
       </Section>
       <Section>
         <div className="flex flex-col w-full md:w-[700px]">
-          <div className="flex flex-col md:flex-row gap-4 mb-5">
-            <div className="flex flex-col flex-1">
-              <div className="flex flex-row align-top">
-                <Typography varient="h5" className="text-deepBlue">
-                  Name
-                </Typography>
-                <Typography varient="h5" className="text-[#D40000]">
-                  *
-                </Typography>
-              </div>
-              <input
-                type="text"
-                className="border rounded border-textGray h-9"
-              />
-            </div>
-            <div className="flex flex-col flex-1">
-              <div className="flex flex-row align-top gap-4">
-                <Typography varient="h5" className="text-deepBlue">
-                  Phone
-                </Typography>
-                <Typography varient="h5" className="text-[#D40000]">
-                  *
-                </Typography>
-              </div>
-              <input
-                type="text"
-                className="border rounded border-textGray h-9"
-              />
-            </div>
-          </div>
-          <div className="flex flex-1 flex-col mb-5">
-            <div className="flex flex-row align-top gap-4">
-              <Typography varient="h5" className="text-deepBlue">
-                Email
-              </Typography>
-              <Typography varient="h5" className="text-[#D40000]">
-                *
-              </Typography>
-            </div>
-            <input type="text" className="border rounded border-textGray" />
-          </div>
-          <div className="flex flex-1 flex-col mb-8">
-            <div className="flex flex-row align-top">
-              <Typography varient="h5" className="text-deepBlue">
-                Message
-              </Typography>
-              <Typography varient="h5" className="text-[#D40000]">
-                *
-              </Typography>
-            </div>
-            <textarea className="border h-[130px] rounded border-textGray" />
-          </div>
-          <div className="bg-blue h-[44px] flex flex-row items-center justify-center rounded">
-            <Typography varient="h5" color="white">
-              Send
-            </Typography>
-          </div>
+          <ContactForm name={name} lang={lang} />
         </div>
       </Section>
     </main>

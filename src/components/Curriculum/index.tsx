@@ -1,3 +1,4 @@
+import { CurriculumEntity } from "@/app/api/curriculum/route";
 import Banner from "../Banner";
 import Card from "../Card";
 import Section from "../Section";
@@ -6,63 +7,55 @@ import Typography from "../Typography";
 
 export interface CurriculumProps {
   type?: "kindergarten" | "subschool";
+  lang: "en" | "zh";
+  name: string;
   banner?: string;
 }
-export default function Curriculum(props: CurriculumProps) {
-  const { type = "subschool", banner = "/banners/school.png" } = props;
 
+const getCurriculum = async (name: string): Promise<CurriculumEntity> => {
+  const res = await fetch(`${process.env.API_URI}/api/curriculum/${name}`, {
+    cache: "no-cache",
+  });
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+};
+export default async function Curriculum(props: CurriculumProps) {
+  const { lang, name, type = "subschool" } = props;
+  const curriculum = await getCurriculum(name);
   return (
     <main className="pt-[50px] md:pt-[200px]">
-      <Banner size="small" src={banner}></Banner>
-      <Section className="bg-gray">
+      <Banner size="small" src={curriculum.banner} lang={lang}></Banner>
+      <Section className="bg-bgGray">
         <div className="flex flex-col w-full md:w-[700px]">
-          <Title full align="center" type={type}>
-            Our Curriculum
+          <Title full align="center" type={type} lang={lang}>
+            {curriculum.title[lang]}
           </Title>
           <Typography varient="h5" className="text-textGray text-center">
-            {`At Hankel Education, our curriculum goes beyond traditional
-            education. We offer diverse English instruction, STEM, Information
-            Technology, Mathematics, and Physical Education programs, sparking
-            students' curiosity, innovative spirit, and problem-solving
-            abilities. We are committed to fostering a global perspective,
-            providing students with rich multicultural experiences, preparing
-            them for the international professional world. Besides academic
-            excellence, we teach students crucial life skills such as decision
-            making, interpersonal, and self-awareness building skills. These and
-            other skills will help instill confidence in them to adapt
-            effortlessly to future workplaces and diverse environments, becoming
-            professionals with a global vision. At our school, we not only shape
-            students but also nurture them into individuals who positively
-            impact the increasingly interconnected world.`}
+            {curriculum.description[lang]}
           </Typography>
         </div>
       </Section>
       <Section className="bg-white">
         <div className="flex flex-col w-full md:w-[1268px]">
-          <Title full align="left" type={type}>
-            Curriculum
+          <Title full align="left" type={type} lang={lang}>
+            {curriculum.curriculumTitle[lang]}
           </Title>
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            {[1, 2, 3, 4].map((element) => (
+          <div className="flex flex-col md:flex-row justify-between md:flex-wrap md:gap-y-10 items-center">
+            {curriculum.curriculums.map((element, index) => (
               <Card
-                key={`curriculum ${element}`}
-                type="curriculum"
-                img={`/curriculum/${element}.png`}
-                alt={`hankel curriculum ${element}`}
-                title="Coding in class"
-                description={`Provide modern teaching equipment and an environment, including interactive whiteboards and multimedia projection equipment, promoting dynamic and interactive teaching. `}
-              ></Card>
-            ))}
-          </div>
-          <div className="flex flex-col md:flex-row justify-between items-center md:mt-10">
-            {[5, 6].map((element) => (
-              <Card
-                key={`curriculum ${element}`}
-                type="curriculum"
-                img={`/curriculum/${element}.png`}
-                alt={`hankel curriculum ${element}`}
-                title="Coding in class"
-                description={`Provide modern teaching equipment and an environment, including interactive whiteboards and multimedia projection equipment, promoting dynamic and interactive teaching. `}
+                key={`curriculum-${index}`}
+                type={`curriculum${
+                  name === "kindergarten" ? `-kindergarten` : ""
+                }`}
+                img={element.img}
+                alt={element.title[lang]}
+                title={element.title[lang]}
+                description={element.description[lang]}
+                lang={lang}
               ></Card>
             ))}
           </div>

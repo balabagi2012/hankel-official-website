@@ -7,6 +7,7 @@ interface TitleProps {
   align?: "left" | "center";
   className?: string;
   type?: string;
+  lang?: "en" | "zh";
 }
 
 export default function Title(props: TitleProps) {
@@ -16,6 +17,7 @@ export default function Title(props: TitleProps) {
     align = "center",
     className = "",
     type = "",
+    lang = "en",
   } = props;
   return (
     <div
@@ -27,10 +29,14 @@ export default function Title(props: TitleProps) {
     >
       <Typography
         varient="h1"
-        className={`font-serif text-deepBlue ${
+        className={`text-deepBlue ${
           align === "center" ? "text-center" : "text-left"
         } ${
-          type === "kindergarten" ? kindergarten.className : ""
+          lang === "en"
+            ? type === "kindergarten"
+              ? kindergarten.className
+              : "font-serif"
+            : ""
         } ${className}`}
       >
         {children}
