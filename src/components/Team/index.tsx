@@ -1,10 +1,10 @@
-import { title } from "process";
 import Banner from "../Banner";
 import Card from "../Card";
 import Section from "../Section";
 import Title from "../Title";
 import Typography from "../Typography";
 import { TeamEntity } from "@/app/api/team/route";
+import { chunk } from "lodash";
 
 export interface TeamProps {
   type?: "kindergarten" | "subschool";
@@ -39,10 +39,49 @@ export default async function Team(props: TeamProps) {
             <Typography varient="h5" className="text-textGray text-center">
               {team.foreignTeam.description[lang]}
             </Typography>
-            <div className="flex flex-col md:flex-row justify-between items-center gap-y-4 mt-8">
-              {team.foreignTeam.teachers.map((element, index) => (
+            {chunk(team.foreignTeam.teachers, 3).map((chunk, chunkIndex) => (
+              <div
+                key={`foreignTeam chunk ${chunkIndex}`}
+                className="flex flex-col md:flex-row justify-between items-center gap-y-4 mt-8"
+              >
+                {chunk.map((element, index) => (
+                  <Card
+                    key={`foreignTeam ${index}`}
+                    type={`team${
+                      name === "kindergarten" ? `-kindergarten` : ""
+                    }`}
+                    img={element.img}
+                    alt={element.title[lang]}
+                    title={element.title[lang]}
+                    tag={element.tag[lang]}
+                    description={element.description[lang]}
+                    facebook={element.facebook}
+                    linkedin={element.linkedin}
+                    twitter={element.twitter}
+                    lang={lang}
+                  ></Card>
+                ))}
+              </div>
+            ))}
+          </div>
+        </Section>
+      )}
+      <Section className="bg-white">
+        <div className="flex flex-col w-full md:w-[1068px]">
+          <Title full align="center" type={type} lang={lang}>
+            {team.localTeam.title[lang]}
+          </Title>
+          <Typography varient="h5" className="text-textGray text-center">
+            {team.localTeam.description[lang]}
+          </Typography>
+          {chunk(team.localTeam.teachers, 3).map((chunk, chunkIndex) => (
+            <div
+              key={`local team chunk ${chunkIndex}`}
+              className="flex flex-col md:flex-row justify-between items-center gap-y-4 mt-8"
+            >
+              {chunk.map((element, index) => (
                 <Card
-                  key={`foreign team ${index}`}
+                  key={`local team ${index}`}
                   type={`team${name === "kindergarten" ? `-kindergarten` : ""}`}
                   img={element.img}
                   alt={element.title[lang]}
@@ -56,34 +95,7 @@ export default async function Team(props: TeamProps) {
                 ></Card>
               ))}
             </div>
-          </div>
-        </Section>
-      )}
-      <Section className="bg-white">
-        <div className="flex flex-col w-full md:w-[1068px]">
-          <Title full align="center" type={type} lang={lang}>
-            {team.localTeam.title[lang]}
-          </Title>
-          <Typography varient="h5" className="text-textGray text-center">
-            {team.localTeam.description[lang]}
-          </Typography>
-          <div className="flex flex-col md:flex-row justify-between items-center gap-y-4 mt-8">
-            {team.localTeam.teachers.map((element, index) => (
-              <Card
-                key={`local team ${index}`}
-                type={`team${name === "kindergarten" ? `-kindergarten` : ""}`}
-                img={element.img}
-                alt={element.title[lang]}
-                title={element.title[lang]}
-                tag={element.tag[lang]}
-                description={element.description[lang]}
-                facebook={element.facebook}
-                linkedin={element.linkedin}
-                twitter={element.twitter}
-                lang={lang}
-              ></Card>
-            ))}
-          </div>
+          ))}
         </div>
       </Section>
     </main>

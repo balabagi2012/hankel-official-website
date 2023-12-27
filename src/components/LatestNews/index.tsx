@@ -1,35 +1,52 @@
+import { NewsEntity } from "@/app/api/news/route";
 import Image from "next/image";
+import Link from "next/link";
 import Card from "../Card";
+import Section from "../Section";
 import Title from "../Title";
 import Typography from "../Typography";
-import Section from "../Section";
-import { kindergarten } from "@/app/styles/fonts";
-import Link from "next/link";
 
 export interface LatestNewsProps {
   className?: string;
   name: string;
   lang: "en" | "zh";
 }
-export default function LatestNews({
+
+const fetchLatestNews = async (name: string) => {
+  const url = `${process.env.API_URI}/api/news?limit=16${
+    name === "home" ? "" : `&category=${name}`
+  }`;
+  const res = await fetch(url, {
+    cache: "no-cache",
+  });
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
+  }
+  return res.json();
+};
+
+export default async function LatestNews({
   lang,
   name,
   className = "",
 }: LatestNewsProps) {
+  const news = await fetchLatestNews(name);
   return (
     <Section className={`bg-bgGray ${className}`}>
       <Title type={name} lang={lang}>
         {lang === "en" ? "Latest News" : "最新消息"}
       </Title>
       <div className="w-full flex flex-row overflow-x-scroll mb-[52px] gap-4">
-        {[1, 2, 3, 4, 5].map((element) => (
+        {news.map((element: NewsEntity) => (
           <Card
-            key={`news ${element}`}
+            key={`news ${element._id}`}
             type={`news${name === "kindergarten" ? `-kindergarten` : ""}`}
-            img={`/news/${element}.png`}
-            alt={`hankel news ${element}`}
-            title="Coding in class"
-            description="Programming classes in camp"
+            img={element.banner}
+            id={element._id}
+            alt={`hankel news banner`}
+            title={element.title[lang]}
+            description={element.description[lang]}
             lang={lang}
           ></Card>
         ))}

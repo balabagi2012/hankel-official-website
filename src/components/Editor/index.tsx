@@ -1,12 +1,11 @@
 "use client";
 
 import Highlight from "@tiptap/extension-highlight";
-import TaskItem from "@tiptap/extension-task-item";
-import TaskList from "@tiptap/extension-task-list";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 
 import MenuBar from "@/components/MenuBar";
+import { useEffect, useRef } from "react";
 
 export interface EditorComponentProps {
   value: string;
@@ -14,21 +13,29 @@ export interface EditorComponentProps {
 }
 
 const EditorComponent = (props: EditorComponentProps) => {
+  const contentRef = useRef("");
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
-        history: false,
+        history: {
+          depth: 5,
+        },
       }),
       Highlight,
-      TaskList,
-      TaskItem,
     ],
-    content: props?.value ?? "",
+    content: "",
     onUpdate: ({ editor }) => {
       const html = editor.getHTML();
       props.onChange(html);
     },
   });
+
+  useEffect(() => {
+    if (editor && !contentRef.current) {
+      editor.commands.setContent(props.value);
+      contentRef.current = props.value;
+    }
+  }, [editor, props.value]);
 
   return (
     <div className="editor mt-3">

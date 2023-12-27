@@ -8,8 +8,17 @@ export function middleware(request: NextRequest) {
   const pathnameHasLocale = locales.some(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   );
-
   if (pathnameHasLocale) return;
+  const pathnameHasAdmin = locales.some((locale) =>
+    pathname.startsWith(`/admin`)
+  );
+  if (pathnameHasAdmin) {
+    if (pathname === "/admin") {
+      request.nextUrl.pathname = "/admin/home";
+      return Response.redirect(request.nextUrl);
+    }
+    return;
+  }
   // Redirect if there is no locale
   const locale = "en";
   request.nextUrl.pathname = `/${locale}${pathname}`;
@@ -25,6 +34,6 @@ export const config = {
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
      */
-    "/((?!icons|uploads|admin|public|about|banners|course|curriculum|facility|information|news|subBanners|team|api|_next|favicon.ico).*)",
+    "/((?!icons|uploads|public|about|banners|course|curriculum|facility|information|news|subBanners|team|api|_next|favicon.ico).*)",
   ],
 };

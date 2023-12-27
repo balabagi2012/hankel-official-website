@@ -12,6 +12,16 @@ $color-deepBlue: #13325d;
   font-family: Noto Sans;
 }
 
+blockquote {
+  margin: 20px;
+  padding: 10px;
+  background-color: #eeeeee;
+  border-left: 5px solid #00aae1;
+  margin: 15px 30px 0 10px;
+  padding-left: 20px;
+  border-radius: 6px;
+}
+
 ul,
 li {
   list-style: circle;

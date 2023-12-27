@@ -2,6 +2,7 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import type { Metadata } from "next";
 import "@/app/styles/globals.scss";
+import "primereact/resources/themes/lara-light-indigo/theme.css"; // theme
 import "animate.css";
 import { notoSans } from "@/app/styles/fonts";
 

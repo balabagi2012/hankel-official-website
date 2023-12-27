@@ -1,18 +1,17 @@
 import { connectToDatabase } from "@/utils/mongodb";
 import { Text } from "../model";
 
-export interface NewsEntity {
+export interface EventEntity {
   _id?: string;
   title: Text;
-  description: Text;
   category: string;
   banner: string;
   content: Text;
-  createdAt: Date;
+  date: string;
   updatedAt: number;
 }
 
-// GET /api/news
+// GET /api/event
 export async function GET(req: Request) {
   try {
     const db = await connectToDatabase();
@@ -24,25 +23,29 @@ export async function GET(req: Request) {
       filter.category = searchParams.get("category");
     }
 
+    if (searchParams.has("date")) {
+      filter.date = searchParams.get("date");
+    }
+
     let limit = 16;
 
     if (searchParams.has("limit")) {
       limit = parseInt(searchParams?.get("limit") ?? "16", 10);
     }
 
-    const news = await db
-      .collection("news")
+    const events = await db
+      .collection("event")
       .find(filter, { sort: { updateAt: -1 }, limit })
       .toArray();
-    if (!news) {
-      return Response.json({ error: "News data not found" }, { status: 404 });
+    if (!events) {
+      return Response.json({ error: "Event data not found" }, { status: 404 });
     }
-    return Response.json(news, { status: 200 });
+    return Response.json(events, { status: 200 });
   } catch (error) {
     console.log(error);
     return Response.json(
       {
-        error: "Failed to fetch news data",
+        error: "Failed to fetch event data",
         errorMessage: (error as Error).message,
       },
       { status: 500 }
@@ -50,24 +53,23 @@ export async function GET(req: Request) {
   }
 }
 
-// POST /api/news
+// POST /api/event
 export async function POST(req: Request) {
   try {
-    const { title, description, category, banner, content } = await req.json();
-    if (!title || !description || !category || !banner || !content) {
+    const { title, banner, date, category, content } = await req.json();
+    if (!title || !category || !content || !date) {
       return Response.json(
         { error: "Missing required fields" },
         { status: 400 }
       );
     }
     const db = await connectToDatabase();
-    const news = await db.collection("news").insertOne({
+    const news = await db.collection("event").insertOne({
       title,
-      description,
-      category,
       banner,
+      category,
       content,
-      createdAt: new Date(),
+      date: new Date(date).toISOString(),
       updatedAt: new Date().getTime(),
     });
     return Response.json(news, { status: 201 });
