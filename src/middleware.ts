@@ -13,11 +13,21 @@ export function middleware(request: NextRequest) {
     pathname.startsWith(`/admin`)
   );
   if (pathnameHasAdmin) {
-    if (pathname === "/admin") {
-      request.nextUrl.pathname = "/admin/home";
-      return Response.redirect(request.nextUrl);
+    const isLogin = request.cookies.get("isLogin");
+    if (isLogin?.value === "true") {
+      if (pathname === "/admin") {
+        request.nextUrl.pathname = "/admin/home";
+        return Response.redirect(request.nextUrl);
+      }
+      return;
+    } else {
+      if (pathname === "/admin") {
+        return;
+      } else {
+        request.nextUrl.pathname = "/admin";
+        return Response.redirect(request.nextUrl);
+      }
     }
-    return;
   }
   // Redirect if there is no locale
   const locale = "en";
