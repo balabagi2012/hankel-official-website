@@ -1,5 +1,6 @@
 "use client";
 
+import LangSwitch from "@/components/LangSwitch";
 import Image from "next/image";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
@@ -14,6 +15,8 @@ export default function AdminInformationPage() {
   const [activeTab, setActiveTab] = useState("");
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [lang, setLang] = useState("en");
+
   const activeTabData = useMemo(
     () =>
       activePageData?.find(({ name }: { name: string }) => name === activeTab),
@@ -84,52 +87,101 @@ export default function AdminInformationPage() {
   };
 
   const renderField = (key: string, value: string) => {
-    if (value.startsWith("/")) {
-      return (
-        <Controller
-          name={key}
-          control={control}
-          render={({ field }) => (
-            <div className="flex flex-col items-start justify-start mt-2">
-              <input
-                className="w-full border px-4 py-2 mb-4 mt-2"
-                value={field.value}
-                onChange={(event) => {
-                  field.onChange(event.target.value);
-                }}
-              ></input>
-              <input
-                type="file"
-                accept="images/*"
-                id={`file-${key}}`}
-                className="invisible h-0"
-                onChange={(event) => {
-                  const file = event.target.files?.[0];
-                  if (file) {
-                    uploadFile(file).then((data) => {
-                      field.onChange(data.file);
-                    });
-                  }
-                }}
-              />
-              {field.value && (
-                <Image src={field.value} alt={key} width={500} height={500} />
-              )}
-              <button
-                className="bg-blue mt-1 px-2 py-2 rounded text-white"
-                disabled={uploading}
-                onClick={(event) => {
-                  event.preventDefault();
-                  event.stopPropagation();
-                  document.getElementById(`file-${key}}`)?.click();
-                }}
-              >
-                {uploading ? "上傳圖片中" : "更換圖片"}
-              </button>
-            </div>
-          )}
-        />
-      );
+    if (
+      ((value.startsWith("/") || value.startsWith("http")) &&
+        key.includes("img")) ||
+      key.includes("file") ||
+      key.includes("banner")
+    ) {
+      if (key.includes("file")) {
+        return (
+          <Controller
+            name={key}
+            control={control}
+            render={({ field }) => (
+              <div className="flex flex-col items-start justify-start mt-2">
+                <input
+                  className="w-full border px-4 py-2 mb-4 mt-2"
+                  value={field.value}
+                  onChange={(event) => {
+                    field.onChange(event.target.value);
+                  }}
+                ></input>
+                <input
+                  type="file"
+                  id={`file-${key}}`}
+                  className="invisible h-0"
+                  onChange={(event) => {
+                    const file = event.target.files?.[0];
+                    if (file) {
+                      uploadFile(file).then((data) => {
+                        field.onChange(data.file);
+                      });
+                    }
+                  }}
+                />
+                <button
+                  className="bg-blue mt-1 px-2 py-2 rounded text-white"
+                  disabled={uploading}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    document.getElementById(`file-${key}}`)?.click();
+                  }}
+                >
+                  {uploading ? "上傳檔案中" : "更換檔案"}
+                </button>
+              </div>
+            )}
+          />
+        );
+      } else {
+        return (
+          <Controller
+            name={key}
+            control={control}
+            render={({ field }) => (
+              <div className="flex flex-col items-start justify-start mt-2">
+                <input
+                  className="w-full border px-4 py-2 mb-4 mt-2"
+                  value={field.value}
+                  onChange={(event) => {
+                    field.onChange(event.target.value);
+                  }}
+                ></input>
+                <input
+                  type="file"
+                  accept="images/*"
+                  id={`file-${key}}`}
+                  className="invisible h-0"
+                  onChange={(event) => {
+                    const file = event.target.files?.[0];
+                    if (file) {
+                      uploadFile(file).then((data) => {
+                        field.onChange(data.file);
+                      });
+                    }
+                  }}
+                />
+                {field.value && (
+                  <Image src={field.value} alt={key} width={500} height={500} />
+                )}
+                <button
+                  className="bg-blue mt-1 px-2 py-2 rounded text-white"
+                  disabled={uploading}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    document.getElementById(`file-${key}}`)?.click();
+                  }}
+                >
+                  {uploading ? "上傳圖片中" : "更換圖片"}
+                </button>
+              </div>
+            )}
+          />
+        );
+      }
     } else if (value?.length > 80) {
       return (
         <textarea
@@ -157,10 +209,16 @@ export default function AdminInformationPage() {
       if (typeof value === "object") {
         return <div key={fullKey}>{renderRecursive(value, fullKey)}</div>;
       } else if (typeof value === "string" && key !== "_id" && key !== "name") {
+        if (
+          (fullKey.includes("en") || fullKey.includes("zh")) &&
+          !fullKey.includes(lang)
+        ) {
+          return;
+        }
         return (
           <div key={fullKey} className="bg-white px-6 py-3 rounded shadow mt-4">
             <label>
-              {fullKey.replace(".zh", " [中文]").replace(".en", " [英文]")}
+              {fullKey.replace(".zh", " [中文]").replace(".en", " [EN]")}
             </label>
             {renderField(fullKey, value)}
           </div>
@@ -211,6 +269,7 @@ export default function AdminInformationPage() {
             {tab}
           </button>
         ))}
+        <LangSwitch value={lang} onChange={(value) => setLang(value)} />
       </div>
       <div className="px-8 py-6 w-full h-screen bg-gray-200">
         <div className="w-full h-full overflow-scroll">

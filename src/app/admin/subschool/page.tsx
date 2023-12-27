@@ -1,5 +1,6 @@
 "use client";
 
+import LangSwitch from "@/components/LangSwitch";
 import Image from "next/image";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
@@ -14,6 +15,8 @@ export default function AdminSubschoolPage() {
   const [activeTab, setActiveTab] = useState("");
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [lang, setLang] = useState("en");
+
   const activeTabData = useMemo(
     () =>
       activePageData?.find(({ name }: { name: string }) => name === activeTab),
@@ -84,8 +87,12 @@ export default function AdminSubschoolPage() {
   };
 
   const renderField = (key: string, value: string) => {
-    if (value.startsWith("/")) {
-      return (
+    if (
+      ((value.startsWith("/") || value.startsWith("http")) &&
+        key.includes("img")) ||
+      key.includes("file") ||
+      key.includes("banner")
+    ) {      return (
         <Controller
           name={key}
           control={control}
@@ -157,10 +164,16 @@ export default function AdminSubschoolPage() {
       if (typeof value === "object") {
         return <div key={fullKey}>{renderRecursive(value, fullKey)}</div>;
       } else if (typeof value === "string" && key !== "_id" && key !== "name") {
+        if (
+          (fullKey.includes("en") || fullKey.includes("zh")) &&
+          !fullKey.includes(lang)
+        ) {
+          return;
+        }
         return (
           <div key={fullKey} className="bg-white px-6 py-3 rounded shadow mt-4">
             <label>
-              {fullKey.replace(".zh", " [中文]").replace(".en", " [英文]")}
+              {fullKey.replace(".zh", " [中文]").replace(".en", " [EN]")}
             </label>
             {renderField(fullKey, value)}
           </div>
@@ -211,6 +224,7 @@ export default function AdminSubschoolPage() {
             {tab}
           </button>
         ))}
+        <LangSwitch value={lang} onChange={(value) => setLang(value)} />
       </div>
       <div className="px-8 py-6 w-full h-screen bg-gray-200">
         <div className="w-full h-full overflow-scroll">
