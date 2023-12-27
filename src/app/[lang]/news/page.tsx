@@ -3,6 +3,7 @@ import Banner from "@/components/Banner";
 import Card from "@/components/Card";
 import Section from "@/components/Section";
 import Title from "@/components/Title";
+import { chunk } from "lodash";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -63,20 +64,28 @@ export default async function News({
               News
             </Title>
           </div>
-          <div className="flex flex-row justify-between flex-wrap mb-2 md:mb-[52px] gap-4 md:gap-8">
-            {news.map((element: NewsEntity) => (
-              <Card
-                key={`news ${element._id}`}
-                id={element._id}
-                type="news"
-                img={element.banner}
-                alt={`hankel news ${element._id}`}
-                title={element.title[lang]}
-                description={element.description[lang]}
-                lang={lang}
-              ></Card>
-            ))}
-          </div>
+          {chunk(news, 4).map((chunk, chunkIndex) => (
+            <div
+              key={`news-chunk-${chunkIndex}`}
+              className="flex flex-row justify-between mb-2 md:mb-[52px] gap-4 md:gap-8"
+            >
+              {chunk.map((news) => {
+                const element = news as NewsEntity;
+                return (
+                  <Card
+                    key={`news-chunk-${chunkIndex}-${element._id}`}
+                    id={element._id}
+                    type="news"
+                    img={element.banner}
+                    alt={`hankel news ${element._id}`}
+                    title={element.title[lang]}
+                    description={element.description[lang]}
+                    lang={lang}
+                  ></Card>
+                );
+              })}
+            </div>
+          ))}
         </div>
       </Section>
     </main>

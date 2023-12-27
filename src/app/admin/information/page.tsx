@@ -15,7 +15,7 @@ export default function AdminInformationPage() {
   const [activeTab, setActiveTab] = useState("");
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
-  const [lang, setLang] = useState("en");
+  const [lang, setLang] = useState<"en" | "zh">("en");
 
   const activeTabData = useMemo(
     () =>

@@ -12,7 +12,7 @@ export default function AdminCurriculumPage() {
     []
   );
   const [activePageData, setActivePageData] = useState([] as any);
-  const [lang, setLang] = useState("en");
+  const [lang, setLang] = useState<"en" | "zh">("en");
   const [activeTab, setActiveTab] = useState("");
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);

@@ -13,7 +13,7 @@ export default function AdminHomePage() {
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
   const activeTabData = useMemo(() => activePageData, [activePageData]);
-  const [lang, setLang] = useState("en");
+  const [lang, setLang] = useState<"en" | "zh">("en");
 
   const keyList = useMemo(() => {
     switch (activeTab) {

@@ -3,8 +3,8 @@ import { useState } from "react";
 import Typography from "../Typography";
 
 export interface LangSwitchPros {
-  value: string;
-  onChange: (value: string) => void;
+  value: "en" | "zh";
+  onChange: (value: "en" | "zh") => void;
 }
 
 const LangSwitch = ({ value, onChange }: LangSwitchPros) => {
