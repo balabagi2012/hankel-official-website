@@ -2,13 +2,13 @@ import { connectToDatabase } from "@/utils/mongodb";
 import { createHash } from "crypto";
 import { NextResponse } from "next/server";
 
-export const encrypt = (algorithm: string, content: string) => {
+const encrypt = (algorithm: string, content: string) => {
   const hash = createHash(algorithm);
   hash.update(content);
   return hash.digest("hex");
 };
 
-export const sha256 = (content: string) => encrypt("sha256", content);
+const sha256 = (content: string) => encrypt("sha256", content);
 
 // POST /api/auth/login
 export async function POST(req: Request) {
