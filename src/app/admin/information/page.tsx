@@ -88,10 +88,12 @@ export default function AdminInformationPage() {
 
   const renderField = (key: string, value: string) => {
     if (
-      ((value.startsWith("/") || value.startsWith("http")) &&
-        key.includes("img")) ||
-      key.includes("file") ||
-      key.includes("banner")
+      (value.startsWith("/") || value.startsWith("http")) &&
+      !key.includes("facebook") &&
+      !key.includes("twitter") &&
+      !key.includes("linkedin") &&
+      !key.includes("youtube") &&
+      !key.includes("line")
     ) {
       if (key.includes("file")) {
         return (

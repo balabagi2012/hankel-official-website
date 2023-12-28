@@ -88,10 +88,12 @@ export default function AdminAboutPage() {
 
   const renderField = (key: string, value: string) => {
     if (
-      ((value.startsWith("/") || value.startsWith("http")) &&
-        key.includes("img")) ||
-      key.includes("file") ||
-      key.includes("banner")
+      (value.startsWith("/") || value.startsWith("http")) &&
+      !key.includes("facebook") &&
+      !key.includes("twitter") &&
+      !key.includes("linkedin") &&
+      !key.includes("youtube") &&
+      !key.includes("line")
     ) {
       return (
         <Controller
@@ -120,9 +122,16 @@ export default function AdminAboutPage() {
                   }
                 }}
               />
-              {field.value && (
-                <Image src={field.value} alt={key} width={500} height={500} />
-              )}
+              {field.value &&
+                (field.value.startsWith("/") ||
+                  field.value.startsWith("http")) && (
+                  <Image
+                    width={500}
+                    height={500}
+                    alt={field.value}
+                    src={field.value}
+                  />
+                )}
               <button
                 className="bg-blue mt-1 px-2 py-2 rounded text-white"
                 disabled={uploading}

@@ -112,10 +112,12 @@ export default function AdminTeamPage() {
 
   const renderField = (key: string, value: string) => {
     if (
-      ((value.startsWith("/") || value.startsWith("http")) &&
-        key.includes("img")) ||
-      key.includes("file") ||
-      key.includes("banner")
+      (value.startsWith("/") || value.startsWith("http")) &&
+      !key.includes("facebook") &&
+      !key.includes("twitter") &&
+      !key.includes("linkedin") &&
+      !key.includes("youtube") &&
+      !key.includes("line")
     ) {
       return (
         <Controller
@@ -144,9 +146,16 @@ export default function AdminTeamPage() {
                   }
                 }}
               />
-              {field.value && (
-                <Image src={field.value} alt={key} width={500} height={500} />
-              )}
+              {field.value &&
+                (field.value.startsWith("/") ||
+                  field.value.startsWith("http")) && (
+                  <Image
+                    width={500}
+                    height={500}
+                    alt={field.value}
+                    src={field.value}
+                  />
+                )}
               <button
                 className="bg-blue mt-1 px-2 py-2 rounded text-white"
                 disabled={uploading}
@@ -689,9 +698,7 @@ export default function AdminTeamPage() {
                           </td>
                           <td className="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
                             <div
-                              onClick={() =>
-                                removeTeacher("localTeam", index)
-                              }
+                              onClick={() => removeTeacher("localTeam", index)}
                             >
                               Remove
                             </div>
