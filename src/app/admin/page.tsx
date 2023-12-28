@@ -1,8 +1,5 @@
 "use client";
-import { cookies } from "next/headers";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import Router from "next/router";
 import { useForm } from "react-hook-form";
 
 export default function AdminPage() {
@@ -12,8 +9,6 @@ export default function AdminPage() {
       password: "",
     },
   });
-  const router = useRouter();
-
   const onSubmit = async (data: any) => {
     const url = `/api/auth/login`;
     const res = await fetch(url, {
@@ -24,8 +19,8 @@ export default function AdminPage() {
       // This will activate the closest `error.js` Error Boundary
       return window.alert("Failed to login");
     }
-    window.alert("Successed to login");
-    router.push("/admin/home");
+
+    window.location.reload();
   };
 
   return (
