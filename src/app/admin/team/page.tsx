@@ -7,7 +7,6 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   Controller,
   SubmitHandler,
-  set,
   useFieldArray,
   useForm,
 } from "react-hook-form";
@@ -30,7 +29,7 @@ export default function AdminTeamPage() {
     [activePageData, activeTab]
   );
 
-  const { register, control, handleSubmit, getValues, setValue } = useForm({
+  const { register, control, handleSubmit } = useForm({
     values: activeTabData,
   });
 
@@ -42,6 +41,7 @@ export default function AdminTeamPage() {
     control,
     name: "foreignTeam.teachers",
   });
+
   const {
     fields: localTeachers,
     append: appendLocalTeachers,
@@ -226,6 +226,7 @@ export default function AdminTeamPage() {
       } else {
         removeForeignTeacher(index);
       }
+      handleSubmit(onSubmit);
     }
   };
 
