@@ -439,11 +439,14 @@ export default function AdminFacilityPage() {
                                   )}
                                 ></textarea>
                               </td>
-
                               <td className="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-                                <div onClick={() => handleRemove(index)}>
+                                <button
+                                  disabled={loading}
+                                  className="px-3 py-1 bg-red-800 font-base text-white border border-red-300 rounded-lg focus:outline-none"
+                                  onClick={() => handleRemove(index)}
+                                >
                                   Remove
-                                </div>
+                                </button>
                               </td>
                             </tr>
                           )

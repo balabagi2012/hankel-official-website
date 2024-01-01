@@ -4,6 +4,7 @@ import Card from "../Card";
 import Section from "../Section";
 import Title from "../Title";
 import Typography from "../Typography";
+import { chunk } from "lodash";
 
 export interface CurriculumProps {
   type?: "kindergarten" | "subschool";
@@ -40,25 +41,30 @@ export default async function Curriculum(props: CurriculumProps) {
         </div>
       </Section>
       <Section className="bg-white">
-        <div className="flex flex-col w-full md:w-[1268px]">
+        <div className="flex flex-col w-full md:w-[1024px]">
           <Title full align="left" type={type} lang={lang}>
             {curriculum.curriculumTitle[lang]}
           </Title>
-          <div className="flex flex-col md:flex-row justify-between md:flex-wrap md:gap-y-10 items-center">
-            {curriculum.curriculums.map((element, index) => (
-              <Card
-                key={`curriculum-${index}`}
-                type={`curriculum${
-                  name === "kindergarten" ? `-kindergarten` : ""
-                }`}
-                img={element.img}
-                alt={element.title[lang]}
-                title={element.title[lang]}
-                description={element.description[lang]}
-                lang={lang}
-              ></Card>
-            ))}
-          </div>
+          {chunk(curriculum.curriculums, 3).map((elements, chunkIndex) => (
+            <div
+              key={`curriculum-chunk-${chunkIndex}`}
+              className="flex flex-col md:flex-row justify-between md:flex-wrap md:gap-y-10 items-center"
+            >
+              {elements.map((element, index) => (
+                <Card
+                  key={`curriculum-chunk-${chunkIndex}-${index}`}
+                  type={`curriculum${
+                    name === "kindergarten" ? `-kindergarten` : ""
+                  }`}
+                  img={element.img}
+                  alt={element.title[lang]}
+                  title={element.title[lang]}
+                  description={element.description[lang]}
+                  lang={lang}
+                ></Card>
+              ))}
+            </div>
+          ))}
         </div>
       </Section>
     </main>

@@ -10,6 +10,7 @@ import LatestNews from "../LatestNews";
 import Section from "../Section";
 import { ContactEntity } from "@/app/api/contact/route";
 import { SubschoolEntity } from "@/app/api/subschool/route";
+import { chunk } from "lodash";
 
 interface SubschoolProps {
   name: "dayCare" | "elementary" | "kindergarten" | "highSchool";
@@ -99,19 +100,26 @@ export default async function Subschool(props: SubschoolProps) {
           <Typography varient="h5" className="mb-[80px]">
             {data.description[lang]}
           </Typography>
-          <div className="flex flex-col items-start md:flex-row gap-4">
-            {data.experiences.map((element, index) => (
-              <Card
-                key={`experience ${index}`}
-                type={`course${name === "kindergarten" ? `-kindergarten` : ""}`}
-                img={element.img}
-                alt={element.title[lang]}
-                title={element.title[lang]}
-                description={element.description[lang]}
-                lang={lang}
-              ></Card>
-            ))}
-          </div>
+          {chunk(data.experiences, 3).map((element, index) => (
+            <div
+              key={"course-chunk" + index}
+              className="flex flex-col items-start md:flex-row gap-4"
+            >
+              {element.map((element, index) => (
+                <Card
+                  key={`experience ${index}`}
+                  type={`course${
+                    name === "kindergarten" ? `-kindergarten` : ""
+                  }`}
+                  img={element.img}
+                  alt={element.title[lang]}
+                  title={element.title[lang]}
+                  description={element.description[lang]}
+                  lang={lang}
+                ></Card>
+              ))}
+            </div>
+          ))}
         </div>
       </Section>
       <Banner
