@@ -86,150 +86,6 @@ export default function AdminInformationPage() {
     return res.json();
   };
 
-  const renderField = (key: string, value: string) => {
-    if (
-      (value.startsWith("/") || value.startsWith("http")) &&
-      !key.includes("facebook") &&
-      !key.includes("twitter") &&
-      !key.includes("linkedin") &&
-      !key.includes("youtube") &&
-      !key.includes("line")
-    ) {
-      if (key.includes("file")) {
-        return (
-          <Controller
-            name={key}
-            control={control}
-            render={({ field }) => (
-              <div className="flex flex-col items-start justify-start mt-2">
-                <input
-                  className="w-full border px-4 py-2 mb-4 mt-2"
-                  value={field.value}
-                  onChange={(event) => {
-                    field.onChange(event.target.value);
-                  }}
-                ></input>
-                <input
-                  type="file"
-                  id={`file-${key}}`}
-                  className="invisible h-0"
-                  onChange={(event) => {
-                    const file = event.target.files?.[0];
-                    if (file) {
-                      uploadFile(file).then((data) => {
-                        field.onChange(data.file);
-                      });
-                    }
-                  }}
-                />
-                <button
-                  className="bg-blue mt-1 px-2 py-2 rounded text-white"
-                  disabled={uploading}
-                  onClick={(event) => {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    document.getElementById(`file-${key}}`)?.click();
-                  }}
-                >
-                  {uploading ? "上傳檔案中" : "更換檔案"}
-                </button>
-              </div>
-            )}
-          />
-        );
-      } else {
-        return (
-          <Controller
-            name={key}
-            control={control}
-            render={({ field }) => (
-              <div className="flex flex-col items-start justify-start mt-2">
-                <input
-                  className="w-full border px-4 py-2 mb-4 mt-2"
-                  value={field.value}
-                  onChange={(event) => {
-                    field.onChange(event.target.value);
-                  }}
-                ></input>
-                <input
-                  type="file"
-                  accept="images/*"
-                  id={`file-${key}}`}
-                  className="invisible h-0"
-                  onChange={(event) => {
-                    const file = event.target.files?.[0];
-                    if (file) {
-                      uploadFile(file).then((data) => {
-                        field.onChange(data.file);
-                      });
-                    }
-                  }}
-                />
-                {field.value && (
-                  <Image src={field.value} alt={key} width={500} height={500} />
-                )}
-                <button
-                  className="bg-blue mt-1 px-2 py-2 rounded text-white"
-                  disabled={uploading}
-                  onClick={(event) => {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    document.getElementById(`file-${key}}`)?.click();
-                  }}
-                >
-                  {uploading ? "上傳圖片中" : "更換圖片"}
-                </button>
-              </div>
-            )}
-          />
-        );
-      }
-    } else if (value?.length > 80) {
-      return (
-        <textarea
-          key={key}
-          disabled={key.includes("type")}
-          className="w-full border px-4 py-2 mb-4 mt-2 h-[200px]"
-          {...register(key)}
-        ></textarea>
-      );
-    } else {
-      return (
-        <input
-          key={key}
-          disabled={key.includes("type")}
-          className="w-full border px-4 py-2 mb-4 mt-2"
-          {...register(key)}
-        ></input>
-      );
-    }
-  };
-
-  const renderRecursive = (obj: object, parentKey = "") => {
-    return Object.entries(obj).map(([key, value]) => {
-      const fullKey = parentKey ? `${parentKey}.${key}` : key;
-      if (typeof value === "object") {
-        return <div key={fullKey}>{renderRecursive(value, fullKey)}</div>;
-      } else if (typeof value === "string" && key !== "_id" && key !== "name") {
-        if (
-          (fullKey.includes("en") || fullKey.includes("zh")) &&
-          !fullKey.includes(lang)
-        ) {
-          return;
-        }
-        return (
-          <div key={fullKey} className="bg-white px-6 py-3 rounded shadow mt-4">
-            <label>
-              {fullKey.replace(".zh", " [中文]").replace(".en", " [EN]")}
-            </label>
-            {renderField(fullKey, value)}
-          </div>
-        );
-      }
-      return null;
-    });
-  };
-
   return (
     <div className="flex flex-col w-full items-center h-full ">
       <div className="fixed left-64 right-0">
@@ -275,13 +131,347 @@ export default function AdminInformationPage() {
       </div>
       <div className="px-8 py-6 w-full h-screen bg-gray-200">
         <div className="w-full h-full overflow-scroll">
-          {loading && activeTabData ? (
-            "loading..."
-          ) : (
-            <form onSubmit={handleSubmit(onSubmit)}>
-              {activeTabData && renderRecursive(activeTabData)}
-            </form>
-          )}
+          {loading && activeTabData
+            ? "loading..."
+            : activeTabData && (
+                <form onSubmit={handleSubmit(onSubmit)}>
+                  <div className="mt-4 align-middle inline-block w-full shadow overflow-x-auto sm:rounded-lg border-b border-gray-200">
+                    <div className="bg-white flex flex-row items-center">
+                      <p
+                        className={`px-6 py-4 inline-flex text-2xl font-bold leading-5 `}
+                      >
+                        Informaion
+                      </p>
+                    </div>
+                    <table className="min-w-full">
+                      <thead>
+                        <tr className="bg-gray-50 border-b border-gray-200 text-xs leading-4 text-gray-500 uppercase tracking-wider">
+                          <th className="px-6 py-3 text-left font-medium">
+                            Banner [1440x396]
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white">
+                        <tr>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <Controller
+                              name={"banner"}
+                              control={control}
+                              render={({ field }) => (
+                                <div className="flex-1 flex flex-col items-start justify-start">
+                                  <input
+                                    className="w-full border px-4 py-2 mb-4 mt-2"
+                                    value={field.value as string}
+                                    onChange={(event) => {
+                                      field.onChange(event.target.value);
+                                    }}
+                                  ></input>
+                                  <input
+                                    type="file"
+                                    accept="images/*"
+                                    id={`file-banner`}
+                                    className="invisible h-0"
+                                    onChange={(event) => {
+                                      const file = event.target.files?.[0];
+                                      if (file) {
+                                        uploadFile(file).then((data) => {
+                                          field.onChange(data.file);
+                                        });
+                                      }
+                                    }}
+                                  />
+                                  {field.value &&
+                                    (field.value.startsWith("/") ||
+                                      field.value.startsWith("http")) && (
+                                      <Image
+                                        width={500}
+                                        height={500}
+                                        alt={field.value}
+                                        src={field.value}
+                                      />
+                                    )}
+                                  <button
+                                    className="bg-blue mt-1 px-2 py-2 rounded text-white"
+                                    disabled={uploading}
+                                    onClick={(event) => {
+                                      event.preventDefault();
+                                      event.stopPropagation();
+                                      document
+                                        .getElementById(`file-banner`)
+                                        ?.click();
+                                    }}
+                                  >
+                                    {uploading ? "上傳圖片中" : "更換圖片"}
+                                  </button>
+                                </div>
+                              )}
+                            />
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <table className="min-w-full">
+                      <thead>
+                        <tr className="bg-gray-50 border-b border-gray-200 text-xs leading-4 text-gray-500 uppercase tracking-wider">
+                          <th className="px-6 py-3 text-left font-medium">
+                            admissionBrochure.title [{lang}]
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium">
+                            admissionBrochure.description [{lang}]
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium">
+                            admissionBrochure.file [PDF/Docx]
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white">
+                        <tr>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <input
+                              className="text-sm leading-5 text-gray-900 border w-full"
+                              {...register(`admissionBrochure.title.${lang}`, {
+                                required: true,
+                              })}
+                            ></input>
+                          </td>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <input
+                              className="text-sm leading-5 text-gray-900 border w-full"
+                              {...register(
+                                `admissionBrochure.description.${lang}`,
+                                { required: true }
+                              )}
+                            ></input>
+                          </td>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <Controller
+                              name={"admissionBrochure.file"}
+                              control={control}
+                              render={({ field }) => (
+                                <div className="flex-1 flex flex-col items-start justify-start">
+                                  <input
+                                    className="w-full border px-4 py-2 mb-4 mt-2"
+                                    value={field.value as string}
+                                    onChange={(event) => {
+                                      field.onChange(event.target.value);
+                                    }}
+                                  ></input>
+                                  <input
+                                    type="file"
+                                    accept=".doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.pdf"
+                                    id={`file`}
+                                    className="invisible h-0"
+                                    onChange={(event) => {
+                                      const file = event.target.files?.[0];
+                                      if (file) {
+                                        uploadFile(file).then((data) => {
+                                          field.onChange(data.file);
+                                        });
+                                      }
+                                    }}
+                                  />
+                                  <button
+                                    className="bg-blue mt-1 px-2 py-2 rounded text-white"
+                                    disabled={uploading}
+                                    onClick={(event) => {
+                                      event.preventDefault();
+                                      event.stopPropagation();
+                                      document.getElementById(`fil`)?.click();
+                                    }}
+                                  >
+                                    {uploading ? "上傳檔案中" : "更換檔案"}
+                                  </button>
+                                </div>
+                              )}
+                            />
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <table className="min-w-full">
+                      <thead>
+                        <tr className="bg-gray-50 border-b border-gray-200 text-xs leading-4 text-gray-500 uppercase tracking-wider">
+                          <th className="px-6 py-3 text-left font-medium">
+                            informationSession title [{lang}]
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium">
+                            informationSession description [{lang}]
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium">
+                            informationSession img [Free Size]
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white">
+                        <tr>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <input
+                              className="text-sm leading-5 text-gray-900 border w-full"
+                              {...register(`informationSession.title.${lang}`, {
+                                required: true,
+                              })}
+                            ></input>
+                          </td>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <textarea
+                              className="text-sm leading-5 text-gray-900 border w-full"
+                              {...register(
+                                `informationSession.description.${lang}`,
+                                {
+                                  required: true,
+                                }
+                              )}
+                            ></textarea>
+                          </td>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <Controller
+                              name={"informationSession.img"}
+                              control={control}
+                              render={({ field }) => (
+                                <div className="flex-1 flex flex-col items-start justify-start">
+                                  <input
+                                    className="w-full border px-4 py-2 mb-4 mt-2"
+                                    value={field.value as string}
+                                    onChange={(event) => {
+                                      field.onChange(event.target.value);
+                                    }}
+                                  ></input>
+                                  <input
+                                    type="file"
+                                    accept="images/*"
+                                    id={`file-information.img`}
+                                    className="invisible h-0"
+                                    onChange={(event) => {
+                                      const file = event.target.files?.[0];
+                                      if (file) {
+                                        uploadFile(file).then((data) => {
+                                          field.onChange(data.file);
+                                        });
+                                      }
+                                    }}
+                                  />
+                                  {field.value &&
+                                    (field.value.startsWith("/") ||
+                                      field.value.startsWith("http")) && (
+                                      <Image
+                                        width={500}
+                                        height={500}
+                                        alt={field.value}
+                                        src={field.value}
+                                      />
+                                    )}
+                                  <button
+                                    className="bg-blue mt-1 px-2 py-2 rounded text-white"
+                                    disabled={uploading}
+                                    onClick={(event) => {
+                                      event.preventDefault();
+                                      event.stopPropagation();
+                                      document
+                                        .getElementById(`file-information.img`)
+                                        ?.click();
+                                    }}
+                                  >
+                                    {uploading ? "上傳圖片中" : "更換圖片"}
+                                  </button>
+                                </div>
+                              )}
+                            />
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <table className="min-w-full">
+                      <thead>
+                        <tr className="bg-gray-50 border-b border-gray-200 text-xs leading-4 text-gray-500 uppercase tracking-wider">
+                          <th className="px-6 py-3 text-left font-medium">
+                            lunchMenu title [{lang}]
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium">
+                            lunchMenu description [{lang}]
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium">
+                            lunchMenu img [Free Size]
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white">
+                        <tr>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <input
+                              className="text-sm leading-5 text-gray-900 border w-full"
+                              {...register(`lunchMenu.title.${lang}`, {
+                                required: true,
+                              })}
+                            ></input>
+                          </td>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <textarea
+                              className="text-sm leading-5 text-gray-900 border w-full"
+                              {...register(`lunchMenu.description.${lang}`, {
+                                required: true,
+                              })}
+                            ></textarea>
+                          </td>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <Controller
+                              name={"lunchMenu.img"}
+                              control={control}
+                              render={({ field }) => (
+                                <div className="flex-1 flex flex-col items-start justify-start">
+                                  <input
+                                    className="w-full border px-4 py-2 mb-4 mt-2"
+                                    value={field.value as string}
+                                    onChange={(event) => {
+                                      field.onChange(event.target.value);
+                                    }}
+                                  ></input>
+                                  <input
+                                    type="file"
+                                    accept="images/*"
+                                    id={`file-lunchMenu.img`}
+                                    className="invisible h-0"
+                                    onChange={(event) => {
+                                      const file = event.target.files?.[0];
+                                      if (file) {
+                                        uploadFile(file).then((data) => {
+                                          field.onChange(data.file);
+                                        });
+                                      }
+                                    }}
+                                  />
+                                  {field.value &&
+                                    (field.value.startsWith("/") ||
+                                      field.value.startsWith("http")) && (
+                                      <Image
+                                        width={500}
+                                        height={500}
+                                        alt={field.value}
+                                        src={field.value}
+                                      />
+                                    )}
+                                  <button
+                                    className="bg-blue mt-1 px-2 py-2 rounded text-white"
+                                    disabled={uploading}
+                                    onClick={(event) => {
+                                      event.preventDefault();
+                                      event.stopPropagation();
+                                      document
+                                        .getElementById(`file-lunchMenu.img`)
+                                        ?.click();
+                                    }}
+                                  >
+                                    {uploading ? "上傳圖片中" : "更換圖片"}
+                                  </button>
+                                </div>
+                              )}
+                            />
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </form>
+              )}
         </div>
       </div>
     </div>
