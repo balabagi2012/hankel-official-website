@@ -153,7 +153,6 @@ export default function AdminFacilityPage() {
             "loading..."
           ) : (
             <form onSubmit={handleSubmit(onSubmit)}>
-              {/* {activeTabData && renderRecursive(activeTabData)} */}
               <div className="mt-4 align-middle inline-block w-full shadow overflow-x-auto sm:rounded-lg border-b border-gray-200">
                 <div className="bg-white flex flex-row items-center">
                   <p
