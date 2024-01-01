@@ -183,7 +183,11 @@ export default function AdminAboutPage() {
         return (
           <div key={fullKey} className="bg-white px-6 py-3 rounded shadow mt-4">
             <label>
-              {fullKey.replace(".zh", " [中文]").replace(".en", " [EN]")}
+              {fullKey === "banner"
+                ? "Banner [1440x396]"
+                : fullKey.includes("imgs")
+                ? `${fullKey} [free size]`
+                : fullKey.replace(".zh", " [中文]").replace(".en", " [EN]")}
             </label>
             {renderField(fullKey, value)}
           </div>
