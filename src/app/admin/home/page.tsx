@@ -479,7 +479,7 @@ export default function AdminHomePage() {
             "loading..."
           ) : (
             <form onSubmit={handleSubmit(onSubmit)}>
-              {renderTable(activeTab)}
+              {activeTabData && renderTable(activeTab)}
             </form>
           )}
         </div>

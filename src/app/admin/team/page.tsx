@@ -301,417 +301,445 @@ export default function AdminTeamPage() {
       </div>
       <div className="px-8 py-6 w-full h-screen bg-gray-200">
         <div className="w-full h-full overflow-scroll">
-          {loading && activeTabData ? (
-            "loading..."
-          ) : (
-            <form onSubmit={handleSubmit(onSubmit)}>
-              {activeTabData && renderRecursive(activeTabData)}
-              <div className="mt-4 align-middle inline-block w-full shadow overflow-x-auto sm:rounded-lg border-b border-gray-200">
-                <div className="bg-white flex flex-row items-center">
-                  <p
-                    className={`px-6 py-4 inline-flex text-2xl font-bold leading-5 `}
-                  >
-                    ForeignTeam
-                  </p>
-                  <button
-                    className="ml-auto mr-6 px-3 py-1 bg-deepBlue text-white border border-gray-300 text-sm rounded-lg focus:outline-none"
-                    onClick={() => addTeacher("foreignTeam")}
-                  >
-                    Add Teacher
-                  </button>
-                </div>
-                <table className="min-w-full">
-                  <thead>
-                    <tr className="bg-gray-50 border-b border-gray-200 text-xs leading-4 text-gray-500 uppercase tracking-wider">
-                      <th className="px-6 py-3 text-left font-medium">
-                        Team Title
-                      </th>
-                      <th className="px-6 py-3 text-left font-medium">
-                        Team Description
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="bg-white">
-                    <tr>
-                      <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                        <textarea
-                          className="text-sm leading-5 text-gray-900 w-full border"
-                          {...register(`foreignTeam.title[${lang}]`)}
-                        ></textarea>
-                      </td>
-                      <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                        <textarea
-                          className="text-sm leading-5 text-gray-900 w-full border"
-                          {...register(`foreignTeam.description[${lang}]`)}
-                        ></textarea>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                <table className="w-full overflow-scroll">
-                  <thead>
-                    <tr className="bg-gray-50 border-b border-gray-200 text-xs leading-4 text-gray-500 uppercase tracking-wider">
-                      <th className="px-6 py-3 text-left font-medium">Title</th>
-                      <th className="px-6 py-3 text-left font-medium">Img</th>
-                      <th className="px-6 py-3 text-left font-medium">
-                        Description
-                      </th>
-                      <th className="px-6 py-3 text-left font-medium">Tag</th>
-                      <th className="px-6 py-3 text-left font-medium">
-                        Facebook
-                      </th>
-                      <th className="px-6 py-3 text-left font-medium">
-                        LinkedIn
-                      </th>
-                      <th className="px-6 py-3 text-left font-medium">
-                        twitter
-                      </th>
-                      <th className="px-6 py-3 text-left font-medium"></th>
-                    </tr>
-                  </thead>
-                  <tbody className="w-full bg-white overflow-scroll">
-                    {(foreignTeachers as unknown as Teacher[])?.map(
-                      (teacher: Teacher, index: number) => (
-                        <tr key={`foreignTeam-teacher-${index}`}>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <input
-                              className="text-sm leading-5 text-gray-900 border"
-                              {...register(
-                                `foreignTeam.teachers.${index}.title.${lang}`,
-                                { required: true }
-                              )}
-                            ></input>
-                          </td>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <div className="flex items-center">
-                              <div className="flex-shrink-0 h-15 w-15">
-                                <Controller
-                                  name={`foreignTeam.teachers.${index}.img`}
-                                  control={control}
-                                  render={({ field }) => (
-                                    <div className="flex flex-col items-start justify-start mt-2">
-                                      <input
-                                        className="w-full border px-4 py-2 mb-4 mt-2 text-sm"
-                                        value={field.value}
-                                        onChange={(event) => {
-                                          field.onChange(event.target.value);
-                                        }}
-                                      ></input>
-                                      <input
-                                        type="file"
-                                        accept="images/*"
-                                        id={`file-foreignTeam.teachers.${index}.img`}
-                                        className="invisible h-0"
-                                        onChange={(event) => {
-                                          const file = event.target.files?.[0];
-                                          if (file) {
-                                            uploadFile(file).then((data) => {
-                                              field.onChange(data.file);
-                                            });
-                                          }
-                                        }}
-                                      />
-                                      <div className="flex flex-row gap-4">
-                                        {field.value &&
-                                          (field.value.startsWith("/") ||
-                                            field.value.startsWith("http")) && (
-                                            <Image
-                                              width={40}
-                                              height={40}
-                                              alt={field.value}
-                                              src={field.value}
-                                            />
-                                          )}
-                                        <button
-                                          className="bg-blue mt-1 px-2 py-2 rounded text-white text-sm"
-                                          disabled={uploading}
-                                          onClick={(event) => {
-                                            event.preventDefault();
-                                            event.stopPropagation();
-                                            document
-                                              .getElementById(
-                                                `file-foreignTeam.teachers.${index}.img`
-                                              )
-                                              ?.click();
-                                          }}
-                                        >
-                                          {uploading
-                                            ? "上傳圖片中"
-                                            : "更換圖片"}
-                                        </button>
-                                      </div>
-                                    </div>
-                                  )}
-                                />
-                              </div>
-                            </div>
-                          </td>
+          {loading && activeTabData
+            ? "loading..."
+            : activeTabData && (
+                <form onSubmit={handleSubmit(onSubmit)}>
+                  {activeTabData && renderRecursive(activeTabData)}
+                  <div className="mt-4 align-middle inline-block w-full shadow overflow-x-auto sm:rounded-lg border-b border-gray-200">
+                    <div className="bg-white flex flex-row items-center">
+                      <p
+                        className={`px-6 py-4 inline-flex text-2xl font-bold leading-5 `}
+                      >
+                        ForeignTeam
+                      </p>
+                      <button
+                        className="ml-auto mr-6 px-3 py-1 bg-deepBlue text-white border border-gray-300 text-sm rounded-lg focus:outline-none"
+                        onClick={() => addTeacher("foreignTeam")}
+                      >
+                        Add Teacher
+                      </button>
+                    </div>
+                    <table className="min-w-full">
+                      <thead>
+                        <tr className="bg-gray-50 border-b border-gray-200 text-xs leading-4 text-gray-500 uppercase tracking-wider">
+                          <th className="px-6 py-3 text-left font-medium">
+                            Team Title
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium">
+                            Team Description
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white">
+                        <tr>
                           <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                             <textarea
-                              className="text-sm leading-5 text-gray-900 w-[400px] border"
-                              {...register(
-                                `foreignTeam.teachers.${index}.description.${lang}`,
-                                { required: true }
-                              )}
+                              className="text-sm leading-5 text-gray-900 w-full border"
+                              {...register(`foreignTeam.title[${lang}]`)}
                             ></textarea>
                           </td>
                           <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <input
-                              className={`border px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 w-[240px]`}
-                              {...register(
-                                `foreignTeam.teachers.${index}.tag.${lang}`,
-                                { required: true }
-                              )}
-                            ></input>
-                          </td>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
-                            <input
-                              type="text"
-                              className="border"
-                              {...register(
-                                `foreignTeam.teachers.${index}.facebook`,
-                                { required: false }
-                              )}
-                            />
-                          </td>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
-                            <input
-                              type="text"
-                              className="border"
-                              {...register(
-                                `foreignTeam.teachers.${index}.linkedin`,
-                                { required: false }
-                              )}
-                            />
-                          </td>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
-                            <input
-                              type="text"
-                              className="border"
-                              {...register(
-                                `foreignTeam.teachers.${index}.twitter`,
-                                { required: false }
-                              )}
-                            />
-                          </td>
-                          <td className="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-                            <div
-                              onClick={() =>
-                                removeTeacher("foreignTeam", index)
-                              }
-                            >
-                              Remove
-                            </div>
+                            <textarea
+                              className="text-sm leading-5 text-gray-900 w-full border"
+                              {...register(`foreignTeam.description[${lang}]`)}
+                            ></textarea>
                           </td>
                         </tr>
-                      )
-                    )}
-                  </tbody>
-                </table>
-              </div>
-              <div className="mt-4 align-middle inline-block w-full shadow overflow-x-auto sm:rounded-lg border-b border-gray-200">
-                <div className="bg-white flex flex-row items-center">
-                  <p
-                    className={`px-6 py-4 inline-flex text-2xl font-bold leading-5 `}
-                  >
-                    LocalTeam
-                  </p>
-                  <button
-                    className="ml-auto mr-6 px-3 py-1 bg-deepBlue text-white border border-gray-300 rounded-lg text-sm focus:outline-none"
-                    onClick={() => addTeacher("localTeam")}
-                  >
-                    Add Teacher
-                  </button>
-                </div>
-                <table className="min-w-full">
-                  <thead>
-                    <tr className="bg-gray-50 border-b border-gray-200 text-xs leading-4 text-gray-500 uppercase tracking-wider">
-                      <th className="px-6 py-3 text-left font-medium">
-                        Team Title
-                      </th>
-                      <th className="px-6 py-3 text-left font-medium">
-                        Team Description
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="bg-white">
-                    <tr>
-                      <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                        <textarea
-                          className="text-sm leading-5 text-gray-900 w-full border"
-                          {...register(`localTeam.title[${lang}]`)}
-                        ></textarea>
-                      </td>
-                      <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                        <textarea
-                          className="text-sm leading-5 text-gray-900 w-full border"
-                          {...register(`localTeam.description[${lang}]`)}
-                        ></textarea>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                <table className="w-full overflow-scroll">
-                  <thead>
-                    <tr className="bg-gray-50 border-b border-gray-200 text-xs leading-4 text-gray-500 uppercase tracking-wider">
-                      <th className="px-6 py-3 text-left font-medium">Title</th>
-                      <th className="px-6 py-3 text-left font-medium">Img</th>
-                      <th className="px-6 py-3 text-left font-medium">
-                        Description
-                      </th>
-                      <th className="px-6 py-3 text-left font-medium">Tag</th>
-                      <th className="px-6 py-3 text-left font-medium">
-                        Facebook
-                      </th>
-                      <th className="px-6 py-3 text-left font-medium">
-                        LinkedIn
-                      </th>
-                      <th className="px-6 py-3 text-left font-medium">
-                        twitter
-                      </th>
-                      <th className="px-6 py-3 text-left font-medium"></th>
-                    </tr>
-                  </thead>
-                  <tbody className="w-full bg-white overflow-scroll">
-                    {(localTeachers as unknown as Teacher[])?.map(
-                      (teacher: Teacher, index: number) => (
-                        <tr key={`localTeam-teacher-${index}`}>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <input
-                              className="text-sm leading-5 text-gray-900 border"
-                              {...register(
-                                `localTeam.teachers.${index}.title.${lang}`,
-                                { required: true }
-                              )}
-                            ></input>
-                          </td>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <div className="flex items-center">
-                              <div className="flex-shrink-0 h-15 w-15">
-                                <Controller
-                                  name={`localTeam.teachers.${index}.img`}
-                                  control={control}
-                                  render={({ field }) => (
-                                    <div className="flex flex-col items-start justify-start mt-2">
-                                      <input
-                                        className="w-full border px-4 py-2 mb-4 mt-2 text-sm"
-                                        value={field.value}
-                                        onChange={(event) => {
-                                          field.onChange(event.target.value);
-                                        }}
-                                      ></input>
-                                      <input
-                                        type="file"
-                                        accept="images/*"
-                                        id={`file-localTeam.teachers.${index}.img`}
-                                        className="invisible h-0"
-                                        onChange={(event) => {
-                                          const file = event.target.files?.[0];
-                                          if (file) {
-                                            uploadFile(file).then((data) => {
-                                              field.onChange(data.file);
-                                            });
-                                          }
-                                        }}
-                                      />
-                                      <div className="flex flex-row gap-4">
-                                        {field.value &&
-                                          (field.value.startsWith("/") ||
-                                            field.value.startsWith("http")) && (
-                                            <Image
-                                              width={40}
-                                              height={40}
-                                              alt={field.value}
-                                              src={field.value}
-                                            />
-                                          )}
-                                        <button
-                                          className="bg-blue mt-1 px-2 py-2 rounded text-white text-sm"
-                                          disabled={uploading}
-                                          onClick={(event) => {
-                                            event.preventDefault();
-                                            event.stopPropagation();
-                                            document
-                                              .getElementById(
-                                                `file-localTeam.teachers.${index}.img`
-                                              )
-                                              ?.click();
-                                          }}
-                                        >
-                                          {uploading
-                                            ? "上傳圖片中"
-                                            : "更換圖片"}
-                                        </button>
-                                      </div>
-                                    </div>
+                      </tbody>
+                    </table>
+                    <table className="w-full overflow-scroll">
+                      <thead>
+                        <tr className="bg-gray-50 border-b border-gray-200 text-xs leading-4 text-gray-500 uppercase tracking-wider">
+                          <th className="px-6 py-3 text-left font-medium">
+                            Title
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium">
+                            Img
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium">
+                            Description
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium">
+                            Tag
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium">
+                            Facebook
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium">
+                            LinkedIn
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium">
+                            twitter
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium"></th>
+                        </tr>
+                      </thead>
+                      <tbody className="w-full bg-white overflow-scroll">
+                        {(foreignTeachers as unknown as Teacher[])?.map(
+                          (teacher: Teacher, index: number) => (
+                            <tr key={`foreignTeam-teacher-${index}`}>
+                              <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                <input
+                                  className="text-sm leading-5 text-gray-900 border"
+                                  {...register(
+                                    `foreignTeam.teachers.${index}.title.${lang}`,
+                                    { required: true }
+                                  )}
+                                ></input>
+                              </td>
+                              <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                <div className="flex items-center">
+                                  <div className="flex-shrink-0 h-15 w-15">
+                                    <Controller
+                                      name={`foreignTeam.teachers.${index}.img`}
+                                      control={control}
+                                      render={({ field }) => (
+                                        <div className="flex flex-col items-start justify-start mt-2">
+                                          <input
+                                            className="w-full border px-4 py-2 mb-4 mt-2 text-sm"
+                                            value={field.value}
+                                            onChange={(event) => {
+                                              field.onChange(
+                                                event.target.value
+                                              );
+                                            }}
+                                          ></input>
+                                          <input
+                                            type="file"
+                                            accept="images/*"
+                                            id={`file-foreignTeam.teachers.${index}.img`}
+                                            className="invisible h-0"
+                                            onChange={(event) => {
+                                              const file =
+                                                event.target.files?.[0];
+                                              if (file) {
+                                                uploadFile(file).then(
+                                                  (data) => {
+                                                    field.onChange(data.file);
+                                                  }
+                                                );
+                                              }
+                                            }}
+                                          />
+                                          <div className="flex flex-row gap-4">
+                                            {field.value &&
+                                              (field.value.startsWith("/") ||
+                                                field.value.startsWith(
+                                                  "http"
+                                                )) && (
+                                                <Image
+                                                  width={40}
+                                                  height={40}
+                                                  alt={field.value}
+                                                  src={field.value}
+                                                />
+                                              )}
+                                            <button
+                                              className="bg-blue mt-1 px-2 py-2 rounded text-white text-sm"
+                                              disabled={uploading}
+                                              onClick={(event) => {
+                                                event.preventDefault();
+                                                event.stopPropagation();
+                                                document
+                                                  .getElementById(
+                                                    `file-foreignTeam.teachers.${index}.img`
+                                                  )
+                                                  ?.click();
+                                              }}
+                                            >
+                                              {uploading
+                                                ? "上傳圖片中"
+                                                : "更換圖片"}
+                                            </button>
+                                          </div>
+                                        </div>
+                                      )}
+                                    />
+                                  </div>
+                                </div>
+                              </td>
+                              <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                <textarea
+                                  className="text-sm leading-5 text-gray-900 w-[400px] border"
+                                  {...register(
+                                    `foreignTeam.teachers.${index}.description.${lang}`,
+                                    { required: true }
+                                  )}
+                                ></textarea>
+                              </td>
+                              <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                <input
+                                  className={`border px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 w-[240px]`}
+                                  {...register(
+                                    `foreignTeam.teachers.${index}.tag.${lang}`,
+                                    { required: true }
+                                  )}
+                                ></input>
+                              </td>
+                              <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
+                                <input
+                                  type="text"
+                                  className="border"
+                                  {...register(
+                                    `foreignTeam.teachers.${index}.facebook`,
+                                    { required: false }
                                   )}
                                 />
-                              </div>
-                            </div>
-                          </td>
+                              </td>
+                              <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
+                                <input
+                                  type="text"
+                                  className="border"
+                                  {...register(
+                                    `foreignTeam.teachers.${index}.linkedin`,
+                                    { required: false }
+                                  )}
+                                />
+                              </td>
+                              <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
+                                <input
+                                  type="text"
+                                  className="border"
+                                  {...register(
+                                    `foreignTeam.teachers.${index}.twitter`,
+                                    { required: false }
+                                  )}
+                                />
+                              </td>
+                              <td className="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
+                                <div
+                                  onClick={() =>
+                                    removeTeacher("foreignTeam", index)
+                                  }
+                                >
+                                  Remove
+                                </div>
+                              </td>
+                            </tr>
+                          )
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
+                  <div className="mt-4 align-middle inline-block w-full shadow overflow-x-auto sm:rounded-lg border-b border-gray-200">
+                    <div className="bg-white flex flex-row items-center">
+                      <p
+                        className={`px-6 py-4 inline-flex text-2xl font-bold leading-5 `}
+                      >
+                        LocalTeam
+                      </p>
+                      <button
+                        className="ml-auto mr-6 px-3 py-1 bg-deepBlue text-white border border-gray-300 rounded-lg text-sm focus:outline-none"
+                        onClick={() => addTeacher("localTeam")}
+                      >
+                        Add Teacher
+                      </button>
+                    </div>
+                    <table className="min-w-full">
+                      <thead>
+                        <tr className="bg-gray-50 border-b border-gray-200 text-xs leading-4 text-gray-500 uppercase tracking-wider">
+                          <th className="px-6 py-3 text-left font-medium">
+                            Team Title
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium">
+                            Team Description
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white">
+                        <tr>
                           <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                             <textarea
-                              className="text-sm leading-5 text-gray-900 w-[400px] border"
-                              {...register(
-                                `localTeam.teachers.${index}.description.${lang}`,
-                                { required: true }
-                              )}
+                              className="text-sm leading-5 text-gray-900 w-full border"
+                              {...register(`localTeam.title[${lang}]`)}
                             ></textarea>
                           </td>
                           <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <input
-                              className={`border px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 w-[240px]`}
-                              {...register(
-                                `localTeam.teachers.${index}.tag.${lang}`,
-                                { required: true }
-                              )}
-                            ></input>
-                          </td>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
-                            <input
-                              type="text"
-                              className="border"
-                              {...register(
-                                `localTeam.teachers.${index}.facebook`,
-                                { required: false }
-                              )}
-                            />
-                          </td>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
-                            <input
-                              type="text"
-                              className="border"
-                              {...register(
-                                `localTeam.teachers.${index}.linkedin`,
-                                { required: false }
-                              )}
-                            />
-                          </td>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
-                            <input
-                              type="text"
-                              className="border"
-                              {...register(
-                                `localTeam.teachers.${index}.twitter`,
-                                { required: false }
-                              )}
-                            />
-                          </td>
-                          <td className="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-                            <div
-                              onClick={() => removeTeacher("localTeam", index)}
-                            >
-                              Remove
-                            </div>
+                            <textarea
+                              className="text-sm leading-5 text-gray-900 w-full border"
+                              {...register(`localTeam.description[${lang}]`)}
+                            ></textarea>
                           </td>
                         </tr>
-                      )
-                    )}
-                  </tbody>
-                </table>
-              </div>
-            </form>
-          )}
+                      </tbody>
+                    </table>
+                    <table className="w-full overflow-scroll">
+                      <thead>
+                        <tr className="bg-gray-50 border-b border-gray-200 text-xs leading-4 text-gray-500 uppercase tracking-wider">
+                          <th className="px-6 py-3 text-left font-medium">
+                            Title
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium">
+                            Img
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium">
+                            Description
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium">
+                            Tag
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium">
+                            Facebook
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium">
+                            LinkedIn
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium">
+                            twitter
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium"></th>
+                        </tr>
+                      </thead>
+                      <tbody className="w-full bg-white overflow-scroll">
+                        {(localTeachers as unknown as Teacher[])?.map(
+                          (teacher: Teacher, index: number) => (
+                            <tr key={`localTeam-teacher-${index}`}>
+                              <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                <input
+                                  className="text-sm leading-5 text-gray-900 border"
+                                  {...register(
+                                    `localTeam.teachers.${index}.title.${lang}`,
+                                    { required: true }
+                                  )}
+                                ></input>
+                              </td>
+                              <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                <div className="flex items-center">
+                                  <div className="flex-shrink-0 h-15 w-15">
+                                    <Controller
+                                      name={`localTeam.teachers.${index}.img`}
+                                      control={control}
+                                      render={({ field }) => (
+                                        <div className="flex flex-col items-start justify-start mt-2">
+                                          <input
+                                            className="w-full border px-4 py-2 mb-4 mt-2 text-sm"
+                                            value={field.value}
+                                            onChange={(event) => {
+                                              field.onChange(
+                                                event.target.value
+                                              );
+                                            }}
+                                          ></input>
+                                          <input
+                                            type="file"
+                                            accept="images/*"
+                                            id={`file-localTeam.teachers.${index}.img`}
+                                            className="invisible h-0"
+                                            onChange={(event) => {
+                                              const file =
+                                                event.target.files?.[0];
+                                              if (file) {
+                                                uploadFile(file).then(
+                                                  (data) => {
+                                                    field.onChange(data.file);
+                                                  }
+                                                );
+                                              }
+                                            }}
+                                          />
+                                          <div className="flex flex-row gap-4">
+                                            {field.value &&
+                                              (field.value.startsWith("/") ||
+                                                field.value.startsWith(
+                                                  "http"
+                                                )) && (
+                                                <Image
+                                                  width={40}
+                                                  height={40}
+                                                  alt={field.value}
+                                                  src={field.value}
+                                                />
+                                              )}
+                                            <button
+                                              className="bg-blue mt-1 px-2 py-2 rounded text-white text-sm"
+                                              disabled={uploading}
+                                              onClick={(event) => {
+                                                event.preventDefault();
+                                                event.stopPropagation();
+                                                document
+                                                  .getElementById(
+                                                    `file-localTeam.teachers.${index}.img`
+                                                  )
+                                                  ?.click();
+                                              }}
+                                            >
+                                              {uploading
+                                                ? "上傳圖片中"
+                                                : "更換圖片"}
+                                            </button>
+                                          </div>
+                                        </div>
+                                      )}
+                                    />
+                                  </div>
+                                </div>
+                              </td>
+                              <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                <textarea
+                                  className="text-sm leading-5 text-gray-900 w-[400px] border"
+                                  {...register(
+                                    `localTeam.teachers.${index}.description.${lang}`,
+                                    { required: true }
+                                  )}
+                                ></textarea>
+                              </td>
+                              <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                <input
+                                  className={`border px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 w-[240px]`}
+                                  {...register(
+                                    `localTeam.teachers.${index}.tag.${lang}`,
+                                    { required: true }
+                                  )}
+                                ></input>
+                              </td>
+                              <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
+                                <input
+                                  type="text"
+                                  className="border"
+                                  {...register(
+                                    `localTeam.teachers.${index}.facebook`,
+                                    { required: false }
+                                  )}
+                                />
+                              </td>
+                              <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
+                                <input
+                                  type="text"
+                                  className="border"
+                                  {...register(
+                                    `localTeam.teachers.${index}.linkedin`,
+                                    { required: false }
+                                  )}
+                                />
+                              </td>
+                              <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
+                                <input
+                                  type="text"
+                                  className="border"
+                                  {...register(
+                                    `localTeam.teachers.${index}.twitter`,
+                                    { required: false }
+                                  )}
+                                />
+                              </td>
+                              <td className="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
+                                <div
+                                  onClick={() =>
+                                    removeTeacher("localTeam", index)
+                                  }
+                                >
+                                  Remove
+                                </div>
+                              </td>
+                            </tr>
+                          )
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
+                </form>
+              )}
         </div>
       </div>
     </div>
