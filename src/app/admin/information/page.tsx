@@ -339,7 +339,7 @@ export default function AdminInformationPage() {
                                   <input
                                     type="file"
                                     accept="images/*"
-                                    id={`file-information.img`}
+                                    id={`file-information`}
                                     className="invisible h-0"
                                     onChange={(event) => {
                                       const file = event.target.files?.[0];
@@ -367,7 +367,7 @@ export default function AdminInformationPage() {
                                       event.preventDefault();
                                       event.stopPropagation();
                                       document
-                                        .getElementById(`file-information.img`)
+                                        .getElementById(`file-information`)
                                         ?.click();
                                     }}
                                   >
@@ -428,7 +428,7 @@ export default function AdminInformationPage() {
                                   <input
                                     type="file"
                                     accept="images/*"
-                                    id={`file-lunchMenu.img`}
+                                    id={`file-lunchMenu`}
                                     className="invisible h-0"
                                     onChange={(event) => {
                                       const file = event.target.files?.[0];
@@ -456,7 +456,7 @@ export default function AdminInformationPage() {
                                       event.preventDefault();
                                       event.stopPropagation();
                                       document
-                                        .getElementById(`file-lunchMenu.img`)
+                                        .getElementById(`file-lunchMenu`)
                                         ?.click();
                                     }}
                                   >
