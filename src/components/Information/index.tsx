@@ -86,9 +86,11 @@ export default async function Information(props: InformationProps) {
           </Title>
           <div className="w-full">
             <Image
-              src={LunchMenuImg}
+              src={information.lunchMenu.img}
               alt="hankel Lunch Menu"
               sizes="100vw"
+              width="1268"
+              height="768"
               style={{
                 width: "100%",
                 height: "auto",
