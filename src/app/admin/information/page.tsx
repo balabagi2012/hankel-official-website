@@ -80,6 +80,7 @@ export default function AdminInformationPage() {
     });
     setUploading(false);
     if (!res.ok) {
+      console.log(await res.json());
       // This will activate the closest `error.js` Error Boundary
       return window.alert("Failed to upload file");
     }
