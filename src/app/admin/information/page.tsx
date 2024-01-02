@@ -387,9 +387,6 @@ export default function AdminInformationPage() {
                             lunchMenu title [{lang}]
                           </th>
                           <th className="px-6 py-3 text-left font-medium">
-                            lunchMenu description [{lang}]
-                          </th>
-                          <th className="px-6 py-3 text-left font-medium">
                             lunchMenu img [Free Size]
                           </th>
                         </tr>
@@ -403,14 +400,6 @@ export default function AdminInformationPage() {
                                 required: true,
                               })}
                             ></input>
-                          </td>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <textarea
-                              className="text-sm leading-5 text-gray-900 border w-full"
-                              {...register(`lunchMenu.description.${lang}`, {
-                                required: true,
-                              })}
-                            ></textarea>
                           </td>
                           <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                             <Controller
