@@ -27,7 +27,7 @@ export const POST = async (req: NextRequest) => {
 
   const buffer = Buffer.from(await file.arrayBuffer());
   const filename =
-    Date.now() + "." + file.name.replaceAll(" ", "_").split(".")[1];
+    Date.now() + "." + file?.name?.replaceAll(" ", "_")?.split(".")[1];
 
   try {
     const filePath = "/public/uploads/" + filename;
@@ -35,13 +35,12 @@ export const POST = async (req: NextRequest) => {
       path.join(process.cwd(), "/public/uploads/" + filename),
       buffer
     );
-    return Response.json(
-      {
-        message: "File created successfully",
-        file: filePath.replaceAll("/public", ""),
-      },
-      { status: 201 }
-    );
+    const result = {
+      message: "File created successfully",
+      file: filePath.replaceAll("/public", ""),
+    };
+    console.log(result);
+    return Response.json(result, { status: 201 });
   } catch (error) {
     console.log((error as Error).message);
     return Response.json({ message: "Image created failed" }, { status: 500 });

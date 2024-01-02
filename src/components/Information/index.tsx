@@ -4,10 +4,9 @@ import Typography from "../Typography";
 
 import { InformationEntity } from "@/app/api/information/route";
 import Link from "next/link";
-import LunchMenuImg from "../../../public/information/lunch.png";
 import Banner from "../Banner";
-import Section from "../Section";
 import Event from "../Event";
+import Section from "../Section";
 
 export const getInformation = async (
   name: string
