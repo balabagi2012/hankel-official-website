@@ -34,20 +34,20 @@ export default function Header() {
 
   const subSchoolDropDownItemList = [
     {
-      path: `/${language}/dayCare`,
-      label: language === "zh" ? "翰科安親班" : `DayCare`,
-    },
-    {
-      path: `/${language}/elementary`,
-      label: language === "zh" ? "翰科小學" : `Elementary`,
-    },
-    {
       path: `/${language}/kindergarten`,
       label: language === "zh" ? "翰科幼稚園" : `Kindergarten`,
     },
     {
+      path: `/${language}/elementary`,
+      label: language === "zh" ? "翰科實驗小學" : `Elementary`,
+    },
+    {
       path: `/${language}/highSchool`,
-      label: language === "zh" ? "翰科高中" : `HighSchool`,
+      label: language === "zh" ? "翰科實驗高中" : `HighSchool`,
+    },
+    {
+      path: `/${language}/halfDaySchool`,
+      label: language === "zh" ? "翰科安親班" : `Half-Day School`,
     },
   ];
 
@@ -62,21 +62,21 @@ export default function Header() {
 
   const getSubSchoolZhLabel = (subSchool: string) => {
     switch (subSchool) {
-      case "dayCare":
+      case "halfDaySchool":
         return "翰科安親班";
       case "elementary":
-        return "翰科小學";
+        return "翰科實驗小學";
       case "kindergarten":
         return "翰科幼稚園";
       case "highSchool":
-        return "翰科高中";
+        return "翰科實驗高中";
       default:
         return "";
     }
   };
 
   const subSchoolNavItemList =
-    subSchool === "dayCare"
+    subSchool === "halfDaySchool"
       ? [
           {
             path: `/${language}/${subSchool}`,
@@ -182,10 +182,10 @@ export default function Header() {
         setLanguage(pathname.slice(1, 3));
       }
       const subSchool = [
-        "dayCare",
-        "elementary",
         "kindergarten",
+        "elementary",
         "highSchool",
+        "halfDaySchool",
       ].find((subSchool) => pathname.indexOf(subSchool) >= 0);
       if (subSchool) {
         setIsSubHeader(true);

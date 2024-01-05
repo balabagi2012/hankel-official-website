@@ -13,11 +13,11 @@ import {
 export default function AdminSubschoolPage() {
   const pageName = "subschool";
   const tabList = useMemo(
-    () => ["dayCare", "elementary", "kindergarten", "highSchool"],
+    () => ["halfDaySchool", "elementary", "kindergarten", "highSchool"],
     []
   );
   const [activePageData, setActivePageData] = useState([] as any);
-  const [activeTab, setActiveTab] = useState("dayCare");
+  const [activeTab, setActiveTab] = useState("halfDaySchool");
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [lang, setLang] = useState<"en" | "zh">("en");

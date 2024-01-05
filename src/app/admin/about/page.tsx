@@ -8,7 +8,7 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 export default function AdminAboutPage() {
   const pageName = "about";
   const tabList = useMemo(
-    () => ["home", "dayCare", "elementary", "kindergarten", "highSchool"],
+    () => ["home", "halfDaySchool", "elementary", "kindergarten", "highSchool"],
     []
   );
   const [activePageData, setActivePageData] = useState([] as any);

@@ -11,7 +11,7 @@ export default function CreateEventPage() {
   const { register, control, handleSubmit } = useForm({
     values: {
       title: { zh: "", en: "" },
-      category: "dayCare",
+      category: "halfDaySchool",
       banner: "",
       date: "",
       content: { zh: "", en: "" },
@@ -129,7 +129,7 @@ export default function CreateEventPage() {
                   {...register("category")}
                   className="w-full border px-4 py-2 mb-4 mt-2"
                 >
-                  <option value="dayCare">dayCare</option>
+                  <option value="halfDaySchool">halfDaySchool</option>
                   <option value="kindergarten">kindergarten</option>
                   <option value="highSchool">highSchool</option>
                   <option value="elementary">elementary</option>

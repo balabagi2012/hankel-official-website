@@ -13,7 +13,7 @@ import { SubschoolEntity } from "@/app/api/subschool/route";
 import { chunk } from "lodash";
 
 interface SubschoolProps {
-  name: "dayCare" | "elementary" | "kindergarten" | "highSchool";
+  name: "halfDaySchool" | "elementary" | "kindergarten" | "highSchool";
   lang: "en" | "zh";
 }
 
