@@ -288,7 +288,7 @@ export default function Card(props: CardProps) {
                 <Link href={linkedin}>
                   <Image
                     src="/icons/LinkedInDeepBlue.svg"
-                    alt="hankel Youtube"
+                    alt="hankel LinkedInDeepBlue"
                     width="24"
                     height="24"
                   ></Image>
@@ -349,7 +349,7 @@ export default function Card(props: CardProps) {
                 <Link href={linkedin}>
                   <Image
                     src="/icons/LinkedInDeepBlue.svg"
-                    alt="hankel Youtube"
+                    alt="hankel LinkedInDeepBlue"
                     width="24"
                     height="24"
                   ></Image>

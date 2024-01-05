@@ -38,7 +38,7 @@ export default function AdminContactPage() {
     setLoading(false);
     if (!res.ok) {
       // This will activate the closest `error.js` Error Boundary
-      return window.alert("Failed to update data");
+      return window.alert(JSON.stringify(await res.json()));
     }
     loadPageData();
     return window.alert("Successed to update data");
@@ -81,106 +81,9 @@ export default function AdminContactPage() {
     setUploading(false);
     if (!res.ok) {
       // This will activate the closest `error.js` Error Boundary
-      return window.alert("Failed to upload file");
+      return window.alert(res.json());
     }
     return res.json();
-  };
-
-  const renderField = (key: string, value: string) => {
-    if (
-      ((value.startsWith("/") || value.startsWith("http")) &&
-        key.includes("img")) ||
-      key.includes("file") ||
-      key.includes("banner")
-    ) {      return (
-        <Controller
-          name={key}
-          control={control}
-          render={({ field }) => (
-            <div className="flex flex-col items-start justify-start mt-2">
-              <input
-                className="w-full border px-4 py-2 mb-4 mt-2"
-                value={field.value}
-                onChange={(event) => {
-                  field.onChange(event.target.value);
-                }}
-              ></input>
-              <input
-                type="file"
-                accept="images/*"
-                id={`file-${key}}`}
-                className="invisible h-0"
-                onChange={(event) => {
-                  const file = event.target.files?.[0];
-                  if (file) {
-                    uploadFile(file).then((data) => {
-                      field.onChange(data.file);
-                    });
-                  }
-                }}
-              />
-              {field.value && (
-                <Image src={field.value} alt={key} width={500} height={500} />
-              )}
-              <button
-                className="bg-blue mt-1 px-2 py-2 rounded text-white"
-                disabled={uploading}
-                onClick={(event) => {
-                  event.preventDefault();
-                  event.stopPropagation();
-                  document.getElementById(`file-${key}}`)?.click();
-                }}
-              >
-                {uploading ? "上傳圖片中" : "更換圖片"}
-              </button>
-            </div>
-          )}
-        />
-      );
-    } else if (value?.length > 80) {
-      return (
-        <textarea
-          key={key}
-          disabled={key.includes("type")}
-          className="w-full border px-4 py-2 mb-4 mt-2 h-[200px]"
-          {...register(key)}
-        ></textarea>
-      );
-    } else {
-      return (
-        <input
-          key={key}
-          disabled={key.includes("type")}
-          className="w-full border px-4 py-2 mb-4 mt-2"
-          {...register(key)}
-        ></input>
-      );
-    }
-  };
-
-  const renderRecursive = (obj: object, parentKey = "") => {
-    return Object.entries(obj).map(([key, value]) => {
-      const fullKey = parentKey ? `${parentKey}.${key}` : key;
-      if (typeof value === "object") {
-        return <div key={fullKey}>{renderRecursive(value, fullKey)}</div>;
-      } else if (typeof value === "string" && key !== "_id" && key !== "name") {
-        if (
-          (fullKey.includes("en") || fullKey.includes("zh")) &&
-          !fullKey.includes(lang)
-        ) {
-          return;
-        }
-        return (
-          <div key={fullKey} className="bg-white px-6 py-3 rounded shadow mt-4">
-            <label>
-              {fullKey.replace(".zh", " [中文]").replace(".en", " [EN]")}
-            </label>
-            {renderField(fullKey, value)}
-          </div>
-        );
-      }
-      return null;
-    });
   };
 
   return (
@@ -228,13 +131,221 @@ export default function AdminContactPage() {
       </div>
       <div className="px-8 py-6 w-full h-screen bg-gray-200">
         <div className="w-full h-full overflow-scroll">
-          {loading && activeTabData ? (
-            "loading..."
-          ) : (
-            <form onSubmit={handleSubmit(onSubmit)}>
-              {activeTabData && renderRecursive(activeTabData)}
-            </form>
-          )}
+          {loading && activeTabData
+            ? "loading..."
+            : activeTabData && (
+                <form onSubmit={handleSubmit(onSubmit)}>
+                  <div className="mt-4 align-middle inline-block w-full shadow overflow-x-auto sm:rounded-lg border-b border-gray-200">
+                    <div className="bg-white flex flex-row items-center">
+                      <p
+                        className={`px-6 py-4 inline-flex text-2xl font-bold leading-5 `}
+                      >
+                        Contact
+                      </p>
+                    </div>
+                    <table className="min-w-full">
+                      <thead>
+                        <tr className="bg-gray-50 border-b border-gray-200 text-xs leading-4 text-gray-500 uppercase tracking-wider">
+                          <th className="px-6 py-3 text-left font-medium">
+                            Title[{lang}]
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium">
+                            Description[{lang}]
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium">
+                            Banner Title[{lang}]
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium">
+                            Banner Description[{lang}]
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white">
+                        <tr>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <input
+                              className="text-sm leading-5 text-gray-900 border"
+                              {...register(`title.${lang}`, {
+                                required: true,
+                              })}
+                            ></input>
+                          </td>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <textarea
+                              className="text-sm leading-5 text-gray-900 w-full border"
+                              {...register(`description.${lang}`)}
+                            ></textarea>
+                          </td>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <input
+                              className="text-sm leading-5 text-gray-900 border"
+                              {...register(`banner.title.${lang}`, {
+                                required: true,
+                              })}
+                            ></input>
+                          </td>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <textarea
+                              className="text-sm leading-5 text-gray-900 w-full border"
+                              {...register(`banner.description.${lang}`)}
+                            ></textarea>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <table className="min-w-full">
+                      <thead>
+                        <tr className="bg-gray-50 border-b border-gray-200 text-xs leading-4 text-gray-500 uppercase tracking-wider">
+                          <th className="px-6 py-3 text-left font-medium">
+                            Banner [1440x396]
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white">
+                        <tr>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <Controller
+                              name={"banner.img"}
+                              control={control}
+                              render={({ field }) => (
+                                <div className="flex-1 flex flex-col items-start justify-start">
+                                  <input
+                                    className="w-full border px-4 py-2 mb-4 mt-2"
+                                    value={field.value as string}
+                                    onChange={(event) => {
+                                      field.onChange(event.target.value);
+                                    }}
+                                  ></input>
+                                  <input
+                                    type="file"
+                                    accept="images/*"
+                                    id={`file-banner`}
+                                    className="invisible h-0"
+                                    onChange={(event) => {
+                                      const file = event.target.files?.[0];
+                                      if (file) {
+                                        uploadFile(file).then((data) => {
+                                          field.onChange(data.file);
+                                        });
+                                      }
+                                    }}
+                                  />
+                                  {field.value &&
+                                    (field.value.startsWith("/") ||
+                                      field.value.startsWith("http")) && (
+                                      <Image
+                                        width={500}
+                                        height={500}
+                                        alt={field.value}
+                                        src={field.value}
+                                      />
+                                    )}
+                                  <button
+                                    className="bg-blue mt-1 px-2 py-2 rounded text-white"
+                                    disabled={uploading}
+                                    onClick={(event) => {
+                                      event.preventDefault();
+                                      event.stopPropagation();
+                                      document
+                                        .getElementById(`file-banner`)
+                                        ?.click();
+                                    }}
+                                  >
+                                    {uploading ? "上傳圖片中" : "更換圖片"}
+                                  </button>
+                                </div>
+                              )}
+                            />
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <table className="min-w-full">
+                      <thead>
+                        <tr className="bg-gray-50 border-b border-gray-200 text-xs leading-4 text-gray-500 uppercase tracking-wider">
+                          <th className="px-6 py-3 text-left font-medium">
+                            facebook
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium">
+                            instagram
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium">
+                            youtube
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium">
+                            line
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white">
+                        <tr>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <input
+                              className="text-sm leading-5 text-gray-900 border w-full"
+                              {...register(`facebook`)}
+                            ></input>
+                          </td>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <input
+                              className="text-sm leading-5 text-gray-900 border w-full"
+                              {...register(`instagram`)}
+                            ></input>
+                          </td>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <input
+                              className="text-sm leading-5 text-gray-900 border w-full"
+                              {...register(`youtube`)}
+                            ></input>
+                          </td>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <input
+                              className="text-sm leading-5 text-gray-900 border w-full"
+                              {...register(`line`)}
+                            ></input>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <table className="min-w-full">
+                      <thead>
+                        <tr className="bg-gray-50 border-b border-gray-200 text-xs leading-4 text-gray-500 uppercase tracking-wider">
+                          <th className="px-6 py-3 text-left font-medium">
+                            email
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium">
+                            address [{lang}]
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium">
+                            phone
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white">
+                        <tr>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <input
+                              className="text-sm leading-5 text-gray-900 border w-full"
+                              {...register(`email`)}
+                            ></input>
+                          </td>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <textarea
+                              className="text-sm leading-5 text-gray-900 border w-full"
+                              {...register(`address.${lang}`)}
+                            ></textarea>
+                          </td>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <input
+                              className="text-sm leading-5 text-gray-900 border w-full"
+                              {...register(`phone`)}
+                            ></input>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </form>
+              )}
         </div>
       </div>
     </div>

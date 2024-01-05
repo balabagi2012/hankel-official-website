@@ -33,16 +33,9 @@ export async function PATCH(
   try {
     const { name } = params;
     const body = await req.json();
-    if (!body.lang) {
-      return Response.json(
-        { error: "Missing required fields" },
-        { status: 400 }
-      );
-    }
-
     const db = await connectToDatabase();
     await db.collection("contact").updateOne(
-      { name, lang: body.lang },
+      { name },
       {
         $set: {
           ...body,

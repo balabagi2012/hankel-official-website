@@ -27,15 +27,8 @@ export async function PATCH(
   try {
     const { name } = params;
     const body = await req.json();
-    if (!body.name) {
-      return Response.json(
-        { error: "Missing required fields" },
-        { status: 400 }
-      );
-    }
-
     const db = await connectToDatabase();
-    await db.collection("team").updateOne(
+    await db.collection("information").updateOne(
       { name },
       {
         $set: {

@@ -4,10 +4,9 @@ import Typography from "../Typography";
 
 import { InformationEntity } from "@/app/api/information/route";
 import Link from "next/link";
-import LunchMenuImg from "../../../public/information/lunch.png";
 import Banner from "../Banner";
-import Section from "../Section";
 import Event from "../Event";
+import Section from "../Section";
 
 export const getInformation = async (
   name: string
@@ -86,9 +85,11 @@ export default async function Information(props: InformationProps) {
           </Title>
           <div className="w-full">
             <Image
-              src={LunchMenuImg}
+              src={information.lunchMenu.img}
               alt="hankel Lunch Menu"
               sizes="100vw"
+              width="1268"
+              height="768"
               style={{
                 width: "100%",
                 height: "auto",
