@@ -100,7 +100,9 @@ export default function Banner({
             varient="h4"
             className={`${
               name === "kindergarten"
-                ? kindergarten.className
+                ? lang === "en"
+                  ? kindergarten.className
+                  : ""
                 : lang === "en"
                 ? "font-serif"
                 : ""

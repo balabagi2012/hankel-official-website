@@ -211,7 +211,7 @@ export default function Header() {
         className={`${
           pathname === path
             ? `font-bold text-blue ${
-                subSchool === "kindergarten"
+                subSchool === "kindergarten" && language === "en"
                   ? kindergarten.className
                   : notoSans.className
               }`

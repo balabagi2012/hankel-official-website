@@ -68,10 +68,10 @@ export default async function About(props: AboutProps) {
                     key={text.content[lang]}
                     varient="h4"
                     className={`text-blue text-start mb-5 ${
-                      type === "kindergarten"
-                        ? kindergarten.className
-                        : lang === "en"
-                        ? "font-serif"
+                      lang === "en"
+                        ? type === "kindergarten"
+                          ? kindergarten.className
+                          : "font-serif"
                         : ""
                     }`}
                   >
