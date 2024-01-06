@@ -55,7 +55,7 @@ const getInstagramPosts = async (
   accessToken: string
 ): Promise<InstagramPostsResponse> => {
   const res = await fetch(
-    `https://graph.instagram.com/me/media?fields=id,media_url&access_token=${accessToken}`,
+    `https://graph.instagram.com/me/media?fields=id,media_type,media_url&access_token=${accessToken}`,
     {
       cache: "no-cache",
     }
@@ -64,8 +64,8 @@ const getInstagramPosts = async (
     // This will activate the closest `error.js` Error Boundary
     throw new Error("Failed to fetch data");
   }
-
-  return res.json();
+  const result = await res.json();
+  return { data: result.data.filter((item: any) => item.media_type === "IMAGE") };
 };
 
 const getSubschoolData = async (name: string) => {
