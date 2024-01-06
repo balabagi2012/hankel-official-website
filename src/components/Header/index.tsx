@@ -24,7 +24,7 @@ export default function Header() {
     },
     {
       path: `/${language}/contact`,
-      label: language === "zh" ? "聯絡" : `Contact`,
+      label: language === "zh" ? "聯絡我們" : `Contact`,
     },
     {
       path: `https://google.com`,
@@ -97,7 +97,7 @@ export default function Header() {
           },
           {
             path: `/${language}/${subSchool}/contact`,
-            label: language === "zh" ? "聯絡" : `Contact`,
+            label: language === "zh" ? "聯絡我們" : `Contact`,
           },
           {
             path: `https://google.com`,
@@ -121,11 +121,11 @@ export default function Header() {
           },
           {
             path: `/${language}/${subSchool}/facilities`,
-            label: language === "zh" ? "設施概略" : `Our Facilities`,
+            label: language === "zh" ? "校園資訊" : `Our Facilities`,
           },
           {
             path: `/${language}/${subSchool}/team`,
-            label: language === "zh" ? "團隊介紹" : `Our Team`,
+            label: language === "zh" ? "教師團隊" : `Our Team`,
           },
           {
             path: `/${language}/${subSchool}/about`,
@@ -137,7 +137,7 @@ export default function Header() {
           },
           {
             path: `/${language}/${subSchool}/contact`,
-            label: language === "zh" ? "聯絡" : `Contact`,
+            label: language === "zh" ? "聯絡我們" : `Contact`,
           },
         ]
       : [
@@ -156,11 +156,11 @@ export default function Header() {
           },
           {
             path: `/${language}/${subSchool}/facilities`,
-            label: language === "zh" ? "設施概略" : `Our Facilities`,
+            label: language === "zh" ? "校園資訊" : `Our Facilities`,
           },
           {
             path: `/${language}/${subSchool}/team`,
-            label: language === "zh" ? "團隊介紹" : `Our Team`,
+            label: language === "zh" ? "教師團隊" : `Our Team`,
           },
           {
             path: `/${language}/${subSchool}/about`,
@@ -172,7 +172,11 @@ export default function Header() {
           },
           {
             path: `/${language}/${subSchool}/contact`,
-            label: language === "zh" ? "聯絡" : `Contact`,
+            label: language === "zh" ? "聯絡我們" : `Contact`,
+          },
+          {
+            path: `https://google.com`,
+            label: language === "zh" ? "學生資訊系統" : `Student Portal`,
           },
         ];
 
