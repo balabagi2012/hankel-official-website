@@ -66,6 +66,16 @@ export default async function Footer(props: FooterProps) {
             "No. 457, Section 2, Wenhua 3rd Rd, Linkou District, NewTaipei City, 244"}
         </div>
         <div className="flex flex-row flex-1 gap-x-6">
+          {contact?.line && contact?.line?.length > 0 && (
+            <Link href={contact.line} rel="noopener noreferrer">
+              <Image
+                src="/icons/Line.svg"
+                alt="hankel line"
+                width="24"
+                height="24"
+              ></Image>
+            </Link>
+          )}
           {contact?.instagram && contact?.instagram?.length > 0 && (
             <Link href={contact.instagram} rel="noopener noreferrer">
               <Image
@@ -91,16 +101,6 @@ export default async function Footer(props: FooterProps) {
               <Image
                 src="/icons/Youtube.svg"
                 alt="hankel Youtube"
-                width="24"
-                height="24"
-              ></Image>
-            </Link>
-          )}
-          {contact?.line && contact?.line?.length > 0 && (
-            <Link href={contact.line} rel="noopener noreferrer">
-              <Image
-                src="/icons/Line.svg"
-                alt="hankel line"
                 width="24"
                 height="24"
               ></Image>

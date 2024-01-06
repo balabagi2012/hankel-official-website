@@ -64,6 +64,16 @@ export default function ContactInfo(props: ContactInfoProps) {
         </Typography>
       </div>
       <div className={`flex flex-row gap-x-6 mt-2`}>
+        {contact.line && contact.line.length > 0 && (
+          <Link href={contact.line} rel="noopener noreferrer">
+            <Image
+              src="/icons/LineBlue.svg"
+              alt="hankel line"
+              width="24"
+              height="24"
+            ></Image>
+          </Link>
+        )}
         {contact.instagram && contact.instagram.length > 0 && (
           <Link href={contact.instagram} rel="noopener noreferrer">
             <Image
@@ -89,16 +99,6 @@ export default function ContactInfo(props: ContactInfoProps) {
             <Image
               src="/icons/YoutubeBlue.svg"
               alt="hankel Youtube"
-              width="24"
-              height="24"
-            ></Image>
-          </Link>
-        )}
-        {contact.line && contact.line.length > 0 && (
-          <Link href={contact.line} rel="noopener noreferrer">
-            <Image
-              src="/icons/LineBlue.svg"
-              alt="hankel line"
               width="24"
               height="24"
             ></Image>
