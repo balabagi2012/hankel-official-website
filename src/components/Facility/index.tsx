@@ -34,7 +34,7 @@ export default async function Facility(props: FacilityProps) {
           <Title full align="center" type={type} lang={lang}>
             {facility.title[lang]}
           </Title>
-          <Typography varient="h5" className="text-textGray text-center">
+          <Typography varient="h5" className="text-textGray text-left">
             {facility.description[lang]}
           </Typography>
         </div>

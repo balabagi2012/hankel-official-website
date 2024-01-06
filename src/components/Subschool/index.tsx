@@ -97,7 +97,7 @@ export default async function Subschool(props: SubschoolProps) {
           {data.title[lang]}
         </Title>
         <div className="w-full md:w-[1024px] flex-col items-center">
-          <Typography varient="h5" className="mb-[80px]">
+          <Typography varient="h5" className="mb-[80px] text-left">
             {data.description[lang]}
           </Typography>
           {chunk(data.experiences, 3).map((element, index) => (

@@ -39,7 +39,7 @@ export default async function Information(props: InformationProps) {
           <Title full align="center" type={type} lang={lang}>
             {information.admissionBrochure.title[lang]}
           </Title>
-          <Typography varient="h5" className="text-textGray">
+          <Typography varient="h5" className="text-textGray text-left">
             {information.admissionBrochure.description[lang]}
           </Typography>
           <Link

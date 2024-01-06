@@ -36,7 +36,7 @@ export default async function Team(props: TeamProps) {
             <Title full align="center" type={type} lang={lang}>
               {team.foreignTeam.title[lang]}
             </Title>
-            <Typography varient="h5" className="text-textGray text-center">
+            <Typography varient="h5" className="text-textGray text-left">
               {team.foreignTeam.description[lang]}
             </Typography>
             {chunk(team.foreignTeam.teachers, 3).map((chunk, chunkIndex) => (
@@ -71,7 +71,7 @@ export default async function Team(props: TeamProps) {
           <Title full align="center" type={type} lang={lang}>
             {team.localTeam.title[lang]}
           </Title>
-          <Typography varient="h5" className="text-textGray text-center">
+          <Typography varient="h5" className="text-textGray text-left">
             {team.localTeam.description[lang]}
           </Typography>
           {chunk(team.localTeam.teachers, 3).map((chunk, chunkIndex) => (

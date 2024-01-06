@@ -69,7 +69,7 @@ export default function Banner({
           >
             {subtitle}
           </div>
-          <div className="text-[14px] font-sans text-[#4E4E4E] leading-[1.8] text-center animate__animated animate__fadeIn animate__delay-1s">
+          <div className="text-[14px] font-sans text-[#4E4E4E] leading-[1.8] text-left animate__animated animate__fadeIn animate__delay-1s">
             {description}
           </div>
         </div>

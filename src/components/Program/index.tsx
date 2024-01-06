@@ -52,7 +52,7 @@ export function Program(props: ProgramProps) {
         >
           {activeProgram.title[lang]}
         </Typography>
-        <Typography varient="h5" className="text-textGray">
+        <Typography varient="h5" className="text-textGray text-left">
           {activeProgram.content[lang]}
         </Typography>
         <div className="flex flex-row flex-1 justify-center gap-x-6 my-[28px]">
