@@ -480,6 +480,23 @@ export default function Header() {
                     );
                   }
                 )}
+                {language === "zh" ? (
+                  <div
+                    className={`mt-3`}
+                    rel="noopener noreferrer"
+                    onClick={() => handleLanguageChange("en")}
+                  >
+                    <Typography varient="h5">English</Typography>
+                  </div>
+                ) : (
+                  <div
+                    className={`mt-3`}
+                    rel="noopener noreferrer"
+                    onClick={() => handleLanguageChange("zh")}
+                  >
+                    <Typography varient="h5">中文</Typography>
+                  </div>
+                )}
               </div>
             </div>
           )}
