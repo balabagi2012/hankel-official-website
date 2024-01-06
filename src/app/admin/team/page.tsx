@@ -37,6 +37,7 @@ export default function AdminTeamPage() {
     fields: foreignTeachers,
     append: appendForeignTeacher,
     remove: removeForeignTeacher,
+    move: moveForeignTeacher,
   } = useFieldArray({
     control,
     name: "foreignTeam.teachers",
@@ -46,6 +47,7 @@ export default function AdminTeamPage() {
     fields: localTeachers,
     append: appendLocalTeachers,
     remove: removeLocalTeachers,
+    move: moveLocalTeachers,
   } = useFieldArray({
     control,
     name: "localTeam.teachers",
@@ -217,6 +219,19 @@ export default function AdminTeamPage() {
       }
       return null;
     });
+  };
+
+  const moveTeacher = (
+    name: string,
+    index: number,
+    direction: "up" | "down"
+  ) => {
+    if (name === "localTeam") {
+      moveLocalTeachers(index, index + (direction === "up" ? -1 : 1));
+    } else {
+      moveForeignTeacher(index, index + (direction === "up" ? -1 : 1));
+    }
+    handleSubmit(onSubmit);
   };
 
   const removeTeacher = (name: string, index: number) => {
@@ -508,14 +523,42 @@ export default function AdminTeamPage() {
                                 />
                               </td>
                               <td className="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-                                <div
+                                <button
+                                  disabled={loading}
+                                  className="px-3 py-1 bg-red-800 font-base text-white border border-red-300 rounded-lg focus:outline-none"
                                   onClick={() =>
                                     removeTeacher("foreignTeam", index)
                                   }
                                 >
                                   Remove
-                                </div>
+                                </button>
                               </td>
+                              {index !== 0 && (
+                                <td className="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
+                                  <button
+                                    disabled={loading}
+                                    className="px-3 py-1 bg-amber-800 font-base text-white border border-amber-300 rounded-lg focus:outline-none"
+                                    onClick={() =>
+                                      moveTeacher("foreignTeam", index, "up")
+                                    }
+                                  >
+                                    Up
+                                  </button>
+                                </td>
+                              )}
+                              {index !== localTeachers.length - 1 && (
+                                <td className="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
+                                  <button
+                                    disabled={loading}
+                                    className="px-3 py-1 bg-green-800 font-base text-white border border-green-300 rounded-lg focus:outline-none"
+                                    onClick={() =>
+                                      moveTeacher("foreignTeam", index, "down")
+                                    }
+                                  >
+                                    Down
+                                  </button>
+                                </td>
+                              )}
                             </tr>
                           )
                         )}
@@ -724,14 +767,42 @@ export default function AdminTeamPage() {
                                 />
                               </td>
                               <td className="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-                                <div
+                                <button
+                                  disabled={loading}
+                                  className="px-3 py-1 bg-red-800 font-base text-white border border-red-300 rounded-lg focus:outline-none"
                                   onClick={() =>
                                     removeTeacher("localTeam", index)
                                   }
                                 >
                                   Remove
-                                </div>
+                                </button>
                               </td>
+                              {index !== 0 && (
+                                <td className="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
+                                  <button
+                                    disabled={loading}
+                                    className="px-3 py-1 bg-amber-800 font-base text-white border border-amber-300 rounded-lg focus:outline-none"
+                                    onClick={() =>
+                                      moveTeacher("localTeam", index, "up")
+                                    }
+                                  >
+                                    Up
+                                  </button>
+                                </td>
+                              )}
+                              {index !== localTeachers.length - 1 && (
+                                <td className="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
+                                  <button
+                                    disabled={loading}
+                                    className="px-3 py-1 bg-green-800 font-base text-white border border-green-300 rounded-lg focus:outline-none"
+                                    onClick={() =>
+                                      moveTeacher("localTeam", index, "down")
+                                    }
+                                  >
+                                    Down
+                                  </button>
+                                </td>
+                              )}
                             </tr>
                           )
                         )}
