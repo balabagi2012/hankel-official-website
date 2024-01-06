@@ -42,7 +42,7 @@ export default async function Team(props: TeamProps) {
             {chunk(team.foreignTeam.teachers, 3).map((chunk, chunkIndex) => (
               <div
                 key={`foreignTeam chunk ${chunkIndex}`}
-                className="flex flex-col md:flex-row justify-between items-center gap-y-4 mt-8"
+                className="flex flex-col md:flex-row justify-start items-start gap-8 gap-y-4 mt-8"
               >
                 {chunk.map((element, index) => (
                   <Card
@@ -77,7 +77,7 @@ export default async function Team(props: TeamProps) {
           {chunk(team.localTeam.teachers, 3).map((chunk, chunkIndex) => (
             <div
               key={`local team chunk ${chunkIndex}`}
-              className="flex flex-col md:flex-row justify-between items-center gap-y-4 mt-8"
+              className="flex flex-col md:flex-row justify-start items-start gap-8 mt-8"
             >
               {chunk.map((element, index) => (
                 <Card

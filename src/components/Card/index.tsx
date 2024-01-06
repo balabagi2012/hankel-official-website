@@ -60,7 +60,7 @@ export default function Card(props: CardProps) {
             <Typography varient="h4" color="white text-start">
               {title}
             </Typography>
-            <Typography varient="body" color="white text-start">
+            <Typography varient="body" color="white text-start whitespace-pre-line">
               {description}
             </Typography>
           </div>
@@ -90,7 +90,7 @@ export default function Card(props: CardProps) {
             <Typography
               varient="body"
               color="white"
-              className={`${lang === "en" ? "font-serif" : ""} text-start`}
+              className={`${lang === "en" ? "font-serif" : ""} text-start whitespace-pre-line`}
             >
               {description}
             </Typography>
@@ -116,7 +116,7 @@ export default function Card(props: CardProps) {
             >
               {title}
             </Typography>
-            <Typography varient="h6" className="text-textGray text-left">
+            <Typography varient="h6" className="text-textGray text-left whitespace-pre-line">
               {description}
             </Typography>
           </div>
@@ -130,7 +130,7 @@ export default function Card(props: CardProps) {
             <Typography varient="h3" className="mb-[12px]">
               {title}
             </Typography>
-            <Typography varient="h6" className="text-textGray text-left">
+            <Typography varient="h6" className="text-textGray text-left whitespace-pre-line">
               {description}
             </Typography>
           </div>
@@ -138,7 +138,7 @@ export default function Card(props: CardProps) {
       );
     case "facility-kindergarten":
       return (
-        <div className="flex flex-col w-full md:w-[400px]">
+        <div className="flex flex-col w-full items-start md:basis-1/3">
           <Image
             src={img}
             alt={alt}
@@ -146,7 +146,7 @@ export default function Card(props: CardProps) {
             height="270"
             className="w-full md:w-[400px] h-auto rounded-xl"
           ></Image>
-          <div className="flex flex-col items-start py-[16px]">
+          <div className="flex flex-col items-start py-[16px] md:w-[400px]">
             <Typography
               varient="h4"
               className={`text-textGray mb-[2px] ${
@@ -155,7 +155,7 @@ export default function Card(props: CardProps) {
             >
               {title}
             </Typography>
-            <Typography varient="h5" className="text-textGray text-start">
+            <Typography varient="h5" className="text-textGray text-start whitespace-pre-line">
               {description}
             </Typography>
           </div>
@@ -163,7 +163,7 @@ export default function Card(props: CardProps) {
       );
     case "facility":
       return (
-        <div className="flex flex-col w-full md:w-[400px]">
+        <div className="flex flex-col w-full items-start md:basis-1/3">
           <Image
             src={img}
             alt={alt}
@@ -171,7 +171,7 @@ export default function Card(props: CardProps) {
             height="270"
             className="w-full md:w-[400px] h-auto"
           ></Image>
-          <div className="flex flex-col items-start py-[16px]">
+          <div className="flex flex-col items-start py-[16px] md:w-[400px]">
             <Typography
               varient="h4"
               className={`text-textGray mb-[2px] ${
@@ -180,7 +180,7 @@ export default function Card(props: CardProps) {
             >
               {title}
             </Typography>
-            <Typography varient="h5" className="text-textGray text-start">
+            <Typography varient="h5" className="text-textGray text-start whitespace-pre-line">
               {description}
             </Typography>
           </div>
@@ -188,7 +188,7 @@ export default function Card(props: CardProps) {
       );
     case "curriculum-kindergarten":
       return (
-        <div className="flex flex-col w-full md:w-[254px]">
+        <div className="flex flex-col w-full md:basis-1/3 items-center">
           <Image
             src={img}
             alt={alt}
@@ -196,7 +196,7 @@ export default function Card(props: CardProps) {
             height="351"
             className="w-full md:w-[254px] h-auto rounded-2xl"
           ></Image>
-          <div className="flex flex-col items-start py-[16px]">
+          <div className="flex flex-col items-start py-[16px] md:w-[254px]">
             <Typography
               varient="h4"
               className={`text-textGray mb-1 ${
@@ -205,7 +205,7 @@ export default function Card(props: CardProps) {
             >
               {title}
             </Typography>
-            <Typography varient="h5" className="text-textGray text-start">
+            <Typography varient="h5" className="text-textGray text-start whitespace-pre-line">
               {description}
             </Typography>
           </div>
@@ -213,7 +213,7 @@ export default function Card(props: CardProps) {
       );
     case "curriculum":
       return (
-        <div className="flex flex-col w-full md:w-[254px]">
+        <div className="flex flex-col w-full md:basis-1/3 items-center">
           <Image
             src={img}
             alt={alt}
@@ -221,7 +221,7 @@ export default function Card(props: CardProps) {
             height="351"
             className="w-full md:w-[254px] h-auto"
           ></Image>
-          <div className="flex flex-col items-start py-[16px]">
+          <div className="flex flex-col items-start py-[16px] md:w-[254px]">
             <Typography
               varient="h4"
               className={`text-textGray mb-[2px] ${
@@ -230,7 +230,7 @@ export default function Card(props: CardProps) {
             >
               {title}
             </Typography>
-            <Typography varient="h5" className="text-textGray text-start">
+            <Typography varient="h5" className="text-textGray text-start whitespace-pre-line">
               {description}
             </Typography>
           </div>
@@ -260,7 +260,7 @@ export default function Card(props: CardProps) {
                 {tag ?? ""}
               </Typography>
             </div>
-            <Typography varient="h6" className="text-textGray  text-center">
+            <Typography varient="h6" className="text-textGray text-center whitespace-pre-line">
               {description}
             </Typography>
             <div className="flex flex-row flex-1 justify-center my-4 gap-x-6">
@@ -320,7 +320,7 @@ export default function Card(props: CardProps) {
                 {tag ?? ""}
               </Typography>
             </div>
-            <Typography varient="h6" className="text-textGray  text-center">
+            <Typography varient="h6" className="text-textGray text-center whitespace-pre-line">
               {description}
             </Typography>
             <div className="flex flex-row flex-1 justify-center my-4 gap-x-6">
@@ -341,7 +341,6 @@ export default function Card(props: CardProps) {
                     alt="hankel Facebook"
                     width="24"
                     height="24"
-                    className="mr-[24px]"
                   ></Image>
                 </Link>
               )}

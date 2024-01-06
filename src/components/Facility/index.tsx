@@ -5,6 +5,7 @@ import Card from "../Card";
 import Section from "../Section";
 import Title from "../Title";
 import Typography from "../Typography";
+import { chunk } from "lodash";
 
 const getFacility = async (name: string): Promise<FacilityEntity> => {
   const res = await fetch(`${process.env.API_URI}/api/facility/${name}`, {
@@ -55,21 +56,26 @@ export default async function Facility(props: FacilityProps) {
           <Title full align="left" type={type} lang={lang}>
             {facility.facilityTitle[lang]}
           </Title>
-          <div className="flex flex-col md:flex-row md:flex-wrap justify-center items-start md:justify-between">
-            {facility.facilities.map((element, index) => (
-              <Card
-                key={`facility ${index}`}
-                type={`facility${
-                  name === "kindergarten" ? `-kindergarten` : ""
-                }`}
-                img={element.img}
-                alt={`hankel facility ${index}`}
-                title={element.title[lang]}
-                description={element.description[lang]}
-                lang={lang}
-              ></Card>
-            ))}
-          </div>
+          {chunk(facility.facilities, 3).map((chunk, chunkIndex) => (
+            <div
+              key={`facility-chunk-${chunkIndex}`}
+              className="w-full flex flex-col md:flex-row md:flex-wrap items-center md:items-start"
+            >
+              {chunk.map((element, index) => (
+                <Card
+                  key={`facility-chunk-${chunkIndex}-${index}`}
+                  type={`facility${
+                    name === "kindergarten" ? `-kindergarten` : ""
+                  }`}
+                  img={element.img}
+                  alt={`hankel facility ${index}`}
+                  title={element.title[lang]}
+                  description={element.description[lang]}
+                  lang={lang}
+                ></Card>
+              ))}
+            </div>
+          ))}
         </div>
       </Section>
     </main>

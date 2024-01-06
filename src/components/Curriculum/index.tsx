@@ -48,7 +48,7 @@ export default async function Curriculum(props: CurriculumProps) {
           {chunk(curriculum.curriculums, 3).map((elements, chunkIndex) => (
             <div
               key={`curriculum-chunk-${chunkIndex}`}
-              className="flex flex-col md:flex-row justify-between md:flex-wrap md:gap-y-10 items-center"
+              className="w-full flex flex-col justify-start items-center md:items-start md:flex-row md:flex-wrap md:mt-10"
             >
               {elements.map((element, index) => (
                 <Card
