@@ -92,16 +92,8 @@ export default function Header() {
             label: language === "zh" ? "關於我們" : `About`,
           },
           {
-            path: `/${language}/${subSchool}/information`,
-            label: language === "zh" ? "其他資訊" : `Information`,
-          },
-          {
             path: `/${language}/${subSchool}/contact`,
             label: language === "zh" ? "聯絡我們" : `Contact`,
-          },
-          {
-            path: `https://google.com`,
-            label: language === "zh" ? "學生資訊系統" : `Student Portal`,
           },
         ]
       : subSchool === "kindergarten"
