@@ -56,13 +56,6 @@ export default async function NewsDetail({
               {`Last updated: ${new Date(news.updatedAt).toLocaleDateString()}`}
             </Typography>
           </div>
-          <Image
-            src={news.banner}
-            width={240}
-            height={240}
-            alt={"news banner"}
-            className="w-auto h-content h-max-80 mb-8"
-          ></Image>
           <div
             className="flex-1 flex flex-col items-start justify-start w-full"
             dangerouslySetInnerHTML={{ __html: news.content[lang] }}
