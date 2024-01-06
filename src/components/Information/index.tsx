@@ -7,6 +7,7 @@ import Link from "next/link";
 import Banner from "../Banner";
 import Event from "../Event";
 import Section from "../Section";
+import Footer from "../Footer";
 
 export const getInformation = async (
   name: string
@@ -107,6 +108,7 @@ export default async function Information(props: InformationProps) {
           <Event lang={lang} category={name} />
         </div>
       </Section>
+      <Footer lang={lang} name={name} />
     </main>
   );
 }

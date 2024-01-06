@@ -5,6 +5,7 @@ import Section from "../Section";
 import Title from "../Title";
 import Typography from "../Typography";
 import { chunk } from "lodash";
+import Footer from "../Footer";
 
 export interface CurriculumProps {
   type?: "kindergarten" | "subschool";
@@ -67,6 +68,7 @@ export default async function Curriculum(props: CurriculumProps) {
           ))}
         </div>
       </Section>
+      <Footer lang={lang} name={name} />
     </main>
   );
 }

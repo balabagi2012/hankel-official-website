@@ -1,5 +1,6 @@
 import Banner from "../Banner";
 import Card from "../Card";
+import Footer from "../Footer";
 import Section from "../Section";
 import Title from "../Title";
 import Typography from "../Typography";
@@ -98,6 +99,7 @@ export default async function Team(props: TeamProps) {
           ))}
         </div>
       </Section>
+      <Footer lang={lang} name={name} />
     </main>
   );
 }

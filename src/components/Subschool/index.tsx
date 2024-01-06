@@ -11,6 +11,7 @@ import Section from "../Section";
 import { ContactEntity } from "@/app/api/contact/route";
 import { SubschoolEntity } from "@/app/api/subschool/route";
 import { chunk } from "lodash";
+import Footer from "../Footer";
 
 interface SubschoolProps {
   name: "halfDaySchool" | "elementary" | "kindergarten" | "highSchool";
@@ -204,6 +205,7 @@ export default async function Subschool(props: SubschoolProps) {
           <ContactForm lang={lang} name={name} />
         </div>
       </Section>
+      <Footer lang={lang} name={name} />
     </main>
   );
 }

@@ -1,6 +1,7 @@
 import Banner from "../Banner";
 import ContactForm from "../ContactForm";
 import ContactInfo from "../ContactInfo";
+import Footer from "../Footer";
 import LatestNews from "../LatestNews";
 import { Program } from "../Program";
 import Section from "../Section";
@@ -75,6 +76,7 @@ export default async function HomePage(props: HomePageProps) {
           <ContactForm lang={lang} name={name} />
         </div>
       </Section>
+      <Footer lang={lang} name={name} />
     </main>
   );
 }

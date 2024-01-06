@@ -5,6 +5,7 @@ import { kindergarten } from "@/app/styles/fonts";
 import Banner from "../Banner";
 import Section from "../Section";
 import { AboutEntity } from "@/app/api/about/route";
+import Footer from "../Footer";
 
 export interface AboutProps {
   name: string;
@@ -137,6 +138,7 @@ export default async function About(props: AboutProps) {
           ))}
         </div>
       </Section>
+      <Footer lang={lang} name={name} />
     </main>
   );
 }

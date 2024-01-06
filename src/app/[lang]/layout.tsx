@@ -26,7 +26,6 @@ export default function RootLayout({
       <body className={notoSans.className}>
         <Header />
         {children}
-        <Footer lang={lang} />
       </body>
     </html>
   );

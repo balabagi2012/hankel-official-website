@@ -6,6 +6,7 @@ import Section from "../Section";
 import Title from "../Title";
 import Typography from "../Typography";
 import { chunk } from "lodash";
+import Footer from "../Footer";
 
 const getFacility = async (name: string): Promise<FacilityEntity> => {
   const res = await fetch(`${process.env.API_URI}/api/facility/${name}`, {
@@ -78,6 +79,7 @@ export default async function Facility(props: FacilityProps) {
           ))}
         </div>
       </Section>
+      <Footer lang={lang} name={name} />
     </main>
   );
 }

@@ -60,10 +60,9 @@ export default function AdminContactPage() {
     setLoading(true);
     fetchPageData().then((data) => {
       setActivePageData(data);
-      setActiveTab(tabList[0]);
       setLoading(false);
     });
-  }, [tabList]);
+  }, []);
 
   useEffect(() => {
     loadPageData();

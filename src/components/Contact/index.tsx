@@ -7,6 +7,7 @@ import Section from "../Section";
 import Title from "../Title";
 import Typography from "../Typography";
 import ContactInfo from "../ContactInfo";
+import Footer from "../Footer";
 
 export interface ContactProps {
   type?: "kindergarten" | "subschool" | "home";
@@ -54,6 +55,7 @@ export default async function Contact(props: ContactProps) {
           <ContactForm name={name} lang={lang} />
         </div>
       </Section>
+      <Footer lang={lang} name={name} />
     </main>
   );
 }
