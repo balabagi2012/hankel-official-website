@@ -35,7 +35,9 @@ export async function GET(req: Request) {
 
     const events = await db
       .collection("event")
-      .find(filter, { sort: { updateAt: -1 }, limit })
+      .find(filter)
+      .sort({ updatedAt: -1 })
+      .limit(limit)
       .toArray();
     if (!events) {
       return Response.json({ error: "Event data not found" }, { status: 404 });
