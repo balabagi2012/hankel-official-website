@@ -4,6 +4,7 @@ import Link from "next/link";
 import { kindergarten } from "@/app/styles/fonts";
 
 interface CardProps {
+  name?: string;
   type:
     | "news"
     | "news-kindergarten"
@@ -30,6 +31,7 @@ interface CardProps {
 
 export default function Card(props: CardProps) {
   const {
+    name,
     type,
     img,
     alt,
@@ -46,7 +48,7 @@ export default function Card(props: CardProps) {
     case "news-kindergarten":
       return (
         <Link
-          href={`/${lang}/news/${id}`}
+          href={`/${lang}/${name}/news/${id}`}
           className="relative min-h-fit min-w-fit bg-white hover:scale-105 hover:opacity-80"
         >
           <Image
@@ -54,13 +56,16 @@ export default function Card(props: CardProps) {
             alt={alt}
             width="254"
             height="350"
-            className="w-[160px] h-[220px] md:w-[254px] md:h-[350px] rounded-lg"
+            className="w-[150px] h-[210px] md:w-[254px] md:h-[350px] rounded-lg"
           ></Image>
           <div className="absolute bottom-[18px] h-[100px] left-0 right-0 bg-deepBlue/[0.8] pl-[12px] pr-[4px] py-[8px] flex flex-col items-start">
             <Typography varient="h4" color="white text-start">
               {title}
             </Typography>
-            <Typography varient="body" color="white text-start whitespace-pre-line">
+            <Typography
+              varient="body"
+              color="white text-start whitespace-pre-line"
+            >
               {description}
             </Typography>
           </div>
@@ -69,7 +74,7 @@ export default function Card(props: CardProps) {
     case "news":
       return (
         <Link
-          href={`/${lang}/news/${id}`}
+          href={`/${lang}/${name}/news/${id}`}
           className="relative min-h-fit min-w-fit bg-white hover:scale-105 hover:opacity-80"
         >
           <Image
@@ -77,7 +82,7 @@ export default function Card(props: CardProps) {
             alt={alt}
             width="254"
             height="350"
-            className="w-[160px] h-[220px] md:w-[254px] md:h-[350px]"
+            className="w-[150px] h-[210px] md:w-[254px] md:h-[350px]"
           ></Image>
           <div className="absolute bottom-[18px] h-[100px] left-0 right-0 bg-deepBlue/[0.8] pl-[12px] pr-[4px] py-[8px] flex flex-col items-start">
             <Typography
@@ -90,7 +95,9 @@ export default function Card(props: CardProps) {
             <Typography
               varient="body"
               color="white"
-              className={`${lang === "en" ? "font-serif" : ""} text-start whitespace-pre-line`}
+              className={`${
+                lang === "en" ? "font-serif" : ""
+              } text-start whitespace-pre-line`}
             >
               {description}
             </Typography>
@@ -116,7 +123,10 @@ export default function Card(props: CardProps) {
             >
               {title}
             </Typography>
-            <Typography varient="h6" className="text-textGray text-left whitespace-pre-line">
+            <Typography
+              varient="h6"
+              className="text-textGray text-left whitespace-pre-line"
+            >
               {description}
             </Typography>
           </div>
@@ -130,7 +140,10 @@ export default function Card(props: CardProps) {
             <Typography varient="h3" className="mb-[12px]">
               {title}
             </Typography>
-            <Typography varient="h6" className="text-textGray text-left whitespace-pre-line">
+            <Typography
+              varient="h6"
+              className="text-textGray text-left whitespace-pre-line"
+            >
               {description}
             </Typography>
           </div>
@@ -155,7 +168,10 @@ export default function Card(props: CardProps) {
             >
               {title}
             </Typography>
-            <Typography varient="h5" className="text-textGray text-start whitespace-pre-line">
+            <Typography
+              varient="h5"
+              className="text-textGray text-start whitespace-pre-line"
+            >
               {description}
             </Typography>
           </div>
@@ -180,7 +196,10 @@ export default function Card(props: CardProps) {
             >
               {title}
             </Typography>
-            <Typography varient="h5" className="text-textGray text-start whitespace-pre-line">
+            <Typography
+              varient="h5"
+              className="text-textGray text-start whitespace-pre-line"
+            >
               {description}
             </Typography>
           </div>
@@ -205,7 +224,10 @@ export default function Card(props: CardProps) {
             >
               {title}
             </Typography>
-            <Typography varient="h5" className="text-textGray text-start whitespace-pre-line">
+            <Typography
+              varient="h5"
+              className="text-textGray text-start whitespace-pre-line"
+            >
               {description}
             </Typography>
           </div>
@@ -230,7 +252,10 @@ export default function Card(props: CardProps) {
             >
               {title}
             </Typography>
-            <Typography varient="h5" className="text-textGray text-start whitespace-pre-line">
+            <Typography
+              varient="h5"
+              className="text-textGray text-start whitespace-pre-line"
+            >
               {description}
             </Typography>
           </div>
@@ -260,7 +285,10 @@ export default function Card(props: CardProps) {
                 {tag ?? ""}
               </Typography>
             </div>
-            <Typography varient="h6" className="text-textGray text-center whitespace-pre-line">
+            <Typography
+              varient="h6"
+              className="text-textGray text-center whitespace-pre-line"
+            >
               {description}
             </Typography>
             <div className="flex flex-row flex-1 justify-center my-4 gap-x-6">
@@ -320,7 +348,10 @@ export default function Card(props: CardProps) {
                 {tag ?? ""}
               </Typography>
             </div>
-            <Typography varient="h6" className="text-textGray text-center whitespace-pre-line">
+            <Typography
+              varient="h6"
+              className="text-textGray text-center whitespace-pre-line"
+            >
               {description}
             </Typography>
             <div className="flex flex-row flex-1 justify-center my-4 gap-x-6">
