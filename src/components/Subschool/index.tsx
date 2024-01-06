@@ -103,7 +103,7 @@ export default async function Subschool(props: SubschoolProps) {
           {chunk(data.experiences, 3).map((element, index) => (
             <div
               key={"course-chunk" + index}
-              className="flex flex-col items-start md:flex-row gap-4"
+              className="flex flex-col items-center md:items-start md:flex-row md:justify-start gap-4 w-full"
             >
               {element.map((element, index) => (
                 <Card
