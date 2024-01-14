@@ -7,8 +7,14 @@ export interface InformationEntity {
   admissionBrochure: AdmissionBrochure;
   informationSession: InformationSession;
   lunchMenu: LunchMenu;
+  calendar: Calendar;
 }
 
+export interface Calendar {
+  text: Text;
+  img: string;
+  file: string;
+}
 export interface AdmissionBrochure {
   title: Text;
   description: Text;

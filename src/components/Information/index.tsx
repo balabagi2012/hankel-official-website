@@ -105,7 +105,7 @@ export default async function Information(props: InformationProps) {
           <Title full align="left" type={type} lang={lang}>
             {lang === "en" ? "Calendar" : "行事曆"}
           </Title>
-          <Event lang={lang} category={name} />
+          <Event lang={lang} category={name} calendar={information.calendar} />
         </div>
       </Section>
       <Footer lang={lang} name={name} />

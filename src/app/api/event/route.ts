@@ -1,12 +1,13 @@
 import { connectToDatabase } from "@/utils/mongodb";
 import { Text } from "../model";
+import dayjs from "dayjs";
 
 export interface EventEntity {
   _id?: string;
   title: Text;
   category: string;
-  banner: string;
-  content: Text;
+  banner?: string;
+  content?: Text;
   date: string;
   updatedAt: number;
 }
@@ -24,7 +25,11 @@ export async function GET(req: Request) {
     }
 
     if (searchParams.has("date")) {
-      filter.date = searchParams.get("date");
+      const date = dayjs(searchParams.get("date"));
+      filter.date = {
+        $gte: date.startOf("month").toDate().toISOString(),
+        $lte: date.endOf("month").toDate().toISOString(),
+      };
     }
 
     let limit = 16;
@@ -59,7 +64,7 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
   try {
     const { title, banner, date, category, content } = await req.json();
-    if (!title || !category || !content || !date) {
+    if (!title || !category || !date) {
       return Response.json(
         { error: "Missing required fields" },
         { status: 400 }

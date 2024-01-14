@@ -175,60 +175,6 @@ export default function EditEventPage({
             </div>
             <div className="bg-white px-6 py-3 rounded shadow mt-4">
               <div>
-                <label>banner [建議尺寸350x350]</label>
-                <Controller
-                  name={"banner"}
-                  control={control}
-                  render={({ field }) => (
-                    <div className="flex flex-col items-start justify-start mt-2">
-                      <input
-                        className="w-full border px-4 py-2 mb-4 mt-2"
-                        value={field.value}
-                        onChange={field.onChange}
-                      ></input>
-                      <input
-                        type="file"
-                        accept="images/*"
-                        id={`file-${field.name}}`}
-                        className="invisible h-0"
-                        onChange={(event) => {
-                          const file = event.target.files?.[0];
-                          if (file) {
-                            uploadFile(file).then((data) => {
-                              field.onChange(data.file);
-                            });
-                          }
-                        }}
-                      />
-                      {field.value?.length > 0 &&
-                        field.value.startsWith("/") && (
-                          <Image
-                            src={field.value}
-                            alt={field.name}
-                            width={200}
-                            height={200}
-                          />
-                        )}
-                      <button
-                        className="bg-blue mt-1 px-2 py-2 rounded text-white"
-                        disabled={uploading}
-                        onClick={(event) => {
-                          event.preventDefault();
-                          event.stopPropagation();
-                          document
-                            .getElementById(`file-${field.name}}`)
-                            ?.click();
-                        }}
-                      >
-                        {uploading ? "上傳圖片中" : "更換圖片"}
-                      </button>
-                    </div>
-                  )}
-                />
-              </div>
-            </div>
-            <div className="bg-white px-6 py-3 rounded shadow mt-4">
-              <div>
                 <label>content[中文]</label>
                 <Controller
                   name={"content.zh"}
