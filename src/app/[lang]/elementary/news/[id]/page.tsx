@@ -24,7 +24,6 @@ export default async function NewsDetail({
   params: { id: string; lang: "en" | "zh" };
 }) {
   const news = await fetchPageData(id);
-  console.log(news);
 
   return (
     <main className={`pt-[50px] bg-bgGray md:pt-[180px]`}>

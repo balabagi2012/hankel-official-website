@@ -21,20 +21,18 @@ export default function AdminHomePage() {
   const activeTabData = useMemo(() => activePageData, [activePageData]);
   const [lang, setLang] = useState<"en" | "zh">("en");
 
-  const keyList = useMemo(() => {
-    switch (activeTab) {
-      case "banner":
-        return ["title", "subtitle", "banner", "description"];
-      case "program":
-        return ["programTitle", "programs"];
-      case "subBanner":
-      default:
-        return ["subBanner"];
-    }
-  }, [activeTab]);
-
   const { register, control, handleSubmit } = useForm({
     values: activeTabData,
+  });
+
+  const {
+    fields: banners,
+    append: appendBanner,
+    remove: removeBanner,
+    move: moveBanner,
+  } = useFieldArray({
+    control,
+    name: "banners",
   });
 
   const { fields, append, remove } = useFieldArray({
@@ -101,6 +99,16 @@ export default function AdminHomePage() {
     return res.json();
   };
 
+  const removeBannerAlert = (index: number) => {
+    if (banners.length <= 1) {
+      return window.alert("You must have at least one banner");
+    }
+    if (window.confirm("Do you really want to remove this banner?")) {
+      removeBanner(index);
+      handleSubmit(onSubmit);
+    }
+  };
+
   const renderTable = (key: string) => {
     switch (key) {
       case "banner":
@@ -112,6 +120,12 @@ export default function AdminHomePage() {
               >
                 Banner
               </p>
+              <button
+                className="ml-auto mr-6 px-3 py-1 bg-deepBlue text-white border border-gray-300 rounded-lg text-sm focus:outline-none"
+                onClick={() => appendBanner("/banners/home.png")}
+              >
+                Add Banner
+              </button>
             </div>
             <table className="min-w-full">
               <thead>
@@ -159,63 +173,78 @@ export default function AdminHomePage() {
                 </tr>
               </thead>
               <tbody className="bg-white">
-                <tr>
-                  <td
-                    key="banner"
-                    className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 flex flex-col items-start justify-start"
-                  >
-                    <Controller
-                      name={"banner"}
-                      control={control}
-                      render={({ field }) => (
-                        <div className="flex-1 flex flex-col items-start justify-start">
-                          <input
-                            className="w-full border px-4 py-2 mb-4 mt-2"
-                            value={field.value}
-                            onChange={(event) => {
-                              field.onChange(event.target.value);
-                            }}
-                          ></input>
-                          <input
-                            type="file"
-                            accept="images/*"
-                            id={`file-banner`}
-                            className="invisible h-0"
-                            onChange={(event) => {
-                              const file = event.target.files?.[0];
-                              if (file) {
-                                uploadFile(file).then((data) => {
-                                  field.onChange(data.file);
-                                });
-                              }
-                            }}
-                          />
-                          {field.value &&
-                            (field.value.startsWith("/") ||
-                              field.value.startsWith("http")) && (
-                              <Image
-                                width={500}
-                                height={500}
-                                alt={field.value}
-                                src={field.value}
-                              />
-                            )}
-                          <button
-                            className="bg-blue mt-1 px-2 py-2 rounded text-white"
-                            disabled={uploading}
-                            onClick={(event) => {
-                              event.preventDefault();
-                              event.stopPropagation();
-                              document.getElementById(`file-banner`)?.click();
-                            }}
-                          >
-                            {uploading ? "上傳圖片中" : "更換圖片"}
-                          </button>
-                        </div>
-                      )}
-                    />
-                  </td>
-                </tr>
+                {banners.map((banner, index) => (
+                  <tr key={"banner" + index}>
+                    <td
+                      key="banner"
+                      className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 flex flex-col items-start justify-start"
+                    >
+                      <Controller
+                        name={`banners.${index}`}
+                        control={control}
+                        render={({ field }) => (
+                          <div className="flex-1 flex flex-col items-start justify-start">
+                            <input
+                              className="w-full border px-4 py-2 mb-4 mt-2"
+                              value={field.value}
+                              onChange={(event) => {
+                                field.onChange(event.target.value);
+                              }}
+                            ></input>
+                            <input
+                              type="file"
+                              accept="images/*"
+                              id={`file-banner-${index}`}
+                              className="invisible h-0"
+                              onChange={(event) => {
+                                const file = event.target.files?.[0];
+                                if (file) {
+                                  uploadFile(file).then((data) => {
+                                    field.onChange(data.file);
+                                  });
+                                }
+                              }}
+                            />
+                            {field.value &&
+                              (field.value.startsWith("/") ||
+                                field.value.startsWith("http")) && (
+                                <Image
+                                  width={500}
+                                  height={500}
+                                  alt={field.value}
+                                  src={field.value}
+                                />
+                              )}
+                            <button
+                              className="bg-blue mt-1 px-2 py-2 rounded text-white"
+                              disabled={uploading}
+                              onClick={(event) => {
+                                event.preventDefault();
+                                event.stopPropagation();
+                                document
+                                  .getElementById(`file-banner-${index}`)
+                                  ?.click();
+                              }}
+                            >
+                              {uploading ? "上傳圖片中" : "更換圖片"}
+                            </button>
+                            <button
+                              className="bg-red-600 mt-1 px-2 py-2 rounded text-white"
+                              disabled={uploading}
+                              onClick={(event) => {
+                                event.preventDefault();
+                                event.stopPropagation();
+                                removeBannerAlert(index);
+                              }}
+                            >
+                              刪除圖片
+                            </button>
+                          </div>
+                        )}
+                      />
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>

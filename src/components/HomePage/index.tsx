@@ -51,10 +51,11 @@ export default async function HomePage(props: HomePageProps) {
     <main>
       <Banner
         size="big"
-        src={data.banner}
+        src={data.banners[0]}
         title={data.title[lang]}
         subtitle={data.subtitle[lang]}
         description={data.description[lang]}
+        banners={data.banners}
         lang={lang}
       ></Banner>
       <Program
