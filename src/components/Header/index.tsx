@@ -235,7 +235,7 @@ export default function Header() {
           className="flex items-center w-[150px] h-[32px] md:w-[200px] md:[h-42px] mr-auto ml-3 md:ml-0"
         >
           <Image
-            src="/icons/logo.svg"
+            src={`/logo/${subSchool?.length > 0 ? subSchool : "home"}.svg`}
             alt="hankel logo"
             className="w-[150px] h-[32px] md:w-[200px] md:[h-42px]"
             width="200"
