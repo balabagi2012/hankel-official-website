@@ -43,7 +43,7 @@ export default function Header() {
     },
     {
       path: `/${language}/highSchool`,
-      label: language === "zh" ? "翰科實驗高中" : `HighSchool`,
+      label: language === "zh" ? "翰科實驗中學" : `HighSchool`,
     },
     {
       path: `/${language}/halfDaySchool`,
@@ -69,7 +69,7 @@ export default function Header() {
       case "kindergarten":
         return "翰科幼稚園";
       case "highSchool":
-        return "翰科實驗高中";
+        return "翰科實驗中學";
       default:
         return "";
     }
