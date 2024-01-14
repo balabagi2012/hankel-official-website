@@ -42,11 +42,11 @@ export default async function Curriculum(props: CurriculumProps) {
         </div>
       </Section>
       <Section className="bg-white">
-        <div className="flex flex-col w-full md:w-[1024px]">
+        <div className="flex flex-col w-full md:w-[768px] lg:w-[1024px] xl:w-[1280px]">
           <Title full align="left" type={type} lang={lang}>
             {curriculum.curriculumTitle[lang]}
           </Title>
-          {chunk(curriculum.curriculums, 3).map((elements, chunkIndex) => (
+          {chunk(curriculum.curriculums, 4).map((elements, chunkIndex) => (
             <div
               key={`curriculum-chunk-${chunkIndex}`}
               className="w-full flex flex-col justify-start items-center md:items-start md:flex-row md:flex-wrap md:mt-10"

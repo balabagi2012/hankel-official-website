@@ -207,7 +207,7 @@ export default function Card(props: CardProps) {
       );
     case "curriculum-kindergarten":
       return (
-        <div className="flex flex-col w-full md:basis-1/3 items-center">
+        <div className="flex flex-col w-full md:basis-1/4 items-center">
           <Image
             src={img}
             alt={alt}
@@ -235,7 +235,7 @@ export default function Card(props: CardProps) {
       );
     case "curriculum":
       return (
-        <div className="flex flex-col w-full md:basis-1/3 items-center">
+        <div className="flex flex-col w-full md:basis-1/4 items-center">
           <Image
             src={img}
             alt={alt}
