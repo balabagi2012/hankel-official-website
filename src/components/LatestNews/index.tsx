@@ -47,6 +47,7 @@ export default async function LatestNews({
             id={element._id}
             alt={`hankel news banner`}
             title={element.title[lang]}
+            category={element.category}
             description={element.description[lang]}
             lang={lang}
           ></Card>

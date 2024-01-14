@@ -69,6 +69,7 @@ export default async function News({ name, lang }: NewsProps) {
                       img={element.banner}
                       alt={`hankel news ${element._id}`}
                       title={element.title[lang]}
+                      category={element.category}
                       description={element.description[lang]}
                       lang={lang}
                     ></Card>

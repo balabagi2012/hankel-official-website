@@ -11,6 +11,12 @@ interface EdiorMenuProps {
   editor: Editor;
 }
 const EdiorMenu = ({ editor }: EdiorMenuProps) => {
+  const addImage = () => {
+    const url = window.prompt("請輸入圖片網址");
+    if (url) {
+      editor.chain().focus().setImage({ src: url }).run();
+    }
+  };
   const items = [
     {
       title: "B",
@@ -88,6 +94,20 @@ const EdiorMenu = ({ editor }: EdiorMenuProps) => {
       ),
       action: () => editor.chain().focus().toggleCode().run(),
       isActive: () => editor.isActive("code"),
+    },
+    {
+      title: "Img",
+      icon: (
+        <Image
+          src={"/icons/Image.svg"}
+          width={12}
+          height={12}
+          alt="image"
+          objectFit="cover"
+        />
+      ),
+      action: () => addImage(),
+      isActive: () => false,
     },
     {
       title: "Highlight",

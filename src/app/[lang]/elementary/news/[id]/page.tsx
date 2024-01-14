@@ -11,7 +11,9 @@ export const metadata: Metadata = {
 
 const fetchPageData = async (id: string) => {
   const url = `${process.env.API_URI}/api/news/${id}`;
-  const res = await fetch(url);
+  const res = await fetch(url, {
+    cache: "no-cache",
+  });
   const data = await res.json();
   return data;
 };
@@ -22,11 +24,13 @@ export default async function NewsDetail({
   params: { id: string; lang: "en" | "zh" };
 }) {
   const news = await fetchPageData(id);
+  console.log(news);
+
   return (
-    <main className={`pt-[50px] bg-bgGray md:pt-[80px]`}>
+    <main className={`pt-[50px] bg-bgGray md:pt-[180px]`}>
       <Section className="bg-bgGray pt-2 md:pt-8">
         <Link
-          href={`/${lang}/news`}
+          href={`/${lang}/${news.category}/news`}
           className="flex flex-row justify-start items-center mr-auto"
         >
           <Image

@@ -27,6 +27,7 @@ interface CardProps {
   id?: string;
   description: string;
   lang?: "en" | "zh";
+  category?: string;
 }
 
 export default function Card(props: CardProps) {
@@ -41,6 +42,7 @@ export default function Card(props: CardProps) {
     facebook,
     twitter,
     linkedin,
+    category,
     lang = "en",
     id,
   } = props;
@@ -48,7 +50,7 @@ export default function Card(props: CardProps) {
     case "news-kindergarten":
       return (
         <Link
-          href={`/${lang}/${name}/news/${id}`}
+          href={`/${lang}/${category}/news/${id}`}
           className="relative min-h-fit min-w-fit bg-white hover:scale-105 hover:opacity-80"
         >
           <Image
@@ -74,7 +76,7 @@ export default function Card(props: CardProps) {
     case "news":
       return (
         <Link
-          href={`/${lang}/${name}/news/${id}`}
+          href={`/${lang}/${category}/news/${id}`}
           className="relative min-h-fit min-w-fit bg-white hover:scale-105 hover:opacity-80"
         >
           <Image
