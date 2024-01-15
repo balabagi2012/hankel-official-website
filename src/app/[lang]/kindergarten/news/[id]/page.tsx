@@ -11,7 +11,9 @@ export const metadata: Metadata = {
 
 const fetchPageData = async (id: string) => {
   const url = `${process.env.API_URI}/api/news/${id}`;
-  const res = await fetch(url);
+  const res = await fetch(url, {
+    cache: "no-cache",
+  });
   const data = await res.json();
   return data;
 };
