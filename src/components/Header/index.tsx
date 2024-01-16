@@ -26,10 +26,6 @@ export default function Header() {
       path: `/${language}/contact`,
       label: language === "zh" ? "聯絡我們" : `Contact`,
     },
-    {
-      path: `https://google.com`,
-      label: language === "zh" ? "學生資訊系統" : `Student Portal`,
-    },
   ];
 
   const subSchoolDropDownItemList = [
@@ -165,10 +161,6 @@ export default function Header() {
           {
             path: `/${language}/${subSchool}/contact`,
             label: language === "zh" ? "聯絡我們" : `Contact`,
-          },
-          {
-            path: `https://google.com`,
-            label: language === "zh" ? "學生資訊系統" : `Student Portal`,
           },
         ];
 
