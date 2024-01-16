@@ -11,8 +11,21 @@ interface EdiorMenuProps {
   editor: Editor;
 }
 const EdiorMenu = ({ editor }: EdiorMenuProps) => {
-  const addImage = () => {
-    const url = window.prompt("請輸入圖片網址");
+  const uploadFile = async (file: File) => {
+    const url = `/api/file`;
+    const form = new FormData();
+    form.append("file", file);
+    const res = await fetch(url, {
+      method: "POST",
+      body: form,
+    });
+    if (!res.ok) {
+      // This will activate the closest `error.js` Error Boundary
+      return window.alert("Failed to upload file");
+    }
+    return res.json();
+  };
+  const addImage = (url?: string) => {
     if (url) {
       editor.chain().focus().setImage({ src: url }).run();
     }
@@ -106,7 +119,7 @@ const EdiorMenu = ({ editor }: EdiorMenuProps) => {
           objectFit="cover"
         />
       ),
-      action: () => addImage(),
+      action: () => document.getElementById("file")?.click(),
       isActive: () => false,
     },
     {
@@ -227,6 +240,22 @@ const EdiorMenu = ({ editor }: EdiorMenuProps) => {
 
   return (
     <div className="editor__header flex flex-row gap-x-2">
+      <input
+        type="file"
+        id="file"
+        className="hidden"
+        accept="images/*"
+        onChange={(event) => {
+          const file = event.target.files?.[0];
+          if (file) {
+            uploadFile(file).then((data) => {
+              if (data.file) {
+                addImage(data.file);
+              }
+            });
+          }
+        }}
+      />
       {items.map((item, index) => (
         <Fragment key={index}>
           {item.type === "divider" ? (
