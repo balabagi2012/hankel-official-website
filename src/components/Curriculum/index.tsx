@@ -36,7 +36,7 @@ export default async function Curriculum(props: CurriculumProps) {
           <Title full align="center" type={type} lang={lang}>
             {curriculum.title[lang]}
           </Title>
-          <Typography varient="h5" className="text-textGray text-left">
+          <Typography varient="h5" className="text-textGray text-left whitespace-pre-line">
             {curriculum.description[lang]}
           </Typography>
         </div>

@@ -40,7 +40,7 @@ export default async function Information(props: InformationProps) {
           <Title full align="center" type={type} lang={lang}>
             {information.admissionBrochure.title[lang]}
           </Title>
-          <Typography varient="h5" className="text-textGray text-left">
+          <Typography varient="h5" className="text-textGray text-left whitespace-pre-line">
             {information.admissionBrochure.description[lang]}
           </Typography>
           <Link
@@ -66,7 +66,7 @@ export default async function Information(props: InformationProps) {
             <Title full align="left" type={type} lang={lang}>
               {information.informationSession.title[lang]}
             </Title>
-            <Typography varient="h5" className="text-textGray text-start mb-8">
+            <Typography varient="h5" className="text-textGray text-start mb-8 whitespace-pre-line">
               {information.informationSession.description[lang]}
             </Typography>
           </div>

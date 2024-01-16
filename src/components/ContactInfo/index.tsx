@@ -18,7 +18,7 @@ export default function ContactInfo(props: ContactInfoProps) {
       </Title>
       <Typography
         varient="h5"
-        className="text-start md:mt-[-40px]"
+        className="text-start md:mt-[-40px] whitespace-pre-line"
         color="textGray"
       >
         {contact.description[lang]}

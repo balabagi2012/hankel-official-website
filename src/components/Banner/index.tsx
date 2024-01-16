@@ -79,7 +79,7 @@ export default function Banner({
           >
             {subtitle}
           </div>
-          <div className="text-[14px] font-sans text-[#4E4E4E] leading-[1.8] text-left animate__animated animate__fadeIn animate__delay-1s">
+          <div className="text-[14px] font-sans text-[#4E4E4E] leading-[1.8] text-left animate__animated animate__fadeIn animate__delay-1s whitespace-pre-line">
             {description}
           </div>
         </div>
@@ -131,7 +131,7 @@ export default function Banner({
             varient="h5"
             className={`animate__animated animate__fadeIn animate__delay-1s ${
               lang === "en" ? "font-serif" : ""
-            } text-white`}
+            } text-white whitespace-pre-line`}
           >
             {description}
           </Typography>
@@ -158,7 +158,7 @@ export default function Banner({
             className={`${
               name === "kindergarten" || lang === "zh" ? "" : "font-serif"
             }
-              text-textGray text-right mt=[12px]`}
+              text-textGray text-right mt-[12px] whitespace-pre-line`}
           >
             {description}
           </Typography>
