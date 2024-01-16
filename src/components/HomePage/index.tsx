@@ -74,7 +74,7 @@ export default async function HomePage(props: HomePageProps) {
       <Section>
         <div className="flex flex-col md:flex-row w-full md:w-[1024px] items-stretch">
           <ContactInfo lang={lang} type="subschool" contact={data.contact} />
-          <ContactForm lang={lang} name={name} />
+          <ContactForm lang={lang} name={name} mail={data.contact.email} />
         </div>
       </Section>
       <Footer lang={lang} name={name} />

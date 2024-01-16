@@ -1,13 +1,9 @@
 import { ContactEntity } from "@/app/api/contact/route";
-import Image from "next/image";
-import Link from "next/link";
 import Banner from "../Banner";
 import ContactForm from "../ContactForm";
-import Section from "../Section";
-import Title from "../Title";
-import Typography from "../Typography";
 import ContactInfo from "../ContactInfo";
 import Footer from "../Footer";
+import Section from "../Section";
 
 export interface ContactProps {
   type?: "kindergarten" | "subschool" | "home";
@@ -52,7 +48,7 @@ export default async function Contact(props: ContactProps) {
       </Section>
       <Section>
         <div className="flex flex-col w-full md:w-[700px]">
-          <ContactForm name={name} lang={lang} />
+          <ContactForm name={name} lang={lang} mail={data.email} />
         </div>
       </Section>
       <Footer lang={lang} name={name} />

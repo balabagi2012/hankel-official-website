@@ -65,7 +65,9 @@ const getInstagramPosts = async (
     throw new Error("Failed to fetch data");
   }
   const result = await res.json();
-  return { data: result.data.filter((item: any) => item.media_type === "IMAGE") };
+  return {
+    data: result.data.filter((item: any) => item.media_type === "IMAGE"),
+  };
 };
 
 const getSubschoolData = async (name: string) => {
@@ -202,7 +204,7 @@ export default async function Subschool(props: SubschoolProps) {
             type={name === "kindergarten" ? "kindergarten" : "subschool"}
             contact={data.contact}
           />
-          <ContactForm lang={lang} name={name} />
+          <ContactForm lang={lang} name={name} mail={data.contact.email} />
         </div>
       </Section>
       <Footer lang={lang} name={name} />
