@@ -1,11 +1,10 @@
 "use client";
-import EditorComponent from "@/components/Editor";
 import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
 export default function EditEventPage({
   params: { id },
@@ -17,25 +16,7 @@ export default function EditEventPage({
     values: news,
   });
   const [loading, setLoading] = useState(false);
-  const [uploading, setUploading] = useState(false);
   const router = useRouter();
-
-  const uploadFile = async (file: File) => {
-    setUploading(true);
-    const url = `/api/file`;
-    const form = new FormData();
-    form.append("file", file);
-    const res = await fetch(url, {
-      method: "POST",
-      body: form,
-    });
-    setUploading(false);
-    if (!res.ok) {
-      // This will activate the closest `error.js` Error Boundary
-      return window.alert("Failed to upload file");
-    }
-    return res.json();
-  };
 
   const onSubmit = async (data: any) => {
     setLoading(true);
@@ -171,36 +152,6 @@ export default function EditEventPage({
                   <option value="highSchool">highSchool</option>
                   <option value="elementary">elementary</option>
                 </select>
-              </div>
-            </div>
-            <div className="bg-white px-6 py-3 rounded shadow mt-4">
-              <div>
-                <label>content[中文]</label>
-                <Controller
-                  name={"content.zh"}
-                  control={control}
-                  render={({ field }) => (
-                    <EditorComponent
-                      value={field.value}
-                      onChange={field.onChange}
-                    />
-                  )}
-                ></Controller>
-              </div>
-            </div>
-            <div className="bg-white px-6 py-3 rounded shadow mt-4">
-              <div>
-                <label>content[英文]</label>
-                <Controller
-                  name={"content.en"}
-                  control={control}
-                  render={({ field }) => (
-                    <EditorComponent
-                      value={field.value}
-                      onChange={field.onChange}
-                    />
-                  )}
-                ></Controller>
               </div>
             </div>
           </div>

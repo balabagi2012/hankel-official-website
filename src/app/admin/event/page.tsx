@@ -56,7 +56,6 @@ export default function AdminEventPage() {
                 <thead>
                   <tr className="bg-gray-50 border-b border-gray-200 text-xs leading-4 text-gray-500 uppercase tracking-wider">
                     <th className="px-6 py-3 text-left font-medium">Title</th>
-                    <th className="px-6 py-3 text-left font-medium">Banner</th>
                     <th className="px-6 py-3 text-left font-medium">Category</th>
                     <th className="px-6 py-3 text-left font-medium">Date</th>
                     <th className="px-6 py-3 text-left font-medium"></th>
@@ -68,21 +67,6 @@ export default function AdminEventPage() {
                       <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                         <div className="text-sm leading-5 text-gray-900">
                           {data.title.en}
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                        <div className="flex items-center">
-                          <div className="flex-shrink-0 h-15 w-15">
-                            <Image
-                              width={40}
-                              height={40}
-                              alt={data.banner}
-                              src={data.banner}
-                            />
-                          </div>
-                          <div className="ml-4">
-                            <div className="text-sm leading-5 font-medium text-gray-900"></div>
-                          </div>
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">

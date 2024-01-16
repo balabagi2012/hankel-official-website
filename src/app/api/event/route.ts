@@ -6,8 +6,6 @@ export interface EventEntity {
   _id?: string;
   title: Text;
   category: string;
-  banner?: string;
-  content?: Text;
   date: string;
   updatedAt: number;
 }
@@ -63,7 +61,7 @@ export async function GET(req: Request) {
 // POST /api/event
 export async function POST(req: Request) {
   try {
-    const { title, banner, date, category, content } = await req.json();
+    const { title, date, category } = await req.json();
     if (!title || !category || !date) {
       return Response.json(
         { error: "Missing required fields" },
@@ -71,19 +69,17 @@ export async function POST(req: Request) {
       );
     }
     const db = await connectToDatabase();
-    const news = await db.collection("event").insertOne({
+    const event = await db.collection("event").insertOne({
       title,
-      banner,
       category,
-      content,
       date: new Date(date).toISOString(),
       updatedAt: new Date().getTime(),
     });
-    return Response.json(news, { status: 201 });
+    return Response.json(event, { status: 201 });
   } catch (error) {
     return Response.json(
       {
-        error: "Failed to create news data",
+        error: "Failed to create event data",
         errorMessage: (error as Error).message,
       },
       { status: 500 }
