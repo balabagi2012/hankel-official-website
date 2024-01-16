@@ -289,7 +289,7 @@ export default function Card(props: CardProps) {
             </div>
             <Typography
               varient="h6"
-              className="text-textGray text-center whitespace-pre-line"
+              className="text-textGray text-left whitespace-pre-line"
             >
               {description}
             </Typography>
