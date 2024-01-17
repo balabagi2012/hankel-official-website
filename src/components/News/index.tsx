@@ -1,9 +1,11 @@
 import { NewsEntity } from "@/app/api/news/route";
 import { chunk } from "lodash";
-import Banner from "../Banner";
+import dynamic from "next/dynamic";
 import Card from "../Card";
 import Section from "../Section";
 import Title from "../Title";
+
+const Banner = dynamic(() => import("../Banner"), { ssr: false });
 
 const fetchLatestNews = async (name: string) => {
   const url = `${process.env.API_URI}/api/news?limit=16${

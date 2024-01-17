@@ -1,11 +1,13 @@
 import { CurriculumEntity } from "@/app/api/curriculum/route";
-import Banner from "../Banner";
+import { chunk } from "lodash";
+import dynamic from "next/dynamic";
 import Card from "../Card";
+import Footer from "../Footer";
 import Section from "../Section";
 import Title from "../Title";
 import Typography from "../Typography";
-import { chunk } from "lodash";
-import Footer from "../Footer";
+
+const Banner = dynamic(() => import("../Banner"), { ssr: false });
 
 export interface CurriculumProps {
   type?: "kindergarten" | "subschool";
@@ -36,7 +38,10 @@ export default async function Curriculum(props: CurriculumProps) {
           <Title full align="center" type={type} lang={lang}>
             {curriculum.title[lang]}
           </Title>
-          <Typography varient="h5" className="text-textGray text-left whitespace-pre-line">
+          <Typography
+            varient="h5"
+            className="text-textGray text-left whitespace-pre-line"
+          >
             {curriculum.description[lang]}
           </Typography>
         </div>

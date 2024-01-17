@@ -1,10 +1,12 @@
-import Banner from "../Banner";
+import dynamic from "next/dynamic";
 import ContactForm from "../ContactForm";
 import ContactInfo from "../ContactInfo";
 import Footer from "../Footer";
 import LatestNews from "../LatestNews";
 import { Program } from "../Program";
 import Section from "../Section";
+
+const Banner = dynamic(() => import("../Banner"), { ssr: false });
 
 const getHome = async (lang: "en" | "zh") => {
   const res = await fetch(`${process.env.API_URI}/api/home/?lang=${lang}`, {

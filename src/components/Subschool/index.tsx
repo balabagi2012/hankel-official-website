@@ -1,17 +1,19 @@
+import { ContactEntity } from "@/app/api/contact/route";
+import { SubschoolEntity } from "@/app/api/subschool/route";
 import { kindergarten } from "@/app/styles/fonts";
+import { chunk } from "lodash";
+import dynamic from "next/dynamic";
 import Image from "next/image";
-import Banner from "../Banner";
 import Card from "../Card";
 import ContactForm from "../ContactForm";
 import ContactInfo from "../ContactInfo";
-import Title from "../Title";
-import Typography from "../Typography";
+import Footer from "../Footer";
 import LatestNews from "../LatestNews";
 import Section from "../Section";
-import { ContactEntity } from "@/app/api/contact/route";
-import { SubschoolEntity } from "@/app/api/subschool/route";
-import { chunk } from "lodash";
-import Footer from "../Footer";
+import Title from "../Title";
+import Typography from "../Typography";
+
+const Banner = dynamic(() => import("../Banner"), { ssr: false });
 
 interface SubschoolProps {
   name: "halfDaySchool" | "elementary" | "kindergarten" | "highSchool";

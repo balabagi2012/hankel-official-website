@@ -1,12 +1,14 @@
 import { FacilityEntity } from "@/app/api/facility/route";
+import { chunk } from "lodash";
+import dynamic from "next/dynamic";
 import Image from "next/image";
-import Banner from "../Banner";
 import Card from "../Card";
+import Footer from "../Footer";
 import Section from "../Section";
 import Title from "../Title";
 import Typography from "../Typography";
-import { chunk } from "lodash";
-import Footer from "../Footer";
+
+const Banner = dynamic(() => import("../Banner"), { ssr: false });
 
 const getFacility = async (name: string): Promise<FacilityEntity> => {
   const res = await fetch(`${process.env.API_URI}/api/facility/${name}`, {
@@ -36,7 +38,10 @@ export default async function Facility(props: FacilityProps) {
           <Title full align="center" type={type} lang={lang}>
             {facility.title[lang]}
           </Title>
-          <Typography varient="h5" className="text-textGray text-left whitespace-pre-line">
+          <Typography
+            varient="h5"
+            className="text-textGray text-left whitespace-pre-line"
+          >
             {facility.description[lang]}
           </Typography>
         </div>

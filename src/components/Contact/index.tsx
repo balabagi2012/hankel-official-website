@@ -1,9 +1,11 @@
 import { ContactEntity } from "@/app/api/contact/route";
-import Banner from "../Banner";
+import dynamic from "next/dynamic";
 import ContactForm from "../ContactForm";
 import ContactInfo from "../ContactInfo";
 import Footer from "../Footer";
 import Section from "../Section";
+
+const Banner = dynamic(() => import("../Banner"), { ssr: false });
 
 export interface ContactProps {
   type?: "kindergarten" | "subschool" | "home";

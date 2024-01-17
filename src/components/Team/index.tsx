@@ -1,11 +1,13 @@
-import Banner from "../Banner";
+import { TeamEntity } from "@/app/api/team/route";
+import { chunk } from "lodash";
+import dynamic from "next/dynamic";
 import Card from "../Card";
 import Footer from "../Footer";
 import Section from "../Section";
 import Title from "../Title";
 import Typography from "../Typography";
-import { TeamEntity } from "@/app/api/team/route";
-import { chunk } from "lodash";
+
+const Banner = dynamic(() => import("../Banner"), { ssr: false });
 
 export interface TeamProps {
   type?: "kindergarten" | "subschool";
@@ -37,7 +39,10 @@ export default async function Team(props: TeamProps) {
             <Title full align="center" type={type} lang={lang}>
               {team.foreignTeam.title[lang]}
             </Title>
-            <Typography varient="h5" className="text-textGray text-left whitespace-pre-line">
+            <Typography
+              varient="h5"
+              className="text-textGray text-left whitespace-pre-line"
+            >
               {team.foreignTeam.description[lang]}
             </Typography>
             {chunk(team.foreignTeam.teachers, 3).map((chunk, chunkIndex) => (
@@ -72,7 +77,10 @@ export default async function Team(props: TeamProps) {
           <Title full align="center" type={type} lang={lang}>
             {team.localTeam.title[lang]}
           </Title>
-          <Typography varient="h5" className="text-textGray text-left whitespace-pre-line">
+          <Typography
+            varient="h5"
+            className="text-textGray text-left whitespace-pre-line"
+          >
             {team.localTeam.description[lang]}
           </Typography>
           {chunk(team.localTeam.teachers, 3).map((chunk, chunkIndex) => (
