@@ -256,7 +256,7 @@ export default function Card(props: CardProps) {
             </Typography>
             <Typography
               varient="h5"
-              className="text-textGray text-start whitespace-pre-line"
+              className="text-textGray text-left whitespace-pre-line"
             >
               {description}
             </Typography>
