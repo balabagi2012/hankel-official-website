@@ -256,7 +256,7 @@ export default function Card(props: CardProps) {
             </Typography>
             <Typography
               varient="h5"
-              className="text-textGray text-left whitespace-pre-line"
+              className="text-textGray text-left w-full whitespace-pre-line"
             >
               {description}
             </Typography>
@@ -289,7 +289,7 @@ export default function Card(props: CardProps) {
             </div>
             <Typography
               varient="h6"
-              className="text-textGray text-left whitespace-pre-line"
+              className="text-textGray text-left whitespace-pre-line w-full"
             >
               {description}
             </Typography>
@@ -352,7 +352,7 @@ export default function Card(props: CardProps) {
             </div>
             <Typography
               varient="h6"
-              className="text-textGray text-center whitespace-pre-line"
+              className="text-textGray text-left whitespace-pre-line"
             >
               {description}
             </Typography>
