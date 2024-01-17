@@ -68,7 +68,7 @@ export default async function About(props: AboutProps) {
                   <Typography
                     key={text.content[lang]}
                     varient="h4"
-                    className={`text-blue text-start mb-5 ${
+                    className={`text-blue text-left whitespace-pre-line mb-5 ${
                       lang === "en"
                         ? type === "kindergarten"
                           ? kindergarten.className
@@ -82,7 +82,7 @@ export default async function About(props: AboutProps) {
                   <Typography
                     key={text.content[lang]}
                     varient="h5"
-                    className="text-textGray text-start mb-5"
+                    className="text-textGray text-left mb-5 whitespace-pre-line"
                   >
                     {text.content[lang]}
                   </Typography>
@@ -104,7 +104,7 @@ export default async function About(props: AboutProps) {
                   <Typography
                     key={text.content[lang]}
                     varient="h4"
-                    className={`text-blue text-start mb-5 ${
+                    className={`text-blue text-left whitespace-pre-line mb-5 ${
                       type === "kindergarten"
                         ? kindergarten.className
                         : lang === "en"
@@ -118,7 +118,7 @@ export default async function About(props: AboutProps) {
                   <Typography
                     key={text.content[lang]}
                     varient="h5"
-                    className="text-textGray text-start mb-5"
+                    className="text-textGray text-left mb-5 whitespace-pre-line"
                   >
                     {text.content[lang]}
                   </Typography>
