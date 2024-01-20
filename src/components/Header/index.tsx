@@ -277,7 +277,7 @@ export default function Header() {
           ) : (
             <div className="flex flex-row  items-center gap-x-[56px]">
               <Link
-                href={`/${language}`}
+                href={`/${language}/about`}
                 className={`py-1 border-deepBlue text-blue ${
                   pathname === `/${language}/about` ? "border-b-2" : ""
                 }`}
