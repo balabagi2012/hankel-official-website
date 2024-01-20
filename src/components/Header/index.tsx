@@ -39,7 +39,7 @@ export default function Header() {
     },
     {
       path: `/${language}/afterSchool`,
-      label: language === "zh" ? "翰科安親班" : `After School`,
+      label: language === "zh" ? "翰科安親班" : `AfterSchool`,
     },
   ];
 
