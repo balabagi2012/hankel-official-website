@@ -42,7 +42,7 @@ export default function Header() {
       label: language === "zh" ? "翰科實驗中學" : `HighSchool`,
     },
     {
-      path: `/${language}/halfDaySchool`,
+      path: `/${language}/afterSchool`,
       label: language === "zh" ? "翰科安親班" : `Half-Day School`,
     },
   ];
@@ -58,7 +58,7 @@ export default function Header() {
 
   const getSubSchoolZhLabel = (subSchool: string) => {
     switch (subSchool) {
-      case "halfDaySchool":
+      case "afterSchool":
         return "翰科安親班";
       case "elementary":
         return "翰科實驗小學";
@@ -72,7 +72,7 @@ export default function Header() {
   };
 
   const subSchoolNavItemList =
-    subSchool === "halfDaySchool"
+    subSchool === "afterSchool"
       ? [
           {
             path: `/${language}/${subSchool}`,
@@ -173,7 +173,7 @@ export default function Header() {
         "kindergarten",
         "elementary",
         "highSchool",
-        "halfDaySchool",
+        "afterSchool",
       ].find((subSchool) => pathname.indexOf(subSchool) >= 0);
       if (subSchool) {
         setIsSubHeader(true);

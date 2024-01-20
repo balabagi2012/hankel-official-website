@@ -5,10 +5,10 @@ export const metadata: Metadata = {
   title: "Hankel - Half-Day School",
 };
 
-export default function HalfDaySchoolInformation({
+export default function AfterSchoolInformation({
   params: { lang },
 }: {
   params: { lang: "en" | "zh" };
 }) {
-  return <Information type="subschool" lang={lang} name="halfDaySchool" />;
+  return <Information type="subschool" lang={lang} name="afterSchool" />;
 }

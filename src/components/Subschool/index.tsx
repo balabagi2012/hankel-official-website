@@ -16,7 +16,7 @@ import Typography from "../Typography";
 const Banner = dynamic(() => import("../Banner"), { ssr: false });
 
 interface SubschoolProps {
-  name: "halfDaySchool" | "elementary" | "kindergarten" | "highSchool";
+  name: "afterSchool" | "elementary" | "kindergarten" | "highSchool";
   lang: "en" | "zh";
 }
 

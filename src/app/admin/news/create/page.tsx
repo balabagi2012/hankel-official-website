@@ -13,7 +13,7 @@ export default function CreateNewsPage() {
     values: {
       title: { zh: "標題", en: "title" },
       description: { zh: "敘述", en: "description" },
-      category: "halfDaySchool",
+      category: "afterSchool",
       banner: "/news/1.png",
       content: { zh: "", en: "" },
     },
@@ -120,7 +120,7 @@ export default function CreateNewsPage() {
                   {...register("category")}
                   className="w-full border px-4 py-2 mb-4 mt-2"
                 >
-                  <option value="halfDaySchool">halfDaySchool</option>
+                  <option value="afterSchool">afterSchool</option>
                   <option value="kindergarten">kindergarten</option>
                   <option value="highSchool">highSchool</option>
                   <option value="elementary">elementary</option>

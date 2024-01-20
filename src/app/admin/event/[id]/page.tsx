@@ -147,7 +147,7 @@ export default function EditEventPage({
                   {...register("category")}
                   className="w-full border px-4 py-2 mb-4 mt-2"
                 >
-                  <option value="halfDaySchool">halfDaySchool</option>
+                  <option value="afterSchool">afterSchool</option>
                   <option value="kindergarten">kindergarten</option>
                   <option value="highSchool">highSchool</option>
                   <option value="elementary">elementary</option>

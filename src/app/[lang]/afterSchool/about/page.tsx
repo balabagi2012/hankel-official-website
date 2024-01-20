@@ -1,14 +1,14 @@
-import Contact from "@/components/Contact";
+import About from "@/components/About";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Hankel - Half-Day School",
 };
 
-export default function HalfDaySchoolContact({
+export default function AfterSchoolAbout({
   params: { lang },
 }: {
   params: { lang: "en" | "zh" };
 }) {
-  return <Contact lang={lang} name="halfDaySchool" type="subschool" />;
+  return <About lang={lang} name="afterSchool" type="subschool" />;
 }

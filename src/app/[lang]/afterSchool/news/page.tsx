@@ -5,10 +5,10 @@ export const metadata: Metadata = {
   title: "Hankel - News",
 };
 
-export default async function HalfDaySchoolNews({
+export default async function AfterSchoolNews({
   params: { lang },
 }: {
   params: { lang: "en" | "zh" };
 }) {
-  return <News lang={lang} name={"halfDaySchool"} />;
+  return <News lang={lang} name={"afterSchool"} />;
 }
