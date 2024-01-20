@@ -19,7 +19,7 @@ export default function AdminCurriculumPage() {
   );
   const [activePageData, setActivePageData] = useState([] as any);
   const [lang, setLang] = useState<"en" | "zh">("en");
-  const [activeTab, setActiveTab] = useState("");
+  const [activeTab, setActiveTab] = useState("elementary");
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
   const activeTabData = useMemo(
@@ -70,10 +70,9 @@ export default function AdminCurriculumPage() {
     setLoading(true);
     fetchPageData().then((data) => {
       setActivePageData(data);
-      setActiveTab(tabList[0]);
       setLoading(false);
     });
-  }, [tabList]);
+  }, []);
 
   useEffect(() => {
     loadPageData();

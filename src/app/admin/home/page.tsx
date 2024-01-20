@@ -15,7 +15,7 @@ export default function AdminHomePage() {
   const pageName = "home";
   const tabList = useMemo(() => ["banner", "program", "subBanner"], []);
   const [activePageData, setActivePageData] = useState([] as any);
-  const [activeTab, setActiveTab] = useState("");
+  const [activeTab, setActiveTab] = useState("banner");
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
   const activeTabData = useMemo(() => activePageData, [activePageData]);
@@ -73,10 +73,9 @@ export default function AdminHomePage() {
     setLoading(true);
     fetchPageData().then((data) => {
       setActivePageData(data);
-      setActiveTab(tabList[0]);
       setLoading(false);
     });
-  }, [tabList]);
+  }, []);
 
   useEffect(() => {
     loadPageData();

@@ -1,6 +1,5 @@
 "use client";
 import { EventEntity } from "@/app/api/event/route";
-import { NewsEntity } from "@/app/api/news/route";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -56,7 +55,9 @@ export default function AdminEventPage() {
                 <thead>
                   <tr className="bg-gray-50 border-b border-gray-200 text-xs leading-4 text-gray-500 uppercase tracking-wider">
                     <th className="px-6 py-3 text-left font-medium">Title</th>
-                    <th className="px-6 py-3 text-left font-medium">Category</th>
+                    <th className="px-6 py-3 text-left font-medium">
+                      Category
+                    </th>
                     <th className="px-6 py-3 text-left font-medium">Date</th>
                     <th className="px-6 py-3 text-left font-medium"></th>
                   </tr>
