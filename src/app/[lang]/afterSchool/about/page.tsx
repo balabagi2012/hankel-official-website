@@ -2,7 +2,7 @@ import About from "@/components/About";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Hankel - Half-Day School",
+  title: "Hankel - After School",
 };
 
 export default function AfterSchoolAbout({
