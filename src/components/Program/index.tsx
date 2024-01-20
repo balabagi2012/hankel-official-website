@@ -102,7 +102,7 @@ export function Program(props: ProgramProps) {
           rel="noopener noreferrer"
           className="px-[32px] py-[8px] border rounded border-blue w-fit flex flex-row justify-center items-center"
         >
-          <Typography varient="h6" className="font-bold">
+          <Typography varient="h6" className="font-bold text-blue">
             {lang === "en" ? "Learn More" : "了解更多"}
           </Typography>
           <Image
