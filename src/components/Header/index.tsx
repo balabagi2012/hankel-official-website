@@ -50,7 +50,7 @@ export default function Header() {
     },
     {
       path: `/${language}`,
-      label: language === "zh" ? "校園動態" : `Highlights`,
+      label: language === "zh" ? "首頁" : `Home`,
     },
     ...subSchoolDropDownItemList,
     ...otherNavItemList,
@@ -124,13 +124,15 @@ export default function Header() {
         ]
       : [
           {
+            path: `/${language}/${subSchool}/about`,
+            label: language === "zh" ? "關於我們" : `About`,
+          },
+          {
             path: `/${language}/${subSchool}`,
             label:
               language === "zh"
                 ? getSubSchoolZhLabel(subSchool)
-                : `Hankel ${
-                    subSchool.charAt(0).toUpperCase() + subSchool.slice(1)
-                  }`,
+                : `Highlights`,
           },
           {
             path: `/${language}/${subSchool}/curriculum`,
@@ -144,10 +146,7 @@ export default function Header() {
             path: `/${language}/${subSchool}/team`,
             label: language === "zh" ? "教師團隊" : `Our Team`,
           },
-          {
-            path: `/${language}/${subSchool}/about`,
-            label: language === "zh" ? "關於我們" : `About`,
-          },
+
           {
             path: `/${language}/${subSchool}/information`,
             label: language === "zh" ? "入學資訊" : `Information`,
@@ -305,7 +304,7 @@ export default function Header() {
                     pathname === `/${language}` ? "font-bold" : ""
                   }`}
                 >
-                  {language === "zh" ? "校園動態" : `Highlights`}
+                  {language === "zh" ? "首頁" : `Home`}
                 </Typography>
               </Link>
               <div
