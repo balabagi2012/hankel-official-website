@@ -19,10 +19,6 @@ export default function Header() {
 
   const otherNavItemList = [
     {
-      path: `/${language}/about`,
-      label: language === "zh" ? "關於我們" : `About`,
-    },
-    {
       path: `/${language}/contact`,
       label: language === "zh" ? "聯絡我們" : `Contact`,
     },
@@ -31,7 +27,7 @@ export default function Header() {
   const subSchoolDropDownItemList = [
     {
       path: `/${language}/kindergarten`,
-      label: language === "zh" ? "翰科幼稚園" : `Kindergarten`,
+      label: language === "zh" ? "翰科幼兒園" : `Kindergarten`,
     },
     {
       path: `/${language}/elementary`,
@@ -49,21 +45,27 @@ export default function Header() {
 
   const homepageNavItemList = [
     {
+      path: `/${language}/about`,
+      label: language === "zh" ? "關於我們" : `About`,
+    },
+    {
       path: `/${language}`,
-      label: language === "zh" ? "首頁" : `Home`,
+      label: language === "zh" ? "校園動態" : `Highlights`,
     },
     ...subSchoolDropDownItemList,
     ...otherNavItemList,
   ];
 
   const getSubSchoolZhLabel = (subSchool: string) => {
+    // REMARK: Ask by client to change.
+    return `校園動態`;
     switch (subSchool) {
       case "afterSchool":
         return "翰科安親班";
       case "elementary":
         return "翰科實驗小學";
       case "kindergarten":
-        return "翰科幼稚園";
+        return "翰科幼兒園";
       case "highSchool":
         return "翰科實驗中學";
       default:
@@ -75,17 +77,13 @@ export default function Header() {
     subSchool === "afterSchool"
       ? [
           {
-            path: `/${language}/${subSchool}`,
-            label:
-              language === "zh"
-                ? getSubSchoolZhLabel(subSchool)
-                : `Hankel ${
-                    subSchool.charAt(0).toUpperCase() + subSchool.slice(1)
-                  }`,
-          },
-          {
             path: `/${language}/${subSchool}/about`,
             label: language === "zh" ? "關於我們" : `About`,
+          },
+          {
+            path: `/${language}/${subSchool}`,
+            label:
+              language === "zh" ? getSubSchoolZhLabel(subSchool) : `Highlights`,
           },
           {
             path: `/${language}/${subSchool}/contact`,
@@ -95,13 +93,13 @@ export default function Header() {
       : subSchool === "kindergarten"
       ? [
           {
+            path: `/${language}/${subSchool}/about`,
+            label: language === "zh" ? "關於我們" : `About`,
+          },
+          {
             path: `/${language}/${subSchool}`,
             label:
-              language === "zh"
-                ? getSubSchoolZhLabel(subSchool)
-                : `Hankel ${
-                    subSchool.charAt(0).toUpperCase() + subSchool.slice(1)
-                  }`,
+              language === "zh" ? getSubSchoolZhLabel(subSchool) : `Highlights`,
           },
           {
             path: `/${language}/${subSchool}/curriculum`,
@@ -109,19 +107,15 @@ export default function Header() {
           },
           {
             path: `/${language}/${subSchool}/facilities`,
-            label: language === "zh" ? "校園資訊" : `Our Facilities`,
+            label: language === "zh" ? "校園導覽" : `Our Facilities`,
           },
           {
             path: `/${language}/${subSchool}/team`,
             label: language === "zh" ? "教師團隊" : `Our Team`,
           },
           {
-            path: `/${language}/${subSchool}/about`,
-            label: language === "zh" ? "關於我們" : `About`,
-          },
-          {
             path: `/${language}/${subSchool}/information`,
-            label: language === "zh" ? "其他資訊" : `Information`,
+            label: language === "zh" ? "入學資訊" : `Information`,
           },
           {
             path: `/${language}/${subSchool}/contact`,
@@ -144,7 +138,7 @@ export default function Header() {
           },
           {
             path: `/${language}/${subSchool}/facilities`,
-            label: language === "zh" ? "校園資訊" : `Our Facilities`,
+            label: language === "zh" ? "校園導覽" : `Our Facilities`,
           },
           {
             path: `/${language}/${subSchool}/team`,
@@ -156,7 +150,7 @@ export default function Header() {
           },
           {
             path: `/${language}/${subSchool}/information`,
-            label: language === "zh" ? "其他資訊" : `Information`,
+            label: language === "zh" ? "入學資訊" : `Information`,
           },
           {
             path: `/${language}/${subSchool}/contact`,
@@ -285,6 +279,22 @@ export default function Header() {
               <Link
                 href={`/${language}`}
                 className={`py-1 border-deepBlue text-blue ${
+                  pathname === `/${language}/about` ? "border-b-2" : ""
+                }`}
+                rel="noopener noreferrer"
+              >
+                <Typography
+                  varient="h6"
+                  className={`text-blue ${
+                    pathname === `/${language}/about` ? "font-bold" : ""
+                  }`}
+                >
+                  {language === "zh" ? "關於我們" : `About`}
+                </Typography>
+              </Link>
+              <Link
+                href={`/${language}`}
+                className={`py-1 border-deepBlue text-blue ${
                   pathname === `/${language}` ? "border-b-2" : ""
                 }`}
                 rel="noopener noreferrer"
@@ -295,7 +305,7 @@ export default function Header() {
                     pathname === `/${language}` ? "font-bold" : ""
                   }`}
                 >
-                  {language === "zh" ? "首頁" : `Home`}
+                  {language === "zh" ? "校園動態" : `Highlights`}
                 </Typography>
               </Link>
               <div
