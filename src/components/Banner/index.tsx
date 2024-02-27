@@ -1,5 +1,6 @@
+"use client";
 import Image from "next/image";
-import { ReactElement } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import Typography from "../Typography";
 import { kindergarten } from "@/app/styles/fonts";
 
@@ -13,6 +14,7 @@ interface BannerProps {
   description?: string;
   children?: ReactElement;
   lang?: "en" | "zh";
+  banners?: string[];
 }
 export default function Banner({
   className,
@@ -23,29 +25,37 @@ export default function Banner({
   size = "big",
   name,
   lang = "en",
+  banners = [],
   children,
 }: BannerProps) {
-  return (
-    <div
-      className={`w-full ${
-        size === "big"
-          ? "h-screen"
-          : size === "large"
-          ? "h-[233px] md:h-[420px]"
-          : size === "medium"
-          ? "h-[343px] md:h-[400px]"
-          : "h-[170px] md:h-[350px]"
-      } relative flex flex-row justify-center items-center ${className ?? ""}`}
-    >
-      <Image
-        alt="banner home"
-        src={src}
-        className="z-[-1] absolute w-auto h-auto object-center object-cover"
-        quality={100}
-        fill
-      ></Image>
-      <div className="z-[-1] absolute w-full h-full"></div>
-      {size === "big" && (
+  const [imgIndex, setImgIndex] = useState(0);
+
+  useEffect(() => {
+    if (size === "big") {
+      const interval = setInterval(() => {
+        setImgIndex((imgIndex + 1) % banners.length);
+      }, 7000);
+      return () => clearInterval(interval);
+    }
+  }, [size, banners, imgIndex]);
+
+  if (size === "big") {
+    return (
+      <div
+        className={`w-full h-screen relative flex flex-row justify-center items-center ${
+          className ?? ""
+        }`}
+      >
+        <Image
+          alt="banner home"
+          src={banners[imgIndex]}
+          className={`z-[-1] absolute w-auto h-auto object-center object-cover ${
+            imgIndex % 2 === 1 ? "animate__animated animate__fadeIn" : ""
+          }`}
+          quality={100}
+          fill
+        ></Image>
+        <div className="z-[-1] absolute w-full h-full"></div>
         <div className="z-[-1] absolute w-full h-full md:h-fit md:w-[530px] pt-[50px] md:pt-[20px] pb-[32px] px-[16px] bg-[rgba(255,255,255,.8)] flex flex-col justify-center items-center">
           <Image
             alt="Mountains"
@@ -69,11 +79,44 @@ export default function Banner({
           >
             {subtitle}
           </div>
-          <div className="text-[14px] font-sans text-[#4E4E4E] leading-[1.8] text-center animate__animated animate__fadeIn animate__delay-1s">
+          <div className="text-[14px] font-sans text-[#4E4E4E] leading-[1.8] text-left animate__animated animate__fadeIn animate__delay-1s whitespace-pre-line">
             {description}
           </div>
         </div>
-      )}
+        <div className="absolute z-[1] bottom-5">
+          <div className="flex flex-row gap-x-2">
+            {banners.map((banner, index) => (
+              <div
+                key={index}
+                className={`w-2 h-2 rounded border border-white ${
+                  index === imgIndex ? "bg-white" : ""
+                }`}
+              ></div>
+            ))}
+          </div>
+        </div>
+        {children}
+      </div>
+    );
+  }
+  return (
+    <div
+      className={`w-full ${
+        size === "large"
+          ? "h-[233px] md:h-[420px]"
+          : size === "medium"
+          ? "h-[343px] md:h-[400px]"
+          : "h-[170px] md:h-[350px]"
+      } relative flex flex-row justify-center items-center ${className ?? ""}`}
+    >
+      <Image
+        alt="banner home"
+        src={src}
+        className="z-[-1] absolute w-auto h-auto object-center object-cover"
+        quality={100}
+        fill
+      ></Image>
+      <div className="z-[-1] absolute w-full h-full"></div>
       {size === "large" && title && description && (
         <div className="z-[-1] absolute w-full px-4 md:px-[80px] flex flex-col justify-center items-start flex-1">
           <Typography
@@ -88,7 +131,7 @@ export default function Banner({
             varient="h5"
             className={`animate__animated animate__fadeIn animate__delay-1s ${
               lang === "en" ? "font-serif" : ""
-            } text-white`}
+            } text-white whitespace-pre-line`}
           >
             {description}
           </Typography>
@@ -100,7 +143,9 @@ export default function Banner({
             varient="h4"
             className={`${
               name === "kindergarten"
-                ? kindergarten.className
+                ? lang === "en"
+                  ? kindergarten.className
+                  : ""
                 : lang === "en"
                 ? "font-serif"
                 : ""
@@ -113,7 +158,7 @@ export default function Banner({
             className={`${
               name === "kindergarten" || lang === "zh" ? "" : "font-serif"
             }
-              text-textGray text-right mt=[12px]`}
+              text-textGray text-right mt-[12px] whitespace-pre-line`}
           >
             {description}
           </Typography>

@@ -9,6 +9,7 @@ export interface ContactBanner {
 
 export interface ContactEntity {
   name: string;
+  logo: string;
   banner: ContactBanner;
   title: Text;
   description: Text;
@@ -51,6 +52,7 @@ export async function POST(req: Request) {
       phone,
       email,
       address,
+      logo,
     } = await req.json();
     if (
       !lang ||
@@ -75,6 +77,7 @@ export async function POST(req: Request) {
       title,
       description,
       facebook,
+      logo,
       instagram,
       youtube,
       line,

@@ -18,7 +18,7 @@ export default function AdminFacilityPage() {
     []
   );
   const [activePageData, setActivePageData] = useState([] as any);
-  const [activeTab, setActiveTab] = useState("");
+  const [activeTab, setActiveTab] = useState("elementary");
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [lang, setLang] = useState<"en" | "zh">("en");
@@ -33,7 +33,7 @@ export default function AdminFacilityPage() {
     values: activeTabData,
   });
 
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append, remove, move } = useFieldArray({
     control,
     name: "facilities",
   });
@@ -42,6 +42,14 @@ export default function AdminFacilityPage() {
     if (window.confirm("Are you sure you wish to delete this item?")) {
       remove(index);
       handleSubmit(onSubmit);
+    }
+  };
+
+  const handleMove = (index: number, direction: "up" | "down") => {
+    if (direction === "up") {
+      move(index, index - 1);
+    } else {
+      move(index, index + 1);
     }
   };
 
@@ -78,10 +86,9 @@ export default function AdminFacilityPage() {
     setLoading(true);
     fetchPageData().then((data) => {
       setActivePageData(data);
-      setActiveTab(tabList[0]);
       setLoading(false);
     });
-  }, [tabList]);
+  }, []);
 
   useEffect(() => {
     loadPageData();
@@ -448,6 +455,28 @@ export default function AdminFacilityPage() {
                                   Remove
                                 </button>
                               </td>
+                              {index !== 0 && (
+                                <td className="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
+                                  <button
+                                    disabled={loading}
+                                    className="px-3 py-1 bg-amber-800 font-base text-white border border-amber-300 rounded-lg focus:outline-none"
+                                    onClick={() => handleMove(index, "up")}
+                                  >
+                                    Up
+                                  </button>
+                                </td>
+                              )}
+                              {index !== fields.length - 1 && (
+                                <td className="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
+                                  <button
+                                    disabled={loading}
+                                    className="px-3 py-1 bg-green-800 font-base text-white border border-green-300 rounded-lg focus:outline-none"
+                                    onClick={() => handleMove(index, "down")}
+                                  >
+                                    Down
+                                  </button>
+                                </td>
+                              )}
                             </tr>
                           )
                         )}

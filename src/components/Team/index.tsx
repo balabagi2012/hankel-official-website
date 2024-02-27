@@ -1,10 +1,13 @@
-import Banner from "../Banner";
+import { TeamEntity } from "@/app/api/team/route";
+import { chunk } from "lodash";
+import dynamic from "next/dynamic";
 import Card from "../Card";
+import Footer from "../Footer";
 import Section from "../Section";
 import Title from "../Title";
 import Typography from "../Typography";
-import { TeamEntity } from "@/app/api/team/route";
-import { chunk } from "lodash";
+
+const Banner = dynamic(() => import("../Banner"), { ssr: false });
 
 export interface TeamProps {
   type?: "kindergarten" | "subschool";
@@ -36,13 +39,16 @@ export default async function Team(props: TeamProps) {
             <Title full align="center" type={type} lang={lang}>
               {team.foreignTeam.title[lang]}
             </Title>
-            <Typography varient="h5" className="text-textGray text-center">
+            <Typography
+              varient="h5"
+              className="text-textGray text-left whitespace-pre-line"
+            >
               {team.foreignTeam.description[lang]}
             </Typography>
             {chunk(team.foreignTeam.teachers, 3).map((chunk, chunkIndex) => (
               <div
                 key={`foreignTeam chunk ${chunkIndex}`}
-                className="flex flex-col md:flex-row justify-between items-center gap-y-4 mt-8"
+                className="flex flex-col md:flex-row justify-start items-start gap-8 gap-y-4 mt-8"
               >
                 {chunk.map((element, index) => (
                   <Card
@@ -71,13 +77,16 @@ export default async function Team(props: TeamProps) {
           <Title full align="center" type={type} lang={lang}>
             {team.localTeam.title[lang]}
           </Title>
-          <Typography varient="h5" className="text-textGray text-center">
+          <Typography
+            varient="h5"
+            className="text-textGray text-left whitespace-pre-line"
+          >
             {team.localTeam.description[lang]}
           </Typography>
           {chunk(team.localTeam.teachers, 3).map((chunk, chunkIndex) => (
             <div
               key={`local team chunk ${chunkIndex}`}
-              className="flex flex-col md:flex-row justify-between items-center gap-y-4 mt-8"
+              className="flex flex-col md:flex-row justify-start items-start gap-8 mt-8"
             >
               {chunk.map((element, index) => (
                 <Card
@@ -98,6 +107,7 @@ export default async function Team(props: TeamProps) {
           ))}
         </div>
       </Section>
+      <Footer lang={lang} name={name} />
     </main>
   );
 }

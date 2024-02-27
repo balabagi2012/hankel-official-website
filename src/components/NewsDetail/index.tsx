@@ -1,32 +1,31 @@
-import Section from "@/components/Section";
-import Title from "@/components/Title";
-import Typography from "@/components/Typography";
-import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import Section from "../Section";
+import Title from "../Title";
+import Typography from "../Typography";
+import "./index.scss";
 
-export const metadata: Metadata = {
-  title: "Hankel - News",
-};
+interface NewsDetailProps {
+  id: string;
+  lang: "en" | "zh";
+}
 
 const fetchPageData = async (id: string) => {
   const url = `${process.env.API_URI}/api/news/${id}`;
-  const res = await fetch(url);
+  const res = await fetch(url, {
+    cache: "no-cache",
+  });
   const data = await res.json();
   return data;
 };
 
-export default async function NewsDetail({
-  params: { id, lang },
-}: {
-  params: { id: string; lang: "en" | "zh" };
-}) {
+export default async function NewsDetail({ id, lang }: NewsDetailProps) {
   const news = await fetchPageData(id);
   return (
-    <main className={`pt-[50px] bg-bgGray md:pt-[80px]`}>
+    <main className={`pt-[50px] bg-bgGray md:pt-[180px]`}>
       <Section className="bg-bgGray pt-2 md:pt-8">
         <Link
-          href={`/${lang}/news`}
+          href={`/${lang}/${news.category}/news`}
           className="flex flex-row justify-start items-center mr-auto"
         >
           <Image
@@ -56,15 +55,8 @@ export default async function NewsDetail({
               {`Last updated: ${new Date(news.updatedAt).toLocaleDateString()}`}
             </Typography>
           </div>
-          <Image
-            src={news.banner}
-            width={240}
-            height={240}
-            alt={"news banner"}
-            className="w-auto h-content h-max-80 mb-8"
-          ></Image>
           <div
-            className="flex-1 flex flex-col items-start justify-start w-full"
+            className="news flex-1 flex flex-col items-start justify-start w-full whitespace-pre-line"
             dangerouslySetInnerHTML={{ __html: news.content[lang] }}
           ></div>
         </div>

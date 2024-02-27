@@ -19,7 +19,7 @@ export default function AdminCurriculumPage() {
   );
   const [activePageData, setActivePageData] = useState([] as any);
   const [lang, setLang] = useState<"en" | "zh">("en");
-  const [activeTab, setActiveTab] = useState("");
+  const [activeTab, setActiveTab] = useState("elementary");
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
   const activeTabData = useMemo(
@@ -32,7 +32,7 @@ export default function AdminCurriculumPage() {
     values: activeTabData,
   });
 
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append, remove, move } = useFieldArray({
     control,
     name: "curriculums",
   });
@@ -70,10 +70,9 @@ export default function AdminCurriculumPage() {
     setLoading(true);
     fetchPageData().then((data) => {
       setActivePageData(data);
-      setActiveTab(tabList[0]);
       setLoading(false);
     });
-  }, [tabList]);
+  }, []);
 
   useEffect(() => {
     loadPageData();
@@ -99,6 +98,14 @@ export default function AdminCurriculumPage() {
   const removeCurriculum = (index: number) => {
     if (window.confirm("Do you really want to remove this curriculum?")) {
       remove(index);
+    }
+  };
+
+  const handleMove = (index: number, direction: "up" | "down") => {
+    if (direction === "up") {
+      move(index, index - 1);
+    } else {
+      move(index, index + 1);
     }
   };
 
@@ -399,12 +406,37 @@ export default function AdminCurriculumPage() {
                                   )}
                                 ></textarea>
                               </td>
-
                               <td className="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
-                                <div onClick={() => removeCurriculum(index)}>
+                                <button
+                                  disabled={loading}
+                                  className="px-3 py-1 bg-red-800 font-base text-white border border-red-300 rounded-lg focus:outline-none"
+                                  onClick={() => removeCurriculum(index)}
+                                >
                                   Remove
-                                </div>
+                                </button>
                               </td>
+                              {index !== 0 && (
+                                <td className="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
+                                  <button
+                                    disabled={loading}
+                                    className="px-3 py-1 bg-amber-800 font-base text-white border border-amber-300 rounded-lg focus:outline-none"
+                                    onClick={() => handleMove(index, "up")}
+                                  >
+                                    Up
+                                  </button>
+                                </td>
+                              )}
+                              {index !== fields.length - 1 && (
+                                <td className="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
+                                  <button
+                                    disabled={loading}
+                                    className="px-3 py-1 bg-green-800 font-base text-white border border-green-300 rounded-lg focus:outline-none"
+                                    onClick={() => handleMove(index, "down")}
+                                  >
+                                    Down
+                                  </button>
+                                </td>
+                              )}
                             </tr>
                           )
                         )}

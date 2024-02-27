@@ -11,6 +11,25 @@ interface EdiorMenuProps {
   editor: Editor;
 }
 const EdiorMenu = ({ editor }: EdiorMenuProps) => {
+  const uploadFile = async (file: File) => {
+    const url = `/api/file`;
+    const form = new FormData();
+    form.append("file", file);
+    const res = await fetch(url, {
+      method: "POST",
+      body: form,
+    });
+    if (!res.ok) {
+      // This will activate the closest `error.js` Error Boundary
+      return window.alert("Failed to upload file");
+    }
+    return res.json();
+  };
+  const addImage = (url?: string) => {
+    if (url) {
+      editor.chain().focus().setImage({ src: url }).run();
+    }
+  };
   const items = [
     {
       title: "B",
@@ -88,6 +107,20 @@ const EdiorMenu = ({ editor }: EdiorMenuProps) => {
       ),
       action: () => editor.chain().focus().toggleCode().run(),
       isActive: () => editor.isActive("code"),
+    },
+    {
+      title: "Img",
+      icon: (
+        <Image
+          src={"/icons/Image.svg"}
+          width={12}
+          height={12}
+          alt="image"
+          objectFit="cover"
+        />
+      ),
+      action: () => document.getElementById("file")?.click(),
+      isActive: () => false,
     },
     {
       title: "Highlight",
@@ -207,6 +240,22 @@ const EdiorMenu = ({ editor }: EdiorMenuProps) => {
 
   return (
     <div className="editor__header flex flex-row gap-x-2">
+      <input
+        type="file"
+        id="file"
+        className="hidden"
+        accept="images/*"
+        onChange={(event) => {
+          const file = event.target.files?.[0];
+          if (file) {
+            uploadFile(file).then((data) => {
+              if (data.file) {
+                addImage(data.file);
+              }
+            });
+          }
+        }}
+      />
       {items.map((item, index) => (
         <Fragment key={index}>
           {item.type === "divider" ? (

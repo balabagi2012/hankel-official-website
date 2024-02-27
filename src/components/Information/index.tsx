@@ -1,12 +1,14 @@
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Title from "../Title";
 import Typography from "../Typography";
-
 import { InformationEntity } from "@/app/api/information/route";
 import Link from "next/link";
-import Banner from "../Banner";
 import Event from "../Event";
+import Footer from "../Footer";
 import Section from "../Section";
+
+const Banner = dynamic(() => import("../Banner"), { ssr: false });
 
 export const getInformation = async (
   name: string
@@ -39,7 +41,10 @@ export default async function Information(props: InformationProps) {
           <Title full align="center" type={type} lang={lang}>
             {information.admissionBrochure.title[lang]}
           </Title>
-          <Typography varient="h5" className="text-textGray">
+          <Typography
+            varient="h5"
+            className="text-textGray text-left whitespace-pre-line"
+          >
             {information.admissionBrochure.description[lang]}
           </Typography>
           <Link
@@ -65,7 +70,10 @@ export default async function Information(props: InformationProps) {
             <Title full align="left" type={type} lang={lang}>
               {information.informationSession.title[lang]}
             </Title>
-            <Typography varient="h5" className="text-textGray text-start mb-8">
+            <Typography
+              varient="h5"
+              className="text-textGray text-start mb-8 whitespace-pre-line"
+            >
               {information.informationSession.description[lang]}
             </Typography>
           </div>
@@ -104,9 +112,10 @@ export default async function Information(props: InformationProps) {
           <Title full align="left" type={type} lang={lang}>
             {lang === "en" ? "Calendar" : "行事曆"}
           </Title>
-          <Event lang={lang} category={name} />
+          <Event lang={lang} category={name} calendar={information.calendar} />
         </div>
       </Section>
+      <Footer lang={lang} name={name} />
     </main>
   );
 }

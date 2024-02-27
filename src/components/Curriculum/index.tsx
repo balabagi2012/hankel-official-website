@@ -1,10 +1,13 @@
 import { CurriculumEntity } from "@/app/api/curriculum/route";
-import Banner from "../Banner";
+import { chunk } from "lodash";
+import dynamic from "next/dynamic";
 import Card from "../Card";
+import Footer from "../Footer";
 import Section from "../Section";
 import Title from "../Title";
 import Typography from "../Typography";
-import { chunk } from "lodash";
+
+const Banner = dynamic(() => import("../Banner"), { ssr: false });
 
 export interface CurriculumProps {
   type?: "kindergarten" | "subschool";
@@ -35,20 +38,23 @@ export default async function Curriculum(props: CurriculumProps) {
           <Title full align="center" type={type} lang={lang}>
             {curriculum.title[lang]}
           </Title>
-          <Typography varient="h5" className="text-textGray text-center">
+          <Typography
+            varient="h5"
+            className="text-textGray text-left whitespace-pre-line"
+          >
             {curriculum.description[lang]}
           </Typography>
         </div>
       </Section>
       <Section className="bg-white">
-        <div className="flex flex-col w-full md:w-[1024px]">
+        <div className="flex flex-col w-full md:w-[768px] lg:w-[1024px] xl:w-[1280px]">
           <Title full align="left" type={type} lang={lang}>
             {curriculum.curriculumTitle[lang]}
           </Title>
-          {chunk(curriculum.curriculums, 3).map((elements, chunkIndex) => (
+          {chunk(curriculum.curriculums, 4).map((elements, chunkIndex) => (
             <div
               key={`curriculum-chunk-${chunkIndex}`}
-              className="flex flex-col md:flex-row justify-between md:flex-wrap md:gap-y-10 items-center"
+              className="w-full flex flex-col justify-start items-center md:items-start md:flex-row md:flex-wrap md:mt-10"
             >
               {elements.map((element, index) => (
                 <Card
@@ -67,6 +73,7 @@ export default async function Curriculum(props: CurriculumProps) {
           ))}
         </div>
       </Section>
+      <Footer lang={lang} name={name} />
     </main>
   );
 }

@@ -8,11 +8,11 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 export default function AdminAboutPage() {
   const pageName = "about";
   const tabList = useMemo(
-    () => ["home", "dayCare", "elementary", "kindergarten", "highSchool"],
+    () => ["home", "afterSchool", "elementary", "kindergarten", "highSchool"],
     []
   );
   const [activePageData, setActivePageData] = useState([] as any);
-  const [activeTab, setActiveTab] = useState("");
+  const [activeTab, setActiveTab] = useState("home");
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [lang, setLang] = useState<"en" | "zh">("en");
@@ -61,10 +61,9 @@ export default function AdminAboutPage() {
     setLoading(true);
     fetchPageData().then((data) => {
       setActivePageData(data);
-      setActiveTab(tabList[0]);
       setLoading(false);
     });
-  }, [tabList]);
+  }, []);
 
   useEffect(() => {
     loadPageData();
@@ -249,6 +248,12 @@ export default function AdminAboutPage() {
                           <th className="px-6 py-3 text-left font-medium">
                             Section1 Content 4 [{lang}]
                           </th>
+                          <th className="px-6 py-3 text-left font-medium">
+                            Section1 Img1 [Free Size]
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium">
+                            Section1 Img2 [Free Size]
+                          </th>
                         </tr>
                       </thead>
                       <tbody className="bg-white">
@@ -292,6 +297,114 @@ export default function AdminAboutPage() {
                                 `sections.0.texts.3.content.${lang}`
                               )}
                             ></textarea>
+                          </td>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <Controller
+                              name={"sections.0.imgs.0"}
+                              control={control}
+                              render={({ field }) => (
+                                <div className="flex-1 flex flex-col items-start justify-start">
+                                  <input
+                                    className="w-full border px-4 py-2 mb-4 mt-2"
+                                    value={field.value as string}
+                                    onChange={(event) => {
+                                      field.onChange(event.target.value);
+                                    }}
+                                  ></input>
+                                  <input
+                                    type="file"
+                                    accept="images/*"
+                                    id={`file-section.0.img.0`}
+                                    className="invisible h-0"
+                                    onChange={(event) => {
+                                      const file = event.target.files?.[0];
+                                      if (file) {
+                                        uploadFile(file).then((data) => {
+                                          field.onChange(data.file);
+                                        });
+                                      }
+                                    }}
+                                  />
+                                  {field.value &&
+                                    (field.value.startsWith("/") ||
+                                      field.value.startsWith("http")) && (
+                                      <Image
+                                        width={500}
+                                        height={500}
+                                        alt={field.value}
+                                        src={field.value}
+                                      />
+                                    )}
+                                  <button
+                                    className="bg-blue mt-1 px-2 py-2 rounded text-white"
+                                    disabled={uploading}
+                                    onClick={(event) => {
+                                      event.preventDefault();
+                                      event.stopPropagation();
+                                      document
+                                        .getElementById(`file-section.0.img.0`)
+                                        ?.click();
+                                    }}
+                                  >
+                                    {uploading ? "上傳圖片中" : "更換圖片"}
+                                  </button>
+                                </div>
+                              )}
+                            />
+                          </td>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <Controller
+                              name={"sections.0.imgs.1"}
+                              control={control}
+                              render={({ field }) => (
+                                <div className="flex-1 flex flex-col items-start justify-start">
+                                  <input
+                                    className="w-full border px-4 py-2 mb-4 mt-2"
+                                    value={field.value as string}
+                                    onChange={(event) => {
+                                      field.onChange(event.target.value);
+                                    }}
+                                  ></input>
+                                  <input
+                                    type="file"
+                                    accept="images/*"
+                                    id={`file-section.0.img.1`}
+                                    className="invisible h-0"
+                                    onChange={(event) => {
+                                      const file = event.target.files?.[0];
+                                      if (file) {
+                                        uploadFile(file).then((data) => {
+                                          field.onChange(data.file);
+                                        });
+                                      }
+                                    }}
+                                  />
+                                  {field.value &&
+                                    (field.value.startsWith("/") ||
+                                      field.value.startsWith("http")) && (
+                                      <Image
+                                        width={500}
+                                        height={500}
+                                        alt={field.value}
+                                        src={field.value}
+                                      />
+                                    )}
+                                  <button
+                                    className="bg-blue mt-1 px-2 py-2 rounded text-white"
+                                    disabled={uploading}
+                                    onClick={(event) => {
+                                      event.preventDefault();
+                                      event.stopPropagation();
+                                      document
+                                        .getElementById(`file-section.0.img.1`)
+                                        ?.click();
+                                    }}
+                                  >
+                                    {uploading ? "上傳圖片中" : "更換圖片"}
+                                  </button>
+                                </div>
+                              )}
+                            />
                           </td>
                         </tr>
                       </tbody>

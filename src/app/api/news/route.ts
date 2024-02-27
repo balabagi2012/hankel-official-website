@@ -32,7 +32,9 @@ export async function GET(req: Request) {
 
     const news = await db
       .collection("news")
-      .find(filter, { sort: { updateAt: -1 }, limit })
+      .find(filter)
+      .sort({ updatedAt: -1 })
+      .limit(limit)
       .toArray();
     if (!news) {
       return Response.json({ error: "News data not found" }, { status: 404 });

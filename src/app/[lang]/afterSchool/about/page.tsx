@@ -2,13 +2,13 @@ import About from "@/components/About";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Hankel - DayCare",
+  title: "Hankel - After School",
 };
 
-export default function DayCareAbout({
+export default function AfterSchoolAbout({
   params: { lang },
 }: {
   params: { lang: "en" | "zh" };
 }) {
-  return <About lang={lang} name="dayCare" type="subschool" />;
+  return <About lang={lang} name="afterSchool" type="subschool" />;
 }

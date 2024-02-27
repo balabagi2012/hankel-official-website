@@ -1,4 +1,3 @@
-import Banner from "@/components/Banner";
 import Curriculum from "@/components/Curriculum";
 import { Metadata } from "next";
 

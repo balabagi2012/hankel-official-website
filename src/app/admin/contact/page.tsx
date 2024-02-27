@@ -8,12 +8,13 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 export default function AdminContactPage() {
   const pageName = "contact";
   const tabList = useMemo(
-    () => ["home", "dayCare", "elementary", "kindergarten", "highSchool"],
+    () => ["home", "afterSchool", "elementary", "kindergarten", "highSchool"],
     []
   );
   const [activePageData, setActivePageData] = useState([] as any);
-  const [activeTab, setActiveTab] = useState("");
+  const [activeTab, setActiveTab] = useState("home");
   const [loading, setLoading] = useState(false);
+  const [logoVersion, setLogoVersion] = useState(0);
   const [uploading, setUploading] = useState(false);
   const [lang, setLang] = useState<"en" | "zh">("en");
 
@@ -60,20 +61,25 @@ export default function AdminContactPage() {
     setLoading(true);
     fetchPageData().then((data) => {
       setActivePageData(data);
-      setActiveTab(tabList[0]);
       setLoading(false);
     });
-  }, [tabList]);
+  }, []);
 
   useEffect(() => {
     loadPageData();
   }, [loadPageData]);
 
-  const uploadFile = async (file: File) => {
+  const uploadFile = async (
+    file: File,
+    fileName?: string,
+    filePath?: string
+  ) => {
     setUploading(true);
     const url = `/api/file`;
     const form = new FormData();
     form.append("file", file);
+    if (fileName) form.append("fileName", fileName);
+    if (filePath) form.append("filePath", filePath);
     const res = await fetch(url, {
       method: "POST",
       body: form,
@@ -226,6 +232,7 @@ export default function AdminContactPage() {
                                       if (file) {
                                         uploadFile(file).then((data) => {
                                           field.onChange(data.file);
+                                          handleSubmit(onSubmit);
                                         });
                                       }
                                     }}
@@ -234,8 +241,8 @@ export default function AdminContactPage() {
                                     (field.value.startsWith("/") ||
                                       field.value.startsWith("http")) && (
                                       <Image
-                                        width={500}
-                                        height={500}
+                                        width={720}
+                                        height={198}
                                         alt={field.value}
                                         src={field.value}
                                       />
@@ -248,6 +255,73 @@ export default function AdminContactPage() {
                                       event.stopPropagation();
                                       document
                                         .getElementById(`file-banner`)
+                                        ?.click();
+                                    }}
+                                  >
+                                    {uploading ? "上傳圖片中" : "更換圖片"}
+                                  </button>
+                                </div>
+                              )}
+                            />
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <table className="min-w-full">
+                      <thead>
+                        <tr className="bg-gray-50 border-b border-gray-200 text-xs leading-4 text-gray-500 uppercase tracking-wider">
+                          <th className="px-6 py-3 text-left font-medium">
+                            Logo [200x44][svg]
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white">
+                        <tr>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <Controller
+                              name={"logo"}
+                              control={control}
+                              render={({ field }) => (
+                                <div className="flex-1 flex flex-col items-start justify-start">
+                                  <input
+                                    type="file"
+                                    accept="image/svg+xml"
+                                    id={`file-logo`}
+                                    className="invisible h-0"
+                                    onChange={(event) => {
+                                      const file = event.target.files?.[0];
+                                      if (file) {
+                                        uploadFile(
+                                          file,
+                                          activeTab,
+                                          "logo"
+                                        ).then((data) => {
+                                          field.onChange(data.file);
+                                          setLogoVersion((v) => v + 1);
+                                        });
+                                      }
+                                    }}
+                                  />
+                                  {field.value &&
+                                    (field.value.startsWith("/") ||
+                                      field.value.startsWith("http")) && (
+                                      // eslint-disable-next-line @next/next/no-img-element
+                                      <img
+                                        width={200}
+                                        height={44}
+                                        alt={field.value + "?v=" + logoVersion}
+                                        src={field.value + "?v=" + logoVersion}
+                                        key={logoVersion}
+                                      />
+                                    )}
+                                  <button
+                                    className="bg-blue mt-1 px-2 py-2 rounded text-white"
+                                    disabled={uploading}
+                                    onClick={(event) => {
+                                      event.preventDefault();
+                                      event.stopPropagation();
+                                      document
+                                        .getElementById(`file-logo`)
                                         ?.click();
                                     }}
                                   >

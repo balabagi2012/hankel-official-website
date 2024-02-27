@@ -15,6 +15,10 @@ export default function AdminLayout({
     <html lang="en">
       <head>
         <link rel="icon" href="/uploads/favicon.ico" sizes="24x24" />
+        <meta
+          name="format-detection"
+          content="telephone=no, date=no, email=no, address=no"
+        />
       </head>
       <body>
         <div className="relative flex-row w-full h-full">

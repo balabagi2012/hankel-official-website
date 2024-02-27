@@ -1,9 +1,12 @@
-import Banner from "../Banner";
+import dynamic from "next/dynamic";
 import ContactForm from "../ContactForm";
 import ContactInfo from "../ContactInfo";
+import Footer from "../Footer";
 import LatestNews from "../LatestNews";
 import { Program } from "../Program";
 import Section from "../Section";
+
+const Banner = dynamic(() => import("../Banner"), { ssr: false });
 
 const getHome = async (lang: "en" | "zh") => {
   const res = await fetch(`${process.env.API_URI}/api/home/?lang=${lang}`, {
@@ -50,10 +53,11 @@ export default async function HomePage(props: HomePageProps) {
     <main>
       <Banner
         size="big"
-        src={data.banner}
+        src={data.banners[0]}
         title={data.title[lang]}
         subtitle={data.subtitle[lang]}
         description={data.description[lang]}
+        banners={data.banners}
         lang={lang}
       ></Banner>
       <Program
@@ -72,9 +76,10 @@ export default async function HomePage(props: HomePageProps) {
       <Section>
         <div className="flex flex-col md:flex-row w-full md:w-[1024px] items-stretch">
           <ContactInfo lang={lang} type="subschool" contact={data.contact} />
-          <ContactForm lang={lang} name={name} />
+          <ContactForm lang={lang} name={name} mail={data.contact.email} />
         </div>
       </Section>
+      <Footer lang={lang} name={name} />
     </main>
   );
 }
