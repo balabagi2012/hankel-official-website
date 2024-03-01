@@ -1,7 +1,7 @@
 import { connectToDatabase } from "@/utils/mongodb";
-import { Text } from "../model";
+import { Seo, Text } from "../model";
 
-export interface FacilityEntity {
+export interface FacilityEntity extends Seo {
   name: string;
   banner: string;
   title: Text;

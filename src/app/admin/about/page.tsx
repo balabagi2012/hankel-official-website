@@ -22,7 +22,6 @@ export default function AdminAboutPage() {
       activePageData?.find(({ name }: { name: string }) => name === activeTab),
     [activePageData, activeTab]
   );
-  console.log(activeTabData);
 
   const { register, control, handleSubmit } = useForm({
     values: activeTabData,
