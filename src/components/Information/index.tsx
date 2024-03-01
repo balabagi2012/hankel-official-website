@@ -7,6 +7,7 @@ import Link from "next/link";
 import Event from "../Event";
 import Footer from "../Footer";
 import Section from "../Section";
+import Head from "next/head";
 
 const Banner = dynamic(() => import("../Banner"), { ssr: false });
 
@@ -35,6 +36,23 @@ export default async function Information(props: InformationProps) {
   const information = await getInformation(name);
   return (
     <main className="pt-[50px] md:pt-[200px]">
+      <Head>
+        <link
+          rel="alternate"
+          href={`/zh/${name}/information`}
+          hrefLang="x-default"
+        />
+        <link
+          rel="alternate"
+          href={`/en/${name}/information`}
+          hrefLang="en-US"
+        />
+        <link
+          rel="alternate"
+          href={`/zh/${name}/information`}
+          hrefLang="zh-TW"
+        />
+      </Head>
       <Banner size="small" src={information.banner} lang={lang}></Banner>
       <Section className="bg-bgGray">
         <div className="flex flex-col w-full md:w-[1024px]">

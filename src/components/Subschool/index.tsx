@@ -12,6 +12,7 @@ import LatestNews from "../LatestNews";
 import Section from "../Section";
 import Title from "../Title";
 import Typography from "../Typography";
+import Head from "next/head";
 
 const Banner = dynamic(() => import("../Banner"), { ssr: false });
 
@@ -96,6 +97,11 @@ export default async function Subschool(props: SubschoolProps) {
 
   return (
     <main className="pt-[50px] md:pt-[200px]">
+      <Head>
+        <link rel="alternate" href={`/zh/${name}`} hrefLang="x-default" />
+        <link rel="alternate" href={`/en/${name}`} hrefLang="en-US" />
+        <link rel="alternate" href={`/zh/${name}`} hrefLang="zh-TW" />
+      </Head>
       <Banner size="small" src={data.banner} lang={lang} />
       <Section className="bg-bgGray">
         <Title align="center" type={name} lang={lang}>
