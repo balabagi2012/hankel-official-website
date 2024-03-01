@@ -587,6 +587,108 @@ export default function AdminInformationPage() {
                         </tr>
                       </tbody>
                     </table>
+                    <table className="min-w-full">
+                      <thead>
+                        <tr className="bg-gray-50 border-b border-gray-200 text-xs leading-4 text-gray-500 uppercase tracking-wider">
+                          <th className="px-6 py-3 text-left font-medium">
+                            SEO Title [{lang}]
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium">
+                            SEO Description [{lang}]
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white">
+                        <tr>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <textarea
+                              className="text-sm leading-5 text-gray-900 border w-full"
+                              {...register(`seoTitle.${lang}`)}
+                            ></textarea>
+                          </td>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <textarea
+                              className="text-sm leading-5 text-gray-900 border w-full"
+                              {...register(`seoDescription.${lang}`)}
+                            ></textarea>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <table className="min-w-full">
+                      <thead>
+                        <tr className="bg-gray-50 border-b border-gray-200 text-xs leading-4 text-gray-500 uppercase tracking-wider">
+                          <th className="px-6 py-3 text-left font-medium">
+                            h1 [{lang}]
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium">
+                            h2 [{lang}]
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium">
+                            h3 [{lang}]
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white">
+                        <tr>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <textarea
+                              className="text-sm leading-5 text-gray-900 border w-full"
+                              {...register(`h1.${lang}`)}
+                            ></textarea>
+                          </td>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <textarea
+                              className="text-sm leading-5 text-gray-900 border w-full"
+                              {...register(`h2.${lang}`)}
+                            ></textarea>
+                          </td>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <textarea
+                              className="text-sm leading-5 text-gray-900 border w-full"
+                              {...register(`h3.${lang}`)}
+                            ></textarea>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <table className="min-w-full">
+                      <thead>
+                        <tr className="bg-gray-50 border-b border-gray-200 text-xs leading-4 text-gray-500 uppercase tracking-wider">
+                          <th className="px-6 py-3 text-left font-medium">
+                            h4 [{lang}]
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium">
+                            h5 [{lang}]
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium">
+                            h6 [{lang}]
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white">
+                        <tr>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <textarea
+                              className="text-sm leading-5 text-gray-900 border w-full"
+                              {...register(`h4.${lang}`)}
+                            ></textarea>
+                          </td>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <textarea
+                              className="text-sm leading-5 text-gray-900 border w-full"
+                              {...register(`h5.${lang}`)}
+                            ></textarea>
+                          </td>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <textarea
+                              className="text-sm leading-5 text-gray-900 border w-full"
+                              {...register(`h6.${lang}`)}
+                            ></textarea>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </form>
               )}
