@@ -58,7 +58,6 @@ export default async function About(props: AboutProps) {
           hrefLang="zh-TW"
         />
       </Head>
-      <SeoHeading {...data} lang={lang} />
       <Banner
         size={type === "home" ? "large" : "small"}
         src={data.banner ?? "/banners/school.png"}
@@ -68,6 +67,7 @@ export default async function About(props: AboutProps) {
       ></Banner>
       <Section className="bg-bgGray">
         <div className="flex flex-col-reverse md:flex-row w-full md:w-[1180px] justify-center items-stretch">
+          <SeoHeading {...data} lang={lang} />
           <div className="flex flex-col md:mr-[65px] gap-y-5">
             {data.sections[0].imgs.map((img) => (
               <Image
