@@ -1,5 +1,5 @@
 import { connectToDatabase } from "@/utils/mongodb";
-import { Text } from "../model";
+import { Seo, Text } from "../model";
 
 export interface ContactBanner {
   img: string;
@@ -7,7 +7,7 @@ export interface ContactBanner {
   description?: Text;
 }
 
-export interface ContactEntity {
+export interface ContactEntity extends Seo {
   name: string;
   logo: string;
   banner: ContactBanner;

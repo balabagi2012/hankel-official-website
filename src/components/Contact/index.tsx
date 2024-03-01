@@ -4,6 +4,7 @@ import ContactForm from "../ContactForm";
 import ContactInfo from "../ContactInfo";
 import Footer from "../Footer";
 import Section from "../Section";
+import Head from "next/head";
 
 const Banner = dynamic(() => import("../Banner"), { ssr: false });
 
@@ -36,6 +37,23 @@ export default async function Contact(props: ContactProps) {
         type === "home" ? "md:pt-[80px]" : "md:pt-[200px]"
       }`}
     >
+      <Head>
+        <link
+          rel="alternate"
+          href={type === "home" ? "/zh/contact" : `/zh/${name}/contact`}
+          hrefLang="x-default"
+        />
+        <link
+          rel="alternate"
+          href={type === "home" ? "/en/contact" : `/en/${name}/contact`}
+          hrefLang="en-US"
+        />
+        <link
+          rel="alternate"
+          href={type === "home" ? "/zh/contact" : `/zh/${name}/contact`}
+          hrefLang="zh-TW"
+        />
+      </Head>
       <Banner
         size={type === "home" ? "large" : "small"}
         src={data.banner.img ?? "/banners/contact.png"}

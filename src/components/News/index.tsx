@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import Card from "../Card";
 import Section from "../Section";
 import Title from "../Title";
+import Head from "next/head";
 
 const Banner = dynamic(() => import("../Banner"), { ssr: false });
 
@@ -30,6 +31,23 @@ export default async function News({ name, lang }: NewsProps) {
   const news = await fetchLatestNews(name);
   return (
     <main className="pt-[50px] md:pt-[80px]">
+      <Head>
+        <link
+          rel="alternate"
+          href={`/zh/${name}/news`}
+          hrefLang="x-default"
+        />
+        <link
+          rel="alternate"
+          href={`/en/${name}/news`}
+          hrefLang="en-US"
+        />
+        <link
+          rel="alternate"
+          href={`/zh/${name}/news`}
+          hrefLang="zh-TW"
+        />
+      </Head>
       <Banner size="large" src="/banners/news.png" lang={lang}></Banner>
       <Section className="bg-bgGray">
         <div className="flex flex-col w-full p-4 md:p-0">

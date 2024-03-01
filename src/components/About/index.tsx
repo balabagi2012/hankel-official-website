@@ -6,6 +6,8 @@ import Typography from "../Typography";
 import { AboutEntity } from "@/app/api/about/route";
 import Footer from "../Footer";
 import Section from "../Section";
+import SeoHeading from "../SeoHeading";
+import Head from "next/head";
 
 const Banner = dynamic(() => import("../Banner"), { ssr: false });
 
@@ -39,6 +41,24 @@ export default async function About(props: AboutProps) {
         type === "home" ? "md:pt-[80px]" : "md:pt-[200px]"
       }`}
     >
+      <Head>
+        <link
+          rel="alternate"
+          href={type === "home" ? "/zh/about" : `/zh/${name}/about`}
+          hrefLang="x-default"
+        />
+        <link
+          rel="alternate"
+          href={type === "home" ? "/en/about" : `/en/${name}/about`}
+          hrefLang="en-US"
+        />
+        <link
+          rel="alternate"
+          href={type === "home" ? "/zh/about" : `/zh/${name}/about`}
+          hrefLang="zh-TW"
+        />
+      </Head>
+      <SeoHeading {...data} lang={lang} />
       <Banner
         size={type === "home" ? "large" : "small"}
         src={data.banner ?? "/banners/school.png"}

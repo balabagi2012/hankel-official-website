@@ -30,7 +30,7 @@ export function middleware(request: NextRequest) {
     }
   }
   // Redirect if there is no locale
-  const locale = "en";
+  const locale = "zh";
   request.nextUrl.pathname = `/${locale}${pathname}`;
   return Response.redirect(request.nextUrl);
 }

@@ -6,6 +6,7 @@ import Footer from "../Footer";
 import Section from "../Section";
 import Title from "../Title";
 import Typography from "../Typography";
+import Head from "next/head";
 
 const Banner = dynamic(() => import("../Banner"), { ssr: false });
 
@@ -32,6 +33,15 @@ export default async function Curriculum(props: CurriculumProps) {
   const curriculum = await getCurriculum(name);
   return (
     <main className="pt-[50px] md:pt-[200px]">
+      <Head>
+        <link
+          rel="alternate"
+          href={`/zh/${name}/curriculum`}
+          hrefLang="x-default"
+        />
+        <link rel="alternate" href={`/en/${name}/curriculum`} hrefLang="en-US" />
+        <link rel="alternate" href={`/zh/${name}/curriculum`} hrefLang="zh-TW" />
+      </Head>
       <Banner size="small" src={curriculum.banner} lang={lang}></Banner>
       <Section className="bg-bgGray">
         <div className="flex flex-col w-full md:w-[700px]">

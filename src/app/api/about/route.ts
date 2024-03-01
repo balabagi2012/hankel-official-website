@@ -1,8 +1,8 @@
 import { connectToDatabase } from "@/utils/mongodb";
 
-import { Text } from "../model";
+import { Seo, Text } from "../model";
 
-export interface AboutEntity {
+export interface AboutEntity extends Seo {
   name: string;
   title: Text;
   description: Text;

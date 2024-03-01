@@ -5,6 +5,7 @@ import Footer from "../Footer";
 import LatestNews from "../LatestNews";
 import { Program } from "../Program";
 import Section from "../Section";
+import Head from "next/head";
 
 const Banner = dynamic(() => import("../Banner"), { ssr: false });
 
@@ -51,6 +52,11 @@ export default async function HomePage(props: HomePageProps) {
   const data = await getHomeData(name, lang);
   return (
     <main>
+      <Head>
+        <link rel="alternate" href="/zh" hrefLang="x-default" />
+        <link rel="alternate" href="/en" hrefLang="en-US" />
+        <link rel="alternate" href="/zh" hrefLang="zh-TW" />
+      </Head>
       <Banner
         size="big"
         src={data.banners[0]}
