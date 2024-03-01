@@ -4,6 +4,7 @@ import Section from "../Section";
 import Title from "../Title";
 import Typography from "../Typography";
 import "./index.scss";
+import SeoHeading from "../SeoHeading";
 
 interface NewsDetailProps {
   id: string;
@@ -24,6 +25,7 @@ export default async function NewsDetail({ id, lang }: NewsDetailProps) {
   return (
     <main className={`pt-[50px] bg-bgGray md:pt-[180px]`}>
       <Section className="bg-bgGray pt-2 md:pt-8">
+        <SeoHeading {...news} lang={lang} />
         <Link
           href={`/${lang}/${news.category}/news`}
           className="flex flex-row justify-start items-center mr-auto"
