@@ -5,6 +5,7 @@ import Typography from "../Typography";
 export interface ContactFormProps {
   lang?: "zh" | "en";
   name: string;
+  mail: string;
 }
 
 const sendMail = async (
@@ -54,7 +55,7 @@ const sendMail = async (
 };
 
 export default function ContactForm(props: ContactFormProps) {
-  const { lang = "en", name } = props;
+  const { lang = "en", name, mail } = props;
   const isKindergarten = name === "kindergarten";
   const defaultValues = {
     name: "",
@@ -74,7 +75,7 @@ export default function ContactForm(props: ContactFormProps) {
   });
 
   const onSubmit: SubmitHandler<any> = async (data: any) => {
-    sendMail(name, data.mail, "balabagi2012@gmail.com", data)
+    sendMail(name, data.mail, mail, data)
       .then(() => window.alert("Successed to send mail"))
       .catch(() => window.alert("Failed to send mail"));
   };

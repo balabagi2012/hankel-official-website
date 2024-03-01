@@ -1,14 +1,20 @@
 import { connectToDatabase } from "@/utils/mongodb";
-import { Text } from "../model";
+import { Seo, Text } from "../model";
 
-export interface InformationEntity {
+export interface InformationEntity extends Seo {
   name: string;
   banner: string;
   admissionBrochure: AdmissionBrochure;
   informationSession: InformationSession;
   lunchMenu: LunchMenu;
+  calendar: Calendar;
 }
 
+export interface Calendar {
+  text: Text;
+  img: string;
+  file: string;
+}
 export interface AdmissionBrochure {
   title: Text;
   description: Text;

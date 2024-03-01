@@ -20,28 +20,29 @@ export const GET = async () => {
 export const POST = async (req: NextRequest) => {
   const formData = await req.formData();
   const file: File | null = formData.get("file") as unknown as File;
+  let fileName: string | null = formData.get("fileName") as string;
+  const filePath: string | null = formData.get("filePath") as string;
 
   if (!file) {
     return Response.json({ error: "No files received" }, { status: 400 });
   }
 
   const buffer = Buffer.from(await file.arrayBuffer());
-  const filename =
-    Date.now() + "." + file.name.replaceAll(" ", "_").split(".")[1];
+  fileName = fileName
+    ? fileName + "." + file?.name?.replaceAll(" ", "_")?.split(".")[1]
+    : Date.now() + "." + file?.name?.replaceAll(" ", "_")?.split(".")[1];
 
   try {
-    const filePath = "/public/uploads/" + filename;
+    const finalFilePath = `/public/${filePath ?? "uploads"}/${fileName}`;
     await writeFile(
-      path.join(process.cwd(), "/public/uploads/" + filename),
+      path.join(process.cwd(), `/public/${filePath ?? "uploads"}/` + fileName),
       buffer
     );
-    return Response.json(
-      {
-        message: "File created successfully",
-        file: filePath.replaceAll("/public", ""),
-      },
-      { status: 201 }
-    );
+    const result = {
+      message: "File created successfully",
+      file: finalFilePath.replaceAll("/public", ""),
+    };
+    return Response.json(result, { status: 201 });
   } catch (error) {
     console.log((error as Error).message);
     return Response.json({ message: "Image created failed" }, { status: 500 });

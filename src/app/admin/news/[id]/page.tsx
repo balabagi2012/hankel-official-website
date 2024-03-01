@@ -1,5 +1,6 @@
 "use client";
 import EditorComponent from "@/components/Editor";
+import LangSwitch from "@/components/LangSwitch";
 import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import Link from "next/link";
@@ -19,6 +20,7 @@ export default function EditNewsPage({
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
   const router = useRouter();
+  const [lang, setLang] = useState<"en" | "zh">("en");
 
   const uploadFile = async (file: File) => {
     setUploading(true);
@@ -110,11 +112,12 @@ export default function EditNewsPage({
           </button>
           <button
             id="delete-button"
-            className="ml-2 px-3 py-1 bg-red-700 font-base text-white border border-gray-300 rounded-lg focus:outline-none"
+            className="ml-2 mr-2 px-3 py-1 bg-red-700 font-base text-white border border-gray-300 rounded-lg focus:outline-none"
             onClick={removeNews}
           >
             Remove
           </button>
+          <LangSwitch value={lang} onChange={(value) => setLang(value)} />
         </div>
         {loading ? (
           <div className="px-8 py-6 w-full h-screen bg-gray-200 overflow-scroll">
@@ -124,10 +127,10 @@ export default function EditNewsPage({
           <div className="px-8 py-6 w-full h-screen bg-gray-200 overflow-scroll">
             <div className="bg-white px-6 py-3 rounded shadow mt-4">
               <div>
-                <label>title[中文]</label>
+                <label>title[{lang === "zh" ? "中文" : "EN"}]</label>
                 <input
                   className="w-full border px-4 py-2 mb-4 mt-2"
-                  {...register("title.zh", {
+                  {...register(`title.${lang}`, {
                     required: true,
                   })}
                 ></input>
@@ -135,32 +138,10 @@ export default function EditNewsPage({
             </div>
             <div className="bg-white px-6 py-3 rounded shadow mt-4">
               <div>
-                <label>title[EN]</label>
+                <label>description[{lang === "zh" ? "中文" : "EN"}]</label>
                 <input
                   className="w-full border px-4 py-2 mb-4 mt-2"
-                  {...register("title.en", {
-                    required: true,
-                  })}
-                ></input>
-              </div>
-            </div>
-            <div className="bg-white px-6 py-3 rounded shadow mt-4">
-              <div>
-                <label>description[中文]</label>
-                <input
-                  className="w-full border px-4 py-2 mb-4 mt-2"
-                  {...register("description.zh", {
-                    required: true,
-                  })}
-                ></input>
-              </div>
-            </div>
-            <div className="bg-white px-6 py-3 rounded shadow mt-4">
-              <div>
-                <label>description[英文]</label>
-                <input
-                  className="w-full border px-4 py-2 mb-4 mt-2"
-                  {...register("description.en", {
+                  {...register(`description.${lang}`, {
                     required: true,
                   })}
                 ></input>
@@ -173,7 +154,7 @@ export default function EditNewsPage({
                   {...register("category")}
                   className="w-full border px-4 py-2 mb-4 mt-2"
                 >
-                  <option value="dayCare">dayCare</option>
+                  <option value="afterSchool">afterSchool</option>
                   <option value="kindergarten">kindergarten</option>
                   <option value="highSchool">highSchool</option>
                   <option value="elementary">elementary</option>
@@ -234,11 +215,14 @@ export default function EditNewsPage({
                 />
               </div>
             </div>
-            <div className="bg-white px-6 py-3 rounded shadow mt-4">
+            <div
+              className="bg-white px-6 py-3 rounded shadow mt-4"
+              key={`content[${lang}]`}
+            >
               <div>
-                <label>content[中文]</label>
+                <label>content[{lang === "zh" ? "中文" : "EN"}]</label>
                 <Controller
-                  name={"content.zh"}
+                  name={`content.${lang}`}
                   control={control}
                   render={({ field }) => (
                     <EditorComponent
@@ -250,19 +234,108 @@ export default function EditNewsPage({
               </div>
             </div>
             <div className="bg-white px-6 py-3 rounded shadow mt-4">
-              <div>
-                <label>content[英文]</label>
-                <Controller
-                  name={"content.en"}
-                  control={control}
-                  render={({ field }) => (
-                    <EditorComponent
-                      value={field.value}
-                      onChange={field.onChange}
-                    />
-                  )}
-                ></Controller>
-              </div>
+              <table className="min-w-full">
+                <thead>
+                  <tr className="bg-gray-50 border-b border-gray-200 text-xs leading-4 text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left font-medium">
+                      SEO Title [{lang}]
+                    </th>
+                    <th className="px-6 py-3 text-left font-medium">
+                      SEO Description [{lang}]
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white">
+                  <tr>
+                    <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                      <textarea
+                        className="text-sm leading-5 text-gray-900 border w-full"
+                        {...register(`seoTitle.${lang}`)}
+                      ></textarea>
+                    </td>
+                    <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                      <textarea
+                        className="text-sm leading-5 text-gray-900 border w-full"
+                        {...register(`seoDescription.${lang}`)}
+                      ></textarea>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table className="min-w-full">
+                <thead>
+                  <tr className="bg-gray-50 border-b border-gray-200 text-xs leading-4 text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left font-medium">
+                      h1 [{lang}]
+                    </th>
+                    <th className="px-6 py-3 text-left font-medium">
+                      h2 [{lang}]
+                    </th>
+                    <th className="px-6 py-3 text-left font-medium">
+                      h3 [{lang}]
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white">
+                  <tr>
+                    <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                      <textarea
+                        className="text-sm leading-5 text-gray-900 border w-full"
+                        {...register(`h1.${lang}`)}
+                      ></textarea>
+                    </td>
+                    <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                      <textarea
+                        className="text-sm leading-5 text-gray-900 border w-full"
+                        {...register(`h2.${lang}`)}
+                      ></textarea>
+                    </td>
+                    <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                      <textarea
+                        className="text-sm leading-5 text-gray-900 border w-full"
+                        {...register(`h3.${lang}`)}
+                      ></textarea>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <table className="min-w-full">
+                <thead>
+                  <tr className="bg-gray-50 border-b border-gray-200 text-xs leading-4 text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left font-medium">
+                      h4 [{lang}]
+                    </th>
+                    <th className="px-6 py-3 text-left font-medium">
+                      h5 [{lang}]
+                    </th>
+                    <th className="px-6 py-3 text-left font-medium">
+                      h6 [{lang}]
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white">
+                  <tr>
+                    <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                      <textarea
+                        className="text-sm leading-5 text-gray-900 border w-full"
+                        {...register(`h4.${lang}`)}
+                      ></textarea>
+                    </td>
+                    <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                      <textarea
+                        className="text-sm leading-5 text-gray-900 border w-full"
+                        {...register(`h5.${lang}`)}
+                      ></textarea>
+                    </td>
+                    <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                      <textarea
+                        className="text-sm leading-5 text-gray-900 border w-full"
+                        {...register(`h6.${lang}`)}
+                      ></textarea>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         )}

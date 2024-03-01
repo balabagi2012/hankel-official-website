@@ -19,39 +19,35 @@ export default function Header() {
 
   const otherNavItemList = [
     {
-      path: `/${language}/about`,
-      label: language === "zh" ? "關於我們" : `About`,
-    },
-    {
       path: `/${language}/contact`,
-      label: language === "zh" ? "聯絡" : `Contact`,
-    },
-    {
-      path: `https://google.com`,
-      label: language === "zh" ? "學生資訊系統" : `Student Portal`,
+      label: language === "zh" ? "聯絡我們" : `Contact`,
     },
   ];
 
   const subSchoolDropDownItemList = [
     {
-      path: `/${language}/dayCare`,
-      label: language === "zh" ? "翰科安親班" : `DayCare`,
+      path: `/${language}/kindergarten`,
+      label: language === "zh" ? "翰科幼兒園" : `Kindergarten`,
     },
     {
       path: `/${language}/elementary`,
-      label: language === "zh" ? "翰科小學" : `Elementary`,
-    },
-    {
-      path: `/${language}/kindergarten`,
-      label: language === "zh" ? "翰科幼稚園" : `Kindergarten`,
+      label: language === "zh" ? "翰科實驗小學" : `Elementary`,
     },
     {
       path: `/${language}/highSchool`,
-      label: language === "zh" ? "翰科高中" : `HighSchool`,
+      label: language === "zh" ? "翰科實驗中學" : `High School`,
+    },
+    {
+      path: `/${language}/afterSchool`,
+      label: language === "zh" ? "翰科安親班" : `After School`,
     },
   ];
 
   const homepageNavItemList = [
+    {
+      path: `/${language}/about`,
+      label: language === "zh" ? "關於我們" : `About`,
+    },
     {
       path: `/${language}`,
       label: language === "zh" ? "首頁" : `Home`,
@@ -61,59 +57,49 @@ export default function Header() {
   ];
 
   const getSubSchoolZhLabel = (subSchool: string) => {
+    // REMARK: Ask by client to change.
+    return `校園動態`;
     switch (subSchool) {
-      case "dayCare":
+      case "afterSchool":
         return "翰科安親班";
       case "elementary":
-        return "翰科小學";
+        return "翰科實驗小學";
       case "kindergarten":
-        return "翰科幼稚園";
+        return "翰科幼兒園";
       case "highSchool":
-        return "翰科高中";
+        return "翰科實驗中學";
       default:
         return "";
     }
   };
 
   const subSchoolNavItemList =
-    subSchool === "dayCare"
+    subSchool === "afterSchool"
       ? [
-          {
-            path: `/${language}/${subSchool}`,
-            label:
-              language === "zh"
-                ? getSubSchoolZhLabel(subSchool)
-                : `Hankel ${
-                    subSchool.charAt(0).toUpperCase() + subSchool.slice(1)
-                  }`,
-          },
           {
             path: `/${language}/${subSchool}/about`,
             label: language === "zh" ? "關於我們" : `About`,
           },
           {
-            path: `/${language}/${subSchool}/information`,
-            label: language === "zh" ? "其他資訊" : `Information`,
+            path: `/${language}/${subSchool}`,
+            label:
+              language === "zh" ? getSubSchoolZhLabel(subSchool) : `Highlights`,
           },
           {
             path: `/${language}/${subSchool}/contact`,
-            label: language === "zh" ? "聯絡" : `Contact`,
-          },
-          {
-            path: `https://google.com`,
-            label: language === "zh" ? "學生資訊系統" : `Student Portal`,
+            label: language === "zh" ? "聯絡我們" : `Contact`,
           },
         ]
       : subSchool === "kindergarten"
       ? [
           {
+            path: `/${language}/${subSchool}/about`,
+            label: language === "zh" ? "關於我們" : `About`,
+          },
+          {
             path: `/${language}/${subSchool}`,
             label:
-              language === "zh"
-                ? getSubSchoolZhLabel(subSchool)
-                : `Hankel ${
-                    subSchool.charAt(0).toUpperCase() + subSchool.slice(1)
-                  }`,
+              language === "zh" ? getSubSchoolZhLabel(subSchool) : `Highlights`,
           },
           {
             path: `/${language}/${subSchool}/curriculum`,
@@ -121,34 +107,32 @@ export default function Header() {
           },
           {
             path: `/${language}/${subSchool}/facilities`,
-            label: language === "zh" ? "設施概略" : `Our Facilities`,
+            label: language === "zh" ? "校園導覽" : `Our Facilities`,
           },
           {
             path: `/${language}/${subSchool}/team`,
-            label: language === "zh" ? "團隊介紹" : `Our Team`,
-          },
-          {
-            path: `/${language}/${subSchool}/about`,
-            label: language === "zh" ? "關於我們" : `About`,
+            label: language === "zh" ? "教師團隊" : `Our Team`,
           },
           {
             path: `/${language}/${subSchool}/information`,
-            label: language === "zh" ? "其他資訊" : `Information`,
+            label: language === "zh" ? "入學資訊" : `Information`,
           },
           {
             path: `/${language}/${subSchool}/contact`,
-            label: language === "zh" ? "聯絡" : `Contact`,
+            label: language === "zh" ? "聯絡我們" : `Contact`,
           },
         ]
       : [
           {
+            path: `/${language}/${subSchool}/about`,
+            label: language === "zh" ? "關於我們" : `About`,
+          },
+          {
             path: `/${language}/${subSchool}`,
             label:
               language === "zh"
                 ? getSubSchoolZhLabel(subSchool)
-                : `Hankel ${
-                    subSchool.charAt(0).toUpperCase() + subSchool.slice(1)
-                  }`,
+                : `Highlights`,
           },
           {
             path: `/${language}/${subSchool}/curriculum`,
@@ -156,23 +140,20 @@ export default function Header() {
           },
           {
             path: `/${language}/${subSchool}/facilities`,
-            label: language === "zh" ? "設施概略" : `Our Facilities`,
+            label: language === "zh" ? "校園導覽" : `Our Facilities`,
           },
           {
             path: `/${language}/${subSchool}/team`,
-            label: language === "zh" ? "團隊介紹" : `Our Team`,
+            label: language === "zh" ? "教師團隊" : `Our Team`,
           },
-          {
-            path: `/${language}/${subSchool}/about`,
-            label: language === "zh" ? "關於我們" : `About`,
-          },
+
           {
             path: `/${language}/${subSchool}/information`,
-            label: language === "zh" ? "其他資訊" : `Information`,
+            label: language === "zh" ? "入學資訊" : `Information`,
           },
           {
             path: `/${language}/${subSchool}/contact`,
-            label: language === "zh" ? "聯絡" : `Contact`,
+            label: language === "zh" ? "聯絡我們" : `Contact`,
           },
         ];
 
@@ -182,10 +163,10 @@ export default function Header() {
         setLanguage(pathname.slice(1, 3));
       }
       const subSchool = [
-        "dayCare",
-        "elementary",
         "kindergarten",
+        "elementary",
         "highSchool",
+        "afterSchool",
       ].find((subSchool) => pathname.indexOf(subSchool) >= 0);
       if (subSchool) {
         setIsSubHeader(true);
@@ -215,7 +196,7 @@ export default function Header() {
         className={`${
           pathname === path
             ? `font-bold text-blue ${
-                subSchool === "kindergarten"
+                subSchool === "kindergarten" && language === "en"
                   ? kindergarten.className
                   : notoSans.className
               }`
@@ -239,7 +220,7 @@ export default function Header() {
           className="flex items-center w-[150px] h-[32px] md:w-[200px] md:[h-42px] mr-auto ml-3 md:ml-0"
         >
           <Image
-            src="/icons/logo.svg"
+            src={`/logo/${subSchool?.length > 0 ? subSchool : "home"}.svg`}
             alt="hankel logo"
             className="w-[150px] h-[32px] md:w-[200px] md:[h-42px]"
             width="200"
@@ -294,6 +275,22 @@ export default function Header() {
             </div>
           ) : (
             <div className="flex flex-row  items-center gap-x-[56px]">
+              <Link
+                href={`/${language}/about`}
+                className={`py-1 border-deepBlue text-blue ${
+                  pathname === `/${language}/about` ? "border-b-2" : ""
+                }`}
+                rel="noopener noreferrer"
+              >
+                <Typography
+                  varient="h6"
+                  className={`text-blue ${
+                    pathname === `/${language}/about` ? "font-bold" : ""
+                  }`}
+                >
+                  {language === "zh" ? "關於我們" : `About`}
+                </Typography>
+              </Link>
               <Link
                 href={`/${language}`}
                 className={`py-1 border-deepBlue text-blue ${
@@ -483,6 +480,23 @@ export default function Header() {
                       </Link>
                     );
                   }
+                )}
+                {language === "zh" ? (
+                  <div
+                    className={`mt-3`}
+                    rel="noopener noreferrer"
+                    onClick={() => handleLanguageChange("en")}
+                  >
+                    <Typography varient="h5">English</Typography>
+                  </div>
+                ) : (
+                  <div
+                    className={`mt-3`}
+                    rel="noopener noreferrer"
+                    onClick={() => handleLanguageChange("zh")}
+                  >
+                    <Typography varient="h5">中文</Typography>
+                  </div>
                 )}
               </div>
             </div>

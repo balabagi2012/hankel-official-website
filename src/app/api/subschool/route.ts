@@ -1,8 +1,8 @@
 import { connectToDatabase } from "@/utils/mongodb";
 import { NextRequest } from "next/server";
-import { Text } from "../model";
+import { Seo, Text } from "../model";
 
-export interface SubschoolEntity {
+export interface SubschoolEntity extends Seo {
   name: string;
   title: Text;
   description: Text;

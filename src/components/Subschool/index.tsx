@@ -1,18 +1,23 @@
+import { ContactEntity } from "@/app/api/contact/route";
+import { SubschoolEntity } from "@/app/api/subschool/route";
 import { kindergarten } from "@/app/styles/fonts";
+import { chunk } from "lodash";
+import dynamic from "next/dynamic";
 import Image from "next/image";
-import Banner from "../Banner";
 import Card from "../Card";
 import ContactForm from "../ContactForm";
 import ContactInfo from "../ContactInfo";
-import Title from "../Title";
-import Typography from "../Typography";
+import Footer from "../Footer";
 import LatestNews from "../LatestNews";
 import Section from "../Section";
-import { ContactEntity } from "@/app/api/contact/route";
-import { SubschoolEntity } from "@/app/api/subschool/route";
+import Title from "../Title";
+import Typography from "../Typography";
+import Head from "next/head";
+
+const Banner = dynamic(() => import("../Banner"), { ssr: false });
 
 interface SubschoolProps {
-  name: "dayCare" | "elementary" | "kindergarten" | "highSchool";
+  name: "afterSchool" | "elementary" | "kindergarten" | "highSchool";
   lang: "en" | "zh";
 }
 
@@ -53,7 +58,7 @@ const getInstagramPosts = async (
   accessToken: string
 ): Promise<InstagramPostsResponse> => {
   const res = await fetch(
-    `https://graph.instagram.com/me/media?fields=id,media_url&access_token=${accessToken}`,
+    `https://graph.instagram.com/me/media?fields=id,media_type,media_url&access_token=${accessToken}`,
     {
       cache: "no-cache",
     }
@@ -62,8 +67,10 @@ const getInstagramPosts = async (
     // This will activate the closest `error.js` Error Boundary
     throw new Error("Failed to fetch data");
   }
-
-  return res.json();
+  const result = await res.json();
+  return {
+    data: result.data.filter((item: any) => item.media_type === "IMAGE"),
+  };
 };
 
 const getSubschoolData = async (name: string) => {
@@ -90,28 +97,40 @@ export default async function Subschool(props: SubschoolProps) {
 
   return (
     <main className="pt-[50px] md:pt-[200px]">
+      <Head>
+        <link rel="alternate" href={`/zh/${name}`} hrefLang="x-default" />
+        <link rel="alternate" href={`/en/${name}`} hrefLang="en-US" />
+        <link rel="alternate" href={`/zh/${name}`} hrefLang="zh-TW" />
+      </Head>
       <Banner size="small" src={data.banner} lang={lang} />
       <Section className="bg-bgGray">
         <Title align="center" type={name} lang={lang}>
           {data.title[lang]}
         </Title>
         <div className="w-full md:w-[1024px] flex-col items-center">
-          <Typography varient="h5" className="mb-[80px]">
+          <Typography varient="h5" className="mb-[80px] text-left">
             {data.description[lang]}
           </Typography>
-          <div className="flex flex-col items-start md:flex-row gap-4">
-            {data.experiences.map((element, index) => (
-              <Card
-                key={`experience ${index}`}
-                type={`course${name === "kindergarten" ? `-kindergarten` : ""}`}
-                img={element.img}
-                alt={element.title[lang]}
-                title={element.title[lang]}
-                description={element.description[lang]}
-                lang={lang}
-              ></Card>
-            ))}
-          </div>
+          {chunk(data.experiences, 3).map((element, index) => (
+            <div
+              key={"course-chunk" + index}
+              className="flex flex-col items-center md:items-start md:flex-row md:justify-start gap-4 w-full"
+            >
+              {element.map((element, index) => (
+                <Card
+                  key={`experience ${index}`}
+                  type={`course${
+                    name === "kindergarten" ? `-kindergarten` : ""
+                  }`}
+                  img={element.img}
+                  alt={element.title[lang]}
+                  title={element.title[lang]}
+                  description={element.description[lang]}
+                  lang={lang}
+                ></Card>
+              ))}
+            </div>
+          ))}
         </div>
       </Section>
       <Banner
@@ -193,9 +212,10 @@ export default async function Subschool(props: SubschoolProps) {
             type={name === "kindergarten" ? "kindergarten" : "subschool"}
             contact={data.contact}
           />
-          <ContactForm lang={lang} name={name} />
+          <ContactForm lang={lang} name={name} mail={data.contact.email} />
         </div>
       </Section>
+      <Footer lang={lang} name={name} />
     </main>
   );
 }

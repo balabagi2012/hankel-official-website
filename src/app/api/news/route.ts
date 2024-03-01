@@ -1,7 +1,7 @@
 import { connectToDatabase } from "@/utils/mongodb";
-import { Text } from "../model";
+import { Seo, Text } from "../model";
 
-export interface NewsEntity {
+export interface NewsEntity extends Seo {
   _id?: string;
   title: Text;
   description: Text;
@@ -32,7 +32,9 @@ export async function GET(req: Request) {
 
     const news = await db
       .collection("news")
-      .find(filter, { sort: { updateAt: -1 }, limit })
+      .find(filter)
+      .sort({ updatedAt: -1 })
+      .limit(limit)
       .toArray();
     if (!news) {
       return Response.json({ error: "News data not found" }, { status: 404 });

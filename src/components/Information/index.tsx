@@ -1,13 +1,15 @@
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Title from "../Title";
 import Typography from "../Typography";
-
 import { InformationEntity } from "@/app/api/information/route";
 import Link from "next/link";
-import LunchMenuImg from "../../../public/information/lunch.png";
-import Banner from "../Banner";
-import Section from "../Section";
 import Event from "../Event";
+import Footer from "../Footer";
+import Section from "../Section";
+import Head from "next/head";
+
+const Banner = dynamic(() => import("../Banner"), { ssr: false });
 
 export const getInformation = async (
   name: string
@@ -34,13 +36,33 @@ export default async function Information(props: InformationProps) {
   const information = await getInformation(name);
   return (
     <main className="pt-[50px] md:pt-[200px]">
+      <Head>
+        <link
+          rel="alternate"
+          href={`/zh/${name}/information`}
+          hrefLang="x-default"
+        />
+        <link
+          rel="alternate"
+          href={`/en/${name}/information`}
+          hrefLang="en-US"
+        />
+        <link
+          rel="alternate"
+          href={`/zh/${name}/information`}
+          hrefLang="zh-TW"
+        />
+      </Head>
       <Banner size="small" src={information.banner} lang={lang}></Banner>
       <Section className="bg-bgGray">
         <div className="flex flex-col w-full md:w-[1024px]">
           <Title full align="center" type={type} lang={lang}>
             {information.admissionBrochure.title[lang]}
           </Title>
-          <Typography varient="h5" className="text-textGray">
+          <Typography
+            varient="h5"
+            className="text-textGray text-left whitespace-pre-line"
+          >
             {information.admissionBrochure.description[lang]}
           </Typography>
           <Link
@@ -66,7 +88,10 @@ export default async function Information(props: InformationProps) {
             <Title full align="left" type={type} lang={lang}>
               {information.informationSession.title[lang]}
             </Title>
-            <Typography varient="h5" className="text-textGray text-start mb-8">
+            <Typography
+              varient="h5"
+              className="text-textGray text-start mb-8 whitespace-pre-line"
+            >
               {information.informationSession.description[lang]}
             </Typography>
           </div>
@@ -86,9 +111,11 @@ export default async function Information(props: InformationProps) {
           </Title>
           <div className="w-full">
             <Image
-              src={LunchMenuImg}
+              src={information.lunchMenu.img}
               alt="hankel Lunch Menu"
               sizes="100vw"
+              width="1268"
+              height="768"
               style={{
                 width: "100%",
                 height: "auto",
@@ -103,9 +130,10 @@ export default async function Information(props: InformationProps) {
           <Title full align="left" type={type} lang={lang}>
             {lang === "en" ? "Calendar" : "行事曆"}
           </Title>
-          <Event lang={lang} category={name} />
+          <Event lang={lang} category={name} calendar={information.calendar} />
         </div>
       </Section>
+      <Footer lang={lang} name={name} />
     </main>
   );
 }

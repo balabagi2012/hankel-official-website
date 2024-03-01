@@ -3,6 +3,7 @@
 import Highlight from "@tiptap/extension-highlight";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+import Image from "@tiptap/extension-image";
 
 import MenuBar from "@/components/MenuBar";
 import { useEffect, useRef } from "react";
@@ -22,6 +23,7 @@ const EditorComponent = (props: EditorComponentProps) => {
         },
       }),
       Highlight,
+      Image,
     ],
     content: "",
     onUpdate: ({ editor }) => {

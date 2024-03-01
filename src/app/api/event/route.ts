@@ -1,12 +1,11 @@
 import { connectToDatabase } from "@/utils/mongodb";
-import { Text } from "../model";
+import { Seo, Text } from "../model";
+import dayjs from "dayjs";
 
-export interface EventEntity {
+export interface EventEntity extends Seo {
   _id?: string;
   title: Text;
   category: string;
-  banner: string;
-  content: Text;
   date: string;
   updatedAt: number;
 }
@@ -24,7 +23,11 @@ export async function GET(req: Request) {
     }
 
     if (searchParams.has("date")) {
-      filter.date = searchParams.get("date");
+      const date = dayjs(searchParams.get("date"));
+      filter.date = {
+        $gte: date.startOf("month").toDate().toISOString(),
+        $lte: date.endOf("month").toDate().toISOString(),
+      };
     }
 
     let limit = 16;
@@ -35,7 +38,9 @@ export async function GET(req: Request) {
 
     const events = await db
       .collection("event")
-      .find(filter, { sort: { updateAt: -1 }, limit })
+      .find(filter)
+      .sort({ updatedAt: -1 })
+      .limit(limit)
       .toArray();
     if (!events) {
       return Response.json({ error: "Event data not found" }, { status: 404 });
@@ -56,27 +61,25 @@ export async function GET(req: Request) {
 // POST /api/event
 export async function POST(req: Request) {
   try {
-    const { title, banner, date, category, content } = await req.json();
-    if (!title || !category || !content || !date) {
+    const { title, date, category } = await req.json();
+    if (!title || !category || !date) {
       return Response.json(
         { error: "Missing required fields" },
         { status: 400 }
       );
     }
     const db = await connectToDatabase();
-    const news = await db.collection("event").insertOne({
+    const event = await db.collection("event").insertOne({
       title,
-      banner,
       category,
-      content,
       date: new Date(date).toISOString(),
       updatedAt: new Date().getTime(),
     });
-    return Response.json(news, { status: 201 });
+    return Response.json(event, { status: 201 });
   } catch (error) {
     return Response.json(
       {
-        error: "Failed to create news data",
+        error: "Failed to create event data",
         errorMessage: (error as Error).message,
       },
       { status: 500 }

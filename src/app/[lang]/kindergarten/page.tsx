@@ -14,7 +14,6 @@ export default function Kindergarten({
     <Subschool
       lang={lang}
       name="kindergarten"
-      banner="/banners/kindergarten.png"
     />
   );
 }

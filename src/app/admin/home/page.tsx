@@ -1,34 +1,43 @@
 "use client";
 
+import { Program } from "@/app/api/home/route";
 import LangSwitch from "@/components/LangSwitch";
 import Image from "next/image";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import {
+  Controller,
+  SubmitHandler,
+  useFieldArray,
+  useForm,
+} from "react-hook-form";
 
 export default function AdminHomePage() {
   const pageName = "home";
   const tabList = useMemo(() => ["banner", "program", "subBanner"], []);
   const [activePageData, setActivePageData] = useState([] as any);
-  const [activeTab, setActiveTab] = useState("");
+  const [activeTab, setActiveTab] = useState("banner");
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
   const activeTabData = useMemo(() => activePageData, [activePageData]);
   const [lang, setLang] = useState<"en" | "zh">("en");
 
-  const keyList = useMemo(() => {
-    switch (activeTab) {
-      case "banner":
-        return ["title", "subtitle", "banner", "description"];
-      case "program":
-        return ["programTitle", "programs"];
-      case "subBanner":
-      default:
-        return ["subBanner"];
-    }
-  }, [activeTab]);
-
   const { register, control, handleSubmit } = useForm({
     values: activeTabData,
+  });
+
+  const {
+    fields: banners,
+    append: appendBanner,
+    remove: removeBanner,
+    move: moveBanner,
+  } = useFieldArray({
+    control,
+    name: "banners",
+  });
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "programs",
   });
 
   const onSubmit: SubmitHandler<any> = async (data: any) => {
@@ -64,10 +73,9 @@ export default function AdminHomePage() {
     setLoading(true);
     fetchPageData().then((data) => {
       setActivePageData(data);
-      setActiveTab(tabList[0]);
       setLoading(false);
     });
-  }, [tabList]);
+  }, []);
 
   useEffect(() => {
     loadPageData();
@@ -90,154 +98,466 @@ export default function AdminHomePage() {
     return res.json();
   };
 
-  const renderField = (key: string, value: string) => {
-    if (
-      ((value.startsWith("/") || value.startsWith("http")) &&
-        key.includes("img")) ||
-      key.includes("file") ||
-      key.includes("banner")
-    ) {      if (key.includes("file")) {
-        return (
-          <Controller
-            name={key}
-            control={control}
-            render={({ field }) => (
-              <div className="flex flex-col items-start justify-start mt-2">
-                <input
-                  className="w-full border px-4 py-2 mb-4 mt-2"
-                  value={field.value}
-                  onChange={(event) => {
-                    field.onChange(event.target.value);
-                  }}
-                ></input>
-                <input
-                  type="file"
-                  id={`file-${key}}`}
-                  className="invisible h-0"
-                  onChange={(event) => {
-                    const file = event.target.files?.[0];
-                    if (file) {
-                      uploadFile(file).then((data) => {
-                        field.onChange(data.file);
-                      });
-                    }
-                  }}
-                />
-                <button
-                  className="bg-blue mt-1 px-2 py-2 rounded text-white"
-                  disabled={uploading}
-                  onClick={(event) => {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    document.getElementById(`file-${key}}`)?.click();
-                  }}
-                >
-                  {uploading ? "上傳檔案中" : "更換檔案"}
-                </button>
-              </div>
-            )}
-          />
-        );
-      } else {
-        return (
-          <Controller
-            name={key}
-            control={control}
-            render={({ field }) => (
-              <div className="flex flex-col items-start justify-start mt-2">
-                <input
-                  className="w-full border px-4 py-2 mb-4 mt-2"
-                  value={field.value}
-                  onChange={(event) => {
-                    field.onChange(event.target.value);
-                  }}
-                ></input>
-                <input
-                  type="file"
-                  accept="images/*"
-                  id={`file-${key}}`}
-                  className="invisible h-0"
-                  onChange={(event) => {
-                    const file = event.target.files?.[0];
-                    if (file) {
-                      uploadFile(file).then((data) => {
-                        field.onChange(data.file);
-                      });
-                    }
-                  }}
-                />
-                {field.value && (
-                  <Image src={field.value} alt={key} width={500} height={500} />
-                )}
-                <button
-                  className="bg-blue mt-1 px-2 py-2 rounded text-white"
-                  disabled={uploading}
-                  onClick={(event) => {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    document.getElementById(`file-${key}}`)?.click();
-                  }}
-                >
-                  {uploading ? "上傳圖片中" : "更換圖片"}
-                </button>
-              </div>
-            )}
-          />
-        );
-      }
-    } else if (value?.length > 80) {
-      return (
-        <textarea
-          key={key}
-          disabled={key.includes("type")}
-          className="w-full border px-4 py-2 mb-4 mt-2 h-[200px]"
-          {...register(key)}
-        ></textarea>
-      );
-    } else {
-      return (
-        <input
-          key={key}
-          disabled={key.includes("type")}
-          className="w-full border px-4 py-2 mb-4 mt-2"
-          {...register(key)}
-        ></input>
-      );
+  const removeBannerAlert = (index: number) => {
+    if (banners.length <= 1) {
+      return window.alert("You must have at least one banner");
+    }
+    if (window.confirm("Do you really want to remove this banner?")) {
+      removeBanner(index);
+      handleSubmit(onSubmit);
     }
   };
 
-  const renderRecursive = (obj: object, parentKey = "") => {
-    return Object.entries(obj).map(([key, value]) => {
-      const fullKey = parentKey ? `${parentKey}.${key}` : key;
-      if (
-        key !== "_id" &&
-        key !== "name" &&
-        keyList.some((keyName) => fullKey.startsWith(keyName, 0))
-      ) {
-        if (typeof value === "object") {
-          return <div key={fullKey}>{renderRecursive(value, fullKey)}</div>;
-        } else if (typeof value === "string") {
-          if (
-            (fullKey.includes("en") || fullKey.includes("zh")) &&
-            !fullKey.includes(lang)
-          ) {
-            return;
-          }
-          return (
-            <div
-              key={fullKey}
-              className="bg-white px-6 py-3 rounded shadow mt-4"
-            >
-              <label>
-                {fullKey.replace(".zh", " [中文]").replace(".en", " [英文]")}
-              </label>
-              {renderField(fullKey, value)}
+  const renderTable = (key: string) => {
+    switch (key) {
+      case "banner":
+        return (
+          <div className="mt-4 align-middle inline-block w-full shadow overflow-x-auto sm:rounded-lg border-b border-gray-200">
+            <div className="bg-white flex flex-row items-center">
+              <p
+                className={`px-6 py-4 inline-flex text-2xl font-bold leading-5 `}
+              >
+                Banner
+              </p>
+              <button
+                className="ml-auto mr-6 px-3 py-1 bg-deepBlue text-white border border-gray-300 rounded-lg text-sm focus:outline-none"
+                onClick={() => appendBanner("/banners/home.png")}
+              >
+                Add Banner
+              </button>
             </div>
-          );
-        }
-      }
-      return null;
-    });
+            <table className="min-w-full">
+              <thead>
+                <tr className="bg-gray-50 border-b border-gray-200 text-xs leading-4 text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left font-medium">
+                    Title[{lang}]
+                  </th>
+                  <th className="px-6 py-3 text-left font-medium">
+                    Subtitle[{lang}]
+                  </th>
+                  <th className="px-6 py-3 text-left font-medium">
+                    Description[{lang}]
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white">
+                <tr>
+                  <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                    <textarea
+                      className="text-sm leading-5 text-gray-900 w-full border"
+                      {...register(`title[${lang}]`)}
+                    ></textarea>
+                  </td>
+                  <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                    <textarea
+                      className="text-sm leading-5 text-gray-900 w-full border"
+                      {...register(`subtitle[${lang}]`)}
+                    ></textarea>
+                  </td>
+                  <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                    <textarea
+                      className="text-sm leading-5 text-gray-900 w-full border"
+                      {...register(`description[${lang}]`)}
+                    ></textarea>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <table className="min-w-full">
+              <thead>
+                <tr className="bg-gray-50 border-b border-gray-200 text-xs leading-4 text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left font-medium">
+                    Banner [1440x811]
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white">
+                {banners.map((banner, index) => (
+                  <tr key={"banner" + index}>
+                    <td
+                      key="banner"
+                      className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 flex flex-col items-start justify-start"
+                    >
+                      <Controller
+                        name={`banners.${index}`}
+                        control={control}
+                        render={({ field }) => (
+                          <div className="flex-1 flex flex-col items-start justify-start">
+                            <input
+                              className="w-full border px-4 py-2 mb-4 mt-2"
+                              value={field.value}
+                              onChange={(event) => {
+                                field.onChange(event.target.value);
+                              }}
+                            ></input>
+                            <input
+                              type="file"
+                              accept="images/*"
+                              id={`file-banner-${index}`}
+                              className="invisible h-0"
+                              onChange={(event) => {
+                                const file = event.target.files?.[0];
+                                if (file) {
+                                  uploadFile(file).then((data) => {
+                                    field.onChange(data.file);
+                                  });
+                                }
+                              }}
+                            />
+                            {field.value &&
+                              (field.value.startsWith("/") ||
+                                field.value.startsWith("http")) && (
+                                <Image
+                                  width={500}
+                                  height={500}
+                                  alt={field.value}
+                                  src={field.value}
+                                />
+                              )}
+                            <button
+                              className="bg-blue mt-1 px-2 py-2 rounded text-white"
+                              disabled={uploading}
+                              onClick={(event) => {
+                                event.preventDefault();
+                                event.stopPropagation();
+                                document
+                                  .getElementById(`file-banner-${index}`)
+                                  ?.click();
+                              }}
+                            >
+                              {uploading ? "上傳圖片中" : "更換圖片"}
+                            </button>
+                            <button
+                              className="bg-red-600 mt-1 px-2 py-2 rounded text-white"
+                              disabled={uploading}
+                              onClick={(event) => {
+                                event.preventDefault();
+                                event.stopPropagation();
+                                removeBannerAlert(index);
+                              }}
+                            >
+                              刪除圖片
+                            </button>
+                          </div>
+                        )}
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <table className="min-w-full">
+              <thead>
+                <tr className="bg-gray-50 border-b border-gray-200 text-xs leading-4 text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left font-medium">
+                    SEO Title [{lang}]
+                  </th>
+                  <th className="px-6 py-3 text-left font-medium">
+                    SEO Description [{lang}]
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white">
+                <tr>
+                  <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                    <textarea
+                      className="text-sm leading-5 text-gray-900 border w-full"
+                      {...register(`seoTitle.${lang}`)}
+                    ></textarea>
+                  </td>
+                  <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                    <textarea
+                      className="text-sm leading-5 text-gray-900 border w-full"
+                      {...register(`seoDescription.${lang}`)}
+                    ></textarea>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <table className="min-w-full">
+              <thead>
+                <tr className="bg-gray-50 border-b border-gray-200 text-xs leading-4 text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left font-medium">
+                    h1 [{lang}]
+                  </th>
+                  <th className="px-6 py-3 text-left font-medium">
+                    h2 [{lang}]
+                  </th>
+                  <th className="px-6 py-3 text-left font-medium">
+                    h3 [{lang}]
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white">
+                <tr>
+                  <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                    <textarea
+                      className="text-sm leading-5 text-gray-900 border w-full"
+                      {...register(`h1.${lang}`)}
+                    ></textarea>
+                  </td>
+                  <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                    <textarea
+                      className="text-sm leading-5 text-gray-900 border w-full"
+                      {...register(`h2.${lang}`)}
+                    ></textarea>
+                  </td>
+                  <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                    <textarea
+                      className="text-sm leading-5 text-gray-900 border w-full"
+                      {...register(`h3.${lang}`)}
+                    ></textarea>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <table className="min-w-full">
+              <thead>
+                <tr className="bg-gray-50 border-b border-gray-200 text-xs leading-4 text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left font-medium">
+                    h4 [{lang}]
+                  </th>
+                  <th className="px-6 py-3 text-left font-medium">
+                    h5 [{lang}]
+                  </th>
+                  <th className="px-6 py-3 text-left font-medium">
+                    h6 [{lang}]
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white">
+                <tr>
+                  <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                    <textarea
+                      className="text-sm leading-5 text-gray-900 border w-full"
+                      {...register(`h4.${lang}`)}
+                    ></textarea>
+                  </td>
+                  <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                    <textarea
+                      className="text-sm leading-5 text-gray-900 border w-full"
+                      {...register(`h5.${lang}`)}
+                    ></textarea>
+                  </td>
+                  <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                    <textarea
+                      className="text-sm leading-5 text-gray-900 border w-full"
+                      {...register(`h6.${lang}`)}
+                    ></textarea>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        );
+      case "program":
+        return (
+          <div className="mt-4 align-middle inline-block w-full shadow overflow-x-auto sm:rounded-lg border-b border-gray-200">
+            <div className="bg-white flex flex-row items-center">
+              <p
+                className={`px-6 py-4 inline-flex text-2xl font-bold leading-5 `}
+              >
+                Programs
+              </p>
+            </div>
+            <table className="min-w-full">
+              <thead>
+                <tr className="bg-gray-50 border-b border-gray-200 text-xs leading-4 text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left font-medium">
+                    Program Title[{lang}]
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white">
+                <tr>
+                  <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                    <textarea
+                      className="text-sm leading-5 text-gray-900 w-full border"
+                      {...register(`programTitle[${lang}]`)}
+                    ></textarea>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <table className="w-full overflow-scroll">
+              <thead>
+                <tr className="bg-gray-50 border-b border-gray-200 text-xs leading-4 text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left font-medium">
+                    Title[{lang}]
+                  </th>
+                  <th className="px-6 py-3 text-left font-medium">
+                    Content[{lang}]
+                  </th>
+                  <th className="px-6 py-3 text-left font-medium">Line</th>
+                  <th className="px-6 py-3 text-left font-medium">Facebook</th>
+                  <th className="px-6 py-3 text-left font-medium">Instagram</th>
+                  <th className="px-6 py-3 text-left font-medium">Youtube</th>
+                  <th className="px-6 py-3 text-left font-medium"></th>
+                </tr>
+              </thead>
+              <tbody className="w-full bg-white overflow-scroll">
+                {(fields as unknown as Program[])?.map(
+                  (program: Program, index: number) => (
+                    <tr key={`program-${index}`}>
+                      <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                        <input
+                          className="text-sm leading-5 text-gray-900 border"
+                          {...register(`programs.${index}.title.${lang}`, {
+                            required: true,
+                          })}
+                        ></input>
+                      </td>
+                      <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                        <textarea
+                          className="text-sm leading-5 text-gray-900 w-[400px] border"
+                          {...register(`programs.${index}.content.${lang}`, {
+                            required: true,
+                          })}
+                        ></textarea>
+                      </td>
+                      <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                        <input
+                          className="text-sm leading-5 text-gray-900 border"
+                          {...register(`programs.${index}.line`)}
+                        ></input>
+                      </td>
+                      <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                        <input
+                          className="text-sm leading-5 text-gray-900 border"
+                          {...register(`programs.${index}.facebook`)}
+                        ></input>
+                      </td>
+                      <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
+                        <input
+                          className="text-sm leading-5 text-gray-900 border"
+                          {...register(`programs.${index}.instagram`)}
+                        ></input>
+                      </td>
+                      <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
+                        <input
+                          className="text-sm leading-5 text-gray-900 border"
+                          {...register(`programs.${index}.youtube`)}
+                        ></input>
+                      </td>
+                    </tr>
+                  )
+                )}
+              </tbody>
+            </table>
+          </div>
+        );
+      case "subBanner":
+      default:
+        return (
+          <div className="mt-4 align-middle inline-block w-full shadow overflow-x-auto sm:rounded-lg border-b border-gray-200">
+            <div className="bg-white flex flex-row items-center">
+              <p
+                className={`px-6 py-4 inline-flex text-2xl font-bold leading-5 `}
+              >
+                SubBanner
+              </p>
+            </div>
+            <table className="min-w-full">
+              <thead>
+                <tr className="bg-gray-50 border-b border-gray-200 text-xs leading-4 text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left font-medium">
+                    Title[{lang}]
+                  </th>
+                  <th className="px-6 py-3 text-left font-medium">
+                    Description[{lang}]
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white">
+                <tr>
+                  <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                    <textarea
+                      className="text-sm leading-5 text-gray-900 w-full border"
+                      {...register(`subBanner.title[${lang}]`)}
+                    ></textarea>
+                  </td>
+                  <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                    <textarea
+                      className="text-sm leading-5 text-gray-900 w-full border"
+                      {...register(`subBanner.description[${lang}]`)}
+                    ></textarea>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <table className="min-w-full">
+              <thead>
+                <tr className="bg-gray-50 border-b border-gray-200 text-xs leading-4 text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left font-medium">
+                    subBanner Img [1440x396]
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white">
+                <tr>
+                  <td
+                    key="subBanner"
+                    className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 flex flex-col items-start justify-start"
+                  >
+                    <Controller
+                      name={"subBanner.img"}
+                      control={control}
+                      render={({ field }) => (
+                        <div className="flex-1 flex flex-col items-start justify-start">
+                          <input
+                            className="w-full border px-4 py-2 mb-4 mt-2"
+                            value={field.value}
+                            onChange={(event) => {
+                              field.onChange(event.target.value);
+                            }}
+                          ></input>
+                          <input
+                            type="file"
+                            accept="images/*"
+                            id={`file-subBanner`}
+                            className="invisible h-0"
+                            onChange={(event) => {
+                              const file = event.target.files?.[0];
+                              if (file) {
+                                uploadFile(file).then((data) => {
+                                  field.onChange(data.file);
+                                });
+                              }
+                            }}
+                          />
+                          {field.value &&
+                            (field.value.startsWith("/") ||
+                              field.value.startsWith("http")) && (
+                              <Image
+                                width={500}
+                                height={500}
+                                alt={field.value}
+                                src={field.value}
+                              />
+                            )}
+                          <button
+                            className="bg-blue mt-1 px-2 py-2 rounded text-white"
+                            disabled={uploading}
+                            onClick={(event) => {
+                              event.preventDefault();
+                              event.stopPropagation();
+                              document
+                                .getElementById(`file-subBanner`)
+                                ?.click();
+                            }}
+                          >
+                            {uploading ? "上傳圖片中" : "更換圖片"}
+                          </button>
+                        </div>
+                      )}
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        );
+    }
   };
 
   return (
@@ -289,7 +609,7 @@ export default function AdminHomePage() {
             "loading..."
           ) : (
             <form onSubmit={handleSubmit(onSubmit)}>
-              {activeTabData && renderRecursive(activeTabData)}
+              {activeTabData && renderTable(activeTab)}
             </form>
           )}
         </div>

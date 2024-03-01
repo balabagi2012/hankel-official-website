@@ -1,10 +1,11 @@
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
-import type { Metadata } from "next";
-import "@/app/styles/globals.scss";
-import "primereact/resources/themes/lara-light-indigo/theme.css"; // theme
-import "animate.css";
 import { notoSans } from "@/app/styles/fonts";
+import "@/app/styles/globals.scss";
+import dynamic from "next/dynamic";
+import "animate.css";
+import type { Metadata } from "next";
+import "primereact/resources/themes/lara-light-indigo/theme.css"; // theme
+
+const Header = dynamic(() => import("@/components/Header"), { ssr: false });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -22,11 +23,14 @@ export default function RootLayout({
     <html lang={lang === "en" ? "en" : "zh-tw"}>
       <head>
         <link rel="icon" href="/uploads/favicon.ico" sizes="24x24" />
+        <meta
+          name="format-detection"
+          content="telephone=no, date=no, email=no, address=no"
+        />
       </head>
       <body className={notoSans.className}>
         <Header />
         {children}
-        <Footer lang={lang} />
       </body>
     </html>
   );

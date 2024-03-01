@@ -1,10 +1,15 @@
+import { kindergarten } from "@/app/styles/fonts";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Title from "../Title";
 import Typography from "../Typography";
-import { kindergarten } from "@/app/styles/fonts";
-import Banner from "../Banner";
-import Section from "../Section";
 import { AboutEntity } from "@/app/api/about/route";
+import Footer from "../Footer";
+import Section from "../Section";
+import SeoHeading from "../SeoHeading";
+import Head from "next/head";
+
+const Banner = dynamic(() => import("../Banner"), { ssr: false });
 
 export interface AboutProps {
   name: string;
@@ -36,6 +41,24 @@ export default async function About(props: AboutProps) {
         type === "home" ? "md:pt-[80px]" : "md:pt-[200px]"
       }`}
     >
+      <Head>
+        <link
+          rel="alternate"
+          href={type === "home" ? "/zh/about" : `/zh/${name}/about`}
+          hrefLang="x-default"
+        />
+        <link
+          rel="alternate"
+          href={type === "home" ? "/en/about" : `/en/${name}/about`}
+          hrefLang="en-US"
+        />
+        <link
+          rel="alternate"
+          href={type === "home" ? "/zh/about" : `/zh/${name}/about`}
+          hrefLang="zh-TW"
+        />
+      </Head>
+      <SeoHeading {...data} lang={lang} />
       <Banner
         size={type === "home" ? "large" : "small"}
         src={data.banner ?? "/banners/school.png"}
@@ -67,11 +90,11 @@ export default async function About(props: AboutProps) {
                   <Typography
                     key={text.content[lang]}
                     varient="h4"
-                    className={`text-blue text-start mb-5 ${
-                      type === "kindergarten"
-                        ? kindergarten.className
-                        : lang === "en"
-                        ? "font-serif"
+                    className={`text-blue text-left whitespace-pre-line mb-5 ${
+                      lang === "en"
+                        ? type === "kindergarten"
+                          ? kindergarten.className
+                          : "font-serif"
                         : ""
                     }`}
                   >
@@ -81,7 +104,7 @@ export default async function About(props: AboutProps) {
                   <Typography
                     key={text.content[lang]}
                     varient="h5"
-                    className="text-textGray text-start mb-5"
+                    className="text-textGray text-left mb-5 whitespace-pre-line"
                   >
                     {text.content[lang]}
                   </Typography>
@@ -103,7 +126,7 @@ export default async function About(props: AboutProps) {
                   <Typography
                     key={text.content[lang]}
                     varient="h4"
-                    className={`text-blue text-start mb-5 ${
+                    className={`text-blue text-left whitespace-pre-line mb-5 ${
                       type === "kindergarten"
                         ? kindergarten.className
                         : lang === "en"
@@ -117,7 +140,7 @@ export default async function About(props: AboutProps) {
                   <Typography
                     key={text.content[lang]}
                     varient="h5"
-                    className="text-textGray text-start mb-5"
+                    className="text-textGray text-left mb-5 whitespace-pre-line"
                   >
                     {text.content[lang]}
                   </Typography>
@@ -137,6 +160,7 @@ export default async function About(props: AboutProps) {
           ))}
         </div>
       </Section>
+      <Footer lang={lang} name={name} />
     </main>
   );
 }

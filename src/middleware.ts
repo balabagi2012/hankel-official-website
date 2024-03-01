@@ -13,14 +13,24 @@ export function middleware(request: NextRequest) {
     pathname.startsWith(`/admin`)
   );
   if (pathnameHasAdmin) {
-    if (pathname === "/admin") {
-      request.nextUrl.pathname = "/admin/home";
-      return Response.redirect(request.nextUrl);
+    const isLogin = request.cookies.get("isLogin");
+    if (isLogin?.value === "true") {
+      if (pathname === "/admin") {
+        request.nextUrl.pathname = "/admin/home";
+        return Response.redirect(request.nextUrl);
+      }
+      return;
+    } else {
+      if (pathname === "/admin") {
+        return;
+      } else {
+        request.nextUrl.pathname = "/admin";
+        return Response.redirect(request.nextUrl);
+      }
     }
-    return;
   }
   // Redirect if there is no locale
-  const locale = "en";
+  const locale = "zh";
   request.nextUrl.pathname = `/${locale}${pathname}`;
   return Response.redirect(request.nextUrl);
 }
@@ -34,6 +44,6 @@ export const config = {
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
      */
-    "/((?!icons|uploads|public|about|banners|course|curriculum|facility|information|news|subBanners|team|api|_next|favicon.ico).*)",
+    "/((?!icons|uploads|public|about|logo|banners|course|curriculum|facility|information|news|subBanners|team|api|_next|favicon.ico).*)",
   ],
 };
