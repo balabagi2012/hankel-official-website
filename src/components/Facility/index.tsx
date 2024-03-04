@@ -8,20 +8,10 @@ import Section from "../Section";
 import Title from "../Title";
 import Typography from "../Typography";
 import Head from "next/head";
+import { getFacility } from "@/utils/api";
 
 const Banner = dynamic(() => import("../Banner"), { ssr: false });
 
-const getFacility = async (name: string): Promise<FacilityEntity> => {
-  const res = await fetch(`${process.env.API_URI}/api/facility/${name}`, {
-    cache: "no-cache",
-  });
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch data");
-  }
-
-  return res.json();
-};
 export interface FacilityProps {
   type?: "kindergarten" | "subschool";
   name: string;
