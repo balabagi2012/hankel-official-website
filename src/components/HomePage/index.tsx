@@ -6,37 +6,13 @@ import LatestNews from "../LatestNews";
 import { Program } from "../Program";
 import Section from "../Section";
 import Head from "next/head";
+import { getContact, getHome } from "@/utils/api";
 
 const Banner = dynamic(() => import("../Banner"), { ssr: false });
 
-const getHome = async (lang: "en" | "zh") => {
-  const res = await fetch(`${process.env.API_URI}/api/home/?lang=${lang}`, {
-    cache: "no-cache",
-  });
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch data");
-  }
-  return res.json();
-};
-
-const getContact = async (name: string, lang: "en" | "zh") => {
-  const res = await fetch(
-    `${process.env.API_URI}/api/contact/${name}?lang=${lang}`,
-    {
-      cache: "no-cache",
-    }
-  );
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch data");
-  }
-  return res.json();
-};
-
-const getHomeData = async (name: string, lang: "en" | "zh") => {
-  const home = await getHome(lang);
-  const contact = await getContact(name, lang);
+const getHomeData = async (name: string) => {
+  const home = await getHome();
+  const contact = await getContact(name);
   return {
     ...home,
     contact,
@@ -49,7 +25,7 @@ interface HomePageProps {
 
 export default async function HomePage(props: HomePageProps) {
   const { lang, name } = props;
-  const data = await getHomeData(name, lang);
+  const data = await getHomeData(name);
   return (
     <main>
       <Head>
