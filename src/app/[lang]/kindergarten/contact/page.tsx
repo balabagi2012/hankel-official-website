@@ -1,10 +1,22 @@
 import Contact from "@/components/Contact";
+import { getContact } from "@/utils/api";
 import { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Hankel - Kindergarten",
-  robots: "index, follow",
-};
+export async function generateMetadata({
+  params: { lang },
+}: {
+  params: { lang: "en" | "zh" };
+}): Promise<Metadata> {
+  const data = await getContact("kindergarten");
+  return {
+    title: data?.seoTitle?.[lang] ?? "Hankel - Contact",
+    description: data?.seoDescription?.[lang] ?? "Hankel - Contact",
+    openGraph: {
+      images: [data.banner.img],
+    },
+    robots: "index, follow",
+  };
+}
 
 export default function KindergartenContact({
   params: { lang },
