@@ -3,6 +3,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Hankel - Contact",
+  robots: "index, follow",
 };
 
 export default function HomeContact({

@@ -4,6 +4,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Hankel",
+  robots: "index, follow",
 };
 
 export default function Home({

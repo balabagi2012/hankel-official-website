@@ -3,6 +3,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Hankel - After School",
+  robots: "index, follow",
 };
 
 export default function AfterSchoolContact({

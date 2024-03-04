@@ -49,6 +49,7 @@ export default async function Facility(props: FacilityProps) {
           href={`/zh/${name}/facilities`}
           hrefLang="zh-TW"
         />
+        <link rel="canonical" href={`/${lang}/${name}/facilities`} />
       </Head>
       <Banner size="small" src={facility.banner} lang={lang}></Banner>
       <Section className="bg-bgGray">

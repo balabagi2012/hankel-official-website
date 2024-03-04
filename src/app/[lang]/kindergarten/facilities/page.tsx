@@ -3,6 +3,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Hankel - Kindergarten",
+  robots: "index, follow",
 };
 
 export default function KindergartenFacilities({

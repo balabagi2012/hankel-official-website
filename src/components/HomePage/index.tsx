@@ -56,6 +56,7 @@ export default async function HomePage(props: HomePageProps) {
         <link rel="alternate" href="/zh" hrefLang="x-default" />
         <link rel="alternate" href="/en" hrefLang="en-US" />
         <link rel="alternate" href="/zh" hrefLang="zh-TW" />
+        <link rel="canonical" href={`/${lang}`} />
       </Head>
       <Banner
         size="big"

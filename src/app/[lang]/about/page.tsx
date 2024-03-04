@@ -1,6 +1,6 @@
 import { AboutEntity } from "@/app/api/about/route";
 import About from "@/components/About";
-import type { Metadata, ResolvingMetadata } from "next";
+import type { Metadata } from "next";
 
 async function getAbout(name: string, lang: "en" | "zh"): Promise<AboutEntity> {
   const res = await fetch(
@@ -30,6 +30,7 @@ export async function generateMetadata({
     openGraph: {
       images: [about.banner],
     },
+    robots: "index, follow",
   };
 }
 

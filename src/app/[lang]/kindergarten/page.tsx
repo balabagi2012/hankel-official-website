@@ -3,6 +3,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Hankel - Kindergarten",
+  robots: "index, follow",
 };
 
 export default function Kindergarten({
@@ -10,10 +11,5 @@ export default function Kindergarten({
 }: {
   params: { lang: "en" | "zh" };
 }) {
-  return (
-    <Subschool
-      lang={lang}
-      name="kindergarten"
-    />
-  );
+  return <Subschool lang={lang} name="kindergarten" />;
 }

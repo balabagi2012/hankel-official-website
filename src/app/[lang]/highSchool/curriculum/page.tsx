@@ -3,6 +3,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Hankel - HighSchool",
+  robots: "index, follow",
 };
 
 export default function MiddleSchoolCurriculum({
@@ -11,10 +12,6 @@ export default function MiddleSchoolCurriculum({
   params: { lang: "en" | "zh" };
 }) {
   return (
-    <Curriculum
-      lang={lang}
-      name="highSchool"
-      type="subschool"
-    ></Curriculum>
+    <Curriculum lang={lang} name="highSchool" type="subschool"></Curriculum>
   );
 }

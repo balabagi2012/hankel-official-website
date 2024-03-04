@@ -41,6 +41,7 @@ export default async function Curriculum(props: CurriculumProps) {
         />
         <link rel="alternate" href={`/en/${name}/curriculum`} hrefLang="en-US" />
         <link rel="alternate" href={`/zh/${name}/curriculum`} hrefLang="zh-TW" />
+        <link rel="canonical" href={`/${lang}/${name}/curriculum`} />
       </Head>
       <Banner size="small" src={curriculum.banner} lang={lang}></Banner>
       <Section className="bg-bgGray">

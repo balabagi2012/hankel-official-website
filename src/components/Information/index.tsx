@@ -52,6 +52,7 @@ export default async function Information(props: InformationProps) {
           href={`/zh/${name}/information`}
           hrefLang="zh-TW"
         />
+        <link rel="canonical" href={`/${lang}/${name}/information`} />
       </Head>
       <Banner size="small" src={information.banner} lang={lang}></Banner>
       <Section className="bg-bgGray">

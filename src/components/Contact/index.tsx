@@ -53,6 +53,10 @@ export default async function Contact(props: ContactProps) {
           href={type === "home" ? "/zh/contact" : `/zh/${name}/contact`}
           hrefLang="zh-TW"
         />
+        <link
+          rel="canonical"
+          href={type === "home" ? `/${lang}/contact` : `/${lang}/${name}/contact`}
+        />
       </Head>
       <Banner
         size={type === "home" ? "large" : "small"}

@@ -37,6 +37,7 @@ export default async function Team(props: TeamProps) {
         <link rel="alternate" href={`/zh/${name}/team`} hrefLang="x-default" />
         <link rel="alternate" href={`/en/${name}/team`} hrefLang="en-US" />
         <link rel="alternate" href={`/zh/${name}/team`} hrefLang="zh-TW" />
+        <link rel="canonical" href={`/${lang}/${name}/team`} />
       </Head>
       <Banner size="small" src={team.banner} lang={lang}></Banner>
       {team.foreignTeam.teachers?.length >= 1 && (

@@ -57,6 +57,10 @@ export default async function About(props: AboutProps) {
           href={type === "home" ? "/zh/about" : `/zh/${name}/about`}
           hrefLang="zh-TW"
         />
+        <link
+          rel="canonical"
+          href={type === "home" ? `/${lang}/about` : `/${lang}/${name}/about`}
+        />
       </Head>
       <Banner
         size={type === "home" ? "large" : "small"}

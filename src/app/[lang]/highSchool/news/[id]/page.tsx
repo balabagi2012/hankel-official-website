@@ -3,6 +3,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Hankel - News",
+  robots: "index, follow",
 };
 
 export default async function NewsDetailPage({
