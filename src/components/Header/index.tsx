@@ -222,9 +222,9 @@ export default function Header() {
           <Image
             src={`/logo/${subSchool?.length > 0 ? subSchool : "home"}.svg`}
             alt="hankel logo"
-            className="w-[150px] h-[32px] md:w-[200px] md:[h-42px]"
-            width="200"
-            height="42"
+            className="w-[150px] h-[32px] md:w-[200px] md:[h-42px] lg:w-[238px] lg:h-[50px]"
+            width="238"
+            height="50"
           ></Image>
         </Link>
         <div
