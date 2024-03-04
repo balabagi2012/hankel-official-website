@@ -1,10 +1,22 @@
 import Team from "@/components/Team";
+import { getTeam } from "@/utils/api";
 import { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Hankel - Elementary",
-  robots: "index, follow",
-};
+export async function generateMetadata({
+  params: { lang },
+}: {
+  params: { lang: "en" | "zh" };
+}): Promise<Metadata> {
+  const data = await getTeam("elementary");
+  return {
+    title: data?.seoTitle?.[lang] ?? "Hankel",
+    description: data?.seoDescription?.[lang] ?? "Hankel",
+    openGraph: {
+      images: [data.banner],
+    },
+    robots: "index, follow",
+  };
+}
 
 export default function ElementaryTeam({
   params: { lang },

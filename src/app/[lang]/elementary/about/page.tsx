@@ -9,14 +9,15 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const data = await getAbout("elementary");
   return {
-    title: data?.seoTitle?.[lang] ?? "Hankel - About",
-    description: data?.seoDescription?.[lang] ?? "Hankel - About",
+    title: data?.seoTitle?.[lang] ?? "Hankel",
+    description: data?.seoDescription?.[lang] ?? "Hankel",
     openGraph: {
       images: [data.banner],
     },
     robots: "index, follow",
   };
 }
+
 export default function ElementaryAbout({
   params: { lang },
 }: {
