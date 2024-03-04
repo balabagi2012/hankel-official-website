@@ -13,7 +13,7 @@ export async function generateMetadata({
     title: data?.seoTitle?.[lang] ?? "Hankel",
     description: data?.seoDescription?.[lang] ?? "Hankel",
     openGraph: {
-      images: [data.banner.img],
+      images: [`https://www.hiape.ntpc.edu.tw${data?.banners?.[0]}`],
     },
     robots: "index, follow",
   };
