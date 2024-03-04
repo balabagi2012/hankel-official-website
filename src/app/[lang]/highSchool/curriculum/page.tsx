@@ -1,12 +1,24 @@
 import Curriculum from "@/components/Curriculum";
+import { getCurriculum } from "@/utils/api";
 import { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Hankel - HighSchool",
-  robots: "index, follow",
-};
+export async function generateMetadata({
+  params: { lang },
+}: {
+  params: { lang: "en" | "zh" };
+}): Promise<Metadata> {
+  const data = await getCurriculum("highSchool");
+  return {
+    title: data?.seoTitle?.[lang] ?? "Hankel",
+    description: data?.seoDescription?.[lang] ?? "Hankel",
+    openGraph: {
+      images: [data.banner],
+    },
+    robots: "index, follow",
+  };
+}
 
-export default function MiddleSchoolCurriculum({
+export default function HighSchoolCurriculum({
   params: { lang },
 }: {
   params: { lang: "en" | "zh" };

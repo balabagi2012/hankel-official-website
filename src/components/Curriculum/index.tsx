@@ -1,12 +1,12 @@
-import { CurriculumEntity } from "@/app/api/curriculum/route";
+import { getCurriculum } from "@/utils/api";
 import { chunk } from "lodash";
 import dynamic from "next/dynamic";
+import Head from "next/head";
 import Card from "../Card";
 import Footer from "../Footer";
 import Section from "../Section";
 import Title from "../Title";
 import Typography from "../Typography";
-import Head from "next/head";
 
 const Banner = dynamic(() => import("../Banner"), { ssr: false });
 
@@ -17,17 +17,6 @@ export interface CurriculumProps {
   banner?: string;
 }
 
-const getCurriculum = async (name: string): Promise<CurriculumEntity> => {
-  const res = await fetch(`${process.env.API_URI}/api/curriculum/${name}`, {
-    cache: "no-cache",
-  });
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch data");
-  }
-
-  return res.json();
-};
 export default async function Curriculum(props: CurriculumProps) {
   const { lang, name, type = "subschool" } = props;
   const curriculum = await getCurriculum(name);
@@ -39,8 +28,16 @@ export default async function Curriculum(props: CurriculumProps) {
           href={`/zh/${name}/curriculum`}
           hrefLang="x-default"
         />
-        <link rel="alternate" href={`/en/${name}/curriculum`} hrefLang="en-US" />
-        <link rel="alternate" href={`/zh/${name}/curriculum`} hrefLang="zh-TW" />
+        <link
+          rel="alternate"
+          href={`/en/${name}/curriculum`}
+          hrefLang="en-US"
+        />
+        <link
+          rel="alternate"
+          href={`/zh/${name}/curriculum`}
+          hrefLang="zh-TW"
+        />
         <link rel="canonical" href={`/${lang}/${name}/curriculum`} />
       </Head>
       <Banner size="small" src={curriculum.banner} lang={lang}></Banner>
