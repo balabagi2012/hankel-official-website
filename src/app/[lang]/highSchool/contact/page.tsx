@@ -9,8 +9,8 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const data = await getContact("highSchool");
   return {
-    title: data?.seoTitle?.[lang] ?? "Hankel - Contact",
-    description: data?.seoDescription?.[lang] ?? "Hankel - Contact",
+    title: data?.seoTitle?.[lang] ?? "Hankel",
+    description: data?.seoDescription?.[lang] ?? "Hankel",
     openGraph: {
       images: [data.banner.img],
     },

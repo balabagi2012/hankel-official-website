@@ -10,8 +10,8 @@ export async function generateMetadata({
   const data = await getContact("elementary");
 
   return {
-    title: data?.seoTitle?.[lang] ?? "Hankel - Contact",
-    description: data?.seoDescription?.[lang] ?? "Hankel - Contact",
+    title: data?.seoTitle?.[lang] ?? "Hankel",
+    description: data?.seoDescription?.[lang] ?? "Hankel",
     openGraph: {
       images: [data.banner.img],
     },
