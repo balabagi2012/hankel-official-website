@@ -1,8 +1,9 @@
 import { ContactEntity } from "@/app/api/contact/route";
-import { SubschoolEntity } from "@/app/api/subschool/route";
 import { kindergarten } from "@/app/styles/fonts";
+import { getSubschool } from "@/utils/api";
 import { chunk } from "lodash";
 import dynamic from "next/dynamic";
+import Head from "next/head";
 import Image from "next/image";
 import Card from "../Card";
 import ContactForm from "../ContactForm";
@@ -12,7 +13,6 @@ import LatestNews from "../LatestNews";
 import Section from "../Section";
 import Title from "../Title";
 import Typography from "../Typography";
-import Head from "next/head";
 
 const Banner = dynamic(() => import("../Banner"), { ssr: false });
 
@@ -20,18 +20,6 @@ interface SubschoolProps {
   name: "afterSchool" | "elementary" | "kindergarten" | "highSchool";
   lang: "en" | "zh";
 }
-
-const getSubschool = async (name: string): Promise<SubschoolEntity> => {
-  const res = await fetch(`${process.env.API_URI}/api/subschool/${name}`, {
-    cache: "no-cache",
-  });
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch data");
-  }
-
-  return res.json();
-};
 
 const getContact = async (name: string): Promise<ContactEntity> => {
   const res = await fetch(`${process.env.API_URI}/api/contact/${name}`, {

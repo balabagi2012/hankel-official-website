@@ -1,10 +1,22 @@
 import Subschool from "@/components/Subschool";
+import { getSubschool } from "@/utils/api";
 import { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Hankel - HighSchool",
-  robots: "index, follow",
-};
+export async function generateMetadata({
+  params: { lang },
+}: {
+  params: { lang: "en" | "zh" };
+}): Promise<Metadata> {
+  const data = await getSubschool("highSchool");
+  return {
+    title: data?.seoTitle?.[lang] ?? "Hankel",
+    description: data?.seoDescription?.[lang] ?? "Hankel",
+    openGraph: {
+      images: [`https://www.hiape.ntpc.edu.tw${data?.banner}`],
+    },
+    robots: "index, follow",
+  };
+}
 
 export default function HighSchool({
   params: { lang },
