@@ -31,11 +31,11 @@ export default function Header() {
     },
     {
       path: `/${language}/elementary`,
-      label: language === "zh" ? "翰科實驗小學" : `Elementary`,
+      label: language === "zh" ? "翰科小學階段" : `Elementary`,
     },
     {
       path: `/${language}/highSchool`,
-      label: language === "zh" ? "翰科實驗中學" : `High School`,
+      label: language === "zh" ? "翰科中學階段" : `High School`,
     },
     {
       path: `/${language}/afterSchool`,
