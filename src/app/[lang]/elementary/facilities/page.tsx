@@ -2,11 +2,6 @@ import Facility from "@/components/Facility";
 import { getFacility } from "@/utils/api";
 import { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Hankel - Elementary",
-  robots: "index, follow",
-};
-
 export async function generateMetadata({
   params: { lang },
 }: {
