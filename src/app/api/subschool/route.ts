@@ -10,6 +10,7 @@ export interface SubschoolEntity extends Seo {
   socialMedia: {
     facebook: string;
     instagram: string;
+    instagramExpireTime: number;
   };
   experiences: {
     title: Text;
@@ -78,7 +79,6 @@ export async function POST(req: Request) {
     await db.collection("subschool").insertOne({
       name,
       title,
-
       description,
       banner,
       socialMedia,

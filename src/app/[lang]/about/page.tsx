@@ -9,10 +9,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const data = await getAbout("home");
   return {
-    title: data?.seoTitle?.[lang] ?? "Hankel - About",
-    description: data?.seoDescription?.[lang] ?? "Hankel - About",
+    title: data?.seoTitle?.[lang] ?? "Hankel",
+    description: data?.seoDescription?.[lang] ?? "Hankel",
     openGraph: {
-      images: [data.banner],
+      images: [`https://www.hiape.ntpc.edu.tw/${data.banner}`],
     },
     robots: "index, follow",
   };
