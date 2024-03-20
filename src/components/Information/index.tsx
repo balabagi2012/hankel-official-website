@@ -1,29 +1,15 @@
+import { getInformation } from "@/utils/api";
 import dynamic from "next/dynamic";
+import Head from "next/head";
 import Image from "next/image";
-import Title from "../Title";
-import Typography from "../Typography";
-import { InformationEntity } from "@/app/api/information/route";
 import Link from "next/link";
 import Event from "../Event";
 import Footer from "../Footer";
 import Section from "../Section";
-import Head from "next/head";
+import Title from "../Title";
+import Typography from "../Typography";
 
 const Banner = dynamic(() => import("../Banner"), { ssr: false });
-
-export const getInformation = async (
-  name: string
-): Promise<InformationEntity> => {
-  const res = await fetch(`${process.env.API_URI}/api/information/${name}`, {
-    cache: "no-cache",
-  });
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch data");
-  }
-
-  return res.json();
-};
 
 export interface InformationProps {
   type?: "kindergarten" | "subschool";
@@ -52,6 +38,7 @@ export default async function Information(props: InformationProps) {
           href={`/zh/${name}/information`}
           hrefLang="zh-TW"
         />
+        <link rel="canonical" href={`/${lang}/${name}/information`} />
       </Head>
       <Banner size="small" src={information.banner} lang={lang}></Banner>
       <Section className="bg-bgGray">

@@ -1,12 +1,12 @@
-import { TeamEntity } from "@/app/api/team/route";
+import { getTeam } from "@/utils/api";
 import { chunk } from "lodash";
 import dynamic from "next/dynamic";
+import Head from "next/head";
 import Card from "../Card";
 import Footer from "../Footer";
 import Section from "../Section";
 import Title from "../Title";
 import Typography from "../Typography";
-import Head from "next/head";
 
 const Banner = dynamic(() => import("../Banner"), { ssr: false });
 
@@ -15,18 +15,6 @@ export interface TeamProps {
   name: string;
   lang: "en" | "zh";
 }
-
-export const getTeam = async (name: string): Promise<TeamEntity> => {
-  const res = await fetch(`${process.env.API_URI}/api/team/${name}`, {
-    cache: "no-cache",
-  });
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch data");
-  }
-
-  return res.json();
-};
 
 export default async function Team(props: TeamProps) {
   const { type = "subschool", name, lang } = props;
@@ -37,6 +25,7 @@ export default async function Team(props: TeamProps) {
         <link rel="alternate" href={`/zh/${name}/team`} hrefLang="x-default" />
         <link rel="alternate" href={`/en/${name}/team`} hrefLang="en-US" />
         <link rel="alternate" href={`/zh/${name}/team`} hrefLang="zh-TW" />
+        <link rel="canonical" href={`/${lang}/${name}/team`} />
       </Head>
       <Banner size="small" src={team.banner} lang={lang}></Banner>
       {team.foreignTeam.teachers?.length >= 1 && (

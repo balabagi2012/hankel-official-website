@@ -6,7 +6,7 @@ interface SeoHeadingProps extends Seo {
 
 const SeoHeading = (props: SeoHeadingProps) => {
   return (
-    <div className="invisible">
+    <div className="hidden">
       {props?.h1?.[props.lang] && <h1>{props.h1[props.lang]}</h1>}
       {props?.h2?.[props.lang] && <h2>{props.h2[props.lang]}</h2>}
       {props?.h3?.[props.lang] && <h3>{props.h3[props.lang]}</h3>}
