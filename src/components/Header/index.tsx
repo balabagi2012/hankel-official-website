@@ -410,7 +410,7 @@ export default function Header() {
             <div className="p-4" role="none">
               <div
                 onClick={() => handleLanguageChange("en")}
-                className={`mb-4 h-[25px] flex flex-row justify-start`}
+                className={`mb-4 h-[25px] flex flex-row justify-start cursor-pointer`}
                 rel="noopener noreferrer"
               >
                 <Typography
@@ -422,7 +422,7 @@ export default function Header() {
               </div>
               <div
                 onClick={() => handleLanguageChange("zh")}
-                className={`h-[25px] flex flex-row justify-start`}
+                className={`h-[25px] flex flex-row justify-start cursor-pointer`}
                 rel="noopener noreferrer"
               >
                 <Typography
@@ -483,7 +483,7 @@ export default function Header() {
                 )}
                 {language === "zh" ? (
                   <div
-                    className={`mt-3`}
+                    className={`mt-3 cursor-pointer`}
                     rel="noopener noreferrer"
                     onClick={() => handleLanguageChange("en")}
                   >
@@ -491,7 +491,7 @@ export default function Header() {
                   </div>
                 ) : (
                   <div
-                    className={`mt-3`}
+                    className={`mt-3 cursor-pointer`}
                     rel="noopener noreferrer"
                     onClick={() => handleLanguageChange("zh")}
                   >
