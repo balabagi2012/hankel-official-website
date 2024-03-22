@@ -2,6 +2,22 @@ import { NextRequest } from "next/server";
 
 let locales = ["en", "zh"];
 
+const getBrowserLanguage = (req: NextRequest) => {
+  return req.headers
+    .get("accept-language")
+    ?.split(",")
+    .map((i) => i.split(";"))
+    ?.reduce(
+      (ac: { code: string; priority: string }[], lang) => [
+        ...ac,
+        { code: lang[0], priority: lang[1] },
+      ],
+      []
+    )
+    ?.sort((a, b) => (a.priority > b.priority ? -1 : 1))
+    ?.find((i) => locales.includes(i.code.substring(0, 2)))
+    ?.code?.substring(0, 2);
+};
 export function middleware(request: NextRequest) {
   // Check if there is any supported locale in the pathname
   const { pathname } = request.nextUrl;
@@ -30,7 +46,8 @@ export function middleware(request: NextRequest) {
     }
   }
   // Redirect if there is no locale
-  const locale = "zh";
+  const language = getBrowserLanguage(request);
+  const locale = language ?? "zh";
   request.nextUrl.pathname = `/${locale}${pathname}`;
   return Response.redirect(request.nextUrl);
 }
