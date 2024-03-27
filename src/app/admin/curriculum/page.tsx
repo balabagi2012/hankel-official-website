@@ -80,7 +80,7 @@ export default function AdminCurriculumPage() {
 
   const uploadFile = async (file: File) => {
     setUploading(true);
-    const url = `/uploads`;
+    const url = `https://www.hiape.ntpc.edu.tw/uploads`;
     const form = new FormData();
     form.append("file", file);
     const res = await fetch(url, {

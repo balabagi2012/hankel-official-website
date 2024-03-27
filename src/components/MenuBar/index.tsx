@@ -12,7 +12,7 @@ interface EdiorMenuProps {
 }
 const EdiorMenu = ({ editor }: EdiorMenuProps) => {
   const uploadFile = async (file: File) => {
-    const url = `/uploads`;
+    const url = `https://www.hiape.ntpc.edu.tw/uploads`;
     const form = new FormData();
     form.append("file", file);
     const res = await fetch(url, {

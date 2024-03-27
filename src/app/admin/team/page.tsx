@@ -95,20 +95,24 @@ export default function AdminTeamPage() {
   }, [loadPageData]);
 
   const uploadFile = async (file: File) => {
-    setUploading(true);
-    const url = `/uploads`;
-    const form = new FormData();
-    form.append("file", file);
-    const res = await fetch(url, {
-      method: "POST",
-      body: form,
-    });
-    setUploading(false);
-    if (!res.ok) {
-      // This will activate the closest `error.js` Error Boundary
-      return window.alert("Failed to upload file");
+    try {
+      setUploading(true);
+      const url = `https://www.hiape.ntpc.edu.tw/uploads`;
+      const form = new FormData();
+      form.append("file", file);
+      const res = await fetch(url, {
+        method: "POST",
+        body: form,
+      });
+      setUploading(false);
+      if (!res.ok) {
+        // This will activate the closest `error.js` Error Boundary
+        return window.alert("Failed to upload file");
+      }
+      return res.json();
+    } catch (e) {
+      console.log(e);
     }
-    return res.json();
   };
 
   const renderField = (key: string, value: string) => {

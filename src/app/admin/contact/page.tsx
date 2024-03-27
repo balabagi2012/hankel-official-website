@@ -75,7 +75,7 @@ export default function AdminContactPage() {
     filePath?: string
   ) => {
     setUploading(true);
-    const url = `/uploads`;
+    const url = `https://www.hiape.ntpc.edu.tw/uploads`;
     const form = new FormData();
     form.append("file", file);
     if (fileName) form.append("fileName", fileName);
