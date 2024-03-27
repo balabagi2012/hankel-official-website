@@ -75,7 +75,7 @@ export default function AdminContactPage() {
     filePath?: string
   ) => {
     setUploading(true);
-    const url = `/api/file`;
+    const url = `/uploads`;
     const form = new FormData();
     form.append("file", file);
     if (fileName) form.append("fileName", fileName);

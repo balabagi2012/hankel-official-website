@@ -12,7 +12,7 @@ interface EdiorMenuProps {
 }
 const EdiorMenu = ({ editor }: EdiorMenuProps) => {
   const uploadFile = async (file: File) => {
-    const url = `/api/file`;
+    const url = `/uploads`;
     const form = new FormData();
     form.append("file", file);
     const res = await fetch(url, {

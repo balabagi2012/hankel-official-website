@@ -24,7 +24,7 @@ export default function EditNewsPage({
 
   const uploadFile = async (file: File) => {
     setUploading(true);
-    const url = `/api/file`;
+    const url = `/uploads`;
     const form = new FormData();
     form.append("file", file);
     const res = await fetch(url, {
