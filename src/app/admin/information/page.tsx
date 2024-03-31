@@ -1,5 +1,6 @@
 "use client";
 
+import EditorComponent from "@/components/Editor";
 import LangSwitch from "@/components/LangSwitch";
 import Image from "next/image";
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -235,13 +236,17 @@ export default function AdminInformationPage() {
                             ></input>
                           </td>
                           <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <input
-                              className="text-sm leading-5 text-gray-900 border w-full"
-                              {...register(
-                                `admissionBrochure.description.${lang}`,
-                                { required: true }
+                            <Controller
+                              name={`admissionBrochure.description.${lang}`}
+                              control={control}
+                              key={`${activeTab}-${lang}`}
+                              render={({ field }) => (
+                                <EditorComponent
+                                  value={field.value}
+                                  onChange={field.onChange}
+                                />
                               )}
-                            ></input>
+                            ></Controller>
                           </td>
                           <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                             <Controller
@@ -442,15 +447,17 @@ export default function AdminInformationPage() {
                             ></input>
                           </td>
                           <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <textarea
-                              className="text-sm leading-5 text-gray-900 border w-full"
-                              {...register(
-                                `informationSession.description.${lang}`,
-                                {
-                                  required: true,
-                                }
+                            <Controller
+                              name={`informationSession.description.${lang}`}
+                              control={control}
+                              key={`${activeTab}-${lang}`}
+                              render={({ field }) => (
+                                <EditorComponent
+                                  value={field.value}
+                                  onChange={field.onChange}
+                                />
                               )}
-                            ></textarea>
+                            ></Controller>
                           </td>
                           <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                             <Controller
