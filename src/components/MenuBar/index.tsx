@@ -44,13 +44,36 @@ const EdiorMenu = ({ editor }: EdiorMenuProps) => {
     // empty
     if (url === "") {
       editor.chain().focus().extendMarkRange("link").unsetLink().run();
-
       return;
     }
 
     // update link
     editor.chain().focus().extendMarkRange("link").setLink({ href: url }).run();
   }, [editor]);
+
+  const addFile = useCallback(
+    (url?: string) => {
+      // cancelled
+      if (url === null) {
+        return;
+      }
+      // empty
+      else if (url === "") {
+        editor.chain().focus().extendMarkRange("link").unsetLink().run();
+
+        return;
+      } else if (url && typeof url === "string") {
+        // update link
+        editor
+          .chain()
+          .focus()
+          .extendMarkRange("link")
+          .setLink({ href: url })
+          .run();
+      }
+    },
+    [editor]
+  );
 
   if (!editor) {
     return null;
@@ -156,6 +179,20 @@ const EdiorMenu = ({ editor }: EdiorMenuProps) => {
           width={12}
           height={12}
           alt="image"
+          objectFit="cover"
+        />
+      ),
+      action: () => document.getElementById("img")?.click(),
+      isActive: () => false,
+    },
+    {
+      title: "File",
+      icon: (
+        <Image
+          src={"/icons/File.svg"}
+          width={12}
+          height={12}
+          alt="file"
           objectFit="cover"
         />
       ),
@@ -282,7 +319,7 @@ const EdiorMenu = ({ editor }: EdiorMenuProps) => {
     <div className="editor__header flex flex-row gap-x-2">
       <input
         type="file"
-        id="file"
+        id="img"
         className="hidden"
         accept="images/*"
         onChange={(event) => {
@@ -291,6 +328,21 @@ const EdiorMenu = ({ editor }: EdiorMenuProps) => {
             uploadFile(file).then((data) => {
               if (data.file) {
                 addImage(data.file);
+              }
+            });
+          }
+        }}
+      />
+      <input
+        type="file"
+        id="file"
+        className="hidden"
+        onChange={(event) => {
+          const file = event.target.files?.[0];
+          if (file) {
+            uploadFile(file).then((data) => {
+              if (data.file) {
+                addFile(data.file);
               }
             });
           }
