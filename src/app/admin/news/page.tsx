@@ -10,18 +10,18 @@ import "primereact/resources/themes/lara-light-indigo/theme.css"; // theme
 export default function AdminNewsPage() {
   const [newsList, setNewsList] = useState<NewsEntity[]>([]);
   const [activePageData, setActivePageData] = useState([] as any);
-  const [activeTab, setActiveTab] = useState("afterSchool");
+  const [activeTab, setActiveTab] = useState("newsList");
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [pagination, setPagination] = useState({ first: 0, rows: 10, page: 0 });
   const [lang, setLang] = useState<"en" | "zh">("en");
   const tabList = useMemo(
     () => [
+      "newsList",
       "afterSchool",
       "elementary",
       "kindergarten",
       "highSchool",
-      "newsList",
     ],
     []
   );
