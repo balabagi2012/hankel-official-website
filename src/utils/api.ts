@@ -3,6 +3,8 @@ import { ContactEntity } from "@/app/api/contact/route";
 import { CurriculumEntity } from "@/app/api/curriculum/route";
 import { FacilityEntity } from "@/app/api/facility/route";
 import { InformationEntity } from "@/app/api/information/route";
+import { NewsEntity } from "@/app/api/news/route";
+import { NewsPageEntity } from "@/app/api/newsPage/route";
 import { SubschoolEntity } from "@/app/api/subschool/route";
 import { TeamEntity } from "@/app/api/team/route";
 
@@ -94,6 +96,44 @@ export const getTeam = async (name: string): Promise<TeamEntity> => {
 
 export const getSubschool = async (name: string): Promise<SubschoolEntity> => {
   const res = await fetch(`${process.env.API_URI}/api/subschool/${name}`, {
+    cache: "no-cache",
+  });
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+};
+
+export const getNews = async (): Promise<NewsEntity[]> => {
+  const res = await fetch(`${process.env.API_URI}/api/news?limit=1000`, {
+    cache: "no-cache",
+  });
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+};
+
+export const getNewsPage = async (): Promise<NewsPageEntity[]> => {
+  const res = await fetch(`${process.env.API_URI}/api/newsPage`, {
+    cache: "no-cache",
+  });
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+};
+
+export const getNewsPageByName = async (
+  name: string
+): Promise<NewsPageEntity> => {
+  const res = await fetch(`${process.env.API_URI}/api/newsPage/${name}`, {
     cache: "no-cache",
   });
   if (!res.ok) {
