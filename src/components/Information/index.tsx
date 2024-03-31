@@ -49,7 +49,7 @@ export default async function Information(props: InformationProps) {
             {information.admissionBrochure.title[lang]}
           </Title>
           <div
-            className="text-[14px] md:text-[16px] leading-[2] tracking-[1px] text-textGray text-left whitespace-pre-line"
+            className="editor-display text-[14px] md:text-[16px] leading-[2] tracking-[1px] text-textGray text-left whitespace-pre-line"
             dangerouslySetInnerHTML={{
               __html: information.admissionBrochure.description[lang],
             }}
@@ -78,7 +78,7 @@ export default async function Information(props: InformationProps) {
               {information.informationSession.title[lang]}
             </Title>
             <div
-              className="text-[14px] md:text-[16px] leading-[2] tracking-[1px] text-textGray text-left whitespace-pre-line"
+              className="editor-display text-[14px] md:text-[16px] leading-[2] tracking-[1px] text-textGray text-left whitespace-pre-line"
               dangerouslySetInnerHTML={{
                 __html: information.informationSession.description[lang],
               }}

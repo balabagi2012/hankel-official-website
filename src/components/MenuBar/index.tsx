@@ -2,10 +2,10 @@
 import "./MenuBar.scss";
 
 import { Editor } from "@tiptap/react";
-import { Fragment } from "react";
+import { Fragment, useCallback } from "react";
 
-import MenuItem from "./MenuItem";
 import Image from "next/image";
+import MenuItem from "./MenuItem";
 
 interface EdiorMenuProps {
   editor: Editor;
@@ -25,11 +25,37 @@ const EdiorMenu = ({ editor }: EdiorMenuProps) => {
     }
     return res.json();
   };
+
   const addImage = (url?: string) => {
     if (url) {
       editor.chain().focus().setImage({ src: url }).run();
     }
   };
+
+  const setLink = useCallback(() => {
+    const previousUrl = editor.getAttributes("link").href;
+    const url = window.prompt("URL", previousUrl);
+
+    // cancelled
+    if (url === null) {
+      return;
+    }
+
+    // empty
+    if (url === "") {
+      editor.chain().focus().extendMarkRange("link").unsetLink().run();
+
+      return;
+    }
+
+    // update link
+    editor.chain().focus().extendMarkRange("link").setLink({ href: url }).run();
+  }, [editor]);
+
+  if (!editor) {
+    return null;
+  }
+
   const items = [
     {
       title: "B",
@@ -107,6 +133,20 @@ const EdiorMenu = ({ editor }: EdiorMenuProps) => {
       ),
       action: () => editor.chain().focus().toggleCode().run(),
       isActive: () => editor.isActive("code"),
+    },
+    {
+      title: "Link",
+      icon: (
+        <Image
+          src={"/icons/Link.svg"}
+          width={12}
+          height={12}
+          alt="link"
+          objectFit="cover"
+        />
+      ),
+      action: () => setLink(),
+      isActive: () => editor.isActive("link"),
     },
     {
       title: "Img",
