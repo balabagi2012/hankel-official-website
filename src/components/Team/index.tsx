@@ -7,6 +7,7 @@ import Footer from "../Footer";
 import Section from "../Section";
 import Title from "../Title";
 import Typography from "../Typography";
+import SeoHeading from "../SeoHeading";
 
 const Banner = dynamic(() => import("../Banner"), { ssr: false });
 
@@ -28,6 +29,7 @@ export default async function Team(props: TeamProps) {
         <link rel="canonical" href={`/${lang}/${name}/team`} />
       </Head>
       <Banner size="small" src={team.banner} lang={lang}></Banner>
+      <SeoHeading {...team} lang={lang} />
       {team.foreignTeam.teachers?.length >= 1 && (
         <Section className="bg-bgGray">
           <div className="flex flex-col w-full md:w-[1068px]">
