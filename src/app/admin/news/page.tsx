@@ -85,13 +85,9 @@ export default function AdminNewsPage() {
     [activePageData, activeTab]
   );
 
-  const { register, control, handleSubmit, reset } = useForm({
+  const { register, control, handleSubmit } = useForm({
     values: activeTabData,
   });
-
-  useEffect(() => {
-    reset(activeTabData);
-  }, [activeTabData, reset]);
 
   const onSubmit: SubmitHandler<any> = async (data: any) => {
     setLoading(true);
