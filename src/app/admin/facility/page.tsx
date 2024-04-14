@@ -159,7 +159,7 @@ export default function AdminFacilityPage() {
           {loading && activeTabData
             ? "loading..."
             : activeTabData && (
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <div>
                   <div className="mt-4 align-middle inline-block w-full shadow overflow-x-auto sm:rounded-lg border-b border-gray-200">
                     <div className="bg-white flex flex-row items-center">
                       <p
@@ -585,7 +585,7 @@ export default function AdminFacilityPage() {
                       </tbody>
                     </table>
                   </div>
-                </form>
+                </div>
               )}
         </div>
       </div>

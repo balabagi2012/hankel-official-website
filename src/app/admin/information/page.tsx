@@ -135,7 +135,7 @@ export default function AdminInformationPage() {
           {loading && activeTabData
             ? "loading..."
             : activeTabData && (
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <div>
                   <div className="mt-4 align-middle inline-block w-full shadow overflow-x-auto sm:rounded-lg border-b border-gray-200">
                     <div className="bg-white flex flex-row items-center">
                       <p
@@ -235,15 +235,19 @@ export default function AdminInformationPage() {
                               })}
                             ></input>
                           </td>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                          <td
+                            key={`${activeTab}-${lang}`}
+                            className="px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+                          >
                             <Controller
                               name={`admissionBrochure.description.${lang}`}
                               control={control}
-                              key={`${activeTab}-${lang}`}
                               render={({ field }) => (
                                 <EditorComponent
                                   value={field.value}
-                                  onChange={field.onChange}
+                                  onChange={(content) => {
+                                    field.onChange(content);
+                                  }}
                                 />
                               )}
                             ></Controller>
@@ -450,7 +454,6 @@ export default function AdminInformationPage() {
                             <Controller
                               name={`informationSession.description.${lang}`}
                               control={control}
-                              key={`${activeTab}-${lang}`}
                               render={({ field }) => (
                                 <EditorComponent
                                   value={field.value}
@@ -697,7 +700,7 @@ export default function AdminInformationPage() {
                       </tbody>
                     </table>
                   </div>
-                </form>
+                </div>
               )}
         </div>
       </div>

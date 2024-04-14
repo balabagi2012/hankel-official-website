@@ -2,7 +2,7 @@
 import "./MenuBar.scss";
 
 import { Editor } from "@tiptap/react";
-import { Fragment, useCallback } from "react";
+import { ChangeEvent, Fragment, useCallback } from "react";
 
 import Image from "next/image";
 import MenuItem from "./MenuItem";
@@ -73,6 +73,22 @@ const EdiorMenu = ({ editor }: EdiorMenuProps) => {
       }
     },
     [editor]
+  );
+
+  const selectFile = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      event.preventDefault();
+      event.stopPropagation();
+      const file = event.target.files?.[0];
+      if (file) {
+        uploadFile(file).then((data) => {
+          if (data.file) {
+            addFile(data.file);
+          }
+        });
+      }
+    },
+    [editor, addFile]
   );
 
   if (!editor) {
@@ -182,7 +198,7 @@ const EdiorMenu = ({ editor }: EdiorMenuProps) => {
           objectFit="cover"
         />
       ),
-      action: () => document.getElementById("img")?.click(),
+      action: () => document.getElementById("editor-img")?.click(),
       isActive: () => false,
     },
     {
@@ -196,7 +212,7 @@ const EdiorMenu = ({ editor }: EdiorMenuProps) => {
           objectFit="cover"
         />
       ),
-      action: () => document.getElementById("file")?.click(),
+      action: () => document.getElementById("editor-file")?.click(),
       isActive: () => false,
     },
     {
@@ -319,10 +335,12 @@ const EdiorMenu = ({ editor }: EdiorMenuProps) => {
     <div className="editor__header flex flex-row gap-x-2">
       <input
         type="file"
-        id="img"
+        id="editor-img"
         className="hidden"
         accept="images/*"
         onChange={(event) => {
+          event.preventDefault();
+          event.stopPropagation();
           const file = event.target.files?.[0];
           if (file) {
             uploadFile(file).then((data) => {
@@ -335,18 +353,9 @@ const EdiorMenu = ({ editor }: EdiorMenuProps) => {
       />
       <input
         type="file"
-        id="file"
+        id="editor-file"
         className="hidden"
-        onChange={(event) => {
-          const file = event.target.files?.[0];
-          if (file) {
-            uploadFile(file).then((data) => {
-              if (data.file) {
-                addFile(data.file);
-              }
-            });
-          }
-        }}
+        onChange={selectFile}
       />
       {items.map((item, index) => (
         <Fragment key={index}>
