@@ -450,7 +450,10 @@ export default function AdminInformationPage() {
                               })}
                             ></input>
                           </td>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                          <td
+                            className="px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+                            key={`${activeTab}-${lang}`}
+                          >
                             <Controller
                               name={`informationSession.description.${lang}`}
                               control={control}
