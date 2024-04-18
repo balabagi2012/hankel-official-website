@@ -245,6 +245,7 @@ export default function AdminInformationPage() {
                               render={({ field }) => (
                                 <EditorComponent
                                   value={field.value}
+                                  key={`admissionBrochure.description.${lang}`}
                                   onChange={(content) => {
                                     field.onChange(content);
                                   }}
@@ -459,6 +460,7 @@ export default function AdminInformationPage() {
                               control={control}
                               render={({ field }) => (
                                 <EditorComponent
+                                  key={`informationSession.description.${lang}`}
                                   value={field.value}
                                   onChange={field.onChange}
                                 />

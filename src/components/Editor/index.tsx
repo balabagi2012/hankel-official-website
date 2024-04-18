@@ -10,6 +10,7 @@ import MenuBar from "@/components/MenuBar";
 import { useEffect, useRef } from "react";
 
 export interface EditorComponentProps {
+  key?: string;
   value: string;
   onChange: (content: string) => void;
 }
@@ -45,7 +46,7 @@ const EditorComponent = (props: EditorComponentProps) => {
 
   return (
     <div className="editor mt-3">
-      {editor && <MenuBar editor={editor} />}
+      {editor && <MenuBar key={props.key} editor={editor} />}
       <EditorContent
         className="focus:border-0 outline-0 editor__content"
         editor={editor}

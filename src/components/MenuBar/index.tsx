@@ -8,9 +8,10 @@ import Image from "next/image";
 import MenuItem from "./MenuItem";
 
 interface EdiorMenuProps {
+  key?: string;
   editor: Editor;
 }
-const EdiorMenu = ({ editor }: EdiorMenuProps) => {
+const EdiorMenu = ({ key, editor }: EdiorMenuProps) => {
   const uploadFile = async (file: File) => {
     const url = `https://www.hiape.ntpc.edu.tw/uploads`;
     const form = new FormData();
@@ -202,7 +203,8 @@ const EdiorMenu = ({ editor }: EdiorMenuProps) => {
           objectFit="cover"
         />
       ),
-      action: () => document.getElementById("editor-img")?.click(),
+      action: () =>
+        document.getElementById(`editor-img${key ? "-" + key : ""}`)?.click(),
       isActive: () => false,
     },
     {
@@ -216,7 +218,8 @@ const EdiorMenu = ({ editor }: EdiorMenuProps) => {
           objectFit="cover"
         />
       ),
-      action: () => document.getElementById("editor-file")?.click(),
+      action: () =>
+        document.getElementById(`editor-file${key ? "-" + key : ""}`)?.click(),
       isActive: () => false,
     },
     {
@@ -339,7 +342,7 @@ const EdiorMenu = ({ editor }: EdiorMenuProps) => {
     <div className="editor__header flex flex-row gap-x-2">
       <input
         type="file"
-        id="editor-img"
+        id={`editor-img${key ? "-" + key : ""}`}
         className="hidden"
         accept="images/*"
         onChange={(event) => {
@@ -361,7 +364,7 @@ const EdiorMenu = ({ editor }: EdiorMenuProps) => {
       />
       <input
         type="file"
-        id="editor-file"
+        id={`editor-file${key ? "-" + key : ""}`}
         className="hidden"
         onChange={selectFile}
       />
