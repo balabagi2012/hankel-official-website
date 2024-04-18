@@ -82,15 +82,12 @@ const EdiorMenu = ({ name, editor }: EdiorMenuProps) => {
       event.stopPropagation();
       const file = event.target.files?.[0];
       if (file) {
-        uploadFile(file)
-          .then((data) => {
-            if (data.file) {
-              addFile(data.file);
-            }
-          })
-          .finally(() => {
+        uploadFile(file).then((data) => {
+          if (data.file) {
+            addFile(data.file);
             event.target.value = "";
-          });
+          }
+        });
       }
     },
     [addFile]
@@ -352,15 +349,12 @@ const EdiorMenu = ({ name, editor }: EdiorMenuProps) => {
           event.stopPropagation();
           const file = event.target.files?.[0];
           if (file) {
-            uploadFile(file)
-              .then((data) => {
-                if (data.file) {
-                  addImage(data.file);
-                }
-              })
-              .finally(() => {
+            uploadFile(file).then((data) => {
+              if (data.file) {
+                addImage(data.file);
                 event.target.value = "";
-              });
+              }
+            });
           }
         }}
       />
