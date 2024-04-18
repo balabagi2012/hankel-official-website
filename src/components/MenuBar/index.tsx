@@ -81,14 +81,18 @@ const EdiorMenu = ({ editor }: EdiorMenuProps) => {
       event.stopPropagation();
       const file = event.target.files?.[0];
       if (file) {
-        uploadFile(file).then((data) => {
-          if (data.file) {
-            addFile(data.file);
-          }
-        });
+        uploadFile(file)
+          .then((data) => {
+            if (data.file) {
+              addFile(data.file);
+            }
+          })
+          .finally(() => {
+            event.target.value = "";
+          });
       }
     },
-    [editor, addFile]
+    [addFile]
   );
 
   if (!editor) {
@@ -343,11 +347,15 @@ const EdiorMenu = ({ editor }: EdiorMenuProps) => {
           event.stopPropagation();
           const file = event.target.files?.[0];
           if (file) {
-            uploadFile(file).then((data) => {
-              if (data.file) {
-                addImage(data.file);
-              }
-            });
+            uploadFile(file)
+              .then((data) => {
+                if (data.file) {
+                  addImage(data.file);
+                }
+              })
+              .finally(() => {
+                event.target.value = "";
+              });
           }
         }}
       />
