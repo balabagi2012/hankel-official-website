@@ -11,6 +11,7 @@ interface EdiorMenuProps {
   name?: string;
   editor: Editor;
 }
+
 const EdiorMenu = ({ name, editor }: EdiorMenuProps) => {
   const uploadFile = async (file: File) => {
     const url = `https://www.hiape.ntpc.edu.tw/uploads`;
@@ -215,10 +216,11 @@ const EdiorMenu = ({ name, editor }: EdiorMenuProps) => {
           objectFit="cover"
         />
       ),
-      action: () =>
+      action: () => {
         document
           .getElementById(`editor-file${name ? "-" + name : ""}`)
-          ?.click(),
+          ?.click();
+      },
       isActive: () => false,
     },
     {
