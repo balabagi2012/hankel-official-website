@@ -58,7 +58,7 @@ export default async function NewsDetail({ id, lang }: NewsDetailProps) {
             </Typography>
           </div>
           <div
-            className="news flex-1 flex flex-col items-start justify-start w-full whitespace-pre-line"
+            className="editor-display news flex-1 flex flex-col items-start justify-start w-full whitespace-pre-line"
             dangerouslySetInnerHTML={{ __html: news.content[lang] }}
           ></div>
         </div>

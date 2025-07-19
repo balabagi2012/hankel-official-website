@@ -7,6 +7,7 @@ import Footer from "../Footer";
 import Section from "../Section";
 import Title from "../Title";
 import Typography from "../Typography";
+import SeoHeading from "../SeoHeading";
 
 const Banner = dynamic(() => import("../Banner"), { ssr: false });
 
@@ -42,6 +43,7 @@ export default async function Curriculum(props: CurriculumProps) {
       </Head>
       <Banner size="small" src={curriculum.banner} lang={lang}></Banner>
       <Section className="bg-bgGray">
+        <SeoHeading {...curriculum} lang={lang} />
         <div className="flex flex-col w-full md:w-[700px]">
           <Title full align="center" type={type} lang={lang}>
             {curriculum.title[lang]}

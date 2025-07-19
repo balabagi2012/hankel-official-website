@@ -217,12 +217,12 @@ export default function Header() {
         <Link
           href={`/${language}`}
           rel="noopener noreferrer"
-          className="flex items-center w-[150px] h-[32px] md:w-[200px] md:[h-42px] mr-auto ml-3 md:ml-0"
+          className="flex flex-row justify-center items-center w-[150px] h-auto md:w-[200px] xl:w-[238px] mr-auto ml-3 md:ml-0"
         >
           <Image
             src={`/logo/${subSchool?.length > 0 ? subSchool : "home"}.svg`}
             alt="hankel logo"
-            className="w-[150px] h-[32px] md:w-[200px] md:[h-42px] lg:w-[238px] lg:h-[50px]"
+            className="w-full h-auto"
             width="238"
             height="50"
           ></Image>

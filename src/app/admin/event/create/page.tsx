@@ -15,25 +15,7 @@ export default function CreateEventPage() {
     },
   });
   const [loading, setLoading] = useState(false);
-  const [uploading, setUploading] = useState(false);
   const router = useRouter();
-
-  const uploadFile = async (file: File) => {
-    setUploading(true);
-    const url = `/api/file`;
-    const form = new FormData();
-    form.append("file", file);
-    const res = await fetch(url, {
-      method: "POST",
-      body: form,
-    });
-    setUploading(false);
-    if (!res.ok) {
-      // This will activate the closest `error.js` Error Boundary
-      return window.alert("Failed to upload file");
-    }
-    return res.json();
-  };
 
   const onSubmit = async (data: any) => {
     setLoading(true);

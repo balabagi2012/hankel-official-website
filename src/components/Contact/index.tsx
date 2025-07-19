@@ -5,6 +5,7 @@ import ContactForm from "../ContactForm";
 import ContactInfo from "../ContactInfo";
 import Footer from "../Footer";
 import Section from "../Section";
+import SeoHeading from "../SeoHeading";
 
 const Banner = dynamic(() => import("../Banner"), { ssr: false });
 
@@ -57,6 +58,7 @@ export default async function Contact(props: ContactProps) {
         lang={lang}
       ></Banner>
       <Section className="bg-bgGray">
+        <SeoHeading {...data} lang={lang} />
         <div className="flex flex-col w-full md:w-[700px]">
           <ContactInfo type={type} lang={lang} contact={data} />
         </div>

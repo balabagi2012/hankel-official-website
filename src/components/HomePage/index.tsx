@@ -7,6 +7,7 @@ import { Program } from "../Program";
 import Section from "../Section";
 import Head from "next/head";
 import { getContact, getHome } from "@/utils/api";
+import SeoHeading from "../SeoHeading";
 
 const Banner = dynamic(() => import("../Banner"), { ssr: false });
 
@@ -43,6 +44,7 @@ export default async function HomePage(props: HomePageProps) {
         banners={data.banners}
         lang={lang}
       ></Banner>
+      <SeoHeading {...data} lang={lang} />
       <Program
         lang={lang}
         title={data.programTitle[lang]}

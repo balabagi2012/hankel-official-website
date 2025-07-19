@@ -8,6 +8,7 @@ import Footer from "../Footer";
 import Section from "../Section";
 import Title from "../Title";
 import Typography from "../Typography";
+import SeoHeading from "../SeoHeading";
 
 const Banner = dynamic(() => import("../Banner"), { ssr: false });
 
@@ -42,16 +43,17 @@ export default async function Information(props: InformationProps) {
       </Head>
       <Banner size="small" src={information.banner} lang={lang}></Banner>
       <Section className="bg-bgGray">
+        <SeoHeading {...information} lang={lang} />
         <div className="flex flex-col w-full md:w-[1024px]">
           <Title full align="center" type={type} lang={lang}>
             {information.admissionBrochure.title[lang]}
           </Title>
-          <Typography
-            varient="h5"
-            className="text-textGray text-left whitespace-pre-line"
-          >
-            {information.admissionBrochure.description[lang]}
-          </Typography>
+          <div
+            className="editor-display text-[14px] md:text-[16px] leading-[2] tracking-[1px] text-textGray text-left whitespace-pre-line"
+            dangerouslySetInnerHTML={{
+              __html: information.admissionBrochure.description[lang],
+            }}
+          ></div>
           <Link
             href={information.admissionBrochure.file}
             className="mt-[60px] py-2 flex flex-row justify-center border items-center rounded border-deepBlue bg-white"
@@ -75,12 +77,12 @@ export default async function Information(props: InformationProps) {
             <Title full align="left" type={type} lang={lang}>
               {information.informationSession.title[lang]}
             </Title>
-            <Typography
-              varient="h5"
-              className="text-textGray text-start mb-8 whitespace-pre-line"
-            >
-              {information.informationSession.description[lang]}
-            </Typography>
+            <div
+              className="editor-display text-[14px] md:text-[16px] leading-[2] tracking-[1px] text-textGray text-left whitespace-pre-line"
+              dangerouslySetInnerHTML={{
+                __html: information.informationSession.description[lang],
+              }}
+            ></div>
           </div>
           <Image
             src={information.informationSession.img}

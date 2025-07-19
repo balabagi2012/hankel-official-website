@@ -160,6 +160,13 @@ a {
   }
 }
 
+.editor-display {
+  a {
+    color: $color-blue;
+    text-decoration: underline;
+  }
+}
+
 .editor {
   background-color: #fff;
   border: 3px solid #0d0d0d;
@@ -168,6 +175,11 @@ a {
   display: flex;
   flex-direction: column;
   max-height: 26rem;
+
+  a {
+    color: $color-blue;
+    text-decoration: underline;
+  }
 
   &__header {
     align-items: center;

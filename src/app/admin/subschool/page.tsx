@@ -80,7 +80,7 @@ export default function AdminSubschoolPage() {
 
   const uploadFile = async (file: File) => {
     setUploading(true);
-    const url = `/api/file`;
+    const url = `https://www.hiape.ntpc.edu.tw/uploads`;
     const form = new FormData();
     form.append("file", file);
     const res = await fetch(url, {
@@ -150,7 +150,7 @@ export default function AdminSubschoolPage() {
           {loading && activeTabData
             ? "loading..."
             : activeTabData && (
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <div>
                   <div className="mt-4 align-middle inline-block w-full shadow overflow-x-auto sm:rounded-lg border-b border-gray-200">
                     <div className="bg-white flex flex-row items-center">
                       <p
@@ -605,7 +605,7 @@ export default function AdminSubschoolPage() {
                       </tbody>
                     </table>
                   </div>
-                </form>
+                </div>
               )}
         </div>
       </div>
