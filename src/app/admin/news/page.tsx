@@ -24,6 +24,7 @@ export default function AdminNewsPage() {
       "elementary",
       "kindergarten",
       "highSchool",
+      "middleSchool",
     ],
     []
   );

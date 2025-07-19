@@ -18,7 +18,7 @@ import SeoHeading from "../SeoHeading";
 const Banner = dynamic(() => import("../Banner"), { ssr: false });
 
 interface SubschoolProps {
-  name: "afterSchool" | "elementary" | "kindergarten" | "highSchool";
+  name: "afterSchool" | "elementary" | "kindergarten" | "highSchool" | "middleSchool";
   lang: "en" | "zh";
 }
 

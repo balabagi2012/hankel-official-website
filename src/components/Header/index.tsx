@@ -34,9 +34,13 @@ export default function Header() {
       label: language === "zh" ? "翰科小學階段" : `Elementary`,
     },
     {
-      path: `/${language}/highSchool`,
-      label: language === "zh" ? "翰科中學階段" : `High School`,
+      path: `/${language}/middleSchool`,
+      label: language === "zh" ? "翰科中學階段" : `Middle School`,
     },
+    /*{
+      path: `/${language}/highSchool`,
+      label: language === "zh" ? "翰科高中階段" : `High School`,
+    },*/
     {
       path: `/${language}/afterSchool`,
       label: language === "zh" ? "翰科安親班" : `After School`,
@@ -66,7 +70,9 @@ export default function Header() {
         return "翰科實驗小學";
       case "kindergarten":
         return "翰科幼兒園";
-      case "highSchool":
+      /*case "highSchool":
+        return "翰科高中階段";*/
+      case "middleSchool":
         return "翰科實驗中學";
       default:
         return "";
@@ -165,7 +171,8 @@ export default function Header() {
       const subSchool = [
         "kindergarten",
         "elementary",
-        "highSchool",
+        "middleSchool",
+        //"highSchool",
         "afterSchool",
       ].find((subSchool) => pathname.indexOf(subSchool) >= 0);
       if (subSchool) {

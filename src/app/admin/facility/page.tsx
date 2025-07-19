@@ -14,7 +14,7 @@ import {
 export default function AdminFacilityPage() {
   const pageName = "facility";
   const tabList = useMemo(
-    () => ["elementary", "kindergarten", "highSchool"],
+    () => ["elementary", "kindergarten", "highSchool", "middleSchool"],
     []
   );
   const [activePageData, setActivePageData] = useState([] as any);

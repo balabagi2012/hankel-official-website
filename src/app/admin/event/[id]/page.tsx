@@ -151,6 +151,7 @@ export default function EditEventPage({
                   <option value="kindergarten">kindergarten</option>
                   <option value="highSchool">highSchool</option>
                   <option value="elementary">elementary</option>
+                  <option value="middleSchool">middleSchool</option>
                 </select>
               </div>
             </div>
