@@ -14,7 +14,7 @@ import {
 export default function AdminCurriculumPage() {
   const pageName = "curriculum";
   const tabList = useMemo(
-    () => ["elementary", "kindergarten", "highSchool"],
+    () => ["elementary", "kindergarten", "highSchool", "middleSchool"],
     []
   );
   const [activePageData, setActivePageData] = useState([] as any);

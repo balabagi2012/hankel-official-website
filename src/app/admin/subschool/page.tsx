@@ -13,7 +13,7 @@ import {
 export default function AdminSubschoolPage() {
   const pageName = "subschool";
   const tabList = useMemo(
-    () => ["afterSchool", "elementary", "kindergarten", "highSchool"],
+    () => ["afterSchool", "elementary", "kindergarten", "highSchool", "middleSchool"],
     []
   );
   const [activePageData, setActivePageData] = useState([] as any);

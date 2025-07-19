@@ -8,7 +8,7 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 export default function AdminAboutPage() {
   const pageName = "about";
   const tabList = useMemo(
-    () => ["home", "afterSchool", "elementary", "kindergarten", "highSchool"],
+    () => ["home", "afterSchool", "elementary", "kindergarten", "highSchool", "middleSchool"],
     []
   );
   const [activePageData, setActivePageData] = useState([] as any);
@@ -418,6 +418,9 @@ export default function AdminAboutPage() {
                             Section2 Content 1 [{lang}]
                           </th>
                           <th className="px-6 py-3 text-left font-medium">
+                            Section2 Content 2 [{lang}]
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium">
                             Section2 Img [Free Size]
                           </th>
                         </tr>
@@ -432,9 +435,17 @@ export default function AdminAboutPage() {
                           </td>
                           <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                             <textarea
-                              className="text-sm leading-5 text-gray-900 border w-full"
+                              className="text-sm leading-5 text-gray-900 w-full border"
                               {...register(
                                 `sections.1.texts.0.content.${lang}`
+                              )}
+                            ></textarea>
+                          </td>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <textarea
+                              className="text-sm leading-5 text-gray-900 border w-full"
+                              {...register(
+                                `sections.1.texts.1.content.${lang}`
                               )}
                             ></textarea>
                           </td>
