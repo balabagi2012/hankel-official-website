@@ -1,29 +1,16 @@
+import { getInformation } from "@/utils/api";
 import dynamic from "next/dynamic";
+import Head from "next/head";
 import Image from "next/image";
-import Title from "../Title";
-import Typography from "../Typography";
-import { InformationEntity } from "@/app/api/information/route";
 import Link from "next/link";
 import Event from "../Event";
 import Footer from "../Footer";
 import Section from "../Section";
-import Head from "next/head";
+import Title from "../Title";
+import Typography from "../Typography";
+import SeoHeading from "../SeoHeading";
 
 const Banner = dynamic(() => import("../Banner"), { ssr: false });
-
-export const getInformation = async (
-  name: string
-): Promise<InformationEntity> => {
-  const res = await fetch(`${process.env.API_URI}/api/information/${name}`, {
-    cache: "no-cache",
-  });
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch data");
-  }
-
-  return res.json();
-};
 
 export interface InformationProps {
   type?: "kindergarten" | "subschool";
@@ -52,19 +39,21 @@ export default async function Information(props: InformationProps) {
           href={`/zh/${name}/information`}
           hrefLang="zh-TW"
         />
+        <link rel="canonical" href={`/${lang}/${name}/information`} />
       </Head>
       <Banner size="small" src={information.banner} lang={lang}></Banner>
       <Section className="bg-bgGray">
+        <SeoHeading {...information} lang={lang} />
         <div className="flex flex-col w-full md:w-[1024px]">
           <Title full align="center" type={type} lang={lang}>
             {information.admissionBrochure.title[lang]}
           </Title>
-          <Typography
-            varient="h5"
-            className="text-textGray text-left whitespace-pre-line"
-          >
-            {information.admissionBrochure.description[lang]}
-          </Typography>
+          <div
+            className="editor-display text-[14px] md:text-[16px] leading-[2] tracking-[1px] text-textGray text-left whitespace-pre-line"
+            dangerouslySetInnerHTML={{
+              __html: information.admissionBrochure.description[lang],
+            }}
+          ></div>
           <Link
             href={information.admissionBrochure.file}
             className="mt-[60px] py-2 flex flex-row justify-center border items-center rounded border-deepBlue bg-white"
@@ -88,12 +77,12 @@ export default async function Information(props: InformationProps) {
             <Title full align="left" type={type} lang={lang}>
               {information.informationSession.title[lang]}
             </Title>
-            <Typography
-              varient="h5"
-              className="text-textGray text-start mb-8 whitespace-pre-line"
-            >
-              {information.informationSession.description[lang]}
-            </Typography>
+            <div
+              className="editor-display text-[14px] md:text-[16px] leading-[2] tracking-[1px] text-textGray text-left whitespace-pre-line"
+              dangerouslySetInnerHTML={{
+                __html: information.informationSession.description[lang],
+              }}
+            ></div>
           </div>
           <Image
             src={information.informationSession.img}

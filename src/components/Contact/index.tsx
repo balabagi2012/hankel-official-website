@@ -1,10 +1,11 @@
-import { ContactEntity } from "@/app/api/contact/route";
+import { getContact } from "@/utils/api";
 import dynamic from "next/dynamic";
+import Head from "next/head";
 import ContactForm from "../ContactForm";
 import ContactInfo from "../ContactInfo";
 import Footer from "../Footer";
 import Section from "../Section";
-import Head from "next/head";
+import SeoHeading from "../SeoHeading";
 
 const Banner = dynamic(() => import("../Banner"), { ssr: false });
 
@@ -16,17 +17,6 @@ export interface ContactProps {
   description?: string;
   banner?: string;
 }
-
-const getContact = async (name: string): Promise<ContactEntity> => {
-  const res = await fetch(`${process.env.API_URI}/api/contact/${name}`, {
-    cache: "no-cache",
-  });
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch data");
-  }
-  return res.json();
-};
 
 export default async function Contact(props: ContactProps) {
   const { lang, name, type = "subschool" } = props;
@@ -53,6 +43,12 @@ export default async function Contact(props: ContactProps) {
           href={type === "home" ? "/zh/contact" : `/zh/${name}/contact`}
           hrefLang="zh-TW"
         />
+        <link
+          rel="canonical"
+          href={
+            type === "home" ? `/${lang}/contact` : `/${lang}/${name}/contact`
+          }
+        />
       </Head>
       <Banner
         size={type === "home" ? "large" : "small"}
@@ -62,6 +58,7 @@ export default async function Contact(props: ContactProps) {
         lang={lang}
       ></Banner>
       <Section className="bg-bgGray">
+        <SeoHeading {...data} lang={lang} />
         <div className="flex flex-col w-full md:w-[700px]">
           <ContactInfo type={type} lang={lang} contact={data} />
         </div>

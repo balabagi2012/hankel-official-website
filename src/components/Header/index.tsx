@@ -31,11 +31,11 @@ export default function Header() {
     },
     {
       path: `/${language}/elementary`,
-      label: language === "zh" ? "翰科實驗小學" : `Elementary`,
+      label: language === "zh" ? "翰科小學階段" : `Elementary`,
     },
     {
       path: `/${language}/highSchool`,
-      label: language === "zh" ? "翰科實驗中學" : `High School`,
+      label: language === "zh" ? "翰科中學階段" : `High School`,
     },
     {
       path: `/${language}/afterSchool`,
@@ -217,14 +217,14 @@ export default function Header() {
         <Link
           href={`/${language}`}
           rel="noopener noreferrer"
-          className="flex items-center w-[150px] h-[32px] md:w-[200px] md:[h-42px] mr-auto ml-3 md:ml-0"
+          className="flex flex-row justify-center items-center w-[150px] h-auto md:w-[200px] xl:w-[238px] mr-auto ml-3 md:ml-0"
         >
           <Image
             src={`/logo/${subSchool?.length > 0 ? subSchool : "home"}.svg`}
             alt="hankel logo"
-            className="w-[150px] h-[32px] md:w-[200px] md:[h-42px]"
-            width="200"
-            height="42"
+            className="w-full h-auto"
+            width="238"
+            height="50"
           ></Image>
         </Link>
         <div
@@ -410,7 +410,7 @@ export default function Header() {
             <div className="p-4" role="none">
               <div
                 onClick={() => handleLanguageChange("en")}
-                className={`mb-4 h-[25px] flex flex-row justify-start`}
+                className={`mb-4 h-[25px] flex flex-row justify-start cursor-pointer`}
                 rel="noopener noreferrer"
               >
                 <Typography
@@ -422,7 +422,7 @@ export default function Header() {
               </div>
               <div
                 onClick={() => handleLanguageChange("zh")}
-                className={`h-[25px] flex flex-row justify-start`}
+                className={`h-[25px] flex flex-row justify-start cursor-pointer`}
                 rel="noopener noreferrer"
               >
                 <Typography
@@ -483,7 +483,7 @@ export default function Header() {
                 )}
                 {language === "zh" ? (
                   <div
-                    className={`mt-3`}
+                    className={`mt-3 cursor-pointer`}
                     rel="noopener noreferrer"
                     onClick={() => handleLanguageChange("en")}
                   >
@@ -491,7 +491,7 @@ export default function Header() {
                   </div>
                 ) : (
                   <div
-                    className={`mt-3`}
+                    className={`mt-3 cursor-pointer`}
                     rel="noopener noreferrer"
                     onClick={() => handleLanguageChange("zh")}
                   >

@@ -1,8 +1,9 @@
 import { ContactEntity } from "@/app/api/contact/route";
-import { SubschoolEntity } from "@/app/api/subschool/route";
 import { kindergarten } from "@/app/styles/fonts";
+import { getSubschool } from "@/utils/api";
 import { chunk } from "lodash";
 import dynamic from "next/dynamic";
+import Head from "next/head";
 import Image from "next/image";
 import Card from "../Card";
 import ContactForm from "../ContactForm";
@@ -12,7 +13,7 @@ import LatestNews from "../LatestNews";
 import Section from "../Section";
 import Title from "../Title";
 import Typography from "../Typography";
-import Head from "next/head";
+import SeoHeading from "../SeoHeading";
 
 const Banner = dynamic(() => import("../Banner"), { ssr: false });
 
@@ -20,18 +21,6 @@ interface SubschoolProps {
   name: "afterSchool" | "elementary" | "kindergarten" | "highSchool";
   lang: "en" | "zh";
 }
-
-const getSubschool = async (name: string): Promise<SubschoolEntity> => {
-  const res = await fetch(`${process.env.API_URI}/api/subschool/${name}`, {
-    cache: "no-cache",
-  });
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch data");
-  }
-
-  return res.json();
-};
 
 const getContact = async (name: string): Promise<ContactEntity> => {
   const res = await fetch(`${process.env.API_URI}/api/contact/${name}`, {
@@ -55,22 +44,60 @@ interface InstagramPostsResponse {
 }
 
 const getInstagramPosts = async (
-  accessToken: string
+  name: string,
+  facebook: string,
+  accessToken: string,
+  expireTime: number
 ): Promise<InstagramPostsResponse> => {
-  const res = await fetch(
-    `https://graph.instagram.com/me/media?fields=id,media_type,media_url&access_token=${accessToken}`,
-    {
-      cache: "no-cache",
+  try {
+    const now = Date.now();
+    let token = accessToken;
+    const day = 1000 * 60 * 60 * 24 * 7;
+    if (now > (expireTime ?? now) - day) {
+      const res = await fetch(
+        `https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=${accessToken}`,
+        {
+          cache: "no-cache",
+        }
+      );
+      if (!res.ok) {
+        return { data: [] };
+      }
+      const result = await res.json();
+      await fetch(`${process.env.API_URI}/api/subschool/${name}`, {
+        cache: "no-cache",
+        method: "PATCH",
+        body: JSON.stringify({
+          socialMedia: {
+            facebook,
+            instagram: result.access_token,
+            instagramExpireTime: now + result.expires_in * 1000,
+          },
+        }),
+      });
+      token = result.access_token;
+      console.log(result);
     }
-  );
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch data");
+    const res = await fetch(
+      `https://graph.instagram.com/me/media?fields=id,media_type,media_url&access_token=${token}`,
+      {
+        cache: "no-cache",
+      }
+    );
+    if (!res.ok) {
+      // This will activate the closest `error.js` Error Boundary
+      throw new Error("Failed to fetch data");
+    }
+    const igPosts = await res.json();
+    return {
+      data: igPosts.data.filter(
+        (item: any) =>
+          item.media_type === "IMAGE" || item.media_type === "CAROUSEL_ALBUM"
+      ),
+    };
+  } catch (error) {
+    return { data: [] };
   }
-  const result = await res.json();
-  return {
-    data: result.data.filter((item: any) => item.media_type === "IMAGE"),
-  };
 };
 
 const getSubschoolData = async (name: string) => {
@@ -80,7 +107,10 @@ const getSubschoolData = async (name: string) => {
   ]);
 
   const instagramPosts = await getInstagramPosts(
-    subschool.socialMedia.instagram
+    name,
+    subschool.socialMedia.facebook,
+    subschool.socialMedia.instagram,
+    subschool.socialMedia.instagramExpireTime
   );
 
   return {
@@ -104,6 +134,7 @@ export default async function Subschool(props: SubschoolProps) {
       </Head>
       <Banner size="small" src={data.banner} lang={lang} />
       <Section className="bg-bgGray">
+        <SeoHeading {...data} lang={lang} />
         <Title align="center" type={name} lang={lang}>
           {data.title[lang]}
         </Title>
@@ -170,7 +201,7 @@ export default async function Subschool(props: SubschoolProps) {
                 ))}
               </div>
               <div className="flex flex-row flex-1 flex-wrap gap-5 justify-between">
-                {data?.instagramPosts?.data?.slice(5, 9).map((post) => (
+                {data?.instagramPosts?.data?.slice(4, 8).map((post) => (
                   <Image
                     key={post.id}
                     src={post.media_url}

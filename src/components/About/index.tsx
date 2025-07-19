@@ -8,6 +8,7 @@ import Footer from "../Footer";
 import Section from "../Section";
 import SeoHeading from "../SeoHeading";
 import Head from "next/head";
+import { getAbout } from "@/utils/api";
 
 const Banner = dynamic(() => import("../Banner"), { ssr: false });
 
@@ -17,24 +18,9 @@ export interface AboutProps {
   type?: "kindergarten" | "subschool" | "home";
 }
 
-async function getAbout(name: string, lang: "en" | "zh"): Promise<AboutEntity> {
-  const res = await fetch(
-    `${process.env.API_URI}/api/about/${name}?lang=${lang}`,
-    {
-      cache: "no-cache",
-    }
-  );
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch data");
-  }
-
-  return res.json();
-}
-
 export default async function About(props: AboutProps) {
   const { name, lang, type = "subschool" } = props;
-  const data = await getAbout(name, lang);
+  const data = await getAbout(name);
   return (
     <main
       className={`pt-[50px] ${
@@ -57,8 +43,11 @@ export default async function About(props: AboutProps) {
           href={type === "home" ? "/zh/about" : `/zh/${name}/about`}
           hrefLang="zh-TW"
         />
+        <link
+          rel="canonical"
+          href={type === "home" ? `/${lang}/about` : `/${lang}/${name}/about`}
+        />
       </Head>
-      <SeoHeading {...data} lang={lang} />
       <Banner
         size={type === "home" ? "large" : "small"}
         src={data.banner ?? "/banners/school.png"}
@@ -68,6 +57,7 @@ export default async function About(props: AboutProps) {
       ></Banner>
       <Section className="bg-bgGray">
         <div className="flex flex-col-reverse md:flex-row w-full md:w-[1180px] justify-center items-stretch">
+          <SeoHeading {...data} lang={lang} />
           <div className="flex flex-col md:mr-[65px] gap-y-5">
             {data.sections[0].imgs.map((img) => (
               <Image

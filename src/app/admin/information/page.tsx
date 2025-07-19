@@ -1,5 +1,6 @@
 "use client";
 
+import EditorComponent from "@/components/Editor";
 import LangSwitch from "@/components/LangSwitch";
 import Image from "next/image";
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -70,7 +71,7 @@ export default function AdminInformationPage() {
 
   const uploadFile = async (file: File) => {
     setUploading(true);
-    const url = `/api/file`;
+    const url = `https://www.hiape.ntpc.edu.tw/uploads`;
     const form = new FormData();
     form.append("file", file);
     const res = await fetch(url, {
@@ -134,7 +135,7 @@ export default function AdminInformationPage() {
           {loading && activeTabData
             ? "loading..."
             : activeTabData && (
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <div>
                   <div className="mt-4 align-middle inline-block w-full shadow overflow-x-auto sm:rounded-lg border-b border-gray-200">
                     <div className="bg-white flex flex-row items-center">
                       <p
@@ -234,14 +235,23 @@ export default function AdminInformationPage() {
                               })}
                             ></input>
                           </td>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <input
-                              className="text-sm leading-5 text-gray-900 border w-full"
-                              {...register(
-                                `admissionBrochure.description.${lang}`,
-                                { required: true }
+                          <td
+                            key={`${activeTab}-${lang}`}
+                            className="px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+                          >
+                            <Controller
+                              name={`admissionBrochure.description.${lang}`}
+                              control={control}
+                              render={({ field }) => (
+                                <EditorComponent
+                                  value={field.value}
+                                  name={`admissionBrochure.description.${lang}`}
+                                  onChange={(content) => {
+                                    field.onChange(content);
+                                  }}
+                                />
                               )}
-                            ></input>
+                            ></Controller>
                           </td>
                           <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                             <Controller
@@ -441,16 +451,21 @@ export default function AdminInformationPage() {
                               })}
                             ></input>
                           </td>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <textarea
-                              className="text-sm leading-5 text-gray-900 border w-full"
-                              {...register(
-                                `informationSession.description.${lang}`,
-                                {
-                                  required: true,
-                                }
+                          <td
+                            className="px-6 py-4 whitespace-no-wrap border-b border-gray-200"
+                            key={`${activeTab}-${lang}`}
+                          >
+                            <Controller
+                              name={`informationSession.description.${lang}`}
+                              control={control}
+                              render={({ field }) => (
+                                <EditorComponent
+                                  name={`informationSession.description.${lang}`}
+                                  value={field.value}
+                                  onChange={field.onChange}
+                                />
                               )}
-                            ></textarea>
+                            ></Controller>
                           </td>
                           <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                             <Controller
@@ -690,7 +705,7 @@ export default function AdminInformationPage() {
                       </tbody>
                     </table>
                   </div>
-                </form>
+                </div>
               )}
         </div>
       </div>
