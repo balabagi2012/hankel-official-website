@@ -1,5 +1,6 @@
-import { connectToDatabase } from "@/utils/mongodb";
-import { NextRequest } from "next/server";
+import { NextRequest } from 'next/server';
+
+import { connectToDatabase } from '@/utils/mongodb';
 
 // GET /api/contact/:name
 export async function GET(
@@ -9,17 +10,17 @@ export async function GET(
   try {
     const { name } = params;
     const db = await connectToDatabase();
-    const about = await db.collection("contact").findOne({ name });
+    const about = await db.collection('contact').findOne({ name });
     if (!about) {
       return Response.json(
-        { error: "Contact data not found" },
+        { error: 'Contact data not found' },
         { status: 404 }
       );
     }
     return Response.json(about, { status: 200 });
   } catch (error) {
     return Response.json(
-      { error: "Failed to fetch contact data" },
+      { error: 'Failed to fetch contact data' },
       { status: 500 }
     );
   }
@@ -34,7 +35,7 @@ export async function PATCH(
     const { name } = params;
     const body = await req.json();
     const db = await connectToDatabase();
-    await db.collection("contact").updateOne(
+    await db.collection('contact').updateOne(
       { name },
       {
         $set: {
@@ -44,12 +45,12 @@ export async function PATCH(
       { upsert: true }
     );
     return Response.json(
-      { message: "Contact data updated successfully" },
+      { message: 'Contact data updated successfully' },
       { status: 200 }
     );
   } catch (error) {
     return Response.json(
-      { error: "Failed to update contact data" },
+      { error: 'Failed to update contact data' },
       { status: 500 }
     );
   }
@@ -65,26 +66,26 @@ export async function DELETE(
     const { lang } = await req.json();
     if (!lang) {
       return Response.json(
-        { error: "Missing required fields" },
+        { error: 'Missing required fields' },
         { status: 400 }
       );
     }
 
     const db = await connectToDatabase();
-    const result = await db.collection("contact").deleteOne({ name, lang });
+    const result = await db.collection('contact').deleteOne({ name, lang });
     if (result.deletedCount === 0) {
       return Response.json(
-        { error: "Contact data not found" },
+        { error: 'Contact data not found' },
         { status: 404 }
       );
     }
     return Response.json(
-      { message: "Contact data deleted successfully" },
+      { message: 'Contact data deleted successfully' },
       { status: 200 }
     );
   } catch (error) {
     return Response.json(
-      { error: "Failed to delete contact data" },
+      { error: 'Failed to delete contact data' },
       { status: 500 }
     );
   }

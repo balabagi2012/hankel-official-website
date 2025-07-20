@@ -1,15 +1,17 @@
-import dynamic from "next/dynamic";
-import ContactForm from "../ContactForm";
-import ContactInfo from "../ContactInfo";
-import Footer from "../Footer";
-import LatestNews from "../LatestNews";
-import { Program } from "../Program";
-import Section from "../Section";
-import Head from "next/head";
-import { getContact, getHome } from "@/utils/api";
-import SeoHeading from "../SeoHeading";
+import dynamic from 'next/dynamic';
+import Head from 'next/head';
 
-const Banner = dynamic(() => import("../Banner"), { ssr: false });
+import { getContact, getHome } from '@/utils/api';
+
+import ContactForm from '../ContactForm';
+import ContactInfo from '../ContactInfo';
+import Footer from '../Footer';
+import LatestNews from '../LatestNews';
+import { Program } from '../Program';
+import Section from '../Section';
+import SeoHeading from '../SeoHeading';
+
+const Banner = dynamic(() => import('../Banner'), { ssr: false });
 
 const getHomeData = async (name: string) => {
   const home = await getHome();
@@ -20,7 +22,7 @@ const getHomeData = async (name: string) => {
   };
 };
 interface HomePageProps {
-  lang: "en" | "zh";
+  lang: 'en' | 'zh';
   name: string;
 }
 

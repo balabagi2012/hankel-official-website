@@ -1,30 +1,32 @@
-"use client";
-import { NewsEntity } from "@/app/api/news/route";
-import { NewsPageEntity } from "@/app/api/newsPage/route";
-import LangSwitch from "@/components/LangSwitch";
-import Image from "next/image";
-import Link from "next/link";
-import { Paginator } from "primereact/paginator";
-import "primereact/resources/themes/lara-light-indigo/theme.css"; // theme
-import { useEffect, useMemo, useState } from "react";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
+'use client';
+import 'primereact/resources/themes/lara-light-indigo/theme.css'; // theme
+
+import Image from 'next/image';
+import Link from 'next/link';
+import { Paginator } from 'primereact/paginator';
+import { useEffect, useMemo, useState } from 'react';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+
+import { NewsEntity } from '@/app/api/news/route';
+import { NewsPageEntity } from '@/app/api/newsPage/route';
+import LangSwitch from '@/components/LangSwitch';
 
 export default function AdminNewsPage() {
   const [newsList, setNewsList] = useState<NewsEntity[]>([]);
   const [activePageData, setActivePageData] = useState([] as any);
-  const [activeTab, setActiveTab] = useState("newsList");
+  const [activeTab, setActiveTab] = useState('newsList');
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [pagination, setPagination] = useState({ first: 0, rows: 10, page: 0 });
-  const [lang, setLang] = useState<"en" | "zh">("en");
+  const [lang, setLang] = useState<'en' | 'zh'>('en');
   const tabList = useMemo(
     () => [
-      "newsList",
-      "afterSchool",
-      "elementary",
-      "kindergarten",
-      "highSchool",
-      "middleSchool",
+      'newsList',
+      'afterSchool',
+      'elementary',
+      'kindergarten',
+      'highSchool',
+      'middleSchool',
     ],
     []
   );
@@ -37,26 +39,26 @@ export default function AdminNewsPage() {
     setUploading(true);
     const url = `https://www.hiape.ntpc.edu.tw/uploads`;
     const form = new FormData();
-    form.append("file", file);
+    form.append('file', file);
     const res = await fetch(url, {
-      method: "POST",
+      method: 'POST',
       body: form,
     });
     setUploading(false);
     if (!res.ok) {
       // This will activate the closest `error.js` Error Boundary
-      return window.alert("Failed to upload file");
+      return window.alert('Failed to upload file');
     }
     return res.json();
   };
 
   const getNews = async (): Promise<NewsEntity[]> => {
     const res = await fetch(`/api/news?limit=1000`, {
-      cache: "no-cache",
+      cache: 'no-cache',
     });
     if (!res.ok) {
       // This will activate the closest `error.js` Error Boundary
-      throw new Error("Failed to fetch data");
+      throw new Error('Failed to fetch data');
     }
 
     return res.json();
@@ -64,11 +66,11 @@ export default function AdminNewsPage() {
 
   const getNewsPage = async (): Promise<NewsPageEntity[]> => {
     const res = await fetch(`/api/newsPage`, {
-      cache: "no-cache",
+      cache: 'no-cache',
     });
     if (!res.ok) {
       // This will activate the closest `error.js` Error Boundary
-      throw new Error("Failed to fetch data");
+      throw new Error('Failed to fetch data');
     }
 
     return res.json();
@@ -95,16 +97,16 @@ export default function AdminNewsPage() {
     const url = `/api/newsPage/${activeTab}`;
     const { _id, ...body } = data;
     const res = await fetch(url, {
-      method: "PATCH",
+      method: 'PATCH',
       body: JSON.stringify({ name: activeTab, ...body }),
     });
     setLoading(false);
     if (!res.ok) {
       // This will activate the closest `error.js` Error Boundary
-      return window.alert("Failed to update data");
+      return window.alert('Failed to update data');
     }
     fetchPageData();
-    return window.alert("Successed to update data");
+    return window.alert('Successed to update data');
   };
 
   useEffect(() => {
@@ -128,7 +130,7 @@ export default function AdminNewsPage() {
               </span>
             </div>
           </div>
-          {activeTab === "newsList" ? (
+          {activeTab === 'newsList' ? (
             <Link
               href={`/admin/news/create`}
               className="px-3 py-1 bg-deepBlue font-base text-white border border-gray-300 rounded-lg focus:outline-none"
@@ -153,8 +155,8 @@ export default function AdminNewsPage() {
               onClick={() => setActiveTab(tab)}
               className={`py-3 px-2 font-serif ${
                 tab === activeTab
-                  ? "font-bold border-b-2 border-deepBlue text-blue"
-                  : "text-blue"
+                  ? 'font-bold border-b-2 border-deepBlue text-blue'
+                  : 'text-blue'
               }`}
             >
               {tab}
@@ -166,7 +168,7 @@ export default function AdminNewsPage() {
           <div className="px-8 py-6 w-full h-screen bg-gray-200 overflow-scroll">
             Loading...
           </div>
-        ) : activeTab === "newsList" ? (
+        ) : activeTab === 'newsList' ? (
           <div className="px-8 py-6 w-full h-screen bg-gray-200 overflow-scroll">
             <div className="align-middle inline-block w-full shadow overflow-x-auto sm:rounded-lg border-b border-gray-200">
               <table className="min-w-full">
@@ -261,7 +263,7 @@ export default function AdminNewsPage() {
                     </td>
                     <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                       <Controller
-                        name={"banner"}
+                        name={'banner'}
                         control={control}
                         render={({ field }) => (
                           <div className="flex-1 flex flex-col items-start justify-start">
@@ -287,8 +289,8 @@ export default function AdminNewsPage() {
                               }}
                             />
                             {field.value &&
-                              (field.value.startsWith("/") ||
-                                field.value.startsWith("http")) && (
+                              (field.value.startsWith('/') ||
+                                field.value.startsWith('http')) && (
                                 <Image
                                   width={500}
                                   height={500}
@@ -305,7 +307,7 @@ export default function AdminNewsPage() {
                                 document.getElementById(`file-banner`)?.click();
                               }}
                             >
-                              {uploading ? "上傳圖片中" : "更換圖片"}
+                              {uploading ? '上傳圖片中' : '更換圖片'}
                             </button>
                           </div>
                         )}

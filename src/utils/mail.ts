@@ -1,10 +1,10 @@
-import nodemailer from "nodemailer";
+import nodemailer from 'nodemailer';
 let client: nodemailer.Transporter;
 
 export function connectToMailServer() {
   const { SMTP_HOST, SMTP_PORT, SMTP_ACCOUNT, SMTP_PASSWORD } = process.env;
   if (!SMTP_HOST || !SMTP_PORT || !SMTP_ACCOUNT || !SMTP_PASSWORD) {
-    throw new Error("No SMTP env variable found");
+    throw new Error('No SMTP env variable found');
   } else {
     if (!client) {
       client = nodemailer.createTransport({

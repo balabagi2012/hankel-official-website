@@ -1,24 +1,26 @@
-import { getTeam } from "@/utils/api";
-import { chunk } from "lodash";
-import dynamic from "next/dynamic";
-import Head from "next/head";
-import Card from "../Card";
-import Footer from "../Footer";
-import Section from "../Section";
-import Title from "../Title";
-import Typography from "../Typography";
-import SeoHeading from "../SeoHeading";
+import { chunk } from 'lodash';
+import dynamic from 'next/dynamic';
+import Head from 'next/head';
 
-const Banner = dynamic(() => import("../Banner"), { ssr: false });
+import { getTeam } from '@/utils/api';
+
+import Card from '../Card';
+import Footer from '../Footer';
+import Section from '../Section';
+import SeoHeading from '../SeoHeading';
+import Title from '../Title';
+import Typography from '../Typography';
+
+const Banner = dynamic(() => import('../Banner'), { ssr: false });
 
 export interface TeamProps {
-  type?: "kindergarten" | "subschool";
+  type?: 'kindergarten' | 'subschool';
   name: string;
-  lang: "en" | "zh";
+  lang: 'en' | 'zh';
 }
 
 export default async function Team(props: TeamProps) {
-  const { type = "subschool", name, lang } = props;
+  const { type = 'subschool', name, lang } = props;
   const team = await getTeam(name);
   return (
     <main className="pt-[50px] md:pt-[200px]">
@@ -51,7 +53,7 @@ export default async function Team(props: TeamProps) {
                   <Card
                     key={`foreignTeam ${index}`}
                     type={`team${
-                      name === "kindergarten" ? `-kindergarten` : ""
+                      name === 'kindergarten' ? `-kindergarten` : ''
                     }`}
                     img={element.img}
                     alt={element.title[lang]}
@@ -88,7 +90,7 @@ export default async function Team(props: TeamProps) {
               {chunk.map((element, index) => (
                 <Card
                   key={`local team ${index}`}
-                  type={`team${name === "kindergarten" ? `-kindergarten` : ""}`}
+                  type={`team${name === 'kindergarten' ? `-kindergarten` : ''}`}
                   img={element.img}
                   alt={element.title[lang]}
                   title={element.title[lang]}

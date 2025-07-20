@@ -1,13 +1,16 @@
-"use client";
-import { NewsEntity } from "@/app/api/news/route";
-import { Paginator } from "primereact/paginator";
-import "primereact/resources/themes/lara-light-indigo/theme.css"; // theme
-import { useState } from "react";
-import Card from "../Card";
+'use client';
+import 'primereact/resources/themes/lara-light-indigo/theme.css'; // theme
+
+import { Paginator } from 'primereact/paginator';
+import { useState } from 'react';
+
+import { NewsEntity } from '@/app/api/news/route';
+
+import Card from '../Card';
 
 export interface NewsListProps {
   news: NewsEntity[];
-  lang: "en" | "zh";
+  lang: 'en' | 'zh';
 }
 export default function NewsList({ news, lang }: NewsListProps) {
   const [pagination, setPagination] = useState({ first: 0, rows: 8, page: 0 });

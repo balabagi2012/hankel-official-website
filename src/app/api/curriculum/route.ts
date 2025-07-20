@@ -1,5 +1,6 @@
-import { connectToDatabase } from "@/utils/mongodb";
-import { Seo, Text } from "../model";
+import { connectToDatabase } from '@/utils/mongodb';
+
+import { Seo, Text } from '../model';
 
 export interface CurriculumEntity extends Seo {
   name: string;
@@ -20,11 +21,11 @@ export interface Curriculum {
 export async function GET() {
   try {
     const db = await connectToDatabase();
-    const curriculum = await db.collection("curriculum").find({}).toArray();
+    const curriculum = await db.collection('curriculum').find({}).toArray();
     return Response.json(curriculum, { status: 200 });
   } catch (error) {
     return Response.json(
-      { error: "Failed to fetch curriculum data" },
+      { error: 'Failed to fetch curriculum data' },
       { status: 500 }
     );
   }
@@ -37,12 +38,12 @@ export async function POST(req: Request) {
       await req.json();
     if (!name || !title || !description || !curriculumTitle || !curriculums) {
       return Response.json(
-        { error: "Missing required fields" },
+        { error: 'Missing required fields' },
         { status: 400 }
       );
     }
     const db = await connectToDatabase();
-    const curriculum = await db.collection("curriculum").insertOne({
+    const curriculum = await db.collection('curriculum').insertOne({
       name,
       banner,
       title,
@@ -53,7 +54,7 @@ export async function POST(req: Request) {
     return Response.json({ curriculum }, { status: 200 });
   } catch (error) {
     return Response.json(
-      { error: "Failed to create curriculum data" },
+      { error: 'Failed to create curriculum data' },
       { status: 500 }
     );
   }

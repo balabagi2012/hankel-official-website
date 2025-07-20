@@ -1,49 +1,50 @@
-"use client";
-import EditorComponent from "@/components/Editor";
-import LangSwitch from "@/components/LangSwitch";
-import { ArrowLeftIcon } from "@heroicons/react/24/solid";
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+'use client';
+import { ArrowLeftIcon } from '@heroicons/react/24/solid';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+
+import EditorComponent from '@/components/Editor';
+import LangSwitch from '@/components/LangSwitch';
 
 export default function CreateNewsPage() {
   const { register, control, handleSubmit } = useForm({
     values: {
-      title: { zh: "標題", en: "title" },
-      description: { zh: "敘述", en: "description" },
-      category: "afterSchool",
-      banner: "/news/1.png",
-      content: { zh: "", en: "" },
-      seoTitle: { zh: "", en: "" },
-      seoDescription: { zh: "", en: "" },
-      h1: { zh: "", en: "" },
-      h2: { zh: "", en: "" },
-      h3: { zh: "", en: "" },
-      h4: { zh: "", en: "" },
-      h5: { zh: "", en: "" },
-      h6: { zh: "", en: "" },
+      title: { zh: '標題', en: 'title' },
+      description: { zh: '敘述', en: 'description' },
+      category: 'afterSchool',
+      banner: '/news/1.png',
+      content: { zh: '', en: '' },
+      seoTitle: { zh: '', en: '' },
+      seoDescription: { zh: '', en: '' },
+      h1: { zh: '', en: '' },
+      h2: { zh: '', en: '' },
+      h3: { zh: '', en: '' },
+      h4: { zh: '', en: '' },
+      h5: { zh: '', en: '' },
+      h6: { zh: '', en: '' },
     },
   });
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
   const router = useRouter();
-  const [lang, setLang] = useState<"en" | "zh">("en");
+  const [lang, setLang] = useState<'en' | 'zh'>('en');
 
   const uploadFile = async (file: File) => {
     setUploading(true);
     const url = `https://www.hiape.ntpc.edu.tw/uploads`;
     const form = new FormData();
-    form.append("file", file);
+    form.append('file', file);
     const res = await fetch(url, {
-      method: "POST",
+      method: 'POST',
       body: form,
     });
     setUploading(false);
     if (!res.ok) {
       // This will activate the closest `error.js` Error Boundary
-      return window.alert("Failed to upload file");
+      return window.alert('Failed to upload file');
     }
     return res.json();
   };
@@ -52,16 +53,16 @@ export default function CreateNewsPage() {
     setLoading(true);
     const url = `/api/news`;
     const res = await fetch(url, {
-      method: "POST",
+      method: 'POST',
       body: JSON.stringify(data),
     });
     setLoading(false);
     if (!res.ok) {
       // This will activate the closest `error.js` Error Boundary
-      return window.alert("Failed to post news");
+      return window.alert('Failed to post news');
     }
-    window.alert("Successed to post news");
-    router.push("/admin/news");
+    window.alert('Successed to post news');
+    router.push('/admin/news');
   };
 
   return (
@@ -101,7 +102,7 @@ export default function CreateNewsPage() {
           <div className="px-8 py-6 w-full h-screen bg-gray-200 overflow-scroll">
             <div className="bg-white px-6 py-3 rounded shadow mt-4">
               <div>
-                <label>title[{lang === "zh" ? "中文" : "EN"}]</label>
+                <label>title[{lang === 'zh' ? '中文' : 'EN'}]</label>
                 <input
                   className="w-full border px-4 py-2 mb-4 mt-2"
                   {...register(`title.${lang}`, {
@@ -112,7 +113,7 @@ export default function CreateNewsPage() {
             </div>
             <div className="bg-white px-6 py-3 rounded shadow mt-4">
               <div>
-                <label>description[{lang === "zh" ? "中文" : "EN"}]</label>
+                <label>description[{lang === 'zh' ? '中文' : 'EN'}]</label>
                 <input
                   className="w-full border px-4 py-2 mb-4 mt-2"
                   {...register(`description.${lang}`, {
@@ -125,7 +126,7 @@ export default function CreateNewsPage() {
               <div>
                 <label>category</label>
                 <select
-                  {...register("category")}
+                  {...register('category')}
                   className="w-full border px-4 py-2 mb-4 mt-2"
                 >
                   <option value="afterSchool">afterSchool</option>
@@ -139,7 +140,7 @@ export default function CreateNewsPage() {
               <div>
                 <label>banner [建議尺寸254x350]</label>
                 <Controller
-                  name={"banner"}
+                  name={'banner'}
                   control={control}
                   render={({ field }) => (
                     <div className="flex flex-col items-start justify-start mt-2">
@@ -163,7 +164,7 @@ export default function CreateNewsPage() {
                         }}
                       />
                       {field.value?.length > 0 &&
-                        field.value.startsWith("/") && (
+                        field.value.startsWith('/') && (
                           <Image
                             src={field.value}
                             alt={field.name}
@@ -182,7 +183,7 @@ export default function CreateNewsPage() {
                             ?.click();
                         }}
                       >
-                        {uploading ? "上傳圖片中" : "更換圖片"}
+                        {uploading ? '上傳圖片中' : '更換圖片'}
                       </button>
                     </div>
                   )}
@@ -194,7 +195,7 @@ export default function CreateNewsPage() {
               key={`content[${lang}]`}
             >
               <div>
-                <label>content[{lang === "zh" ? "中文" : "EN"}]</label>
+                <label>content[{lang === 'zh' ? '中文' : 'EN'}]</label>
                 <Controller
                   name={`content.${lang}`}
                   control={control}

@@ -1,16 +1,18 @@
-import { ContactEntity } from "@/app/api/contact/route";
-import Image from "next/image";
-import Link from "next/link";
-import Title from "../Title";
-import Typography from "../Typography";
+import Image from 'next/image';
+import Link from 'next/link';
+
+import { ContactEntity } from '@/app/api/contact/route';
+
+import Title from '../Title';
+import Typography from '../Typography';
 
 export interface ContactInfoProps {
-  type: "subschool" | "kindergarten" | "home";
-  lang: "en" | "zh";
+  type: 'subschool' | 'kindergarten' | 'home';
+  lang: 'en' | 'zh';
   contact: ContactEntity;
 }
 export default function ContactInfo(props: ContactInfoProps) {
-  const { type = "subschool", contact, lang } = props;
+  const { type = 'subschool', contact, lang } = props;
   return (
     <div className="flex p-4 md:p-0 flex-1 flex-col items-start justify-start md:mr-[70px] gap-y-6">
       <Title full align="left" type={type} lang={lang}>
@@ -49,7 +51,7 @@ export default function ContactInfo(props: ContactInfoProps) {
       </div>
       <div
         className={`flex flex-row ${
-          lang === "en" ? "items-start" : "items-center"
+          lang === 'en' ? 'items-start' : 'items-center'
         } mt-3 md:mt-0`}
       >
         <Image

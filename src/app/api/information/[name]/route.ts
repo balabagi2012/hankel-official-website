@@ -1,5 +1,6 @@
-import { connectToDatabase } from "@/utils/mongodb";
-import { NextRequest } from "next/server";
+import { NextRequest } from 'next/server';
+
+import { connectToDatabase } from '@/utils/mongodb';
 
 // GET /api/information/:name
 export async function GET(
@@ -9,11 +10,11 @@ export async function GET(
   try {
     const { name } = params;
     const db = await connectToDatabase();
-    const information = await db.collection("information").findOne({ name });
+    const information = await db.collection('information').findOne({ name });
     return Response.json(information, { status: 200 });
   } catch (error) {
     return Response.json(
-      { error: "Failed to fetch team data" },
+      { error: 'Failed to fetch team data' },
       { status: 500 }
     );
   }
@@ -28,7 +29,7 @@ export async function PATCH(
     const { name } = params;
     const body = await req.json();
     const db = await connectToDatabase();
-    await db.collection("information").updateOne(
+    await db.collection('information').updateOne(
       { name },
       {
         $set: {
@@ -38,12 +39,12 @@ export async function PATCH(
       { upsert: true }
     );
     return Response.json(
-      { message: "Information data updated successfully" },
+      { message: 'Information data updated successfully' },
       { status: 200 }
     );
   } catch (error) {
     return Response.json(
-      { error: "Failed to update information data" },
+      { error: 'Failed to update information data' },
       { status: 500 }
     );
   }

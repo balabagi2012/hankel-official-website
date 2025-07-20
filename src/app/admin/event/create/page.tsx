@@ -1,17 +1,17 @@
-"use client";
-import { ArrowLeftIcon } from "@heroicons/react/24/solid";
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
+'use client';
+import { ArrowLeftIcon } from '@heroicons/react/24/solid';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 
 export default function CreateEventPage() {
   const { register, control, handleSubmit } = useForm({
     values: {
-      title: { zh: "", en: "" },
-      category: "afterSchool",
-      date: "",
+      title: { zh: '', en: '' },
+      category: 'afterSchool',
+      date: '',
     },
   });
   const [loading, setLoading] = useState(false);
@@ -21,16 +21,16 @@ export default function CreateEventPage() {
     setLoading(true);
     const url = `/api/event`;
     const res = await fetch(url, {
-      method: "POST",
+      method: 'POST',
       body: JSON.stringify(data),
     });
     setLoading(false);
     if (!res.ok) {
       // This will activate the closest `error.js` Error Boundary
-      return window.alert("Failed to post event");
+      return window.alert('Failed to post event');
     }
-    window.alert("Successed to post event");
-    router.push("/admin/event");
+    window.alert('Successed to post event');
+    router.push('/admin/event');
   };
 
   return (
@@ -72,7 +72,7 @@ export default function CreateEventPage() {
                 <label>title[中文]</label>
                 <input
                   className="w-full border px-4 py-2 mb-4 mt-2"
-                  {...register("title.zh", {
+                  {...register('title.zh', {
                     required: true,
                   })}
                 ></input>
@@ -83,7 +83,7 @@ export default function CreateEventPage() {
                 <label>title[EN]</label>
                 <input
                   className="w-full border px-4 py-2 mb-4 mt-2"
-                  {...register("title.en", {
+                  {...register('title.en', {
                     required: true,
                   })}
                 ></input>
@@ -95,7 +95,7 @@ export default function CreateEventPage() {
                 <input
                   type="date"
                   className="w-full border px-4 py-2 mb-4 mt-2"
-                  {...register("date", {
+                  {...register('date', {
                     required: true,
                   })}
                 ></input>
@@ -105,7 +105,7 @@ export default function CreateEventPage() {
               <div>
                 <label>category</label>
                 <select
-                  {...register("category")}
+                  {...register('category')}
                   className="w-full border px-4 py-2 mb-4 mt-2"
                 >
                   <option value="afterSchool">afterSchool</option>

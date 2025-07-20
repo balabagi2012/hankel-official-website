@@ -1,7 +1,7 @@
-import { Seo } from "@/app/api/model";
+import { Seo } from '@/app/api/model';
 
 interface SeoHeadingProps extends Seo {
-  lang: "en" | "zh";
+  lang: 'en' | 'zh';
 }
 
 const SeoHeading = (props: SeoHeadingProps) => {

@@ -1,6 +1,7 @@
-import { connectToDatabase } from "@/utils/mongodb";
-import { ObjectId } from "mongodb";
-import { NextRequest } from "next/server";
+import { ObjectId } from 'mongodb';
+import { NextRequest } from 'next/server';
+
+import { connectToDatabase } from '@/utils/mongodb';
 
 // GET /api/event/:id
 export async function GET(
@@ -11,12 +12,12 @@ export async function GET(
     const { id } = params;
     const db = await connectToDatabase();
     const event = await db
-      .collection("event")
+      .collection('event')
       .findOne({ _id: new ObjectId(id) });
     return Response.json(event, { status: 200 });
   } catch (error) {
     return Response.json(
-      { error: "Failed to fetch news data" },
+      { error: 'Failed to fetch news data' },
       { status: 500 }
     );
   }
@@ -31,7 +32,7 @@ export async function PATCH(
     const { id } = params;
     const body = await req.json();
     const db = await connectToDatabase();
-    await db.collection("event").updateOne(
+    await db.collection('event').updateOne(
       { _id: new ObjectId(id) },
       {
         $set: {
@@ -42,13 +43,13 @@ export async function PATCH(
       { upsert: true }
     );
     return Response.json(
-      { message: "Event data updated successfully" },
+      { message: 'Event data updated successfully' },
       { status: 200 }
     );
   } catch (error) {
     console.log(error);
     return Response.json(
-      { error: "Failed to update Event data" },
+      { error: 'Failed to update Event data' },
       { status: 500 }
     );
   }
@@ -62,15 +63,15 @@ export async function DELETE(
   try {
     const { id } = params;
     const db = await connectToDatabase();
-    await db.collection("event").deleteOne({ _id: new ObjectId(id) });
+    await db.collection('event').deleteOne({ _id: new ObjectId(id) });
     return Response.json(
-      { message: "Event data deleted successfully" },
+      { message: 'Event data deleted successfully' },
       { status: 200 }
     );
   } catch (error) {
     console.log(error);
     return Response.json(
-      { error: "Failed to delete Event data" },
+      { error: 'Failed to delete Event data' },
       { status: 500 }
     );
   }

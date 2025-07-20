@@ -1,26 +1,33 @@
-"use client";
+'use client';
 
-import LangSwitch from "@/components/LangSwitch";
-import Image from "next/image";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import Image from 'next/image';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   Controller,
   SubmitHandler,
   useFieldArray,
   useForm,
-} from "react-hook-form";
+} from 'react-hook-form';
+
+import LangSwitch from '@/components/LangSwitch';
 
 export default function AdminSubschoolPage() {
-  const pageName = "subschool";
+  const pageName = 'subschool';
   const tabList = useMemo(
-    () => ["afterSchool", "elementary", "kindergarten", "highSchool", "middleSchool"],
+    () => [
+      'afterSchool',
+      'elementary',
+      'kindergarten',
+      'highSchool',
+      'middleSchool',
+    ],
     []
   );
   const [activePageData, setActivePageData] = useState([] as any);
-  const [activeTab, setActiveTab] = useState("afterSchool");
+  const [activeTab, setActiveTab] = useState('afterSchool');
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
-  const [lang, setLang] = useState<"en" | "zh">("en");
+  const [lang, setLang] = useState<'en' | 'zh'>('en');
 
   const activeTabData = useMemo(
     () =>
@@ -34,7 +41,7 @@ export default function AdminSubschoolPage() {
 
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "experiences",
+    name: 'experiences',
   });
 
   const onSubmit: SubmitHandler<any> = async (data: any) => {
@@ -42,26 +49,26 @@ export default function AdminSubschoolPage() {
     const url = `/api/${pageName}/${activeTab}`;
     const { _id, ...body } = data;
     const res = await fetch(url, {
-      method: "PATCH",
+      method: 'PATCH',
       body: JSON.stringify(body),
     });
     setLoading(false);
     if (!res.ok) {
       // This will activate the closest `error.js` Error Boundary
-      return window.alert("Failed to update data");
+      return window.alert('Failed to update data');
     }
     loadPageData();
-    return window.alert("Successed to update data");
+    return window.alert('Successed to update data');
   };
 
   const fetchPageData = async () => {
     const url = `/api/${pageName}`;
     const res = await fetch(url, {
-      cache: "no-cache",
+      cache: 'no-cache',
     });
     if (!res.ok) {
       // This will activate the closest `error.js` Error Boundary
-      throw new Error("Failed to fetch data");
+      throw new Error('Failed to fetch data');
     }
     return res.json();
   };
@@ -82,21 +89,21 @@ export default function AdminSubschoolPage() {
     setUploading(true);
     const url = `https://www.hiape.ntpc.edu.tw/uploads`;
     const form = new FormData();
-    form.append("file", file);
+    form.append('file', file);
     const res = await fetch(url, {
-      method: "POST",
+      method: 'POST',
       body: form,
     });
     setUploading(false);
     if (!res.ok) {
       // This will activate the closest `error.js` Error Boundary
-      return window.alert("Failed to upload file");
+      return window.alert('Failed to upload file');
     }
     return res.json();
   };
 
   const handleRemove = (index: number) => {
-    if (window.confirm("Are you sure you wish to delete this item?")) {
+    if (window.confirm('Are you sure you wish to delete this item?')) {
       remove(index);
       handleSubmit(onSubmit);
     }
@@ -136,8 +143,8 @@ export default function AdminSubschoolPage() {
             onClick={() => setActiveTab(tab)}
             className={`py-3 px-2 font-serif ${
               tab === activeTab
-                ? "font-bold border-b-2 border-deepBlue text-blue"
-                : "text-blue"
+                ? 'font-bold border-b-2 border-deepBlue text-blue'
+                : 'text-blue'
             }`}
           >
             {tab}
@@ -148,7 +155,7 @@ export default function AdminSubschoolPage() {
       <div className="px-8 py-6 w-full h-screen bg-gray-200">
         <div className="w-full h-full overflow-scroll">
           {loading && activeTabData
-            ? "loading..."
+            ? 'loading...'
             : activeTabData && (
                 <div>
                   <div className="mt-4 align-middle inline-block w-full shadow overflow-x-auto sm:rounded-lg border-b border-gray-200">
@@ -191,7 +198,7 @@ export default function AdminSubschoolPage() {
                           </td>
                           <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                             <Controller
-                              name={"banner"}
+                              name={'banner'}
                               control={control}
                               render={({ field }) => (
                                 <div className="flex-1 flex flex-col items-start justify-start">
@@ -217,8 +224,8 @@ export default function AdminSubschoolPage() {
                                     }}
                                   />
                                   {field.value &&
-                                    (field.value.startsWith("/") ||
-                                      field.value.startsWith("http")) && (
+                                    (field.value.startsWith('/') ||
+                                      field.value.startsWith('http')) && (
                                       <Image
                                         width={500}
                                         height={500}
@@ -237,7 +244,7 @@ export default function AdminSubschoolPage() {
                                         ?.click();
                                     }}
                                   >
-                                    {uploading ? "上傳圖片中" : "更換圖片"}
+                                    {uploading ? '上傳圖片中' : '更換圖片'}
                                   </button>
                                 </div>
                               )}
@@ -280,7 +287,7 @@ export default function AdminSubschoolPage() {
                           </td>
                           <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                             <Controller
-                              name={"subBanner.img"}
+                              name={'subBanner.img'}
                               control={control}
                               render={({ field }) => (
                                 <div className="flex-1 flex flex-col items-start justify-start">
@@ -306,8 +313,8 @@ export default function AdminSubschoolPage() {
                                     }}
                                   />
                                   {field.value &&
-                                    (field.value.startsWith("/") ||
-                                      field.value.startsWith("http")) && (
+                                    (field.value.startsWith('/') ||
+                                      field.value.startsWith('http')) && (
                                       <Image
                                         width={500}
                                         height={500}
@@ -326,7 +333,7 @@ export default function AdminSubschoolPage() {
                                         ?.click();
                                     }}
                                   >
-                                    {uploading ? "上傳圖片中" : "更換圖片"}
+                                    {uploading ? '上傳圖片中' : '更換圖片'}
                                   </button>
                                 </div>
                               )}
@@ -379,14 +386,14 @@ export default function AdminSubschoolPage() {
                         onClick={() =>
                           append({
                             title: {
-                              en: "course example",
-                              zh: "course example",
+                              en: 'course example',
+                              zh: 'course example',
                             },
                             description: {
-                              en: "course example",
-                              zh: "course example",
+                              en: 'course example',
+                              zh: 'course example',
                             },
-                            img: "/course/1.png",
+                            img: '/course/1.png',
                           })
                         }
                       >
@@ -461,8 +468,8 @@ export default function AdminSubschoolPage() {
                                       }}
                                     />
                                     {field.value &&
-                                      (field.value.startsWith("/") ||
-                                        field.value.startsWith("http")) && (
+                                      (field.value.startsWith('/') ||
+                                        field.value.startsWith('http')) && (
                                         <Image
                                           width={500}
                                           height={500}
@@ -483,7 +490,7 @@ export default function AdminSubschoolPage() {
                                           ?.click();
                                       }}
                                     >
-                                      {uploading ? "上傳圖片中" : "更換圖片"}
+                                      {uploading ? '上傳圖片中' : '更換圖片'}
                                     </button>
                                   </div>
                                 )}

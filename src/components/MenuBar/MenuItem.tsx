@@ -1,4 +1,4 @@
-import "./MenuItem.scss";
+import './MenuItem.scss';
 
 interface MenuItemProps {
   title?: string;
@@ -13,7 +13,7 @@ const MenuItem = ({
   isActive = undefined,
 }: MenuItemProps) => (
   <button
-    className={`menu-item${isActive && isActive() ? " is-active" : ""}`}
+    className={`menu-item${isActive && isActive() ? ' is-active' : ''}`}
     onClick={action}
     title={title}
   >

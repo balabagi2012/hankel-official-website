@@ -1,25 +1,27 @@
-import { getInformation } from "@/utils/api";
-import dynamic from "next/dynamic";
-import Head from "next/head";
-import Image from "next/image";
-import Link from "next/link";
-import Event from "../Event";
-import Footer from "../Footer";
-import Section from "../Section";
-import Title from "../Title";
-import Typography from "../Typography";
-import SeoHeading from "../SeoHeading";
+import dynamic from 'next/dynamic';
+import Head from 'next/head';
+import Image from 'next/image';
+import Link from 'next/link';
 
-const Banner = dynamic(() => import("../Banner"), { ssr: false });
+import { getInformation } from '@/utils/api';
+
+import Event from '../Event';
+import Footer from '../Footer';
+import Section from '../Section';
+import SeoHeading from '../SeoHeading';
+import Title from '../Title';
+import Typography from '../Typography';
+
+const Banner = dynamic(() => import('../Banner'), { ssr: false });
 
 export interface InformationProps {
-  type?: "kindergarten" | "subschool";
+  type?: 'kindergarten' | 'subschool';
   name: string;
-  lang: "en" | "zh";
+  lang: 'en' | 'zh';
 }
 
 export default async function Information(props: InformationProps) {
-  const { type = "subschool", lang, name } = props;
+  const { type = 'subschool', lang, name } = props;
   const information = await getInformation(name);
   return (
     <main className="pt-[50px] md:pt-[200px]">
@@ -59,7 +61,7 @@ export default async function Information(props: InformationProps) {
             className="mt-[60px] py-2 flex flex-row justify-center border items-center rounded border-deepBlue bg-white"
           >
             <Typography varient="h5" className="text-deepBlue">
-              {lang === "en" ? "Download" : "下載"}
+              {lang === 'en' ? 'Download' : '下載'}
             </Typography>
             <Image
               src="/icons/DownloadOutlined.svg"
@@ -106,9 +108,9 @@ export default async function Information(props: InformationProps) {
               width="1268"
               height="768"
               style={{
-                width: "100%",
-                height: "auto",
-                objectFit: "contain",
+                width: '100%',
+                height: 'auto',
+                objectFit: 'contain',
               }}
             ></Image>
           </div>
@@ -117,7 +119,7 @@ export default async function Information(props: InformationProps) {
       <Section className="bg-white">
         <div className="flex flex-col w-full md:w-[1268px] justify-center items-stretch">
           <Title full align="left" type={type} lang={lang}>
-            {lang === "en" ? "Calendar" : "行事曆"}
+            {lang === 'en' ? 'Calendar' : '行事曆'}
           </Title>
           <Event lang={lang} category={name} calendar={information.calendar} />
         </div>

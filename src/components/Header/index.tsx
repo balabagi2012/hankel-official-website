@@ -1,17 +1,19 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import Link from "next/link";
-import Typography from "../Typography";
-import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { kindergarten, notoSans } from "@/app/styles/fonts";
+import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+
+import { kindergarten, notoSans } from '@/app/styles/fonts';
+
+import Typography from '../Typography';
 
 export default function Header() {
   const [openDropDown, setOpenDropDown] = useState(false);
   const [isSubHeader, setIsSubHeader] = useState(false);
-  const [language, setLanguage] = useState("en");
-  const [subSchool, setSubSchool] = useState("");
+  const [language, setLanguage] = useState('en');
+  const [subSchool, setSubSchool] = useState('');
 
   const [openLanguageDropDown, setOpenLanguageDropDown] = useState(false);
   const pathname = usePathname();
@@ -20,22 +22,22 @@ export default function Header() {
   const otherNavItemList = [
     {
       path: `/${language}/contact`,
-      label: language === "zh" ? "聯絡我們" : `Contact`,
+      label: language === 'zh' ? '聯絡我們' : `Contact`,
     },
   ];
 
   const subSchoolDropDownItemList = [
     {
       path: `/${language}/kindergarten`,
-      label: language === "zh" ? "翰科幼兒園" : `Kindergarten`,
+      label: language === 'zh' ? '翰科幼兒園' : `Kindergarten`,
     },
     {
       path: `/${language}/elementary`,
-      label: language === "zh" ? "翰科小學階段" : `Elementary`,
+      label: language === 'zh' ? '翰科小學階段' : `Elementary`,
     },
     {
       path: `/${language}/middleSchool`,
-      label: language === "zh" ? "翰科中學階段" : `Middle School`,
+      label: language === 'zh' ? '翰科中學階段' : `Middle School`,
     },
     /*{
       path: `/${language}/highSchool`,
@@ -43,18 +45,18 @@ export default function Header() {
     },*/
     {
       path: `/${language}/afterSchool`,
-      label: language === "zh" ? "翰科安親班" : `After School`,
+      label: language === 'zh' ? '翰科安親班' : `After School`,
     },
   ];
 
   const homepageNavItemList = [
     {
       path: `/${language}/about`,
-      label: language === "zh" ? "關於我們" : `About`,
+      label: language === 'zh' ? '關於我們' : `About`,
     },
     {
       path: `/${language}`,
-      label: language === "zh" ? "首頁" : `Home`,
+      label: language === 'zh' ? '首頁' : `Home`,
     },
     ...subSchoolDropDownItemList,
     ...otherNavItemList,
@@ -64,104 +66,106 @@ export default function Header() {
     // REMARK: Ask by client to change.
     return `校園動態`;
     switch (subSchool) {
-      case "afterSchool":
-        return "翰科安親班";
-      case "elementary":
-        return "翰科實驗小學";
-      case "kindergarten":
-        return "翰科幼兒園";
+      case 'afterSchool':
+        return '翰科安親班';
+      case 'elementary':
+        return '翰科實驗小學';
+      case 'kindergarten':
+        return '翰科幼兒園';
       /*case "highSchool":
         return "翰科高中階段";*/
-      case "middleSchool":
-        return "翰科實驗中學";
+      case 'middleSchool':
+        return '翰科實驗中學';
       default:
-        return "";
+        return '';
     }
   };
 
   const subSchoolNavItemList =
-    subSchool === "afterSchool"
+    subSchool === 'afterSchool'
       ? [
           {
             path: `/${language}/${subSchool}/about`,
-            label: language === "zh" ? "關於我們" : `About`,
+            label: language === 'zh' ? '關於我們' : `About`,
           },
           {
             path: `/${language}/${subSchool}`,
             label:
-              language === "zh" ? getSubSchoolZhLabel(subSchool) : `Highlights`,
+              language === 'zh' ? getSubSchoolZhLabel(subSchool) : `Highlights`,
           },
           {
             path: `/${language}/${subSchool}/contact`,
-            label: language === "zh" ? "聯絡我們" : `Contact`,
+            label: language === 'zh' ? '聯絡我們' : `Contact`,
           },
         ]
-      : subSchool === "kindergarten"
-      ? [
-          {
-            path: `/${language}/${subSchool}/about`,
-            label: language === "zh" ? "關於我們" : `About`,
-          },
-          {
-            path: `/${language}/${subSchool}`,
-            label:
-              language === "zh" ? getSubSchoolZhLabel(subSchool) : `Highlights`,
-          },
-          {
-            path: `/${language}/${subSchool}/curriculum`,
-            label: language === "zh" ? "課程內容" : `Our Curriculum`,
-          },
-          {
-            path: `/${language}/${subSchool}/facilities`,
-            label: language === "zh" ? "校園導覽" : `Our Facilities`,
-          },
-          {
-            path: `/${language}/${subSchool}/team`,
-            label: language === "zh" ? "教師團隊" : `Our Team`,
-          },
-          {
-            path: `/${language}/${subSchool}/information`,
-            label: language === "zh" ? "入學資訊" : `Information`,
-          },
-          {
-            path: `/${language}/${subSchool}/contact`,
-            label: language === "zh" ? "聯絡我們" : `Contact`,
-          },
-        ]
-      : [
-          {
-            path: `/${language}/${subSchool}/about`,
-            label: language === "zh" ? "關於我們" : `About`,
-          },
-          {
-            path: `/${language}/${subSchool}`,
-            label:
-              language === "zh"
-                ? getSubSchoolZhLabel(subSchool)
-                : `Highlights`,
-          },
-          {
-            path: `/${language}/${subSchool}/curriculum`,
-            label: language === "zh" ? "課程內容" : `Our Curriculum`,
-          },
-          {
-            path: `/${language}/${subSchool}/facilities`,
-            label: language === "zh" ? "校園導覽" : `Our Facilities`,
-          },
-          {
-            path: `/${language}/${subSchool}/team`,
-            label: language === "zh" ? "教師團隊" : `Our Team`,
-          },
+      : subSchool === 'kindergarten'
+        ? [
+            {
+              path: `/${language}/${subSchool}/about`,
+              label: language === 'zh' ? '關於我們' : `About`,
+            },
+            {
+              path: `/${language}/${subSchool}`,
+              label:
+                language === 'zh'
+                  ? getSubSchoolZhLabel(subSchool)
+                  : `Highlights`,
+            },
+            {
+              path: `/${language}/${subSchool}/curriculum`,
+              label: language === 'zh' ? '課程內容' : `Our Curriculum`,
+            },
+            {
+              path: `/${language}/${subSchool}/facilities`,
+              label: language === 'zh' ? '校園導覽' : `Our Facilities`,
+            },
+            {
+              path: `/${language}/${subSchool}/team`,
+              label: language === 'zh' ? '教師團隊' : `Our Team`,
+            },
+            {
+              path: `/${language}/${subSchool}/information`,
+              label: language === 'zh' ? '入學資訊' : `Information`,
+            },
+            {
+              path: `/${language}/${subSchool}/contact`,
+              label: language === 'zh' ? '聯絡我們' : `Contact`,
+            },
+          ]
+        : [
+            {
+              path: `/${language}/${subSchool}/about`,
+              label: language === 'zh' ? '關於我們' : `About`,
+            },
+            {
+              path: `/${language}/${subSchool}`,
+              label:
+                language === 'zh'
+                  ? getSubSchoolZhLabel(subSchool)
+                  : `Highlights`,
+            },
+            {
+              path: `/${language}/${subSchool}/curriculum`,
+              label: language === 'zh' ? '課程內容' : `Our Curriculum`,
+            },
+            {
+              path: `/${language}/${subSchool}/facilities`,
+              label: language === 'zh' ? '校園導覽' : `Our Facilities`,
+            },
+            {
+              path: `/${language}/${subSchool}/team`,
+              label: language === 'zh' ? '教師團隊' : `Our Team`,
+            },
 
-          {
-            path: `/${language}/${subSchool}/information`,
-            label: language === "zh" ? "入學資訊" : `Information`,
-          },
-          {
-            path: `/${language}/${subSchool}/contact`,
-            label: language === "zh" ? "聯絡我們" : `Contact`,
-          },
-        ];
+            {
+              path: `/${language}/${subSchool}/information`,
+              label: language === 'zh' ? '入學資訊' : `Information`,
+            },
+            {
+              path: `/${language}/${subSchool}/contact`,
+              label: language === 'zh' ? '聯絡我們' : `Contact`,
+            },
+          ];
 
   useEffect(() => {
     if (pathname) {
@@ -169,18 +173,18 @@ export default function Header() {
         setLanguage(pathname.slice(1, 3));
       }
       const subSchool = [
-        "kindergarten",
-        "elementary",
-        "middleSchool",
+        'kindergarten',
+        'elementary',
+        'middleSchool',
         //"highSchool",
-        "afterSchool",
+        'afterSchool',
       ].find((subSchool) => pathname.indexOf(subSchool) >= 0);
       if (subSchool) {
         setIsSubHeader(true);
         setSubSchool(subSchool);
       } else {
         setIsSubHeader(false);
-        setSubSchool("");
+        setSubSchool('');
       }
       setOpenDropDown(false);
     }
@@ -203,11 +207,11 @@ export default function Header() {
         className={`${
           pathname === path
             ? `font-bold text-blue ${
-                subSchool === "kindergarten" && language === "en"
+                subSchool === 'kindergarten' && language === 'en'
                   ? kindergarten.className
                   : notoSans.className
               }`
-            : "text-deepBlue"
+            : 'text-deepBlue'
         }`}
       >
         {label}
@@ -227,7 +231,7 @@ export default function Header() {
           className="flex flex-row justify-center items-center w-[150px] h-auto md:w-[200px] xl:w-[238px] mr-auto ml-3 md:ml-0"
         >
           <Image
-            src={`/logo/${subSchool?.length > 0 ? subSchool : "home"}.svg`}
+            src={`/logo/${subSchool?.length > 0 ? subSchool : 'home'}.svg`}
             alt="hankel logo"
             className="w-full h-auto"
             width="238"
@@ -236,7 +240,7 @@ export default function Header() {
         </Link>
         <div
           className={`hidden md:flex flex-col items-center flex-1 ${
-            isSubHeader ? "h-full" : ""
+            isSubHeader ? 'h-full' : ''
           }`}
         >
           {isSubHeader ? (
@@ -244,34 +248,34 @@ export default function Header() {
               <div className="flex flex-col w-fit min-w-[400px] mx-auto">
                 <p
                   className={`animate__animated animate__fadeIn self-star ${
-                    subSchool === "kindergarten"
+                    subSchool === 'kindergarten'
                       ? notoSans.className
-                      : "font-serif"
+                      : 'font-serif'
                   } text-[18px] text-deepBlue leading-none tracking-[1px]`}
                 >
                   Small steps towards a
                 </p>
                 <p
                   className={`animate__animated animate__fadeIn animate__delay-1s self-end ${
-                    subSchool === "kindergarten"
+                    subSchool === 'kindergarten'
                       ? kindergarten.className
-                      : "font-serif"
+                      : 'font-serif'
                   } ${
-                    subSchool === "kindergarten" ? "mt-2" : ""
+                    subSchool === 'kindergarten' ? 'mt-2' : ''
                   } text-[40px] text-deepBlue mr-4 leading-none tracking-[1px]`}
                 >
                   BIG FUTURE
                 </p>
                 <p
                   className={`animate__animated animate__zoomIn animate__delay-1s ${
-                    subSchool === "kindergarten" ? "self-end" : "self-center"
+                    subSchool === 'kindergarten' ? 'self-end' : 'self-center'
                   } text-[10px] leading-normal ${
-                    subSchool === "kindergarten" ? "mt-4" : "mt-2"
+                    subSchool === 'kindergarten' ? 'mt-4' : 'mt-2'
                   } tracking-[1px]`}
                 >
-                  {subSchool !== "kindergarten"
-                    ? "Welcome to Hankel International Academy for Primary Education"
-                    : "Welcome to Hankel International Kindergarten"}
+                  {subSchool !== 'kindergarten'
+                    ? 'Welcome to Hankel International Academy for Primary Education'
+                    : 'Welcome to Hankel International Kindergarten'}
                 </p>
               </div>
               <div className="flex flex-row items-end mt-auto gap-x-[16px]">
@@ -285,33 +289,33 @@ export default function Header() {
               <Link
                 href={`/${language}/about`}
                 className={`py-1 border-deepBlue text-blue ${
-                  pathname === `/${language}/about` ? "border-b-2" : ""
+                  pathname === `/${language}/about` ? 'border-b-2' : ''
                 }`}
                 rel="noopener noreferrer"
               >
                 <Typography
                   varient="h6"
                   className={`text-blue ${
-                    pathname === `/${language}/about` ? "font-bold" : ""
+                    pathname === `/${language}/about` ? 'font-bold' : ''
                   }`}
                 >
-                  {language === "zh" ? "關於我們" : `About`}
+                  {language === 'zh' ? '關於我們' : `About`}
                 </Typography>
               </Link>
               <Link
                 href={`/${language}`}
                 className={`py-1 border-deepBlue text-blue ${
-                  pathname === `/${language}` ? "border-b-2" : ""
+                  pathname === `/${language}` ? 'border-b-2' : ''
                 }`}
                 rel="noopener noreferrer"
               >
                 <Typography
                   varient="h6"
                   className={`text-blue ${
-                    pathname === `/${language}` ? "font-bold" : ""
+                    pathname === `/${language}` ? 'font-bold' : ''
                   }`}
                 >
-                  {language === "zh" ? "首頁" : `Home`}
+                  {language === 'zh' ? '首頁' : `Home`}
                 </Typography>
               </Link>
               <div
@@ -319,7 +323,7 @@ export default function Header() {
                 onClick={() => setOpenDropDown(!openDropDown)}
               >
                 <Typography varient="h6" className="text-blue">
-                  {language === "zh" ? "學校" : "Schools"}
+                  {language === 'zh' ? '學校' : 'Schools'}
                 </Typography>
                 <Image
                   src="/icons/ChevronTopFilled.svg"
@@ -327,12 +331,12 @@ export default function Header() {
                   width="24"
                   height="24"
                   className={`w-auto h-auto ${
-                    openDropDown ? "rotate-00" : "rotate-180"
+                    openDropDown ? 'rotate-00' : 'rotate-180'
                   } ml-1`}
                 ></Image>
                 <div
                   className={`${
-                    openDropDown ? "flex" : "hidden"
+                    openDropDown ? 'flex' : 'hidden'
                   } absolute top-10 z-10 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
                   role="menu"
                   aria-orientation="vertical"
@@ -351,7 +355,7 @@ export default function Header() {
                         <Typography
                           varient="h6"
                           className={`text-deepBlue whitespace-nowrap	${
-                            pathname === path ? "font-bold" : ""
+                            pathname === path ? 'font-bold' : ''
                           }`}
                         >
                           {label}
@@ -366,13 +370,13 @@ export default function Header() {
                   key={label}
                   href={path}
                   className={`py-1 border-deepBlue text-blue ${
-                    pathname === path ? "border-b-2" : ""
+                    pathname === path ? 'border-b-2' : ''
                   }`}
                   rel="noopener noreferrer"
                 >
                   <Typography
                     varient="h6"
-                    className={`${pathname === path ? "font-bold" : ""}`}
+                    className={`${pathname === path ? 'font-bold' : ''}`}
                   >
                     {label}
                   </Typography>
@@ -383,7 +387,7 @@ export default function Header() {
         </div>
         <div
           className={`ml-[80px] hidden md:flex flex-row items-center ${
-            isSubHeader ? `self-start` : "self-center"
+            isSubHeader ? `self-start` : 'self-center'
           }`}
           onClick={() => setOpenLanguageDropDown(!openLanguageDropDown)}
         >
@@ -395,7 +399,7 @@ export default function Header() {
             className="w-auto h-auto"
           ></Image>
           <div className="ml-1 mr-2 font-bold text-blue">
-            {language === "en" ? "EN" : "中文"}
+            {language === 'en' ? 'EN' : '中文'}
           </div>
           <Image
             src="/icons/ChevronBottomFilled.svg"
@@ -406,7 +410,7 @@ export default function Header() {
           ></Image>
           <div
             className={`${
-              openLanguageDropDown ? "block" : "hidden"
+              openLanguageDropDown ? 'block' : 'hidden'
             } absolute top-20 z-10  origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
             role="menu"
             aria-orientation="vertical"
@@ -416,25 +420,25 @@ export default function Header() {
           >
             <div className="p-4" role="none">
               <div
-                onClick={() => handleLanguageChange("en")}
+                onClick={() => handleLanguageChange('en')}
                 className={`mb-4 h-[25px] flex flex-row justify-start cursor-pointer`}
                 rel="noopener noreferrer"
               >
                 <Typography
                   varient="h6"
-                  className={`${language === "en" ? "font-bold" : ""}`}
+                  className={`${language === 'en' ? 'font-bold' : ''}`}
                 >
                   English
                 </Typography>
               </div>
               <div
-                onClick={() => handleLanguageChange("zh")}
+                onClick={() => handleLanguageChange('zh')}
                 className={`h-[25px] flex flex-row justify-start cursor-pointer`}
                 rel="noopener noreferrer"
               >
                 <Typography
                   varient="h6"
-                  className={`${language === "zh" ? "font-bold" : ""}`}
+                  className={`${language === 'zh' ? 'font-bold' : ''}`}
                 >
                   中文
                 </Typography>
@@ -456,7 +460,7 @@ export default function Header() {
           {openDropDown && (
             <div
               className={`${
-                openDropDown ? "fixed" : "hidden"
+                openDropDown ? 'fixed' : 'hidden'
               } top-0 right-0 h-screen p-5 bg-[#E4F0F1] z-10`}
             >
               <div
@@ -488,11 +492,11 @@ export default function Header() {
                     );
                   }
                 )}
-                {language === "zh" ? (
+                {language === 'zh' ? (
                   <div
                     className={`mt-3 cursor-pointer`}
                     rel="noopener noreferrer"
-                    onClick={() => handleLanguageChange("en")}
+                    onClick={() => handleLanguageChange('en')}
                   >
                     <Typography varient="h5">English</Typography>
                   </div>
@@ -500,7 +504,7 @@ export default function Header() {
                   <div
                     className={`mt-3 cursor-pointer`}
                     rel="noopener noreferrer"
-                    onClick={() => handleLanguageChange("zh")}
+                    onClick={() => handleLanguageChange('zh')}
                   >
                     <Typography varient="h5">中文</Typography>
                   </div>

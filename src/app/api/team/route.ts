@@ -1,5 +1,6 @@
-import { connectToDatabase } from "@/utils/mongodb";
-import { Seo, Text } from "../model";
+import { connectToDatabase } from '@/utils/mongodb';
+
+import { Seo, Text } from '../model';
 
 export interface TeamEntity extends Seo {
   name: string;
@@ -28,11 +29,11 @@ export interface Teacher {
 export async function GET() {
   try {
     const db = await connectToDatabase();
-    const team = await db.collection("team").find({}).toArray();
+    const team = await db.collection('team').find({}).toArray();
     return Response.json(team, { status: 200 });
   } catch (error) {
     return Response.json(
-      { error: "Failed to fetch team data" },
+      { error: 'Failed to fetch team data' },
       { status: 500 }
     );
   }
@@ -44,12 +45,12 @@ export async function POST(req: Request) {
     const { name, banner, foreignTeam, localTeam } = await req.json();
     if (!name || !banner || !foreignTeam || !localTeam) {
       return Response.json(
-        { error: "Missing required fields" },
+        { error: 'Missing required fields' },
         { status: 400 }
       );
     }
     const db = await connectToDatabase();
-    const team = await db.collection("team").insertOne({
+    const team = await db.collection('team').insertOne({
       name,
       banner,
       foreignTeam,
@@ -58,7 +59,7 @@ export async function POST(req: Request) {
     return Response.json({ team }, { status: 200 });
   } catch (error) {
     return Response.json(
-      { error: "Failed to create team data" },
+      { error: 'Failed to create team data' },
       { status: 500 }
     );
   }

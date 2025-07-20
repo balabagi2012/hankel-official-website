@@ -1,14 +1,15 @@
-import { connectToDatabase } from "@/utils/mongodb";
-import { createHash } from "crypto";
-import { NextResponse } from "next/server";
+import { createHash } from 'crypto';
+import { NextResponse } from 'next/server';
+
+import { connectToDatabase } from '@/utils/mongodb';
 
 const encrypt = (algorithm: string, content: string) => {
   const hash = createHash(algorithm);
   hash.update(content);
-  return hash.digest("hex");
+  return hash.digest('hex');
 };
 
-const sha256 = (content: string) => encrypt("sha256", content);
+const sha256 = (content: string) => encrypt('sha256', content);
 
 // POST /api/auth/login
 export async function POST(req: Request) {
@@ -16,26 +17,26 @@ export async function POST(req: Request) {
     const { email, password } = await req.json();
     const db = await connectToDatabase();
     const user = await db
-      .collection("user")
+      .collection('user')
       .find({
         email,
         password: sha256(password),
       })
       .toArray();
     if (!user || user.length == 0) {
-      return Response.json({ error: "Invalid credentials" }, { status: 401 });
+      return Response.json({ error: 'Invalid credentials' }, { status: 401 });
     }
     const response = NextResponse.json(
-      { message: "Login successful" },
+      { message: 'Login successful' },
       {
         status: 200,
       }
     );
-    response.cookies.set({ name: "isLogin ", value: "true", maxAge: 60 * 60 });
+    response.cookies.set({ name: 'isLogin ', value: 'true', maxAge: 60 * 60 });
     return response;
   } catch (error) {
     return Response.json(
-      { error: "Failed to create about data" },
+      { error: 'Failed to create about data' },
       { status: 500 }
     );
   }

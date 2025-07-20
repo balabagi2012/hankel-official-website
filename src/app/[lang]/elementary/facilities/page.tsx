@@ -1,27 +1,28 @@
-import Facility from "@/components/Facility";
-import { getFacility } from "@/utils/api";
-import { Metadata } from "next";
+import { Metadata } from 'next';
+
+import Facility from '@/components/Facility';
+import { getFacility } from '@/utils/api';
 
 export async function generateMetadata({
   params: { lang },
 }: {
-  params: { lang: "en" | "zh" };
+  params: { lang: 'en' | 'zh' };
 }): Promise<Metadata> {
-  const data = await getFacility("elementary");
+  const data = await getFacility('elementary');
   return {
-    title: data?.seoTitle?.[lang] ?? "Hankel",
-    description: data?.seoDescription?.[lang] ?? "Hankel",
+    title: data?.seoTitle?.[lang] ?? 'Hankel',
+    description: data?.seoDescription?.[lang] ?? 'Hankel',
     openGraph: {
       images: [`https://www.hiape.ntpc.edu.tw${data.banner}`],
     },
-    robots: "index, follow",
+    robots: 'index, follow',
   };
 }
 
 export default function ElementaryFacilities({
   params: { lang },
 }: {
-  params: { lang: "en" | "zh" };
+  params: { lang: 'en' | 'zh' };
 }) {
   return <Facility type="subschool" lang={lang} name="elementary" />;
 }

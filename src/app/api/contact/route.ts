@@ -1,5 +1,6 @@
-import { connectToDatabase } from "@/utils/mongodb";
-import { Seo, Text } from "../model";
+import { connectToDatabase } from '@/utils/mongodb';
+
+import { Seo, Text } from '../model';
 
 export interface ContactBanner {
   img: string;
@@ -26,11 +27,11 @@ export interface ContactEntity extends Seo {
 export async function GET() {
   try {
     const db = await connectToDatabase();
-    const contact = await db.collection("contact").find({}).toArray();
+    const contact = await db.collection('contact').find({}).toArray();
     return Response.json(contact, { status: 200 });
   } catch (error) {
     return Response.json(
-      { error: "Failed to fetch contact data" },
+      { error: 'Failed to fetch contact data' },
       { status: 500 }
     );
   }
@@ -65,12 +66,12 @@ export async function POST(req: Request) {
       !address
     ) {
       return Response.json(
-        { error: "Missing required fields" },
+        { error: 'Missing required fields' },
         { status: 400 }
       );
     }
     const db = await connectToDatabase();
-    await db.collection("contact").insertOne({
+    await db.collection('contact').insertOne({
       lang,
       name,
       banner,
@@ -86,12 +87,12 @@ export async function POST(req: Request) {
       address,
     });
     return Response.json(
-      { message: "Contact data created successfully" },
+      { message: 'Contact data created successfully' },
       { status: 200 }
     );
   } catch (error) {
     return Response.json(
-      { error: "Failed to create contact data" },
+      { error: 'Failed to create contact data' },
       { status: 500 }
     );
   }

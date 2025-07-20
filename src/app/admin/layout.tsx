@@ -1,9 +1,10 @@
-import "@/app/styles/globals.scss";
-import AdminSideBar from "@/components/AdminSideBar";
+import '@/app/styles/globals.scss';
+
+import AdminSideBar from '@/components/AdminSideBar';
 
 export const metadata = {
-  title: "Hankel Admin Page",
-  description: "Manage your website",
+  title: 'Hankel Admin Page',
+  description: 'Manage your website',
 };
 
 export default function AdminLayout({
