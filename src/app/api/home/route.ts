@@ -1,6 +1,6 @@
-import { connectToDatabase } from "@/utils/mongodb";
-import { NextRequest } from "next/server";
-import { Seo, Text } from "../model";
+import { connectToDatabase } from '@/utils/mongodb';
+import { NextRequest } from 'next/server';
+import { Seo, Text } from '../model';
 
 export interface HomeEntity extends Seo {
   title: Text;
@@ -32,15 +32,15 @@ export interface Program {
 export async function GET(request: NextRequest) {
   try {
     const db = await connectToDatabase();
-    const home = await db.collection("home").findOne({});
+    const home = await db.collection('home').findOne({});
     if (!home) {
-      return Response.json({ error: "Home data not found" }, { status: 404 });
+      return Response.json({ error: 'Home data not found' }, { status: 404 });
     }
     return Response.json(home, { status: 200 });
   } catch (error) {
     return Response.json(
       {
-        error: "Failed to fetch about data",
+        error: 'Failed to fetch about data',
         errorMessage: (error as Error).message,
       },
       { status: 500 }
@@ -70,12 +70,12 @@ export async function POST(req: Request) {
       !subBanner
     ) {
       return Response.json(
-        { error: "Missing required fields" },
+        { error: 'Missing required fields' },
         { status: 400 }
       );
     }
     const db = await connectToDatabase();
-    await db.collection("home").insertOne({
+    await db.collection('home').insertOne({
       title,
       subtitle,
       description,
@@ -85,12 +85,12 @@ export async function POST(req: Request) {
       subBanner,
     });
     return Response.json(
-      { message: "Home data created successfully" },
+      { message: 'Home data created successfully' },
       { status: 200 }
     );
   } catch (error) {
     return Response.json(
-      { error: "Failed to create home data" },
+      { error: 'Failed to create home data' },
       { status: 500 }
     );
   }
@@ -101,7 +101,7 @@ export async function PATCH(req: Request) {
   try {
     const body = await req.json();
     const db = await connectToDatabase();
-    await db.collection("home").updateOne(
+    await db.collection('home').updateOne(
       {},
       {
         $set: {
@@ -111,12 +111,12 @@ export async function PATCH(req: Request) {
       { upsert: true }
     );
     return Response.json(
-      { message: "Home data updated successfully" },
+      { message: 'Home data updated successfully' },
       { status: 200 }
     );
   } catch (error) {
     return Response.json(
-      { error: "Failed to update home data" },
+      { error: 'Failed to update home data' },
       { status: 500 }
     );
   }

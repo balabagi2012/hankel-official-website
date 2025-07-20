@@ -1,17 +1,17 @@
-"use client";
-import { EventEntity } from "@/app/api/event/route";
-import Image from "next/image";
-import { PrimeReactProvider } from "primereact/api";
+'use client';
+import { EventEntity } from '@/app/api/event/route';
+import Image from 'next/image';
+import { PrimeReactProvider } from 'primereact/api';
 // import { Calendar } from "primereact/calendar";
-import { Tooltip } from "primereact/tooltip";
-import { useEffect, useState } from "react";
-import Calendar from "react-calendar";
-import Typography from "../Typography";
-import dayjs from "dayjs";
-import "./index.css";
+import { Tooltip } from 'primereact/tooltip';
+import { useEffect, useState } from 'react';
+import Calendar from 'react-calendar';
+import Typography from '../Typography';
+import dayjs from 'dayjs';
+import './index.css';
 export interface EventProps {
   category: string;
-  lang: "en" | "zh";
+  lang: 'en' | 'zh';
   calendar: {
     text: {
       en: string;
@@ -35,13 +35,13 @@ export default function Event(props: EventProps) {
       const fetchEventList = async () => {
         const url = `/api/event?date=${new Date(date)
           .toLocaleDateString()
-          .replaceAll("/", "-")}&category=${category}`;
+          .replaceAll('/', '-')}&category=${category}`;
         const res = await fetch(url, {
-          cache: "no-cache",
+          cache: 'no-cache',
         });
         if (!res.ok) {
           // This will activate the closest `error.js` Error Boundary
-          throw new Error("Failed to fetch data");
+          throw new Error('Failed to fetch data');
         }
         return res.json();
       };
@@ -73,7 +73,7 @@ export default function Event(props: EventProps) {
                 varient="h3"
                 className="text-blue absolute left-2 top-1"
               >
-                {dayjs(date).format("YYYY.MM")}
+                {dayjs(date).format('YYYY.MM')}
               </Typography>
             )}
             nextLabel={
@@ -84,7 +84,7 @@ export default function Event(props: EventProps) {
                 src="/icons/ChevronRight.svg"
                 className="absolute right-4 top-4"
                 onClick={() => {
-                  setDate(dayjs(date).add(1, "month").toDate());
+                  setDate(dayjs(date).add(1, 'month').toDate());
                 }}
               ></Image>
             }
@@ -97,7 +97,7 @@ export default function Event(props: EventProps) {
                 src="/icons/ChevronLeft.svg"
                 className="absolute right-10 top-4"
                 onClick={() => {
-                  setDate(dayjs(date).subtract(1, "month").toDate());
+                  setDate(dayjs(date).subtract(1, 'month').toDate());
                 }}
               ></Image>
             }
@@ -107,24 +107,24 @@ export default function Event(props: EventProps) {
             showNeighboringDecade={false}
             showNeighboringMonth={false}
             view="month"
-            locale={"en-US"}
+            locale={'en-US'}
             className={`w-full md:w-[330px] rounded border-none shadow-lg relative pt-8`}
             tileClassName={`w-10 h-10`}
             tileContent={({ date }) => {
               const event = eventList.find((event) =>
-                dayjs(event.date).isSame(dayjs(date), "day")
+                dayjs(event.date).isSame(dayjs(date), 'day')
               );
               return event ? (
                 <div className="relative w-full h-full">
                   <div
                     className={`d${dayjs(event.date).format(
-                      "YYYYMMDD"
+                      'YYYYMMDD'
                     )} absolute w-full h-full bg-blue right-0 top-[-20px] bottom-0`}
                   >
                     <div className="text-white mt-1">{date.getDate()}</div>
                     <Tooltip
                       className="py-2"
-                      target={`.d${dayjs(event.date).format("YYYYMMDD")}`}
+                      target={`.d${dayjs(event.date).format('YYYYMMDD')}`}
                       position="bottom"
                       content={event.title[lang]}
                     />
@@ -138,7 +138,7 @@ export default function Event(props: EventProps) {
             download={calendar.file}
             className="border-2 text-blue font-bold border-blue rounded w-full mt-8 py-3 flex flex-row justify-center items-center"
           >
-            {lang === "en" ? "Download Calendar" : "下載行事曆"}
+            {lang === 'en' ? 'Download Calendar' : '下載行事曆'}
           </a>
         </div>
       </div>

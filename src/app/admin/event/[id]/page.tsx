@@ -1,10 +1,10 @@
-"use client";
-import { ArrowLeftIcon } from "@heroicons/react/24/solid";
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+'use client';
+import { ArrowLeftIcon } from '@heroicons/react/24/solid';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 
 export default function EditEventPage({
   params: { id },
@@ -23,30 +23,30 @@ export default function EditEventPage({
     const url = `/api/event/${id}`;
     delete data._id;
     const res = await fetch(url, {
-      method: "PATCH",
+      method: 'PATCH',
       body: JSON.stringify(data),
     });
     setLoading(false);
     if (!res.ok) {
       // This will activate the closest `error.js` Error Boundary
-      return window.alert("Failed to update event");
+      return window.alert('Failed to update event');
     }
-    window.alert("Successed to update event");
-    router.push("/admin/event");
+    window.alert('Successed to update event');
+    router.push('/admin/event');
   };
 
   const removeNews = async () => {
-    if (window.confirm("Do you really want to remove this event?")) {
+    if (window.confirm('Do you really want to remove this event?')) {
       const url = `/api/event/${id}`;
       const res = await fetch(url, {
-        method: "DELETE",
+        method: 'DELETE',
       });
       if (!res.ok) {
         // This will activate the closest `error.js` Error Boundary
-        return window.alert("Failed to remove event");
+        return window.alert('Failed to remove event');
       }
-      window.alert("Successed to remove event");
-      router.push("/admin/event");
+      window.alert('Successed to remove event');
+      router.push('/admin/event');
     }
   };
 
@@ -58,7 +58,7 @@ export default function EditEventPage({
       const data = await res.json();
       setNews({
         ...data,
-        date: new Date(data.date).toLocaleDateString().replaceAll("/", "-"),
+        date: new Date(data.date).toLocaleDateString().replaceAll('/', '-'),
       });
       setLoading(false);
     };
@@ -111,7 +111,7 @@ export default function EditEventPage({
                 <label>title[中文]</label>
                 <input
                   className="w-full border px-4 py-2 mb-4 mt-2"
-                  {...register("title.zh", {
+                  {...register('title.zh', {
                     required: true,
                   })}
                 ></input>
@@ -122,7 +122,7 @@ export default function EditEventPage({
                 <label>title[EN]</label>
                 <input
                   className="w-full border px-4 py-2 mb-4 mt-2"
-                  {...register("title.en", {
+                  {...register('title.en', {
                     required: true,
                   })}
                 ></input>
@@ -134,7 +134,7 @@ export default function EditEventPage({
                 <input
                   type="date"
                   className="w-full border px-4 py-2 mb-4 mt-2"
-                  {...register("date", {
+                  {...register('date', {
                     required: true,
                   })}
                 ></input>
@@ -144,7 +144,7 @@ export default function EditEventPage({
               <div>
                 <label>category</label>
                 <select
-                  {...register("category")}
+                  {...register('category')}
                   className="w-full border px-4 py-2 mb-4 mt-2"
                 >
                   <option value="afterSchool">afterSchool</option>

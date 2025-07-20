@@ -1,5 +1,5 @@
-import { connectToDatabase } from "@/utils/mongodb";
-import { NextRequest } from "next/server";
+import { connectToDatabase } from '@/utils/mongodb';
+import { NextRequest } from 'next/server';
 
 // GET /api/facility/:name
 export async function GET(
@@ -9,11 +9,11 @@ export async function GET(
   try {
     const { name } = params;
     const db = await connectToDatabase();
-    const facility = await db.collection("facility").findOne({ name });
+    const facility = await db.collection('facility').findOne({ name });
     return Response.json(facility, { status: 200 });
   } catch (error) {
     return Response.json(
-      { error: "Failed to fetch facility data" },
+      { error: 'Failed to fetch facility data' },
       { status: 500 }
     );
   }
@@ -29,13 +29,13 @@ export async function PATCH(
     const body = await req.json();
     if (!body.name) {
       return Response.json(
-        { error: "Missing required fields" },
+        { error: 'Missing required fields' },
         { status: 400 }
       );
     }
 
     const db = await connectToDatabase();
-    await db.collection("facility").updateOne(
+    await db.collection('facility').updateOne(
       { name },
       {
         $set: {
@@ -45,12 +45,12 @@ export async function PATCH(
       { upsert: true }
     );
     return Response.json(
-      { message: "Facility data updated successfully" },
+      { message: 'Facility data updated successfully' },
       { status: 200 }
     );
   } catch (error) {
     return Response.json(
-      { error: "Failed to update facility data" },
+      { error: 'Failed to update facility data' },
       { status: 500 }
     );
   }
@@ -64,21 +64,21 @@ export async function DELETE(
   try {
     const { name } = params;
     const db = await connectToDatabase();
-    const result = await db.collection("facility").deleteOne({ name });
+    const result = await db.collection('facility').deleteOne({ name });
 
     if (result.deletedCount === 0) {
       return Response.json(
-        { error: "Facility data not found" },
+        { error: 'Facility data not found' },
         { status: 404 }
       );
     }
     return Response.json(
-      { message: "Facility data deleted successfully" },
+      { message: 'Facility data deleted successfully' },
       { status: 200 }
     );
   } catch (error) {
     return Response.json(
-      { error: "Failed to delete facility data" },
+      { error: 'Failed to delete facility data' },
       { status: 500 }
     );
   }

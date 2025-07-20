@@ -1,4 +1,4 @@
-import { MongoClient } from "mongodb";
+import { MongoClient } from 'mongodb';
 
 // write a variable to load env variables from nextjs
 const uri = process.env.MONGODB_URI;
@@ -9,12 +9,12 @@ const options = {
 };
 
 if (!uri) {
-  throw new Error("No MONGODB_URI env variable found");
+  throw new Error('No MONGODB_URI env variable found');
 }
 let client: MongoClient;
 let clientPromise: Promise<MongoClient>;
 
-if (process.env.NODE_ENV === "development") {
+if (process.env.NODE_ENV === 'development') {
   // In development mode, use a global variable so that the value
   // is preserved across module reloads caused by HMR (Hot Module Replacement).
   let globalWithMongo = global as typeof globalThis & {

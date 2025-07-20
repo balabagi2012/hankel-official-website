@@ -1,26 +1,26 @@
-import { FacilityEntity } from "@/app/api/facility/route";
-import { chunk } from "lodash";
-import dynamic from "next/dynamic";
-import Image from "next/image";
-import Card from "../Card";
-import Footer from "../Footer";
-import Section from "../Section";
-import Title from "../Title";
-import Typography from "../Typography";
-import Head from "next/head";
-import { getFacility } from "@/utils/api";
-import SeoHeading from "../SeoHeading";
+import { FacilityEntity } from '@/app/api/facility/route';
+import { chunk } from 'lodash';
+import dynamic from 'next/dynamic';
+import Image from 'next/image';
+import Card from '../Card';
+import Footer from '../Footer';
+import Section from '../Section';
+import Title from '../Title';
+import Typography from '../Typography';
+import Head from 'next/head';
+import { getFacility } from '@/utils/api';
+import SeoHeading from '../SeoHeading';
 
-const Banner = dynamic(() => import("../Banner"), { ssr: false });
+const Banner = dynamic(() => import('../Banner'), { ssr: false });
 
 export interface FacilityProps {
-  type?: "kindergarten" | "subschool";
+  type?: 'kindergarten' | 'subschool';
   name: string;
-  lang: "en" | "zh";
+  lang: 'en' | 'zh';
 }
 
 export default async function Facility(props: FacilityProps) {
-  const { type = "subschool", lang, name } = props;
+  const { type = 'subschool', lang, name } = props;
   const facility = await getFacility(name);
   return (
     <main className="pt-[50px] md:pt-[200px]">
@@ -63,7 +63,7 @@ export default async function Facility(props: FacilityProps) {
             width="1024"
             height="400"
             className={`w-full h-auto ${
-              name === "kindergarten" ? "rounded-3xl" : ""
+              name === 'kindergarten' ? 'rounded-3xl' : ''
             }`}
           ></Image>
         </div>
@@ -82,7 +82,7 @@ export default async function Facility(props: FacilityProps) {
                 <Card
                   key={`facility-chunk-${chunkIndex}-${index}`}
                   type={`facility${
-                    name === "kindergarten" ? `-kindergarten` : ""
+                    name === 'kindergarten' ? `-kindergarten` : ''
                   }`}
                   img={element.img}
                   alt={`hankel facility ${index}`}

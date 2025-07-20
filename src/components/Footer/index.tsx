@@ -1,32 +1,32 @@
-import { ContactEntity } from "@/app/api/contact/route";
-import Image from "next/image";
-import Link from "next/link";
+import { ContactEntity } from '@/app/api/contact/route';
+import Image from 'next/image';
+import Link from 'next/link';
 
 const getContact = async (
   name: string,
-  lang: "en" | "zh"
+  lang: 'en' | 'zh'
 ): Promise<ContactEntity> => {
   const res = await fetch(
     `${process.env.API_URI}/api/contact/${name}?lang=${lang}`,
     {
-      cache: "no-cache",
+      cache: 'no-cache',
     }
   );
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch data");
+    throw new Error('Failed to fetch data');
   }
 
   return res.json();
 };
 
 export interface FooterProps {
-  lang: "en" | "zh";
+  lang: 'en' | 'zh';
   name?: string;
 }
 
 export default async function Footer(props: FooterProps) {
-  const { lang = "zh", name = "home" } = props;
+  const { lang = 'zh', name = 'home' } = props;
   const contact = await getContact(name, lang);
 
   return (
@@ -53,17 +53,17 @@ export default async function Footer(props: FooterProps) {
           )}
         </div>
         <div className="text-white flex flex-1 mb-5 md:mb-0">
-          {lang === "zh" ? "電話 : " : "Phone : "}
-          {contact?.phone ?? "02-2602-8000"}
+          {lang === 'zh' ? '電話 : ' : 'Phone : '}
+          {contact?.phone ?? '02-2602-8000'}
         </div>
         <div className="text-white flex flex-1 mb-5 md:mb-0">
-          {lang === "zh" ? "信箱 : " : "Email : "}
-          {contact?.email ?? "hankel@heipe.edu.tw"}
+          {lang === 'zh' ? '信箱 : ' : 'Email : '}
+          {contact?.email ?? 'hankel@heipe.edu.tw'}
         </div>
         <div className="text-white flex flex-1 mb-7 md:mb-0">
-          {lang === "zh" ? "地址 : " : "Address : "}
+          {lang === 'zh' ? '地址 : ' : 'Address : '}
           {contact.address[lang] ??
-            "No. 457, Section 2, Wenhua 3rd Rd, Linkou District, NewTaipei City, 244"}
+            'No. 457, Section 2, Wenhua 3rd Rd, Linkou District, NewTaipei City, 244'}
         </div>
         <div className="flex flex-row flex-1 gap-x-6">
           {contact?.line && contact?.line?.length > 0 && (
@@ -113,7 +113,7 @@ export default async function Footer(props: FooterProps) {
           <iframe
             width="450"
             height="250"
-            style={{ border: 0, marginLeft: "auto" }}
+            style={{ border: 0, marginLeft: 'auto' }}
             referrerPolicy="no-referrer-when-downgrade"
             src={`https://www.google.com/maps/embed/v1/place?key=${process.env.GOOGLE_MAP_API_KEY}&q=${contact?.address[lang]}`}
           ></iframe>

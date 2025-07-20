@@ -1,9 +1,9 @@
-"use client";
-import { SubmitHandler, useForm } from "react-hook-form";
-import Typography from "../Typography";
+'use client';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import Typography from '../Typography';
 
 export interface ContactFormProps {
-  lang?: "zh" | "en";
+  lang?: 'zh' | 'en';
   name: string;
   mail: string;
 }
@@ -29,7 +29,7 @@ const sendMail = async (
             <td>${value}</td>
           </tr>`
           )
-          .join("")}
+          .join('')}
       </tbody>
     </table>
   <br/>
@@ -37,8 +37,8 @@ const sendMail = async (
   <p>Hankel Website</p>
 </div>`;
   const res = await fetch(`/api/mail`, {
-    cache: "no-cache",
-    method: "POST",
+    cache: 'no-cache',
+    method: 'POST',
     body: JSON.stringify({
       from,
       to,
@@ -48,23 +48,23 @@ const sendMail = async (
   });
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to send mail");
+    throw new Error('Failed to send mail');
   }
 
   return res.json();
 };
 
 export default function ContactForm(props: ContactFormProps) {
-  const { lang = "en", name, mail } = props;
-  const isKindergarten = name === "kindergarten";
+  const { lang = 'en', name, mail } = props;
+  const isKindergarten = name === 'kindergarten';
   const defaultValues = {
-    name: "",
-    childName: "",
+    name: '',
+    childName: '',
     childBirthday: new Date(),
-    parentName: "",
-    phone: "",
-    mail: "",
-    message: "",
+    parentName: '',
+    phone: '',
+    mail: '',
+    message: '',
   };
   const {
     register,
@@ -76,8 +76,8 @@ export default function ContactForm(props: ContactFormProps) {
 
   const onSubmit: SubmitHandler<any> = async (data: any) => {
     sendMail(name, data.mail, mail, data)
-      .then(() => window.alert("Successed to send mail"))
-      .catch(() => window.alert("Failed to send mail"));
+      .then(() => window.alert('Successed to send mail'))
+      .catch(() => window.alert('Failed to send mail'));
   };
 
   return (
@@ -87,7 +87,7 @@ export default function ContactForm(props: ContactFormProps) {
           <div className="flex flex-col flex-1">
             <div className="flex flex-row align-top">
               <Typography varient="h5" className="text-deepBlue">
-                {lang === "zh" ? "小孩名稱" : "Child Name"}
+                {lang === 'zh' ? '小孩名稱' : 'Child Name'}
               </Typography>
               <Typography varient="h5" className="text-[#D40000]">
                 *
@@ -96,23 +96,23 @@ export default function ContactForm(props: ContactFormProps) {
             <input
               type="text"
               className="p-1 border rounded border-textGray h-9"
-              {...register("childName", {
+              {...register('childName', {
                 required: true,
                 minLength: 2,
               })}
             />
             {errors.childName && (
               <Typography varient="h6" className="text-[#D40000]">
-                {lang === "zh"
-                  ? "名稱必須輸入並且需大於兩個字"
-                  : "Name has to be “required” and “minLength: 2”"}
+                {lang === 'zh'
+                  ? '名稱必須輸入並且需大於兩個字'
+                  : 'Name has to be “required” and “minLength: 2”'}
               </Typography>
             )}
           </div>
           <div className="flex flex-col flex-1">
             <div className="flex flex-row align-top">
               <Typography varient="h5" className="text-deepBlue">
-                {lang === "zh" ? "小孩生日" : "Child Birthday"}
+                {lang === 'zh' ? '小孩生日' : 'Child Birthday'}
               </Typography>
               <Typography varient="h5" className="text-[#D40000]">
                 *
@@ -121,15 +121,15 @@ export default function ContactForm(props: ContactFormProps) {
             <input
               type="date"
               className="p-1 border rounded border-textGray h-9"
-              {...register("childBirthday", {
+              {...register('childBirthday', {
                 required: true,
               })}
             />
             {errors.childName && (
               <Typography varient="h6" className="text-[#D40000]">
-                {lang === "zh"
-                  ? "生日必須輸入並且需大於兩個字"
-                  : "ChildBirthday has to be “required”"}
+                {lang === 'zh'
+                  ? '生日必須輸入並且需大於兩個字'
+                  : 'ChildBirthday has to be “required”'}
               </Typography>
             )}
           </div>
@@ -139,13 +139,13 @@ export default function ContactForm(props: ContactFormProps) {
         <div className="flex flex-col flex-1">
           <div className="flex flex-row align-top">
             <Typography varient="h5" className="text-deepBlue">
-              {lang === "zh"
+              {lang === 'zh'
                 ? isKindergarten
-                  ? "家長名稱"
-                  : "名稱"
+                  ? '家長名稱'
+                  : '名稱'
                 : isKindergarten
-                ? "Parent Name"
-                : "Name"}
+                  ? 'Parent Name'
+                  : 'Name'}
             </Typography>
             <Typography varient="h5" className="text-[#D40000]">
               *
@@ -154,23 +154,23 @@ export default function ContactForm(props: ContactFormProps) {
           <input
             type="text"
             className="p-1 border rounded border-textGray h-9"
-            {...register(isKindergarten ? "parentName" : "name", {
+            {...register(isKindergarten ? 'parentName' : 'name', {
               required: true,
               minLength: 2,
             })}
           />
           {(isKindergarten ? errors.parentName : errors.name) && (
             <Typography varient="h6" className="text-[#D40000]">
-              {lang === "zh"
-                ? "名稱必須輸入並且需大於兩個字"
-                : "Name has to be “required” and “minLength: 2”"}
+              {lang === 'zh'
+                ? '名稱必須輸入並且需大於兩個字'
+                : 'Name has to be “required” and “minLength: 2”'}
             </Typography>
           )}
         </div>
         <div className="flex flex-col flex-1">
           <div className="flex flex-row align-top gap-4">
             <Typography varient="h5" className="text-deepBlue">
-              {lang === "zh" ? "電話" : "Phone"}
+              {lang === 'zh' ? '電話' : 'Phone'}
             </Typography>
             <Typography varient="h5" className="text-[#D40000]">
               *
@@ -179,11 +179,11 @@ export default function ContactForm(props: ContactFormProps) {
           <input
             type="text"
             className="p-1 border rounded border-textGray h-9"
-            {...register("phone", { required: true, minLength: 5 })}
+            {...register('phone', { required: true, minLength: 5 })}
           />
           {errors.phone && (
             <Typography varient="h6" className="text-[#D40000]">
-              {lang === "zh" ? "電話格式錯誤" : "Phone Error"}
+              {lang === 'zh' ? '電話格式錯誤' : 'Phone Error'}
             </Typography>
           )}
         </div>
@@ -191,7 +191,7 @@ export default function ContactForm(props: ContactFormProps) {
       <div className="flex flex-1 flex-col mb-5">
         <div className="flex flex-row align-top gap-4">
           <Typography varient="h5" className="text-deepBlue">
-            {lang === "zh" ? "信箱" : "Email"}
+            {lang === 'zh' ? '信箱' : 'Email'}
           </Typography>
           <Typography varient="h5" className="text-[#D40000]">
             *
@@ -200,23 +200,23 @@ export default function ContactForm(props: ContactFormProps) {
         <input
           type="text"
           className="p-1 border rounded border-textGray"
-          {...register("mail", {
+          {...register('mail', {
             required: true,
             pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
           })}
         />
         {errors.mail && (
           <Typography varient="h6" className="text-[#D40000]">
-            {lang === "zh"
-              ? "信箱必須為 [account]@[host]格式"
-              : "Mail has to be [account]@[host]"}
+            {lang === 'zh'
+              ? '信箱必須為 [account]@[host]格式'
+              : 'Mail has to be [account]@[host]'}
           </Typography>
         )}
       </div>
       <div className="flex flex-1 flex-col mb-8">
         <div className="flex flex-row align-top">
           <Typography varient="h5" className="text-deepBlue">
-            {lang === "zh" ? "訊息" : "Message"}
+            {lang === 'zh' ? '訊息' : 'Message'}
           </Typography>
           <Typography varient="h5" className="text-[#D40000]">
             *
@@ -225,11 +225,11 @@ export default function ContactForm(props: ContactFormProps) {
         <textarea
           maxLength={500}
           className="p-1 border h-[130px] rounded border-textGray"
-          {...register("message", { required: true, maxLength: 500 })}
+          {...register('message', { required: true, maxLength: 500 })}
         />
         {errors.message && (
           <Typography varient="h6" className="text-[#D40000]">
-            {lang === "zh" ? "訊息必須輸入" : "Message has to be input"}
+            {lang === 'zh' ? '訊息必須輸入' : 'Message has to be input'}
           </Typography>
         )}
       </div>
@@ -238,7 +238,7 @@ export default function ContactForm(props: ContactFormProps) {
         onClick={handleSubmit(onSubmit)}
       >
         <Typography varient="h5" color="white">
-          {lang === "zh" ? "寄出" : "Send"}
+          {lang === 'zh' ? '寄出' : 'Send'}
         </Typography>
       </div>
     </form>

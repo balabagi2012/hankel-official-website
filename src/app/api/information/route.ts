@@ -1,5 +1,5 @@
-import { connectToDatabase } from "@/utils/mongodb";
-import { Seo, Text } from "../model";
+import { connectToDatabase } from '@/utils/mongodb';
+import { Seo, Text } from '../model';
 
 export interface InformationEntity extends Seo {
   name: string;
@@ -37,11 +37,11 @@ export interface LunchMenu {
 export async function GET() {
   try {
     const db = await connectToDatabase();
-    const information = await db.collection("information").find({}).toArray();
+    const information = await db.collection('information').find({}).toArray();
     return Response.json(information, { status: 200 });
   } catch (error) {
     return Response.json(
-      { error: "Failed to fetch information data" },
+      { error: 'Failed to fetch information data' },
       { status: 500 }
     );
   }
@@ -60,12 +60,12 @@ export async function POST(req: Request) {
       !lunchMenu
     ) {
       return Response.json(
-        { error: "Missing required fields" },
+        { error: 'Missing required fields' },
         { status: 400 }
       );
     }
     const db = await connectToDatabase();
-    await db.collection("information").insertOne({
+    await db.collection('information').insertOne({
       name,
       banner,
       admissionBrochure,
@@ -73,12 +73,12 @@ export async function POST(req: Request) {
       lunchMenu,
     });
     return Response.json(
-      { message: "Information data created successfully" },
+      { message: 'Information data created successfully' },
       { status: 200 }
     );
   } catch (error) {
     return Response.json(
-      { error: "Failed to create information data" },
+      { error: 'Failed to create information data' },
       { status: 500 }
     );
   }

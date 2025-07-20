@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import { useState } from "react";
-import Title from "../Title";
-import Typography from "../Typography";
-import Section from "../Section";
-import { Program } from "@/app/api/home/route";
-import Link from "next/link";
+import Image from 'next/image';
+import { useState } from 'react';
+import Title from '../Title';
+import Typography from '../Typography';
+import Section from '../Section';
+import { Program } from '@/app/api/home/route';
+import Link from 'next/link';
 
 interface ProgramProps {
-  lang: "en" | "zh";
+  lang: 'en' | 'zh';
   programs: Program[];
   title: string;
 }
@@ -21,14 +21,14 @@ export function Program(props: ProgramProps) {
   const ProgramNavItem = ({ program }: { program: Program }) => (
     <li
       className={`whitespace-nowrap ${
-        activeProgram.type === program.type ? "px-[16px] bg-blue w-fit" : ""
+        activeProgram.type === program.type ? 'px-[16px] bg-blue w-fit' : ''
       } h-9 flex flex-row justify-center items-center min-h-fit min-w-fit`}
       onClick={() => setActiveProgram(program)}
     >
       <Typography
         varient="h5"
         className={`${
-          activeProgram.type === program.type ? "text-white" : "text-blue"
+          activeProgram.type === program.type ? 'text-white' : 'text-blue'
         } font-bold`}
       >
         {program.title[lang]}
@@ -47,7 +47,7 @@ export function Program(props: ProgramProps) {
         <Typography
           varient="h2"
           className={`${
-            lang === "en" ? "font-serif" : ""
+            lang === 'en' ? 'font-serif' : ''
           } text-deepBlue mb-[15px]`}
         >
           {activeProgram.title[lang]}
@@ -103,7 +103,7 @@ export function Program(props: ProgramProps) {
           className="px-[32px] py-[8px] border rounded border-blue w-fit flex flex-row justify-center items-center"
         >
           <Typography varient="h6" className="font-bold text-blue">
-            {lang === "en" ? "Learn More" : "了解更多"}
+            {lang === 'en' ? 'Learn More' : '了解更多'}
           </Typography>
           <Image
             src="/icons/ChevronRightFilled.svg"

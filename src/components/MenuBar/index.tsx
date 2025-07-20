@@ -1,11 +1,11 @@
-"use client";
-import "./MenuBar.scss";
+'use client';
+import './MenuBar.scss';
 
-import { Editor } from "@tiptap/react";
-import { ChangeEvent, Fragment, useCallback } from "react";
+import { Editor } from '@tiptap/react';
+import { ChangeEvent, Fragment, useCallback } from 'react';
 
-import Image from "next/image";
-import MenuItem from "./MenuItem";
+import Image from 'next/image';
+import MenuItem from './MenuItem';
 
 interface EdiorMenuProps {
   name?: string;
@@ -16,14 +16,14 @@ const EdiorMenu = ({ name, editor }: EdiorMenuProps) => {
   const uploadFile = async (file: File) => {
     const url = `https://www.hiape.ntpc.edu.tw/uploads`;
     const form = new FormData();
-    form.append("file", file);
+    form.append('file', file);
     const res = await fetch(url, {
-      method: "POST",
+      method: 'POST',
       body: form,
     });
     if (!res.ok) {
       // This will activate the closest `error.js` Error Boundary
-      return window.alert("Failed to upload file");
+      return window.alert('Failed to upload file');
     }
     return res.json();
   };
@@ -35,8 +35,8 @@ const EdiorMenu = ({ name, editor }: EdiorMenuProps) => {
   };
 
   const setLink = useCallback(() => {
-    const previousUrl = editor.getAttributes("link").href;
-    const url = window.prompt("URL", previousUrl);
+    const previousUrl = editor.getAttributes('link').href;
+    const url = window.prompt('URL', previousUrl);
 
     // cancelled
     if (url === null) {
@@ -44,13 +44,13 @@ const EdiorMenu = ({ name, editor }: EdiorMenuProps) => {
     }
 
     // empty
-    if (url === "") {
-      editor.chain().focus().extendMarkRange("link").unsetLink().run();
+    if (url === '') {
+      editor.chain().focus().extendMarkRange('link').unsetLink().run();
       return;
     }
 
     // update link
-    editor.chain().focus().extendMarkRange("link").setLink({ href: url }).run();
+    editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
   }, [editor]);
 
   const addFile = useCallback(
@@ -60,16 +60,16 @@ const EdiorMenu = ({ name, editor }: EdiorMenuProps) => {
         return;
       }
       // empty
-      else if (url === "") {
-        editor.chain().focus().extendMarkRange("link").unsetLink().run();
+      else if (url === '') {
+        editor.chain().focus().extendMarkRange('link').unsetLink().run();
 
         return;
-      } else if (url && typeof url === "string") {
+      } else if (url && typeof url === 'string') {
         // update link
         editor
           .chain()
           .focus()
-          .extendMarkRange("link")
+          .extendMarkRange('link')
           .setLink({ href: url })
           .run();
       }
@@ -86,7 +86,7 @@ const EdiorMenu = ({ name, editor }: EdiorMenuProps) => {
         uploadFile(file).then((data) => {
           if (data.file) {
             addFile(data.file);
-            event.target.value = "";
+            event.target.value = '';
           }
         });
       }
@@ -100,10 +100,10 @@ const EdiorMenu = ({ name, editor }: EdiorMenuProps) => {
 
   const items = [
     {
-      title: "B",
+      title: 'B',
       icon: (
         <Image
-          src={"/icons/Bold.svg"}
+          src={'/icons/Bold.svg'}
           width={12}
           height={12}
           alt="bold"
@@ -111,13 +111,13 @@ const EdiorMenu = ({ name, editor }: EdiorMenuProps) => {
         />
       ),
       action: () => editor.chain().focus().toggleBold().run(),
-      isActive: () => editor.isActive("bold"),
+      isActive: () => editor.isActive('bold'),
     },
     {
-      title: "I",
+      title: 'I',
       icon: (
         <Image
-          src={"/icons/Itatic.svg"}
+          src={'/icons/Itatic.svg'}
           width={12}
           height={12}
           alt="italic"
@@ -125,13 +125,13 @@ const EdiorMenu = ({ name, editor }: EdiorMenuProps) => {
         />
       ),
       action: () => editor.chain().focus().toggleItalic().run(),
-      isActive: () => editor.isActive("italic"),
+      isActive: () => editor.isActive('italic'),
     },
     {
-      title: "-",
+      title: '-',
       icon: (
         <Image
-          src={"/icons/Strike.svg"}
+          src={'/icons/Strike.svg'}
           width={12}
           height={12}
           alt="strike"
@@ -139,34 +139,34 @@ const EdiorMenu = ({ name, editor }: EdiorMenuProps) => {
         />
       ),
       action: () => editor.chain().focus().toggleStrike().run(),
-      isActive: () => editor.isActive("strike"),
+      isActive: () => editor.isActive('strike'),
     },
     {
-      type: "divider",
+      type: 'divider',
     },
     {
-      title: "H1",
+      title: 'H1',
       action: () => editor.chain().focus().toggleHeading({ level: 1 }).run(),
-      isActive: () => editor.isActive("heading", { level: 1 }),
+      isActive: () => editor.isActive('heading', { level: 1 }),
     },
     {
-      title: "H2",
+      title: 'H2',
       action: () => editor.chain().focus().toggleHeading({ level: 2 }).run(),
-      isActive: () => editor.isActive("heading", { level: 2 }),
+      isActive: () => editor.isActive('heading', { level: 2 }),
     },
     {
-      title: "H3",
+      title: 'H3',
       action: () => editor.chain().focus().toggleHeading({ level: 3 }).run(),
-      isActive: () => editor.isActive("heading", { level: 3 }),
+      isActive: () => editor.isActive('heading', { level: 3 }),
     },
     {
-      type: "divider",
+      type: 'divider',
     },
     {
-      title: "Code",
+      title: 'Code',
       icon: (
         <Image
-          src={"/icons/Code.svg"}
+          src={'/icons/Code.svg'}
           width={12}
           height={12}
           alt="code"
@@ -174,13 +174,13 @@ const EdiorMenu = ({ name, editor }: EdiorMenuProps) => {
         />
       ),
       action: () => editor.chain().focus().toggleCode().run(),
-      isActive: () => editor.isActive("code"),
+      isActive: () => editor.isActive('code'),
     },
     {
-      title: "Link",
+      title: 'Link',
       icon: (
         <Image
-          src={"/icons/Link.svg"}
+          src={'/icons/Link.svg'}
           width={12}
           height={12}
           alt="link"
@@ -188,13 +188,13 @@ const EdiorMenu = ({ name, editor }: EdiorMenuProps) => {
         />
       ),
       action: () => setLink(),
-      isActive: () => editor.isActive("link"),
+      isActive: () => editor.isActive('link'),
     },
     {
-      title: "Img",
+      title: 'Img',
       icon: (
         <Image
-          src={"/icons/Image.svg"}
+          src={'/icons/Image.svg'}
           width={12}
           height={12}
           alt="image"
@@ -202,14 +202,14 @@ const EdiorMenu = ({ name, editor }: EdiorMenuProps) => {
         />
       ),
       action: () =>
-        document.getElementById(`editor-img${name ? "-" + name : ""}`)?.click(),
+        document.getElementById(`editor-img${name ? '-' + name : ''}`)?.click(),
       isActive: () => false,
     },
     {
-      title: "File",
+      title: 'File',
       icon: (
         <Image
-          src={"/icons/File.svg"}
+          src={'/icons/File.svg'}
           width={12}
           height={12}
           alt="file"
@@ -218,16 +218,16 @@ const EdiorMenu = ({ name, editor }: EdiorMenuProps) => {
       ),
       action: () => {
         document
-          .getElementById(`editor-file${name ? "-" + name : ""}`)
+          .getElementById(`editor-file${name ? '-' + name : ''}`)
           ?.click();
       },
       isActive: () => false,
     },
     {
-      title: "Highlight",
+      title: 'Highlight',
       icon: (
         <Image
-          src={"/icons/Highlight.svg"}
+          src={'/icons/Highlight.svg'}
           width={12}
           height={12}
           alt="Highlight"
@@ -235,16 +235,16 @@ const EdiorMenu = ({ name, editor }: EdiorMenuProps) => {
         />
       ),
       action: () => editor.chain().focus().toggleHighlight().run(),
-      isActive: () => editor.isActive("highlight"),
+      isActive: () => editor.isActive('highlight'),
     },
     {
-      type: "divider",
+      type: 'divider',
     },
     {
-      title: "Ordered List",
+      title: 'Ordered List',
       icon: (
         <Image
-          src={"/icons/Order.svg"}
+          src={'/icons/Order.svg'}
           width={12}
           height={12}
           alt="Order"
@@ -252,13 +252,13 @@ const EdiorMenu = ({ name, editor }: EdiorMenuProps) => {
         />
       ),
       action: () => editor.chain().focus().toggleOrderedList().run(),
-      isActive: () => editor.isActive("orderedList"),
+      isActive: () => editor.isActive('orderedList'),
     },
     {
-      title: "Code Block",
+      title: 'Code Block',
       icon: (
         <Image
-          src={"/icons/CodeBlock.svg"}
+          src={'/icons/CodeBlock.svg'}
           width={12}
           height={12}
           alt="CodeBlock"
@@ -266,13 +266,13 @@ const EdiorMenu = ({ name, editor }: EdiorMenuProps) => {
         />
       ),
       action: () => editor.chain().focus().toggleCodeBlock().run(),
-      isActive: () => editor.isActive("codeBlock"),
+      isActive: () => editor.isActive('codeBlock'),
     },
     {
-      title: "Blockquote",
+      title: 'Blockquote',
       icon: (
         <Image
-          src={"/icons/Quote.svg"}
+          src={'/icons/Quote.svg'}
           width={12}
           height={12}
           alt="Quote"
@@ -280,13 +280,13 @@ const EdiorMenu = ({ name, editor }: EdiorMenuProps) => {
         />
       ),
       action: () => editor.chain().focus().toggleBlockquote().run(),
-      isActive: () => editor.isActive("blockquote"),
+      isActive: () => editor.isActive('blockquote'),
     },
     {
-      title: "Horizontal Rule",
+      title: 'Horizontal Rule',
       icon: (
         <Image
-          src={"/icons/Horizontal.svg"}
+          src={'/icons/Horizontal.svg'}
           width={12}
           height={12}
           alt="Horizontal"
@@ -296,13 +296,13 @@ const EdiorMenu = ({ name, editor }: EdiorMenuProps) => {
       action: () => editor.chain().focus().setHorizontalRule().run(),
     },
     {
-      type: "divider",
+      type: 'divider',
     },
     {
-      title: "Clear Format",
+      title: 'Clear Format',
       icon: (
         <Image
-          src={"/icons/Clear.svg"}
+          src={'/icons/Clear.svg'}
           width={12}
           height={12}
           alt="Clear"
@@ -312,10 +312,10 @@ const EdiorMenu = ({ name, editor }: EdiorMenuProps) => {
       action: () => editor.chain().focus().clearNodes().unsetAllMarks().run(),
     },
     {
-      title: "Undo",
+      title: 'Undo',
       icon: (
         <Image
-          src={"/icons/Undo.svg"}
+          src={'/icons/Undo.svg'}
           width={12}
           height={12}
           alt="Undo"
@@ -325,10 +325,10 @@ const EdiorMenu = ({ name, editor }: EdiorMenuProps) => {
       action: () => editor.commands.undo(),
     },
     {
-      title: "Redo",
+      title: 'Redo',
       icon: (
         <Image
-          src={"/icons/Redo.svg"}
+          src={'/icons/Redo.svg'}
           width={12}
           height={12}
           alt="Redo"
@@ -343,7 +343,7 @@ const EdiorMenu = ({ name, editor }: EdiorMenuProps) => {
     <div className="editor__header flex flex-row gap-x-2">
       <input
         type="file"
-        id={`editor-img${name ? "-" + name : ""}`}
+        id={`editor-img${name ? '-' + name : ''}`}
         className="hidden"
         accept="images/*"
         onChange={(event) => {
@@ -354,7 +354,7 @@ const EdiorMenu = ({ name, editor }: EdiorMenuProps) => {
             uploadFile(file).then((data) => {
               if (data.file) {
                 addImage(data.file);
-                event.target.value = "";
+                event.target.value = '';
               }
             });
           }
@@ -362,13 +362,13 @@ const EdiorMenu = ({ name, editor }: EdiorMenuProps) => {
       />
       <input
         type="file"
-        id={`editor-file${name ? "-" + name : ""}`}
+        id={`editor-file${name ? '-' + name : ''}`}
         className="hidden"
         onChange={selectFile}
       />
       {items.map((item, index) => (
         <Fragment key={index}>
-          {item.type === "divider" ? (
+          {item.type === 'divider' ? (
             <div className="divider" />
           ) : (
             <MenuItem {...item} />

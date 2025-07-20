@@ -1,8 +1,8 @@
-"use client";
-import { EventEntity } from "@/app/api/event/route";
-import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useState } from "react";
+'use client';
+import { EventEntity } from '@/app/api/event/route';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 export default function AdminEventPage() {
   const [dataList, setDataList] = useState<EventEntity[]>([]);

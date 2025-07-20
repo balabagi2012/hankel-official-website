@@ -1,12 +1,12 @@
-import { NextRequest } from "next/server";
+import { NextRequest } from 'next/server';
 
-let locales = ["en", "zh"];
+let locales = ['en', 'zh'];
 
 const getBrowserLanguage = (req: NextRequest) => {
   return req.headers
-    .get("accept-language")
-    ?.split(",")
-    .map((i) => i.split(";"))
+    .get('accept-language')
+    ?.split(',')
+    .map((i) => i.split(';'))
     ?.reduce(
       (ac: { code: string; priority: string }[], lang) => [
         ...ac,
@@ -29,25 +29,25 @@ export function middleware(request: NextRequest) {
     pathname.startsWith(`/admin`)
   );
   if (pathnameHasAdmin) {
-    const isLogin = request.cookies.get("isLogin");
-    if (isLogin?.value === "true") {
-      if (pathname === "/admin") {
-        request.nextUrl.pathname = "/admin/home";
+    const isLogin = request.cookies.get('isLogin');
+    if (isLogin?.value === 'true') {
+      if (pathname === '/admin') {
+        request.nextUrl.pathname = '/admin/home';
         return Response.redirect(request.nextUrl);
       }
       return;
     } else {
-      if (pathname === "/admin") {
+      if (pathname === '/admin') {
         return;
       } else {
-        request.nextUrl.pathname = "/admin";
+        request.nextUrl.pathname = '/admin';
         return Response.redirect(request.nextUrl);
       }
     }
   }
   // Redirect if there is no locale
   const language = getBrowserLanguage(request);
-  const locale = language ?? "zh";
+  const locale = language ?? 'zh';
   request.nextUrl.pathname = `/${locale}${pathname}`;
   return Response.redirect(request.nextUrl);
 }
@@ -61,6 +61,6 @@ export const config = {
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
      */
-    "/((?!icons|uploads|public|about|logo|banners|course|curriculum|facility|information|news|subBanners|team|api|_next|favicon.ico).*)",
+    '/((?!icons|uploads|public|about|logo|banners|course|curriculum|facility|information|news|subBanners|team|api|_next|favicon.ico).*)',
   ],
 };

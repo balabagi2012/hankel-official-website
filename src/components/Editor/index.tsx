@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import Highlight from "@tiptap/extension-highlight";
-import Image from "@tiptap/extension-image";
-import Link from "@tiptap/extension-link";
-import { EditorContent, useEditor } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
+import Highlight from '@tiptap/extension-highlight';
+import Image from '@tiptap/extension-image';
+import Link from '@tiptap/extension-link';
+import { EditorContent, useEditor } from '@tiptap/react';
+import StarterKit from '@tiptap/starter-kit';
 
-import MenuBar from "@/components/MenuBar";
-import { useEffect, useRef } from "react";
+import MenuBar from '@/components/MenuBar';
+import { useEffect, useRef } from 'react';
 
 export interface EditorComponentProps {
   name?: string;
@@ -16,7 +16,7 @@ export interface EditorComponentProps {
 }
 
 const EditorComponent = (props: EditorComponentProps) => {
-  const contentRef = useRef("");
+  const contentRef = useRef('');
   const editor = useEditor({
     extensions: [
       Link.configure({
@@ -30,7 +30,7 @@ const EditorComponent = (props: EditorComponentProps) => {
       Highlight,
       Image,
     ],
-    content: "",
+    content: '',
     onUpdate: ({ editor }) => {
       const html = editor.getHTML();
       props.onChange(html);

@@ -1,6 +1,6 @@
-import { connectToDatabase } from "@/utils/mongodb";
-import { NextRequest } from "next/server";
-import { Seo, Text } from "../model";
+import { connectToDatabase } from '@/utils/mongodb';
+import { NextRequest } from 'next/server';
+import { Seo, Text } from '../model';
 
 export interface SubschoolEntity extends Seo {
   name: string;
@@ -30,10 +30,10 @@ export interface SubBanner {
 export async function GET(request: NextRequest) {
   try {
     const db = await connectToDatabase();
-    const subschool = await db.collection("subschool").find({}).toArray();
+    const subschool = await db.collection('subschool').find({}).toArray();
     if (!subschool) {
       return Response.json(
-        { error: "Subschool data not found" },
+        { error: 'Subschool data not found' },
         { status: 404 }
       );
     }
@@ -41,7 +41,7 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     return Response.json(
       {
-        error: "Failed to fetch subschool data",
+        error: 'Failed to fetch subschool data',
         errorMessage: (error as Error).message,
       },
       { status: 500 }
@@ -71,12 +71,12 @@ export async function POST(req: Request) {
       !subBanner
     ) {
       return Response.json(
-        { error: "Missing required fields" },
+        { error: 'Missing required fields' },
         { status: 400 }
       );
     }
     const db = await connectToDatabase();
-    await db.collection("subschool").insertOne({
+    await db.collection('subschool').insertOne({
       name,
       title,
       description,
@@ -86,12 +86,12 @@ export async function POST(req: Request) {
       subBanner,
     });
     return Response.json(
-      { message: "Subschool data created successfully" },
+      { message: 'Subschool data created successfully' },
       { status: 200 }
     );
   } catch (error) {
     return Response.json(
-      { error: "Failed to create subschool data" },
+      { error: 'Failed to create subschool data' },
       { status: 500 }
     );
   }

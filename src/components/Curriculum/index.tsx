@@ -1,25 +1,25 @@
-import { getCurriculum } from "@/utils/api";
-import { chunk } from "lodash";
-import dynamic from "next/dynamic";
-import Head from "next/head";
-import Card from "../Card";
-import Footer from "../Footer";
-import Section from "../Section";
-import Title from "../Title";
-import Typography from "../Typography";
-import SeoHeading from "../SeoHeading";
+import { getCurriculum } from '@/utils/api';
+import { chunk } from 'lodash';
+import dynamic from 'next/dynamic';
+import Head from 'next/head';
+import Card from '../Card';
+import Footer from '../Footer';
+import Section from '../Section';
+import Title from '../Title';
+import Typography from '../Typography';
+import SeoHeading from '../SeoHeading';
 
-const Banner = dynamic(() => import("../Banner"), { ssr: false });
+const Banner = dynamic(() => import('../Banner'), { ssr: false });
 
 export interface CurriculumProps {
-  type?: "kindergarten" | "subschool";
-  lang: "en" | "zh";
+  type?: 'kindergarten' | 'subschool';
+  lang: 'en' | 'zh';
   name: string;
   banner?: string;
 }
 
 export default async function Curriculum(props: CurriculumProps) {
-  const { lang, name, type = "subschool" } = props;
+  const { lang, name, type = 'subschool' } = props;
   const curriculum = await getCurriculum(name);
   return (
     <main className="pt-[50px] md:pt-[200px]">
@@ -70,7 +70,7 @@ export default async function Curriculum(props: CurriculumProps) {
                 <Card
                   key={`curriculum-chunk-${chunkIndex}-${index}`}
                   type={`curriculum${
-                    name === "kindergarten" ? `-kindergarten` : ""
+                    name === 'kindergarten' ? `-kindergarten` : ''
                   }`}
                   img={element.img}
                   alt={element.title[lang]}

@@ -1,5 +1,5 @@
-import { connectToDatabase } from "@/utils/mongodb";
-import { NextRequest } from "next/server";
+import { connectToDatabase } from '@/utils/mongodb';
+import { NextRequest } from 'next/server';
 
 // GET /api/curriculum/:name
 export async function GET(
@@ -9,11 +9,11 @@ export async function GET(
   try {
     const { name } = params;
     const db = await connectToDatabase();
-    const curriculum = await db.collection("curriculum").findOne({ name });
+    const curriculum = await db.collection('curriculum').findOne({ name });
     return Response.json(curriculum, { status: 200 });
   } catch (error) {
     return Response.json(
-      { error: "Failed to fetch curriculum data" },
+      { error: 'Failed to fetch curriculum data' },
       { status: 500 }
     );
   }
@@ -29,13 +29,13 @@ export async function PATCH(
     const body = await req.json();
     if (!body.name) {
       return Response.json(
-        { error: "Missing required fields" },
+        { error: 'Missing required fields' },
         { status: 400 }
       );
     }
 
     const db = await connectToDatabase();
-    await db.collection("curriculum").updateOne(
+    await db.collection('curriculum').updateOne(
       { name },
       {
         $set: {
@@ -45,12 +45,12 @@ export async function PATCH(
       { upsert: true }
     );
     return Response.json(
-      { message: "Curriculum data updated successfully" },
+      { message: 'Curriculum data updated successfully' },
       { status: 200 }
     );
   } catch (error) {
     return Response.json(
-      { error: "Failed to update curriculum data" },
+      { error: 'Failed to update curriculum data' },
       { status: 500 }
     );
   }
@@ -64,14 +64,14 @@ export async function DELETE(
   try {
     const { name } = params;
     const db = await connectToDatabase();
-    await db.collection("curriculum").deleteOne({ name });
+    await db.collection('curriculum').deleteOne({ name });
     return Response.json(
-      { message: "Curriculum data deleted successfully" },
+      { message: 'Curriculum data deleted successfully' },
       { status: 200 }
     );
   } catch (error) {
     return Response.json(
-      { error: "Failed to delete curriculum data" },
+      { error: 'Failed to delete curriculum data' },
       { status: 500 }
     );
   }

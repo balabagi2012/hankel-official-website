@@ -1,29 +1,29 @@
-import { getNewsPageByName } from "@/utils/api";
-import dynamic from "next/dynamic";
-import Head from "next/head";
-import NewsList from "../NewsList";
-import Section from "../Section";
-import SeoHeading from "../SeoHeading";
-import Title from "../Title";
-const Banner = dynamic(() => import("../Banner"), { ssr: false });
+import { getNewsPageByName } from '@/utils/api';
+import dynamic from 'next/dynamic';
+import Head from 'next/head';
+import NewsList from '../NewsList';
+import Section from '../Section';
+import SeoHeading from '../SeoHeading';
+import Title from '../Title';
+const Banner = dynamic(() => import('../Banner'), { ssr: false });
 
 const fetchLatestNews = async (name: string) => {
   const url = `${process.env.API_URI}/api/news?limit=16${
-    name === "home" ? "" : `&category=${name}`
+    name === 'home' ? '' : `&category=${name}`
   }`;
   const res = await fetch(url, {
-    cache: "no-cache",
+    cache: 'no-cache',
   });
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch data");
+    throw new Error('Failed to fetch data');
   }
   return res.json();
 };
 
 export interface NewsProps {
   name: string;
-  lang: "en" | "zh";
+  lang: 'en' | 'zh';
 }
 
 export default async function News({ name, lang }: NewsProps) {
@@ -43,7 +43,7 @@ export default async function News({ name, lang }: NewsProps) {
         <div className="flex flex-col w-full p-4 md:p-0">
           <div className="flex flex-row">
             <Title full align="left" lang={lang}>
-              {newsPage?.title[lang] ?? "News"}
+              {newsPage?.title[lang] ?? 'News'}
             </Title>
           </div>
           <NewsList news={news} lang={lang} />

@@ -1,27 +1,27 @@
-import Information from "@/components/Information";
-import { getInformation } from "@/utils/api";
-import { Metadata } from "next";
+import Information from '@/components/Information';
+import { getInformation } from '@/utils/api';
+import { Metadata } from 'next';
 
 export async function generateMetadata({
   params: { lang },
 }: {
-  params: { lang: "en" | "zh" };
+  params: { lang: 'en' | 'zh' };
 }): Promise<Metadata> {
-  const data = await getInformation("middleSchool");
+  const data = await getInformation('middleSchool');
   return {
-    title: data?.seoTitle?.[lang] ?? "Hankel",
-    description: data?.seoDescription?.[lang] ?? "Hankel",
+    title: data?.seoTitle?.[lang] ?? 'Hankel',
+    description: data?.seoDescription?.[lang] ?? 'Hankel',
     openGraph: {
       images: [`https://www.hiape.ntpc.edu.tw${data.banner}`],
     },
-    robots: "index, follow",
+    robots: 'index, follow',
   };
 }
 
 export default function MiddleSchoolInformation({
   params: { lang },
 }: {
-  params: { lang: "en" | "zh" };
+  params: { lang: 'en' | 'zh' };
 }) {
   return <Information type="subschool" lang={lang} name="middleSchool" />;
 }
