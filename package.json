@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write .",
-    "lint:fix": "next lint --fix"
+    "lint:fix": "next lint --fix",
+    "imports:fix": "eslint --fix src/",
+    "fix": "pnpm run format && pnpm run imports:fix"
   },
   "dependencies": {
     "@heroicons/react": "^2.1.1",
@@ -47,9 +49,13 @@
   "devDependencies": {
     "@types/lodash": "^4.14.202",
     "@types/nodemailer": "^6.4.14",
+    "@typescript-eslint/eslint-plugin": "^8.37.0",
+    "@typescript-eslint/parser": "^8.37.0",
     "autoprefixer": "^10.4.15",
     "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-prettier": "^5.5.3",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
     "postcss": "^8.4.29",
     "prettier": "^3.6.2",
     "sass": "^1.69.5",

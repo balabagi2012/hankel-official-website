@@ -2,10 +2,12 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import Typography from '../Typography';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+
 import { kindergarten, notoSans } from '@/app/styles/fonts';
+
+import Typography from '../Typography';
 
 export default function Header() {
   const [openDropDown, setOpenDropDown] = useState(false);

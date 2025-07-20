@@ -1,6 +1,8 @@
-import { NewsEntity } from '@/app/api/news/route';
 import Image from 'next/image';
 import Link from 'next/link';
+
+import { NewsEntity } from '@/app/api/news/route';
+
 import Card from '../Card';
 import Section from '../Section';
 import Title from '../Title';

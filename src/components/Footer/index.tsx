@@ -1,6 +1,7 @@
-import { ContactEntity } from '@/app/api/contact/route';
 import Image from 'next/image';
 import Link from 'next/link';
+
+import { ContactEntity } from '@/app/api/contact/route';
 
 const getContact = async (
   name: string,

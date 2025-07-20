@@ -1,12 +1,13 @@
 'use client';
-import EditorComponent from '@/components/Editor';
-import LangSwitch from '@/components/LangSwitch';
 import { ArrowLeftIcon } from '@heroicons/react/24/solid';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+
+import EditorComponent from '@/components/Editor';
+import LangSwitch from '@/components/LangSwitch';
 
 export default function EditNewsPage({
   params: { id },

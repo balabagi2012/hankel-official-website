@@ -1,19 +1,21 @@
-import { ContactEntity } from '@/app/api/contact/route';
-import { kindergarten } from '@/app/styles/fonts';
-import { getSubschool } from '@/utils/api';
 import { chunk } from 'lodash';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import Image from 'next/image';
+
+import { ContactEntity } from '@/app/api/contact/route';
+import { kindergarten } from '@/app/styles/fonts';
+import { getSubschool } from '@/utils/api';
+
 import Card from '../Card';
 import ContactForm from '../ContactForm';
 import ContactInfo from '../ContactInfo';
 import Footer from '../Footer';
 import LatestNews from '../LatestNews';
 import Section from '../Section';
+import SeoHeading from '../SeoHeading';
 import Title from '../Title';
 import Typography from '../Typography';
-import SeoHeading from '../SeoHeading';
 
 const Banner = dynamic(() => import('../Banner'), { ssr: false });
 

@@ -1,6 +1,8 @@
-import { ContactEntity } from '@/app/api/contact/route';
 import Image from 'next/image';
 import Link from 'next/link';
+
+import { ContactEntity } from '@/app/api/contact/route';
+
 import Title from '../Title';
 import Typography from '../Typography';
 

@@ -1,7 +1,5 @@
 'use client';
 
-import { CurriculumEntity } from '@/app/api/curriculum/route';
-import LangSwitch from '@/components/LangSwitch';
 import Image from 'next/image';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
@@ -10,6 +8,9 @@ import {
   useFieldArray,
   useForm,
 } from 'react-hook-form';
+
+import { CurriculumEntity } from '@/app/api/curriculum/route';
+import LangSwitch from '@/components/LangSwitch';
 
 export default function AdminCurriculumPage() {
   const pageName = 'curriculum';

@@ -1,6 +1,7 @@
-import { connectToDatabase } from '@/utils/mongodb';
 import { ObjectId } from 'mongodb';
 import { NextRequest } from 'next/server';
+
+import { connectToDatabase } from '@/utils/mongodb';
 
 // GET /api/event/:id
 export async function GET(

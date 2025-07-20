@@ -1,5 +1,6 @@
-import NewsDetail from '@/components/NewsDetail';
 import { Metadata } from 'next';
+
+import NewsDetail from '@/components/NewsDetail';
 
 export const metadata: Metadata = {
   title: 'Hankel - News',

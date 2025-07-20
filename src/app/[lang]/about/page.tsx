@@ -1,6 +1,7 @@
+import type { Metadata } from 'next';
+
 import About from '@/components/About';
 import { getAbout } from '@/utils/api';
-import type { Metadata } from 'next';
 
 export async function generateMetadata({
   params: { lang },

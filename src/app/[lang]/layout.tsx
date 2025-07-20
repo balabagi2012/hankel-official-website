@@ -1,8 +1,10 @@
-import { notoSans } from '@/app/styles/fonts';
-import '@/app/styles/globals.scss';
 import 'animate.css';
-import dynamic from 'next/dynamic';
 import 'primereact/resources/themes/lara-light-indigo/theme.css'; // theme
+import '@/app/styles/globals.scss';
+
+import dynamic from 'next/dynamic';
+
+import { notoSans } from '@/app/styles/fonts';
 
 const Header = dynamic(() => import('@/components/Header'), { ssr: false });
 

@@ -1,9 +1,10 @@
 'use client';
 
-import LangSwitch from '@/components/LangSwitch';
 import Image from 'next/image';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+
+import LangSwitch from '@/components/LangSwitch';
 
 export default function AdminAboutPage() {
   const pageName = 'about';

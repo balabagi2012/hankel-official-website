@@ -1,13 +1,15 @@
 'use client';
-import { NewsEntity } from '@/app/api/news/route';
-import { NewsPageEntity } from '@/app/api/newsPage/route';
-import LangSwitch from '@/components/LangSwitch';
+import 'primereact/resources/themes/lara-light-indigo/theme.css'; // theme
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { Paginator } from 'primereact/paginator';
-import 'primereact/resources/themes/lara-light-indigo/theme.css'; // theme
 import { useEffect, useMemo, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+
+import { NewsEntity } from '@/app/api/news/route';
+import { NewsPageEntity } from '@/app/api/newsPage/route';
+import LangSwitch from '@/components/LangSwitch';
 
 export default function AdminNewsPage() {
   const [newsList, setNewsList] = useState<NewsEntity[]>([]);

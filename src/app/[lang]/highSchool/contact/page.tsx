@@ -1,6 +1,7 @@
+import { Metadata } from 'next';
+
 import Contact from '@/components/Contact';
 import { getContact } from '@/utils/api';
-import { Metadata } from 'next';
 
 export async function generateMetadata({
   params: { lang },

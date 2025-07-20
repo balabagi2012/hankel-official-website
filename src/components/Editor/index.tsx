@@ -5,9 +5,9 @@ import Image from '@tiptap/extension-image';
 import Link from '@tiptap/extension-link';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
+import { useEffect, useRef } from 'react';
 
 import MenuBar from '@/components/MenuBar';
-import { useEffect, useRef } from 'react';
 
 export interface EditorComponentProps {
   name?: string;

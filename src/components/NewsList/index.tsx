@@ -1,8 +1,11 @@
 'use client';
-import { NewsEntity } from '@/app/api/news/route';
-import { Paginator } from 'primereact/paginator';
 import 'primereact/resources/themes/lara-light-indigo/theme.css'; // theme
+
+import { Paginator } from 'primereact/paginator';
 import { useState } from 'react';
+
+import { NewsEntity } from '@/app/api/news/route';
+
 import Card from '../Card';
 
 export interface NewsListProps {

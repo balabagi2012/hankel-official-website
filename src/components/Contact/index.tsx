@@ -1,6 +1,8 @@
-import { getContact } from '@/utils/api';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
+
+import { getContact } from '@/utils/api';
+
 import ContactForm from '../ContactForm';
 import ContactInfo from '../ContactInfo';
 import Footer from '../Footer';

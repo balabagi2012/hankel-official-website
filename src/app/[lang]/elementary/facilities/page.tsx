@@ -1,6 +1,7 @@
+import { Metadata } from 'next';
+
 import Facility from '@/components/Facility';
 import { getFacility } from '@/utils/api';
-import { Metadata } from 'next';
 
 export async function generateMetadata({
   params: { lang },

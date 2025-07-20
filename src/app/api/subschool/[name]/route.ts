@@ -1,5 +1,6 @@
-import { connectToDatabase } from '@/utils/mongodb';
 import { NextRequest } from 'next/server';
+
+import { connectToDatabase } from '@/utils/mongodb';
 
 // GET /api/subschool/:name
 export async function GET(

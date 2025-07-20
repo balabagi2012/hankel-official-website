@@ -1,12 +1,14 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { useState } from 'react';
+
+import { Program } from '@/app/api/home/route';
+
+import Section from '../Section';
 import Title from '../Title';
 import Typography from '../Typography';
-import Section from '../Section';
-import { Program } from '@/app/api/home/route';
-import Link from 'next/link';
 
 interface ProgramProps {
   lang: 'en' | 'zh';

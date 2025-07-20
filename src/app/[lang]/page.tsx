@@ -1,7 +1,7 @@
+import { Metadata } from 'next';
+
 import HomePage from '@/components/HomePage';
 import { getHome } from '@/utils/api';
-
-import { Metadata } from 'next';
 
 export async function generateMetadata({
   params: { lang },

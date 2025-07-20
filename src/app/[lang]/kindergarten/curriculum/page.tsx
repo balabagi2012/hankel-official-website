@@ -1,6 +1,7 @@
+import { Metadata } from 'next';
+
 import Curriculum from '@/components/Curriculum';
 import { getCurriculum } from '@/utils/api';
-import { Metadata } from 'next';
 
 export async function generateMetadata({
   params: { lang },

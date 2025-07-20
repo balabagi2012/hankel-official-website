@@ -1,14 +1,16 @@
-import { kindergarten } from '@/app/styles/fonts';
 import dynamic from 'next/dynamic';
+import Head from 'next/head';
 import Image from 'next/image';
-import Title from '../Title';
-import Typography from '../Typography';
+
 import { AboutEntity } from '@/app/api/about/route';
+import { kindergarten } from '@/app/styles/fonts';
+import { getAbout } from '@/utils/api';
+
 import Footer from '../Footer';
 import Section from '../Section';
 import SeoHeading from '../SeoHeading';
-import Head from 'next/head';
-import { getAbout } from '@/utils/api';
+import Title from '../Title';
+import Typography from '../Typography';
 
 const Banner = dynamic(() => import('../Banner'), { ssr: false });
 

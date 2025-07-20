@@ -1,10 +1,12 @@
+import './index.scss';
+
 import Image from 'next/image';
 import Link from 'next/link';
+
 import Section from '../Section';
+import SeoHeading from '../SeoHeading';
 import Title from '../Title';
 import Typography from '../Typography';
-import './index.scss';
-import SeoHeading from '../SeoHeading';
 
 interface NewsDetailProps {
   id: string;

@@ -1,8 +1,10 @@
 'use client';
 import Image from 'next/image';
 import { ReactElement, useEffect, useState } from 'react';
-import Typography from '../Typography';
+
 import { kindergarten } from '@/app/styles/fonts';
+
+import Typography from '../Typography';
 
 interface BannerProps {
   className?: string;

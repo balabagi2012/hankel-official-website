@@ -1,6 +1,7 @@
-import { connectToDatabase } from '@/utils/mongodb';
 import { createHash } from 'crypto';
 import { NextResponse } from 'next/server';
+
+import { connectToDatabase } from '@/utils/mongodb';
 
 // POST /api/auth/logut
 export async function POST(req: Request) {

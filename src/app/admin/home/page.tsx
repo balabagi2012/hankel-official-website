@@ -1,7 +1,5 @@
 'use client';
 
-import { Program } from '@/app/api/home/route';
-import LangSwitch from '@/components/LangSwitch';
 import Image from 'next/image';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
@@ -10,6 +8,9 @@ import {
   useFieldArray,
   useForm,
 } from 'react-hook-form';
+
+import { Program } from '@/app/api/home/route';
+import LangSwitch from '@/components/LangSwitch';
 
 export default function AdminHomePage() {
   const pageName = 'home';

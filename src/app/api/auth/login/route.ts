@@ -1,6 +1,7 @@
-import { connectToDatabase } from '@/utils/mongodb';
 import { createHash } from 'crypto';
 import { NextResponse } from 'next/server';
+
+import { connectToDatabase } from '@/utils/mongodb';
 
 const encrypt = (algorithm: string, content: string) => {
   const hash = createHash(algorithm);

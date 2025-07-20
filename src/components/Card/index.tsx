@@ -1,7 +1,9 @@
 import Image from 'next/image';
-import Typography from '../Typography';
 import Link from 'next/link';
+
 import { kindergarten } from '@/app/styles/fonts';
+
+import Typography from '../Typography';
 
 interface CardProps {
   name?: string;

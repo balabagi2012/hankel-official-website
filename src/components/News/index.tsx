@@ -1,6 +1,8 @@
-import { getNewsPageByName } from '@/utils/api';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
+
+import { getNewsPageByName } from '@/utils/api';
+
 import NewsList from '../NewsList';
 import Section from '../Section';
 import SeoHeading from '../SeoHeading';

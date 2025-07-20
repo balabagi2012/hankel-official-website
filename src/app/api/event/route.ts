@@ -1,6 +1,8 @@
-import { connectToDatabase } from '@/utils/mongodb';
-import { Seo, Text } from '../model';
 import dayjs from 'dayjs';
+
+import { connectToDatabase } from '@/utils/mongodb';
+
+import { Seo, Text } from '../model';
 
 export interface EventEntity extends Seo {
   _id?: string;

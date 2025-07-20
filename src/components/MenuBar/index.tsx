@@ -2,9 +2,9 @@
 import './MenuBar.scss';
 
 import { Editor } from '@tiptap/react';
+import Image from 'next/image';
 import { ChangeEvent, Fragment, useCallback } from 'react';
 
-import Image from 'next/image';
 import MenuItem from './MenuItem';
 
 interface EdiorMenuProps {

@@ -1,14 +1,16 @@
-import { getInformation } from '@/utils/api';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
+
+import { getInformation } from '@/utils/api';
+
 import Event from '../Event';
 import Footer from '../Footer';
 import Section from '../Section';
+import SeoHeading from '../SeoHeading';
 import Title from '../Title';
 import Typography from '../Typography';
-import SeoHeading from '../SeoHeading';
 
 const Banner = dynamic(() => import('../Banner'), { ssr: false });
 

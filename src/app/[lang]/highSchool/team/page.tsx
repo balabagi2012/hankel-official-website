@@ -1,6 +1,7 @@
+import { Metadata } from 'next';
+
 import Team from '@/components/Team';
 import { getTeam } from '@/utils/api';
-import { Metadata } from 'next';
 
 export async function generateMetadata({
   params: { lang },

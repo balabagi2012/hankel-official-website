@@ -1,4 +1,5 @@
 import '@/app/styles/globals.scss';
+
 import AdminSideBar from '@/components/AdminSideBar';
 
 export const metadata = {

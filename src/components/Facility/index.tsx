@@ -1,15 +1,17 @@
-import { FacilityEntity } from '@/app/api/facility/route';
 import { chunk } from 'lodash';
 import dynamic from 'next/dynamic';
+import Head from 'next/head';
 import Image from 'next/image';
+
+import { FacilityEntity } from '@/app/api/facility/route';
+import { getFacility } from '@/utils/api';
+
 import Card from '../Card';
 import Footer from '../Footer';
 import Section from '../Section';
+import SeoHeading from '../SeoHeading';
 import Title from '../Title';
 import Typography from '../Typography';
-import Head from 'next/head';
-import { getFacility } from '@/utils/api';
-import SeoHeading from '../SeoHeading';
 
 const Banner = dynamic(() => import('../Banner'), { ssr: false });
 

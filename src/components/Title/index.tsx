@@ -1,4 +1,5 @@
 import { kindergarten } from '@/app/styles/fonts';
+
 import Typography from '../Typography';
 
 interface TitleProps {

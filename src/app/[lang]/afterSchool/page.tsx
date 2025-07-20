@@ -1,6 +1,7 @@
+import { Metadata } from 'next';
+
 import Subschool from '@/components/Subschool';
 import { getSubschool } from '@/utils/api';
-import { Metadata } from 'next';
 
 export async function generateMetadata({
   params: { lang },

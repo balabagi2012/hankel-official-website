@@ -1,12 +1,14 @@
 import dynamic from 'next/dynamic';
+import Head from 'next/head';
+
+import { getContact, getHome } from '@/utils/api';
+
 import ContactForm from '../ContactForm';
 import ContactInfo from '../ContactInfo';
 import Footer from '../Footer';
 import LatestNews from '../LatestNews';
 import { Program } from '../Program';
 import Section from '../Section';
-import Head from 'next/head';
-import { getContact, getHome } from '@/utils/api';
 import SeoHeading from '../SeoHeading';
 
 const Banner = dynamic(() => import('../Banner'), { ssr: false });
