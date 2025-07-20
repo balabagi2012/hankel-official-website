@@ -15,6 +15,7 @@ export interface SubschoolEntity extends Seo {
     instagramExpireTime: number;
   };
   experiences: {
+    id: string;
     title: Text;
     description: Text;
     img: string;

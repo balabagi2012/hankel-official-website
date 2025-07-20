@@ -21,6 +21,7 @@ export interface SubBanner {
 }
 
 export interface Program {
+  id: string;
   type: string;
   title: Text;
   content: Text;
