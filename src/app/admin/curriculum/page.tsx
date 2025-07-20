@@ -9,7 +9,7 @@ import {
   useForm,
 } from 'react-hook-form';
 
-import { CurriculumEntity } from '@/app/api/curriculum/route';
+import { Curriculum } from '@/app/api/curriculum/route';
 import LangSwitch from '@/components/LangSwitch';
 
 export default function AdminCurriculumPage() {
@@ -315,9 +315,9 @@ export default function AdminCurriculumPage() {
                         </tr>
                       </thead>
                       <tbody className="w-full bg-white overflow-scroll">
-                        {(fields as unknown as CurriculumEntity[])?.map(
-                          (field: CurriculumEntity, index: number) => (
-                            <tr key={`curriculum-${index}`}>
+                        {(fields as unknown as Curriculum[])?.map(
+                          (field: Curriculum, index: number) => (
+                            <tr key={field.id}>
                               <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                 <input
                                   className="text-sm leading-5 text-gray-900 border"

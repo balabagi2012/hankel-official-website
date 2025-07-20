@@ -173,8 +173,8 @@ export default function AdminHomePage() {
                 </tr>
               </thead>
               <tbody className="bg-white">
-                {banners.map((banner, index) => (
-                  <tr key={'banner' + index}>
+                {banners.map((banner: any, index) => (
+                  <tr key={banner.id}>
                     <td
                       key="banner"
                       className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 flex flex-col items-start justify-start"
@@ -399,7 +399,7 @@ export default function AdminHomePage() {
               <tbody className="w-full bg-white overflow-scroll">
                 {(fields as unknown as Program[])?.map(
                   (program: Program, index: number) => (
-                    <tr key={`program-${index}`}>
+                    <tr key={program.id}>
                       <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                         <input
                           className="text-sm leading-5 text-gray-900 border"

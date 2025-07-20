@@ -9,7 +9,7 @@ import {
   useForm,
 } from 'react-hook-form';
 
-import { FacilityEntity } from '@/app/api/facility/route';
+import { Facility } from '@/app/api/facility/route';
 import LangSwitch from '@/components/LangSwitch';
 
 export default function AdminFacilityPage() {
@@ -355,9 +355,9 @@ export default function AdminFacilityPage() {
                         </tr>
                       </thead>
                       <tbody className="w-full bg-white overflow-scroll">
-                        {(fields as unknown as FacilityEntity[])?.map(
-                          (field: FacilityEntity, index: number) => (
-                            <tr key={`facilities-${index}`}>
+                        {(fields as unknown as Facility[])?.map(
+                          (field: Facility, index: number) => (
+                            <tr key={field.id}>
                               <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                 <input
                                   className="text-sm leading-5 text-gray-900 border"

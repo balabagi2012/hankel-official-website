@@ -13,6 +13,7 @@ export interface FacilityEntity extends Seo {
 }
 
 export interface Facility {
+  id: string;
   img: string;
   title: Text;
   description: Text;

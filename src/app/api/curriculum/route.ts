@@ -12,6 +12,7 @@ export interface CurriculumEntity extends Seo {
 }
 
 export interface Curriculum {
+  id: string;
   img: string;
   title: Text;
   description: Text;

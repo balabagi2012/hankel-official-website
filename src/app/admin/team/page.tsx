@@ -397,7 +397,7 @@ export default function AdminTeamPage() {
                       <tbody className="w-full bg-white overflow-scroll">
                         {(foreignTeachers as unknown as Teacher[])?.map(
                           (teacher: Teacher, index: number) => (
-                            <tr key={`foreignTeam-teacher-${index}`}>
+                            <tr key={teacher.id}>
                               <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                 <input
                                   className="text-sm leading-5 text-gray-900 border"
@@ -641,7 +641,7 @@ export default function AdminTeamPage() {
                       <tbody className="w-full bg-white overflow-scroll">
                         {(localTeachers as unknown as Teacher[])?.map(
                           (teacher: Teacher, index: number) => (
-                            <tr key={`localTeam-teacher-${index}`}>
+                            <tr key={teacher.id}>
                               <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                 <input
                                   className="text-sm leading-5 text-gray-900 border"
