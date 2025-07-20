@@ -10,7 +10,17 @@
     "format": "prettier --write .",
     "lint:fix": "next lint --fix",
     "imports:fix": "eslint --fix src/",
-    "fix": "pnpm run format && pnpm run imports:fix"
+    "fix": "pnpm run format && pnpm run imports:fix",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,css,scss,md}": [
+      "prettier --write"
+    ]
   },
   "dependencies": {
     "@heroicons/react": "^2.1.1",
@@ -56,6 +66,8 @@
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-prettier": "^5.5.3",
     "eslint-plugin-simple-import-sort": "^12.1.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.2",
     "postcss": "^8.4.29",
     "prettier": "^3.6.2",
     "sass": "^1.69.5",
