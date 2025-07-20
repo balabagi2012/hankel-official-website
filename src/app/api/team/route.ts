@@ -16,6 +16,7 @@ export interface Team {
 }
 
 export interface Teacher {
+  id: string;
   title: Text;
   tag: Text;
   description: Text;
