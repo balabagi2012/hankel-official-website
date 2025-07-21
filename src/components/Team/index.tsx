@@ -32,7 +32,7 @@ export default async function Team(props: TeamProps) {
       </Head>
       <Banner size="small" src={team.banner} lang={lang}></Banner>
       <SeoHeading {...team} lang={lang} />
-      {team.foreignTeam.teachers?.length >= 1 && (
+      {team?.foreignTeam?.teachers?.length > 0 && (
         <Section className="bg-bgGray">
           <div className="flex flex-col w-full md:w-[1068px]">
             <Title full align="center" type={type} lang={lang}>
@@ -71,41 +71,80 @@ export default async function Team(props: TeamProps) {
           </div>
         </Section>
       )}
-      <Section className="bg-white">
-        <div className="flex flex-col w-full md:w-[1068px]">
-          <Title full align="center" type={type} lang={lang}>
-            {team.localTeam.title[lang]}
-          </Title>
-          <Typography
-            varient="h5"
-            className="text-textGray text-left whitespace-pre-line"
-          >
-            {team.localTeam.description[lang]}
-          </Typography>
-          {chunk(team.localTeam.teachers, 3).map((chunk, chunkIndex) => (
-            <div
-              key={`local team chunk ${chunkIndex}`}
-              className="flex flex-col md:flex-row justify-start items-start gap-8 mt-8"
+      {team?.localTeam?.teachers?.length > 0 && (
+        <Section className="bg-white">
+          <div className="flex flex-col w-full md:w-[1068px]">
+            <Title full align="center" type={type} lang={lang}>
+              {team.localTeam.title[lang]}
+            </Title>
+            <Typography
+              varient="h5"
+              className="text-textGray text-left whitespace-pre-line"
             >
-              {chunk.map((element, index) => (
-                <Card
-                  key={`local team ${index}`}
-                  type={`team${name === 'kindergarten' ? `-kindergarten` : ''}`}
-                  img={element.img}
-                  alt={element.title[lang]}
-                  title={element.title[lang]}
-                  tag={element.tag[lang]}
-                  description={element.description[lang]}
-                  facebook={element.facebook}
-                  linkedin={element.linkedin}
-                  twitter={element.twitter}
-                  lang={lang}
-                ></Card>
-              ))}
-            </div>
-          ))}
-        </div>
-      </Section>
+              {team.localTeam.description[lang]}
+            </Typography>
+            {chunk(team.localTeam.teachers, 3).map((chunk, chunkIndex) => (
+              <div
+                key={`local team chunk ${chunkIndex}`}
+                className="flex flex-col md:flex-row justify-start items-start gap-8 mt-8"
+              >
+                {chunk.map((element, index) => (
+                  <Card
+                    key={`local team ${index}`}
+                    type={`team${name === 'kindergarten' ? `-kindergarten` : ''}`}
+                    img={element.img}
+                    alt={element.title[lang]}
+                    title={element.title[lang]}
+                    tag={element.tag[lang]}
+                    description={element.description[lang]}
+                    facebook={element.facebook}
+                    linkedin={element.linkedin}
+                    twitter={element.twitter}
+                    lang={lang}
+                  ></Card>
+                ))}
+              </div>
+            ))}
+          </div>
+        </Section>
+      )}
+      {team?.extraTeam?.teachers?.length > 0 && (
+        <Section className="bg-bgGray">
+          <div className="flex flex-col w-full md:w-[1068px]">
+            <Title full align="center" type={type} lang={lang}>
+              {team.extraTeam.title[lang]}
+            </Title>
+            <Typography
+              varient="h5"
+              className="text-textGray text-left whitespace-pre-line"
+            >
+              {team.extraTeam.description[lang]}
+            </Typography>
+            {chunk(team.extraTeam.teachers, 3).map((chunk, chunkIndex) => (
+              <div
+                key={`extra team chunk ${chunkIndex}`}
+                className="flex flex-col md:flex-row justify-start items-start gap-8 mt-8"
+              >
+                {chunk.map((element, index) => (
+                  <Card
+                    key={`extra team ${index}`}
+                    type={`team${name === 'kindergarten' ? `-kindergarten` : ''}`}
+                    img={element.img}
+                    alt={element.title[lang]}
+                    title={element.title[lang]}
+                    tag={element.tag[lang]}
+                    description={element.description[lang]}
+                    facebook={element.facebook}
+                    linkedin={element.linkedin}
+                    twitter={element.twitter}
+                    lang={lang}
+                  ></Card>
+                ))}
+              </div>
+            ))}
+          </div>
+        </Section>
+      )}
       <Footer lang={lang} name={name} />
     </main>
   );
