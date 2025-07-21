@@ -7,6 +7,7 @@ export interface TeamEntity extends Seo {
   banner: string;
   foreignTeam: Team;
   localTeam: Team;
+  extraTeam: Team;
 }
 
 export interface Team {
