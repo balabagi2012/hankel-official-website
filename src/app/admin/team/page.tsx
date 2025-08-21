@@ -1,27 +1,28 @@
-"use client";
+'use client';
 
-import { Teacher } from "@/app/api/team/route";
-import LangSwitch from "@/components/LangSwitch";
-import Image from "next/image";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import Image from 'next/image';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   Controller,
   SubmitHandler,
   useFieldArray,
   useForm,
-} from "react-hook-form";
+} from 'react-hook-form';
+
+import { Teacher } from '@/app/api/team/route';
+import LangSwitch from '@/components/LangSwitch';
 
 export default function AdminTeamPage() {
-  const pageName = "team";
+  const pageName = 'team';
   const tabList = useMemo(
-    () => ["elementary", "kindergarten", "highSchool"],
+    () => ['elementary', 'kindergarten', 'highSchool', 'middleSchool'],
     []
   );
   const [activePageData, setActivePageData] = useState([] as any);
-  const [activeTab, setActiveTab] = useState("elementary");
+  const [activeTab, setActiveTab] = useState('elementary');
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
-  const [lang, setLang] = useState<"en" | "zh">("en");
+  const [lang, setLang] = useState<'en' | 'zh'>('en');
 
   const activeTabData = useMemo(
     () =>
@@ -40,7 +41,7 @@ export default function AdminTeamPage() {
     move: moveForeignTeacher,
   } = useFieldArray({
     control,
-    name: "foreignTeam.teachers",
+    name: 'foreignTeam.teachers',
   });
 
   const {
@@ -50,7 +51,17 @@ export default function AdminTeamPage() {
     move: moveLocalTeachers,
   } = useFieldArray({
     control,
-    name: "localTeam.teachers",
+    name: 'localTeam.teachers',
+  });
+
+  const {
+    fields: extraTeachers,
+    append: appendExtraTeachers,
+    remove: removeExtraTeachers,
+    move: moveExtraTeachers,
+  } = useFieldArray({
+    control,
+    name: 'extraTeam.teachers',
   });
 
   const onSubmit: SubmitHandler<any> = async (data: any) => {
@@ -58,26 +69,26 @@ export default function AdminTeamPage() {
     const url = `/api/${pageName}/${activeTab}`;
     const { _id, ...body } = data;
     const res = await fetch(url, {
-      method: "PATCH",
+      method: 'PATCH',
       body: JSON.stringify(body),
     });
     setLoading(false);
     if (!res.ok) {
       // This will activate the closest `error.js` Error Boundary
-      return window.alert("Failed to update data");
+      return window.alert('Failed to update data');
     }
     loadPageData();
-    return window.alert("Successed to update data");
+    return window.alert('Successed to update data');
   };
 
   const fetchPageData = async () => {
     const url = `/api/${pageName}`;
     const res = await fetch(url, {
-      cache: "no-cache",
+      cache: 'no-cache',
     });
     if (!res.ok) {
       // This will activate the closest `error.js` Error Boundary
-      throw new Error("Failed to fetch data");
+      throw new Error('Failed to fetch data');
     }
     return res.json();
   };
@@ -99,15 +110,15 @@ export default function AdminTeamPage() {
       setUploading(true);
       const url = `https://www.hiape.ntpc.edu.tw/uploads`;
       const form = new FormData();
-      form.append("file", file);
+      form.append('file', file);
       const res = await fetch(url, {
-        method: "POST",
+        method: 'POST',
         body: form,
       });
       setUploading(false);
       if (!res.ok) {
         // This will activate the closest `error.js` Error Boundary
-        return window.alert("Failed to upload file");
+        return window.alert('Failed to upload file');
       }
       return res.json();
     } catch (e) {
@@ -117,12 +128,12 @@ export default function AdminTeamPage() {
 
   const renderField = (key: string, value: string) => {
     if (
-      (value.startsWith("/") || value.startsWith("http")) &&
-      !key.includes("facebook") &&
-      !key.includes("twitter") &&
-      !key.includes("linkedin") &&
-      !key.includes("youtube") &&
-      !key.includes("line")
+      (value.startsWith('/') || value.startsWith('http')) &&
+      !key.includes('facebook') &&
+      !key.includes('twitter') &&
+      !key.includes('linkedin') &&
+      !key.includes('youtube') &&
+      !key.includes('line')
     ) {
       return (
         <Controller
@@ -152,8 +163,8 @@ export default function AdminTeamPage() {
                 }}
               />
               {field.value &&
-                (field.value.startsWith("/") ||
-                  field.value.startsWith("http")) && (
+                (field.value.startsWith('/') ||
+                  field.value.startsWith('http')) && (
                   <Image
                     width={500}
                     height={500}
@@ -170,7 +181,7 @@ export default function AdminTeamPage() {
                   document.getElementById(`file-${key}}`)?.click();
                 }}
               >
-                {uploading ? "上傳圖片中" : "更換圖片"}
+                {uploading ? '上傳圖片中' : '更換圖片'}
               </button>
             </div>
           )}
@@ -180,7 +191,7 @@ export default function AdminTeamPage() {
       return (
         <textarea
           key={key}
-          disabled={key.includes("type")}
+          disabled={key.includes('type')}
           className="w-full border px-4 py-2 mb-4 mt-2 h-[200px]"
           {...register(key)}
         ></textarea>
@@ -189,7 +200,7 @@ export default function AdminTeamPage() {
       return (
         <input
           key={key}
-          disabled={key.includes("type")}
+          disabled={key.includes('type')}
           className="w-full border px-4 py-2 mb-4 mt-2"
           {...register(key)}
         ></input>
@@ -197,16 +208,20 @@ export default function AdminTeamPage() {
     }
   };
 
-  const renderRecursive = (obj: object, parentKey = "") => {
+  const renderRecursive = (obj: object, parentKey = '') => {
     return Object.entries(obj).map(([key, value]) => {
       const fullKey = parentKey ? `${parentKey}.${key}` : key;
-      if (fullKey.includes("foreignTeam") || fullKey.includes("localTeam")) {
+      if (
+        fullKey.includes('foreignTeam') ||
+        fullKey.includes('localTeam') ||
+        fullKey.includes('extraTeam')
+      ) {
         return null;
-      } else if (typeof value === "object") {
+      } else if (typeof value === 'object') {
         return <div key={fullKey}>{renderRecursive(value, fullKey)}</div>;
-      } else if (typeof value === "string" && key !== "_id" && key !== "name") {
+      } else if (typeof value === 'string' && key !== '_id' && key !== 'name') {
         if (
-          (fullKey.includes("en") || fullKey.includes("zh")) &&
+          (fullKey.includes('en') || fullKey.includes('zh')) &&
           !fullKey.includes(lang)
         ) {
           return;
@@ -214,7 +229,7 @@ export default function AdminTeamPage() {
         return (
           <div key={fullKey} className="bg-white px-6 py-3 rounded shadow mt-4">
             <label>
-              {fullKey.replace(".zh", " [中文]").replace(".en", " [EN]")}
+              {fullKey.replace('.zh', ' [中文]').replace('.en', ' [EN]')}
             </label>
             {renderField(fullKey, value)}
           </div>
@@ -227,22 +242,26 @@ export default function AdminTeamPage() {
   const moveTeacher = (
     name: string,
     index: number,
-    direction: "up" | "down"
+    direction: 'up' | 'down'
   ) => {
-    if (name === "localTeam") {
-      moveLocalTeachers(index, index + (direction === "up" ? -1 : 1));
-    } else {
-      moveForeignTeacher(index, index + (direction === "up" ? -1 : 1));
+    if (name === 'localTeam') {
+      moveLocalTeachers(index, index + (direction === 'up' ? -1 : 1));
+    } else if (name === 'foreignTeam') {
+      moveForeignTeacher(index, index + (direction === 'up' ? -1 : 1));
+    } else if (name === 'extraTeam') {
+      moveExtraTeachers(index, index + (direction === 'up' ? -1 : 1));
     }
     handleSubmit(onSubmit);
   };
 
   const removeTeacher = (name: string, index: number) => {
-    if (window.confirm("Do you really want to remove this teacher?")) {
-      if (name === "localTeam") {
+    if (window.confirm('Do you really want to remove this teacher?')) {
+      if (name === 'localTeam') {
         removeLocalTeachers(index);
-      } else {
+      } else if (name === 'foreignTeam') {
         removeForeignTeacher(index);
+      } else if (name === 'extraTeam') {
+        removeExtraTeachers(index);
       }
       handleSubmit(onSubmit);
     }
@@ -251,26 +270,28 @@ export default function AdminTeamPage() {
   const addTeacher = (name: string) => {
     const newTeacher = {
       title: {
-        en: "teacher name",
-        zh: "老師名字",
+        en: 'teacher name',
+        zh: '老師名字',
       },
       description: {
-        en: "teacher description",
-        zh: "老師介紹",
+        en: 'teacher description',
+        zh: '老師介紹',
       },
       tag: {
-        en: "teacher tag",
-        zh: "老師標籤",
+        en: 'teacher tag',
+        zh: '老師標籤',
       },
-      img: "/team/avatar.png",
-      facebook: "",
-      twitter: "",
-      linkedin: "",
+      img: '/team/avatar.png',
+      facebook: '',
+      twitter: '',
+      linkedin: '',
     };
-    if (name === "localTeam") {
+    if (name === 'localTeam') {
       appendLocalTeachers(newTeacher);
-    } else {
+    } else if (name === 'foreignTeam') {
       appendForeignTeacher(newTeacher);
+    } else if (name === 'extraTeam') {
+      appendExtraTeachers(newTeacher);
     }
   };
 
@@ -308,8 +329,8 @@ export default function AdminTeamPage() {
             onClick={() => setActiveTab(tab)}
             className={`py-3 px-2 font-serif ${
               tab === activeTab
-                ? "font-bold border-b-2 border-deepBlue text-blue"
-                : "text-blue"
+                ? 'font-bold border-b-2 border-deepBlue text-blue'
+                : 'text-blue'
             }`}
           >
             {tab}
@@ -320,7 +341,7 @@ export default function AdminTeamPage() {
       <div className="px-8 py-6 w-full h-screen bg-gray-200">
         <div className="w-full h-full overflow-scroll">
           {loading && activeTabData
-            ? "loading..."
+            ? 'loading...'
             : activeTabData && (
                 <div>
                   {activeTabData && renderRecursive(activeTabData)}
@@ -329,11 +350,11 @@ export default function AdminTeamPage() {
                       <p
                         className={`px-6 py-4 inline-flex text-2xl font-bold leading-5 `}
                       >
-                        ForeignTeam
+                        Team1
                       </p>
                       <button
                         className="ml-auto mr-6 px-3 py-1 bg-deepBlue text-white border border-gray-300 text-sm rounded-lg focus:outline-none"
-                        onClick={() => addTeacher("foreignTeam")}
+                        onClick={() => addTeacher('foreignTeam')}
                       >
                         Add Teacher
                       </button>
@@ -396,7 +417,7 @@ export default function AdminTeamPage() {
                       <tbody className="w-full bg-white overflow-scroll">
                         {(foreignTeachers as unknown as Teacher[])?.map(
                           (teacher: Teacher, index: number) => (
-                            <tr key={`foreignTeam-teacher-${index}`}>
+                            <tr key={teacher.id}>
                               <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                 <input
                                   className="text-sm leading-5 text-gray-900 border"
@@ -442,9 +463,9 @@ export default function AdminTeamPage() {
                                           />
                                           <div className="flex flex-row gap-4">
                                             {field.value &&
-                                              (field.value.startsWith("/") ||
+                                              (field.value.startsWith('/') ||
                                                 field.value.startsWith(
-                                                  "http"
+                                                  'http'
                                                 )) && (
                                                 <Image
                                                   width={40}
@@ -467,8 +488,8 @@ export default function AdminTeamPage() {
                                               }}
                                             >
                                               {uploading
-                                                ? "上傳圖片中"
-                                                : "更換圖片"}
+                                                ? '上傳圖片中'
+                                                : '更換圖片'}
                                             </button>
                                           </div>
                                         </div>
@@ -530,7 +551,7 @@ export default function AdminTeamPage() {
                                   disabled={loading}
                                   className="px-3 py-1 bg-red-800 font-base text-white border border-red-300 rounded-lg focus:outline-none"
                                   onClick={() =>
-                                    removeTeacher("foreignTeam", index)
+                                    removeTeacher('foreignTeam', index)
                                   }
                                 >
                                   Remove
@@ -542,7 +563,7 @@ export default function AdminTeamPage() {
                                     disabled={loading}
                                     className="px-3 py-1 bg-amber-800 font-base text-white border border-amber-300 rounded-lg focus:outline-none"
                                     onClick={() =>
-                                      moveTeacher("foreignTeam", index, "up")
+                                      moveTeacher('foreignTeam', index, 'up')
                                     }
                                   >
                                     Up
@@ -555,7 +576,7 @@ export default function AdminTeamPage() {
                                     disabled={loading}
                                     className="px-3 py-1 bg-green-800 font-base text-white border border-green-300 rounded-lg focus:outline-none"
                                     onClick={() =>
-                                      moveTeacher("foreignTeam", index, "down")
+                                      moveTeacher('foreignTeam', index, 'down')
                                     }
                                   >
                                     Down
@@ -568,16 +589,17 @@ export default function AdminTeamPage() {
                       </tbody>
                     </table>
                   </div>
+
                   <div className="mt-4 align-middle inline-block w-full shadow overflow-x-auto sm:rounded-lg border-b border-gray-200">
                     <div className="bg-white flex flex-row items-center">
                       <p
                         className={`px-6 py-4 inline-flex text-2xl font-bold leading-5 `}
                       >
-                        LocalTeam
+                        Team2
                       </p>
                       <button
                         className="ml-auto mr-6 px-3 py-1 bg-deepBlue text-white border border-gray-300 rounded-lg text-sm focus:outline-none"
-                        onClick={() => addTeacher("localTeam")}
+                        onClick={() => addTeacher('localTeam')}
                       >
                         Add Teacher
                       </button>
@@ -640,7 +662,7 @@ export default function AdminTeamPage() {
                       <tbody className="w-full bg-white overflow-scroll">
                         {(localTeachers as unknown as Teacher[])?.map(
                           (teacher: Teacher, index: number) => (
-                            <tr key={`localTeam-teacher-${index}`}>
+                            <tr key={teacher.id}>
                               <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                 <input
                                   className="text-sm leading-5 text-gray-900 border"
@@ -686,9 +708,9 @@ export default function AdminTeamPage() {
                                           />
                                           <div className="flex flex-row gap-4">
                                             {field.value &&
-                                              (field.value.startsWith("/") ||
+                                              (field.value.startsWith('/') ||
                                                 field.value.startsWith(
-                                                  "http"
+                                                  'http'
                                                 )) && (
                                                 <Image
                                                   width={40}
@@ -711,8 +733,8 @@ export default function AdminTeamPage() {
                                               }}
                                             >
                                               {uploading
-                                                ? "上傳圖片中"
-                                                : "更換圖片"}
+                                                ? '上傳圖片中'
+                                                : '更換圖片'}
                                             </button>
                                           </div>
                                         </div>
@@ -774,7 +796,7 @@ export default function AdminTeamPage() {
                                   disabled={loading}
                                   className="px-3 py-1 bg-red-800 font-base text-white border border-red-300 rounded-lg focus:outline-none"
                                   onClick={() =>
-                                    removeTeacher("localTeam", index)
+                                    removeTeacher('localTeam', index)
                                   }
                                 >
                                   Remove
@@ -786,7 +808,7 @@ export default function AdminTeamPage() {
                                     disabled={loading}
                                     className="px-3 py-1 bg-amber-800 font-base text-white border border-amber-300 rounded-lg focus:outline-none"
                                     onClick={() =>
-                                      moveTeacher("localTeam", index, "up")
+                                      moveTeacher('localTeam', index, 'up')
                                     }
                                   >
                                     Up
@@ -799,7 +821,251 @@ export default function AdminTeamPage() {
                                     disabled={loading}
                                     className="px-3 py-1 bg-green-800 font-base text-white border border-green-300 rounded-lg focus:outline-none"
                                     onClick={() =>
-                                      moveTeacher("localTeam", index, "down")
+                                      moveTeacher('localTeam', index, 'down')
+                                    }
+                                  >
+                                    Down
+                                  </button>
+                                </td>
+                              )}
+                            </tr>
+                          )
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
+                  <div className="mt-4 align-middle inline-block w-full shadow overflow-x-auto sm:rounded-lg border-b border-gray-200">
+                    <div className="bg-white flex flex-row items-center">
+                      <p
+                        className={`px-6 py-4 inline-flex text-2xl font-bold leading-5 `}
+                      >
+                        Team3
+                      </p>
+                      <button
+                        className="ml-auto mr-6 px-3 py-1 bg-deepBlue text-white border border-gray-300 rounded-lg text-sm focus:outline-none"
+                        onClick={() => addTeacher('extraTeam')}
+                      >
+                        Add Teacher
+                      </button>
+                    </div>
+                    <table className="min-w-full">
+                      <thead>
+                        <tr className="bg-gray-50 border-b border-gray-200 text-xs leading-4 text-gray-500 uppercase tracking-wider">
+                          <th className="px-6 py-3 text-left font-medium">
+                            Team Title
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium">
+                            Team Description
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white">
+                        <tr>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <textarea
+                              className="text-sm leading-5 text-gray-900 w-full border"
+                              {...register(`extraTeam.title[${lang}]`)}
+                            ></textarea>
+                          </td>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <textarea
+                              className="text-sm leading-5 text-gray-900 w-full border"
+                              {...register(`extraTeam.description[${lang}]`)}
+                            ></textarea>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <table className="w-full overflow-scroll">
+                      <thead>
+                        <tr className="bg-gray-50 border-b border-gray-200 text-xs leading-4 text-gray-500 uppercase tracking-wider">
+                          <th className="px-6 py-3 text-left font-medium">
+                            Title
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium">
+                            Img
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium">
+                            Description
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium">
+                            Tag
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium">
+                            Facebook
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium">
+                            LinkedIn
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium">
+                            twitter
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium"></th>
+                        </tr>
+                      </thead>
+                      <tbody className="w-full bg-white overflow-scroll">
+                        {(extraTeachers as unknown as Teacher[])?.map(
+                          (teacher: Teacher, index: number) => (
+                            <tr key={teacher.id}>
+                              <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                <input
+                                  className="text-sm leading-5 text-gray-900 border"
+                                  {...register(
+                                    `extraTeam.teachers.${index}.title.${lang}`,
+                                    { required: true }
+                                  )}
+                                ></input>
+                              </td>
+                              <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                <div className="flex items-center">
+                                  <div className="flex-shrink-0 h-15 w-15">
+                                    <Controller
+                                      name={`extraTeam.teachers.${index}.img`}
+                                      control={control}
+                                      render={({ field }) => (
+                                        <div className="flex flex-col items-start justify-start mt-2">
+                                          <input
+                                            className="w-full border px-4 py-2 mb-4 mt-2 text-sm"
+                                            value={field.value}
+                                            onChange={(event) => {
+                                              field.onChange(
+                                                event.target.value
+                                              );
+                                            }}
+                                          ></input>
+                                          <input
+                                            type="file"
+                                            accept="images/*"
+                                            id={`file-extraTeam.teachers.${index}.img`}
+                                            className="invisible h-0"
+                                            onChange={(event) => {
+                                              const file =
+                                                event.target.files?.[0];
+                                              if (file) {
+                                                uploadFile(file).then(
+                                                  (data) => {
+                                                    field.onChange(data.file);
+                                                  }
+                                                );
+                                              }
+                                            }}
+                                          />
+                                          <div className="flex flex-row gap-4">
+                                            {field.value &&
+                                              (field.value.startsWith('/') ||
+                                                field.value.startsWith(
+                                                  'http'
+                                                )) && (
+                                                <Image
+                                                  width={40}
+                                                  height={40}
+                                                  alt={field.value}
+                                                  src={field.value}
+                                                />
+                                              )}
+                                            <button
+                                              className="bg-blue mt-1 px-2 py-2 rounded text-white text-sm"
+                                              disabled={uploading}
+                                              onClick={(event) => {
+                                                event.preventDefault();
+                                                event.stopPropagation();
+                                                document
+                                                  .getElementById(
+                                                    `file-extraTeam.teachers.${index}.img`
+                                                  )
+                                                  ?.click();
+                                              }}
+                                            >
+                                              {uploading
+                                                ? '上傳圖片中'
+                                                : '更換圖片'}
+                                            </button>
+                                          </div>
+                                        </div>
+                                      )}
+                                    />
+                                  </div>
+                                </div>
+                              </td>
+                              <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                <textarea
+                                  className="text-sm leading-5 text-gray-900 w-[400px] border"
+                                  {...register(
+                                    `extraTeam.teachers.${index}.description.${lang}`,
+                                    { required: true }
+                                  )}
+                                ></textarea>
+                              </td>
+                              <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                <input
+                                  className={`border px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 w-[240px]`}
+                                  {...register(
+                                    `extraTeam.teachers.${index}.tag.${lang}`,
+                                    { required: true }
+                                  )}
+                                ></input>
+                              </td>
+                              <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
+                                <input
+                                  type="text"
+                                  className="border"
+                                  {...register(
+                                    `extraTeam.teachers.${index}.facebook`,
+                                    { required: false }
+                                  )}
+                                />
+                              </td>
+                              <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
+                                <input
+                                  type="text"
+                                  className="border"
+                                  {...register(
+                                    `extraTeam.teachers.${index}.linkedin`,
+                                    { required: false }
+                                  )}
+                                />
+                              </td>
+                              <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
+                                <input
+                                  type="text"
+                                  className="border"
+                                  {...register(
+                                    `extraTeam.teachers.${index}.twitter`,
+                                    { required: false }
+                                  )}
+                                />
+                              </td>
+                              <td className="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
+                                <button
+                                  disabled={loading}
+                                  className="px-3 py-1 bg-red-800 font-base text-white border border-red-300 rounded-lg focus:outline-none"
+                                  onClick={() =>
+                                    removeTeacher('extraTeam', index)
+                                  }
+                                >
+                                  Remove
+                                </button>
+                              </td>
+                              {index !== 0 && (
+                                <td className="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
+                                  <button
+                                    disabled={loading}
+                                    className="px-3 py-1 bg-amber-800 font-base text-white border border-amber-300 rounded-lg focus:outline-none"
+                                    onClick={() =>
+                                      moveTeacher('extraTeam', index, 'up')
+                                    }
+                                  >
+                                    Up
+                                  </button>
+                                </td>
+                              )}
+                              {index !== localTeachers.length - 1 && (
+                                <td className="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
+                                  <button
+                                    disabled={loading}
+                                    className="px-3 py-1 bg-green-800 font-base text-white border border-green-300 rounded-lg focus:outline-none"
+                                    onClick={() =>
+                                      moveTeacher('extraTeam', index, 'down')
                                     }
                                   >
                                     Down

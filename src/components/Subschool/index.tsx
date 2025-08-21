@@ -1,34 +1,41 @@
-import { ContactEntity } from "@/app/api/contact/route";
-import { kindergarten } from "@/app/styles/fonts";
-import { getSubschool } from "@/utils/api";
-import { chunk } from "lodash";
-import dynamic from "next/dynamic";
-import Head from "next/head";
-import Image from "next/image";
-import Card from "../Card";
-import ContactForm from "../ContactForm";
-import ContactInfo from "../ContactInfo";
-import Footer from "../Footer";
-import LatestNews from "../LatestNews";
-import Section from "../Section";
-import Title from "../Title";
-import Typography from "../Typography";
-import SeoHeading from "../SeoHeading";
+import { chunk } from 'lodash';
+import dynamic from 'next/dynamic';
+import Head from 'next/head';
+import Image from 'next/image';
 
-const Banner = dynamic(() => import("../Banner"), { ssr: false });
+import { ContactEntity } from '@/app/api/contact/route';
+import { kindergarten } from '@/app/styles/fonts';
+import { getSubschool } from '@/utils/api';
+
+import Card from '../Card';
+import ContactForm from '../ContactForm';
+import ContactInfo from '../ContactInfo';
+import Footer from '../Footer';
+import LatestNews from '../LatestNews';
+import Section from '../Section';
+import SeoHeading from '../SeoHeading';
+import Title from '../Title';
+import Typography from '../Typography';
+
+const Banner = dynamic(() => import('../Banner'), { ssr: false });
 
 interface SubschoolProps {
-  name: "afterSchool" | "elementary" | "kindergarten" | "highSchool";
-  lang: "en" | "zh";
+  name:
+    | 'afterSchool'
+    | 'elementary'
+    | 'kindergarten'
+    | 'highSchool'
+    | 'middleSchool';
+  lang: 'en' | 'zh';
 }
 
 const getContact = async (name: string): Promise<ContactEntity> => {
   const res = await fetch(`${process.env.API_URI}/api/contact/${name}`, {
-    cache: "no-cache",
+    cache: 'no-cache',
   });
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch data");
+    throw new Error('Failed to fetch data');
   }
 
   return res.json();
@@ -57,7 +64,7 @@ const getInstagramPosts = async (
       const res = await fetch(
         `https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&access_token=${accessToken}`,
         {
-          cache: "no-cache",
+          cache: 'no-cache',
         }
       );
       if (!res.ok) {
@@ -65,8 +72,8 @@ const getInstagramPosts = async (
       }
       const result = await res.json();
       await fetch(`${process.env.API_URI}/api/subschool/${name}`, {
-        cache: "no-cache",
-        method: "PATCH",
+        cache: 'no-cache',
+        method: 'PATCH',
         body: JSON.stringify({
           socialMedia: {
             facebook,
@@ -81,18 +88,18 @@ const getInstagramPosts = async (
     const res = await fetch(
       `https://graph.instagram.com/me/media?fields=id,media_type,media_url&access_token=${token}`,
       {
-        cache: "no-cache",
+        cache: 'no-cache',
       }
     );
     if (!res.ok) {
       // This will activate the closest `error.js` Error Boundary
-      throw new Error("Failed to fetch data");
+      throw new Error('Failed to fetch data');
     }
     const igPosts = await res.json();
     return {
       data: igPosts.data.filter(
         (item: any) =>
-          item.media_type === "IMAGE" || item.media_type === "CAROUSEL_ALBUM"
+          item.media_type === 'IMAGE' || item.media_type === 'CAROUSEL_ALBUM'
       ),
     };
   } catch (error) {
@@ -144,14 +151,14 @@ export default async function Subschool(props: SubschoolProps) {
           </Typography>
           {chunk(data.experiences, 3).map((element, index) => (
             <div
-              key={"course-chunk" + index}
+              key={'course-chunk' + index}
               className="flex flex-col items-center md:items-start md:flex-row md:justify-start gap-4 w-full"
             >
               {element.map((element, index) => (
                 <Card
                   key={`experience ${index}`}
                   type={`course${
-                    name === "kindergarten" ? `-kindergarten` : ""
+                    name === 'kindergarten' ? `-kindergarten` : ''
                   }`}
                   img={element.img}
                   alt={element.title[lang]}
@@ -175,14 +182,14 @@ export default async function Subschool(props: SubschoolProps) {
       <LatestNews lang={lang} name={name} className="bg-white" />
       <Section className="bg-bgGray">
         <Title align="center" type={name} lang={lang}>
-          {lang === "en" ? "Social Media Post" : "社群媒體"}
+          {lang === 'en' ? 'Social Media Post' : '社群媒體'}
         </Title>
         <div className="flex flex-col md:flex-row mb-[52px] gap-4">
           <div className="flex flex-col">
             <Typography
               varient="h2"
               className={`font-serif text-deepBlue mb-5 ${
-                name === "kindergarten" ? kindergarten.className : ""
+                name === 'kindergarten' ? kindergarten.className : ''
               }`}
             >
               Instagram
@@ -218,11 +225,11 @@ export default async function Subschool(props: SubschoolProps) {
             <Typography
               varient="h2"
               className={`text-deepBlue mb-5 ${
-                name === "kindergarten"
+                name === 'kindergarten'
                   ? kindergarten.className
-                  : lang === "en"
-                  ? "font-serif"
-                  : ""
+                  : lang === 'en'
+                    ? 'font-serif'
+                    : ''
               }`}
             >
               Facebook
@@ -240,7 +247,7 @@ export default async function Subschool(props: SubschoolProps) {
         <div className="flex flex-col md:flex-row w-full lg:w-[1024px]">
           <ContactInfo
             lang={lang}
-            type={name === "kindergarten" ? "kindergarten" : "subschool"}
+            type={name === 'kindergarten' ? 'kindergarten' : 'subschool'}
             contact={data.contact}
           />
           <ContactForm lang={lang} name={name} mail={data.contact.email} />

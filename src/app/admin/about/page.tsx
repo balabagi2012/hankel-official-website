@@ -1,21 +1,29 @@
-"use client";
+'use client';
 
-import LangSwitch from "@/components/LangSwitch";
-import Image from "next/image";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import Image from 'next/image';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+
+import LangSwitch from '@/components/LangSwitch';
 
 export default function AdminAboutPage() {
-  const pageName = "about";
+  const pageName = 'about';
   const tabList = useMemo(
-    () => ["home", "afterSchool", "elementary", "kindergarten", "highSchool"],
+    () => [
+      'home',
+      'afterSchool',
+      'elementary',
+      'kindergarten',
+      'highSchool',
+      'middleSchool',
+    ],
     []
   );
   const [activePageData, setActivePageData] = useState([] as any);
-  const [activeTab, setActiveTab] = useState("home");
+  const [activeTab, setActiveTab] = useState('home');
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
-  const [lang, setLang] = useState<"en" | "zh">("en");
+  const [lang, setLang] = useState<'en' | 'zh'>('en');
 
   const activeTabData = useMemo(
     () =>
@@ -32,26 +40,26 @@ export default function AdminAboutPage() {
     const url = `/api/${pageName}/${activeTab}`;
     const { _id, ...body } = data;
     const res = await fetch(url, {
-      method: "PATCH",
+      method: 'PATCH',
       body: JSON.stringify(body),
     });
     setLoading(false);
     if (!res.ok) {
       // This will activate the closest `error.js` Error Boundary
-      return window.alert("Failed to update data");
+      return window.alert('Failed to update data');
     }
     loadPageData();
-    return window.alert("Successed to update data");
+    return window.alert('Successed to update data');
   };
 
   const fetchPageData = async () => {
     const url = `/api/${pageName}`;
     const res = await fetch(url, {
-      cache: "no-cache",
+      cache: 'no-cache',
     });
     if (!res.ok) {
       // This will activate the closest `error.js` Error Boundary
-      throw new Error("Failed to fetch data");
+      throw new Error('Failed to fetch data');
     }
     return res.json();
   };
@@ -72,15 +80,15 @@ export default function AdminAboutPage() {
     setUploading(true);
     const url = `https://www.hiape.ntpc.edu.tw/uploads`;
     const form = new FormData();
-    form.append("file", file);
+    form.append('file', file);
     const res = await fetch(url, {
-      method: "POST",
+      method: 'POST',
       body: form,
     });
     setUploading(false);
     if (!res.ok) {
       // This will activate the closest `error.js` Error Boundary
-      return window.alert("Failed to upload file");
+      return window.alert('Failed to upload file');
     }
     return res.json();
   };
@@ -119,8 +127,8 @@ export default function AdminAboutPage() {
             onClick={() => setActiveTab(tab)}
             className={`py-3 px-2 font-serif ${
               tab === activeTab
-                ? "font-bold border-b-2 border-deepBlue text-blue"
-                : "text-blue"
+                ? 'font-bold border-b-2 border-deepBlue text-blue'
+                : 'text-blue'
             }`}
           >
             {tab}
@@ -131,7 +139,7 @@ export default function AdminAboutPage() {
       <div className="px-8 py-6 w-full h-screen bg-gray-200">
         <div className="w-full h-full overflow-scroll">
           {loading && activeTabData
-            ? "loading..."
+            ? 'loading...'
             : activeTabData && (
                 <div>
                   <div className="mt-4 align-middle inline-block w-full shadow overflow-x-auto sm:rounded-lg border-b border-gray-200">
@@ -174,7 +182,7 @@ export default function AdminAboutPage() {
                           </td>
                           <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                             <Controller
-                              name={"banner"}
+                              name={'banner'}
                               control={control}
                               render={({ field }) => (
                                 <div className="flex-1 flex flex-col items-start justify-start">
@@ -200,8 +208,8 @@ export default function AdminAboutPage() {
                                     }}
                                   />
                                   {field.value &&
-                                    (field.value.startsWith("/") ||
-                                      field.value.startsWith("http")) && (
+                                    (field.value.startsWith('/') ||
+                                      field.value.startsWith('http')) && (
                                       <Image
                                         width={500}
                                         height={500}
@@ -220,7 +228,7 @@ export default function AdminAboutPage() {
                                         ?.click();
                                     }}
                                   >
-                                    {uploading ? "上傳圖片中" : "更換圖片"}
+                                    {uploading ? '上傳圖片中' : '更換圖片'}
                                   </button>
                                 </div>
                               )}
@@ -299,7 +307,7 @@ export default function AdminAboutPage() {
                           </td>
                           <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                             <Controller
-                              name={"sections.0.imgs.0"}
+                              name={'sections.0.imgs.0'}
                               control={control}
                               render={({ field }) => (
                                 <div className="flex-1 flex flex-col items-start justify-start">
@@ -325,8 +333,8 @@ export default function AdminAboutPage() {
                                     }}
                                   />
                                   {field.value &&
-                                    (field.value.startsWith("/") ||
-                                      field.value.startsWith("http")) && (
+                                    (field.value.startsWith('/') ||
+                                      field.value.startsWith('http')) && (
                                       <Image
                                         width={500}
                                         height={500}
@@ -345,7 +353,7 @@ export default function AdminAboutPage() {
                                         ?.click();
                                     }}
                                   >
-                                    {uploading ? "上傳圖片中" : "更換圖片"}
+                                    {uploading ? '上傳圖片中' : '更換圖片'}
                                   </button>
                                 </div>
                               )}
@@ -353,7 +361,7 @@ export default function AdminAboutPage() {
                           </td>
                           <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                             <Controller
-                              name={"sections.0.imgs.1"}
+                              name={'sections.0.imgs.1'}
                               control={control}
                               render={({ field }) => (
                                 <div className="flex-1 flex flex-col items-start justify-start">
@@ -379,8 +387,8 @@ export default function AdminAboutPage() {
                                     }}
                                   />
                                   {field.value &&
-                                    (field.value.startsWith("/") ||
-                                      field.value.startsWith("http")) && (
+                                    (field.value.startsWith('/') ||
+                                      field.value.startsWith('http')) && (
                                       <Image
                                         width={500}
                                         height={500}
@@ -399,7 +407,7 @@ export default function AdminAboutPage() {
                                         ?.click();
                                     }}
                                   >
-                                    {uploading ? "上傳圖片中" : "更換圖片"}
+                                    {uploading ? '上傳圖片中' : '更換圖片'}
                                   </button>
                                 </div>
                               )}
@@ -418,6 +426,9 @@ export default function AdminAboutPage() {
                             Section2 Content 1 [{lang}]
                           </th>
                           <th className="px-6 py-3 text-left font-medium">
+                            Section2 Content 2 [{lang}]
+                          </th>
+                          <th className="px-6 py-3 text-left font-medium">
                             Section2 Img [Free Size]
                           </th>
                         </tr>
@@ -432,15 +443,23 @@ export default function AdminAboutPage() {
                           </td>
                           <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                             <textarea
-                              className="text-sm leading-5 text-gray-900 border w-full"
+                              className="text-sm leading-5 text-gray-900 w-full border"
                               {...register(
                                 `sections.1.texts.0.content.${lang}`
                               )}
                             ></textarea>
                           </td>
                           <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <textarea
+                              className="text-sm leading-5 text-gray-900 border w-full"
+                              {...register(
+                                `sections.1.texts.1.content.${lang}`
+                              )}
+                            ></textarea>
+                          </td>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                             <Controller
-                              name={"sections.1.imgs.0"}
+                              name={'sections.1.imgs.0'}
                               control={control}
                               render={({ field }) => (
                                 <div className="flex-1 flex flex-col items-start justify-start">
@@ -466,8 +485,8 @@ export default function AdminAboutPage() {
                                     }}
                                   />
                                   {field.value &&
-                                    (field.value.startsWith("/") ||
-                                      field.value.startsWith("http")) && (
+                                    (field.value.startsWith('/') ||
+                                      field.value.startsWith('http')) && (
                                       <Image
                                         width={500}
                                         height={500}
@@ -486,7 +505,7 @@ export default function AdminAboutPage() {
                                         ?.click();
                                     }}
                                   >
-                                    {uploading ? "上傳圖片中" : "更換圖片"}
+                                    {uploading ? '上傳圖片中' : '更換圖片'}
                                   </button>
                                 </div>
                               )}

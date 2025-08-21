@@ -1,21 +1,23 @@
-import Image from "next/image";
-import Typography from "../Typography";
-import Link from "next/link";
-import { kindergarten } from "@/app/styles/fonts";
+import Image from 'next/image';
+import Link from 'next/link';
+
+import { kindergarten } from '@/app/styles/fonts';
+
+import Typography from '../Typography';
 
 interface CardProps {
   name?: string;
   type:
-    | "news"
-    | "news-kindergarten"
-    | "course"
-    | "course-kindergarten"
-    | "facility"
-    | "facility-kindergarten"
-    | "curriculum"
-    | "curriculum-kindergarten"
-    | "team"
-    | "team-kindergarten";
+    | 'news'
+    | 'news-kindergarten'
+    | 'course'
+    | 'course-kindergarten'
+    | 'facility'
+    | 'facility-kindergarten'
+    | 'curriculum'
+    | 'curriculum-kindergarten'
+    | 'team'
+    | 'team-kindergarten';
 
   title: string;
   img: string;
@@ -26,7 +28,7 @@ interface CardProps {
   linkedin?: string;
   id?: string;
   description: string;
-  lang?: "en" | "zh";
+  lang?: 'en' | 'zh';
   category?: string;
 }
 
@@ -43,11 +45,11 @@ export default function Card(props: CardProps) {
     twitter,
     linkedin,
     category,
-    lang = "en",
+    lang = 'en',
     id,
   } = props;
   switch (type) {
-    case "news-kindergarten":
+    case 'news-kindergarten':
       return (
         <Link
           href={`/${lang}/${category}/news/${id}`}
@@ -73,7 +75,7 @@ export default function Card(props: CardProps) {
           </div>
         </Link>
       );
-    case "news":
+    case 'news':
       return (
         <Link
           href={`/${lang}/${category}/news/${id}`}
@@ -90,7 +92,7 @@ export default function Card(props: CardProps) {
             <Typography
               varient="h4"
               color="white"
-              className={`${lang === "en" ? "font-serif" : ""} text-start`}
+              className={`${lang === 'en' ? 'font-serif' : ''} text-start`}
             >
               {title}
             </Typography>
@@ -98,7 +100,7 @@ export default function Card(props: CardProps) {
               varient="body"
               color="white"
               className={`${
-                lang === "en" ? "font-serif" : ""
+                lang === 'en' ? 'font-serif' : ''
               } text-start whitespace-pre-line`}
             >
               {description}
@@ -106,7 +108,7 @@ export default function Card(props: CardProps) {
           </div>
         </Link>
       );
-    case "course-kindergarten":
+    case 'course-kindergarten':
       return (
         <div className="flex flex-col w-[400px] items-center">
           <Image
@@ -120,7 +122,7 @@ export default function Card(props: CardProps) {
             <Typography
               varient="h3"
               className={`mb-[12px] ${
-                lang === "en" ? kindergarten.className : ""
+                lang === 'en' ? kindergarten.className : ''
               }`}
             >
               {title}
@@ -134,7 +136,7 @@ export default function Card(props: CardProps) {
           </div>
         </div>
       );
-    case "course":
+    case 'course':
       return (
         <div className="flex flex-col rounded-xl shadow-md bg-white w-[320px]">
           <Image src={img} alt={alt} width="320" height="200"></Image>
@@ -151,7 +153,7 @@ export default function Card(props: CardProps) {
           </div>
         </div>
       );
-    case "facility-kindergarten":
+    case 'facility-kindergarten':
       return (
         <div className="flex flex-col w-full items-start md:basis-1/3">
           <Image
@@ -165,7 +167,7 @@ export default function Card(props: CardProps) {
             <Typography
               varient="h4"
               className={`text-textGray mb-[2px] ${
-                lang === "en" ? kindergarten.className : ""
+                lang === 'en' ? kindergarten.className : ''
               }`}
             >
               {title}
@@ -179,7 +181,7 @@ export default function Card(props: CardProps) {
           </div>
         </div>
       );
-    case "facility":
+    case 'facility':
       return (
         <div className="flex flex-col w-full items-start md:basis-1/3">
           <Image
@@ -193,7 +195,7 @@ export default function Card(props: CardProps) {
             <Typography
               varient="h4"
               className={`text-textGray mb-[2px] ${
-                lang === "en" ? "font-serif" : ""
+                lang === 'en' ? 'font-serif' : ''
               }`}
             >
               {title}
@@ -207,7 +209,7 @@ export default function Card(props: CardProps) {
           </div>
         </div>
       );
-    case "curriculum-kindergarten":
+    case 'curriculum-kindergarten':
       return (
         <div className="flex flex-col w-full md:basis-1/4 items-center">
           <Image
@@ -221,7 +223,7 @@ export default function Card(props: CardProps) {
             <Typography
               varient="h4"
               className={`text-textGray mb-1 ${
-                lang === "en" ? kindergarten.className : ""
+                lang === 'en' ? kindergarten.className : ''
               } text-start`}
             >
               {title}
@@ -235,7 +237,7 @@ export default function Card(props: CardProps) {
           </div>
         </div>
       );
-    case "curriculum":
+    case 'curriculum':
       return (
         <div className="flex flex-col w-full md:basis-1/4 items-center">
           <Image
@@ -249,7 +251,7 @@ export default function Card(props: CardProps) {
             <Typography
               varient="h4"
               className={`text-textGray mb-[2px] ${
-                lang === "en" ? "font-serif" : ""
+                lang === 'en' ? 'font-serif' : ''
               } text-start`}
             >
               {title}
@@ -263,7 +265,7 @@ export default function Card(props: CardProps) {
           </div>
         </div>
       );
-    case "team-kindergarten":
+    case 'team-kindergarten':
       return (
         <div className="flex flex-col items-center justify-center w-full md:w-[322px]">
           <Image
@@ -277,14 +279,14 @@ export default function Card(props: CardProps) {
             <Typography
               varient="h3"
               className={`${
-                lang === "en" ? kindergarten.className : ""
+                lang === 'en' ? kindergarten.className : ''
               } mb-[12px]`}
             >
               {title}
             </Typography>
             <div className="mb-[12px] bg-deepBlue py-1 px-2 rounded-xl w-full flex flex-row justify-center items-center">
               <Typography varient="body" className="text-white">
-                {tag ?? ""}
+                {tag ?? ''}
               </Typography>
             </div>
             <Typography
@@ -328,7 +330,7 @@ export default function Card(props: CardProps) {
           </div>
         </div>
       );
-    case "team":
+    case 'team':
       return (
         <div className="flex flex-col w-full md:w-[322px] rounded-xl shadow-md">
           <Image
@@ -341,13 +343,13 @@ export default function Card(props: CardProps) {
           <div className="flex flex-col items-center py-[16px] px-[16px]">
             <Typography
               varient="h3"
-              className={`${lang === "en" ? "font-serif" : ""} mb-[12px]`}
+              className={`${lang === 'en' ? 'font-serif' : ''} mb-[12px]`}
             >
               {title}
             </Typography>
             <div className="mb-[12px] bg-deepBlue py-1 px-2 rounded-xl w-full flex flex-row justify-center items-center">
               <Typography varient="body" className="text-white">
-                {tag ?? ""}
+                {tag ?? ''}
               </Typography>
             </div>
             <Typography

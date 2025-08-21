@@ -1,22 +1,29 @@
-"use client";
+'use client';
 
-import EditorComponent from "@/components/Editor";
-import LangSwitch from "@/components/LangSwitch";
-import Image from "next/image";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import Image from 'next/image';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+
+import EditorComponent from '@/components/Editor';
+import LangSwitch from '@/components/LangSwitch';
 
 export default function AdminInformationPage() {
-  const pageName = "information";
+  const pageName = 'information';
   const tabList = useMemo(
-    () => ["afterSchool", "elementary", "kindergarten", "highSchool"],
+    () => [
+      'afterSchool',
+      'elementary',
+      'kindergarten',
+      'highSchool',
+      'middleSchool',
+    ],
     []
   );
   const [activePageData, setActivePageData] = useState([] as any);
-  const [activeTab, setActiveTab] = useState("afterSchool");
+  const [activeTab, setActiveTab] = useState('afterSchool');
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
-  const [lang, setLang] = useState<"en" | "zh">("en");
+  const [lang, setLang] = useState<'en' | 'zh'>('en');
 
   const activeTabData = useMemo(
     () =>
@@ -33,26 +40,26 @@ export default function AdminInformationPage() {
     const url = `/api/${pageName}/${activeTab}`;
     const { _id, ...body } = data;
     const res = await fetch(url, {
-      method: "PATCH",
+      method: 'PATCH',
       body: JSON.stringify(body),
     });
     setLoading(false);
     if (!res.ok) {
       // This will activate the closest `error.js` Error Boundary
-      return window.alert("Failed to update data");
+      return window.alert('Failed to update data');
     }
     loadPageData();
-    return window.alert("Successed to update data");
+    return window.alert('Successed to update data');
   };
 
   const fetchPageData = async () => {
     const url = `/api/${pageName}`;
     const res = await fetch(url, {
-      cache: "no-cache",
+      cache: 'no-cache',
     });
     if (!res.ok) {
       // This will activate the closest `error.js` Error Boundary
-      throw new Error("Failed to fetch data");
+      throw new Error('Failed to fetch data');
     }
     return res.json();
   };
@@ -73,16 +80,16 @@ export default function AdminInformationPage() {
     setUploading(true);
     const url = `https://www.hiape.ntpc.edu.tw/uploads`;
     const form = new FormData();
-    form.append("file", file);
+    form.append('file', file);
     const res = await fetch(url, {
-      method: "POST",
+      method: 'POST',
       body: form,
     });
     setUploading(false);
     if (!res.ok) {
       console.log(await res.json());
       // This will activate the closest `error.js` Error Boundary
-      return window.alert("Failed to upload file");
+      return window.alert('Failed to upload file');
     }
     return res.json();
   };
@@ -121,8 +128,8 @@ export default function AdminInformationPage() {
             onClick={() => setActiveTab(tab)}
             className={`py-3 px-2 font-serif ${
               tab === activeTab
-                ? "font-bold border-b-2 border-deepBlue text-blue"
-                : "text-blue"
+                ? 'font-bold border-b-2 border-deepBlue text-blue'
+                : 'text-blue'
             }`}
           >
             {tab}
@@ -133,7 +140,7 @@ export default function AdminInformationPage() {
       <div className="px-8 py-6 w-full h-screen bg-gray-200">
         <div className="w-full h-full overflow-scroll">
           {loading && activeTabData
-            ? "loading..."
+            ? 'loading...'
             : activeTabData && (
                 <div>
                   <div className="mt-4 align-middle inline-block w-full shadow overflow-x-auto sm:rounded-lg border-b border-gray-200">
@@ -156,7 +163,7 @@ export default function AdminInformationPage() {
                         <tr>
                           <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                             <Controller
-                              name={"banner"}
+                              name={'banner'}
                               control={control}
                               render={({ field }) => (
                                 <div className="flex-1 flex flex-col items-start justify-start">
@@ -182,8 +189,8 @@ export default function AdminInformationPage() {
                                     }}
                                   />
                                   {field.value &&
-                                    (field.value.startsWith("/") ||
-                                      field.value.startsWith("http")) && (
+                                    (field.value.startsWith('/') ||
+                                      field.value.startsWith('http')) && (
                                       <Image
                                         width={500}
                                         height={500}
@@ -202,7 +209,7 @@ export default function AdminInformationPage() {
                                         ?.click();
                                     }}
                                   >
-                                    {uploading ? "上傳圖片中" : "更換圖片"}
+                                    {uploading ? '上傳圖片中' : '更換圖片'}
                                   </button>
                                 </div>
                               )}
@@ -255,7 +262,7 @@ export default function AdminInformationPage() {
                           </td>
                           <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                             <Controller
-                              name={"admissionBrochure.file"}
+                              name={'admissionBrochure.file'}
                               control={control}
                               render={({ field }) => (
                                 <div className="flex-1 flex flex-col items-start justify-start">
@@ -293,7 +300,7 @@ export default function AdminInformationPage() {
                                         ?.click();
                                     }}
                                   >
-                                    {uploading ? "上傳檔案中" : "更換檔案"}
+                                    {uploading ? '上傳檔案中' : '更換檔案'}
                                   </button>
                                 </div>
                               )}
@@ -328,7 +335,7 @@ export default function AdminInformationPage() {
                           </td>
                           <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                             <Controller
-                              name={"calendar.file"}
+                              name={'calendar.file'}
                               control={control}
                               render={({ field }) => (
                                 <div className="flex-1 flex flex-col items-start justify-start">
@@ -364,7 +371,7 @@ export default function AdminInformationPage() {
                                         ?.click();
                                     }}
                                   >
-                                    {uploading ? "上傳檔案中" : "更換檔案"}
+                                    {uploading ? '上傳檔案中' : '更換檔案'}
                                   </button>
                                 </div>
                               )}
@@ -372,7 +379,7 @@ export default function AdminInformationPage() {
                           </td>
                           <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                             <Controller
-                              name={"calendar.img"}
+                              name={'calendar.img'}
                               control={control}
                               render={({ field }) => (
                                 <div className="flex-1 flex flex-col items-start justify-start">
@@ -398,8 +405,8 @@ export default function AdminInformationPage() {
                                     }}
                                   />
                                   {field.value &&
-                                    (field.value.startsWith("/") ||
-                                      field.value.startsWith("http")) && (
+                                    (field.value.startsWith('/') ||
+                                      field.value.startsWith('http')) && (
                                       <Image
                                         width={500}
                                         height={500}
@@ -418,7 +425,7 @@ export default function AdminInformationPage() {
                                         ?.click();
                                     }}
                                   >
-                                    {uploading ? "上傳圖片中" : "更換圖片"}
+                                    {uploading ? '上傳圖片中' : '更換圖片'}
                                   </button>
                                 </div>
                               )}
@@ -469,7 +476,7 @@ export default function AdminInformationPage() {
                           </td>
                           <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                             <Controller
-                              name={"informationSession.img"}
+                              name={'informationSession.img'}
                               control={control}
                               render={({ field }) => (
                                 <div className="flex-1 flex flex-col items-start justify-start">
@@ -495,8 +502,8 @@ export default function AdminInformationPage() {
                                     }}
                                   />
                                   {field.value &&
-                                    (field.value.startsWith("/") ||
-                                      field.value.startsWith("http")) && (
+                                    (field.value.startsWith('/') ||
+                                      field.value.startsWith('http')) && (
                                       <Image
                                         width={500}
                                         height={500}
@@ -515,7 +522,7 @@ export default function AdminInformationPage() {
                                         ?.click();
                                     }}
                                   >
-                                    {uploading ? "上傳圖片中" : "更換圖片"}
+                                    {uploading ? '上傳圖片中' : '更換圖片'}
                                   </button>
                                 </div>
                               )}
@@ -547,7 +554,7 @@ export default function AdminInformationPage() {
                           </td>
                           <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                             <Controller
-                              name={"lunchMenu.img"}
+                              name={'lunchMenu.img'}
                               control={control}
                               render={({ field }) => (
                                 <div className="flex-1 flex flex-col items-start justify-start">
@@ -573,8 +580,8 @@ export default function AdminInformationPage() {
                                     }}
                                   />
                                   {field.value &&
-                                    (field.value.startsWith("/") ||
-                                      field.value.startsWith("http")) && (
+                                    (field.value.startsWith('/') ||
+                                      field.value.startsWith('http')) && (
                                       <Image
                                         width={500}
                                         height={500}
@@ -593,7 +600,7 @@ export default function AdminInformationPage() {
                                         ?.click();
                                     }}
                                   >
-                                    {uploading ? "上傳圖片中" : "更換圖片"}
+                                    {uploading ? '上傳圖片中' : '更換圖片'}
                                   </button>
                                 </div>
                               )}

@@ -1,25 +1,26 @@
-"use client";
+'use client';
 
-import { CurriculumEntity } from "@/app/api/curriculum/route";
-import LangSwitch from "@/components/LangSwitch";
-import Image from "next/image";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import Image from 'next/image';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   Controller,
   SubmitHandler,
   useFieldArray,
   useForm,
-} from "react-hook-form";
+} from 'react-hook-form';
+
+import { Curriculum } from '@/app/api/curriculum/route';
+import LangSwitch from '@/components/LangSwitch';
 
 export default function AdminCurriculumPage() {
-  const pageName = "curriculum";
+  const pageName = 'curriculum';
   const tabList = useMemo(
-    () => ["elementary", "kindergarten", "highSchool"],
+    () => ['elementary', 'kindergarten', 'highSchool', 'middleSchool'],
     []
   );
   const [activePageData, setActivePageData] = useState([] as any);
-  const [lang, setLang] = useState<"en" | "zh">("en");
-  const [activeTab, setActiveTab] = useState("elementary");
+  const [lang, setLang] = useState<'en' | 'zh'>('en');
+  const [activeTab, setActiveTab] = useState('elementary');
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
   const activeTabData = useMemo(
@@ -34,7 +35,7 @@ export default function AdminCurriculumPage() {
 
   const { fields, append, remove, move } = useFieldArray({
     control,
-    name: "curriculums",
+    name: 'curriculums',
   });
 
   const onSubmit: SubmitHandler<any> = async (data: any) => {
@@ -42,26 +43,26 @@ export default function AdminCurriculumPage() {
     const url = `/api/${pageName}/${activeTab}`;
     const { _id, ...body } = data;
     const res = await fetch(url, {
-      method: "PATCH",
+      method: 'PATCH',
       body: JSON.stringify(body),
     });
     setLoading(false);
     if (!res.ok) {
       // This will activate the closest `error.js` Error Boundary
-      return window.alert("Failed to update data");
+      return window.alert('Failed to update data');
     }
     loadPageData();
-    return window.alert("Successed to update data");
+    return window.alert('Successed to update data');
   };
 
   const fetchPageData = async () => {
     const url = `/api/${pageName}`;
     const res = await fetch(url, {
-      cache: "no-cache",
+      cache: 'no-cache',
     });
     if (!res.ok) {
       // This will activate the closest `error.js` Error Boundary
-      throw new Error("Failed to fetch data");
+      throw new Error('Failed to fetch data');
     }
     return res.json();
   };
@@ -82,27 +83,27 @@ export default function AdminCurriculumPage() {
     setUploading(true);
     const url = `https://www.hiape.ntpc.edu.tw/uploads`;
     const form = new FormData();
-    form.append("file", file);
+    form.append('file', file);
     const res = await fetch(url, {
-      method: "POST",
+      method: 'POST',
       body: form,
     });
     setUploading(false);
     if (!res.ok) {
       // This will activate the closest `error.js` Error Boundary
-      return window.alert("Failed to upload file");
+      return window.alert('Failed to upload file');
     }
     return res.json();
   };
 
   const removeCurriculum = (index: number) => {
-    if (window.confirm("Do you really want to remove this curriculum?")) {
+    if (window.confirm('Do you really want to remove this curriculum?')) {
       remove(index);
     }
   };
 
-  const handleMove = (index: number, direction: "up" | "down") => {
-    if (direction === "up") {
+  const handleMove = (index: number, direction: 'up' | 'down') => {
+    if (direction === 'up') {
       move(index, index - 1);
     } else {
       move(index, index + 1);
@@ -143,8 +144,8 @@ export default function AdminCurriculumPage() {
             onClick={() => setActiveTab(tab)}
             className={`py-3 px-2 font-serif ${
               tab === activeTab
-                ? "font-bold border-b-2 border-deepBlue text-blue"
-                : "text-blue"
+                ? 'font-bold border-b-2 border-deepBlue text-blue'
+                : 'text-blue'
             }`}
           >
             {tab}
@@ -155,7 +156,7 @@ export default function AdminCurriculumPage() {
       <div className="px-8 py-6 w-full h-screen bg-gray-200">
         <div className="w-full h-full overflow-scroll">
           {loading && activeTabData
-            ? "loading..."
+            ? 'loading...'
             : activeTabData && (
                 <div>
                   <div className="mt-4 align-middle inline-block w-full shadow overflow-x-auto sm:rounded-lg border-b border-gray-200">
@@ -170,14 +171,14 @@ export default function AdminCurriculumPage() {
                         onClick={() =>
                           append({
                             title: {
-                              en: "curriculum example",
-                              zh: "curriculum example",
+                              en: 'curriculum example',
+                              zh: 'curriculum example',
                             },
                             description: {
-                              en: "curriculum example",
-                              zh: "curriculum example",
+                              en: 'curriculum example',
+                              zh: 'curriculum example',
                             },
-                            img: "/curriculum/1.png",
+                            img: '/curriculum/1.png',
                           })
                         }
                       >
@@ -196,7 +197,7 @@ export default function AdminCurriculumPage() {
                         <tr>
                           <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                             <Controller
-                              name={"banner"}
+                              name={'banner'}
                               control={control}
                               render={({ field }) => (
                                 <div className="flex flex-col items-start justify-start mt-2">
@@ -222,8 +223,8 @@ export default function AdminCurriculumPage() {
                                     }}
                                   />
                                   {field.value &&
-                                    (field.value.startsWith("/") ||
-                                      field.value.startsWith("http")) && (
+                                    (field.value.startsWith('/') ||
+                                      field.value.startsWith('http')) && (
                                       <Image
                                         width={500}
                                         height={500}
@@ -242,7 +243,7 @@ export default function AdminCurriculumPage() {
                                         ?.click();
                                     }}
                                   >
-                                    {uploading ? "上傳圖片中" : "更換圖片"}
+                                    {uploading ? '上傳圖片中' : '更換圖片'}
                                   </button>
                                 </div>
                               )}
@@ -314,9 +315,9 @@ export default function AdminCurriculumPage() {
                         </tr>
                       </thead>
                       <tbody className="w-full bg-white overflow-scroll">
-                        {(fields as unknown as CurriculumEntity[])?.map(
-                          (field: CurriculumEntity, index: number) => (
-                            <tr key={`curriculum-${index}`}>
+                        {(fields as unknown as Curriculum[])?.map(
+                          (field: Curriculum, index: number) => (
+                            <tr key={field.id}>
                               <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                 <input
                                   className="text-sm leading-5 text-gray-900 border"
@@ -362,9 +363,9 @@ export default function AdminCurriculumPage() {
                                           />
                                           <div className="flex flex-row gap-4">
                                             {field.value &&
-                                              (field.value.startsWith("/") ||
+                                              (field.value.startsWith('/') ||
                                                 field.value.startsWith(
-                                                  "http"
+                                                  'http'
                                                 )) && (
                                                 <Image
                                                   width={40}
@@ -387,8 +388,8 @@ export default function AdminCurriculumPage() {
                                               }}
                                             >
                                               {uploading
-                                                ? "上傳圖片中"
-                                                : "更換圖片"}
+                                                ? '上傳圖片中'
+                                                : '更換圖片'}
                                             </button>
                                           </div>
                                         </div>
@@ -420,7 +421,7 @@ export default function AdminCurriculumPage() {
                                   <button
                                     disabled={loading}
                                     className="px-3 py-1 bg-amber-800 font-base text-white border border-amber-300 rounded-lg focus:outline-none"
-                                    onClick={() => handleMove(index, "up")}
+                                    onClick={() => handleMove(index, 'up')}
                                   >
                                     Up
                                   </button>
@@ -431,7 +432,7 @@ export default function AdminCurriculumPage() {
                                   <button
                                     disabled={loading}
                                     className="px-3 py-1 bg-green-800 font-base text-white border border-green-300 rounded-lg focus:outline-none"
-                                    onClick={() => handleMove(index, "down")}
+                                    onClick={() => handleMove(index, 'down')}
                                   >
                                     Down
                                   </button>

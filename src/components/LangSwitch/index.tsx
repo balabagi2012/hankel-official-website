@@ -1,10 +1,11 @@
-import Image from "next/image";
-import { useState } from "react";
-import Typography from "../Typography";
+import Image from 'next/image';
+import { useState } from 'react';
+
+import Typography from '../Typography';
 
 export interface LangSwitchPros {
-  value: "en" | "zh";
-  onChange: (value: "en" | "zh") => void;
+  value: 'en' | 'zh';
+  onChange: (value: 'en' | 'zh') => void;
 }
 
 const LangSwitch = ({ value, onChange }: LangSwitchPros) => {
@@ -22,7 +23,7 @@ const LangSwitch = ({ value, onChange }: LangSwitchPros) => {
         className="w-auto h-auto"
       ></Image>
       <div className="ml-1 mr-2 font-bold text-blue">
-        {value === "en" ? "EN" : "中文"}
+        {value === 'en' ? 'EN' : '中文'}
       </div>
       <Image
         src="/icons/ChevronBottomFilled.svg"
@@ -33,7 +34,7 @@ const LangSwitch = ({ value, onChange }: LangSwitchPros) => {
       ></Image>
       <div
         className={`${
-          openLanguageDropDown ? "block" : "hidden"
+          openLanguageDropDown ? 'block' : 'hidden'
         } absolute top-20 z-10  origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
         role="menu"
         aria-orientation="vertical"
@@ -43,25 +44,25 @@ const LangSwitch = ({ value, onChange }: LangSwitchPros) => {
       >
         <div className="p-4" role="none">
           <div
-            onClick={() => onChange("en")}
+            onClick={() => onChange('en')}
             className={`mb-4 h-[25px] flex flex-row justify-start`}
             rel="noopener noreferrer"
           >
             <Typography
               varient="h6"
-              className={`${value === "en" ? "font-bold" : ""}`}
+              className={`${value === 'en' ? 'font-bold' : ''}`}
             >
               English
             </Typography>
           </div>
           <div
-            onClick={() => onChange("zh")}
+            onClick={() => onChange('zh')}
             className={`h-[25px] flex flex-row justify-start`}
             rel="noopener noreferrer"
           >
             <Typography
               varient="h6"
-              className={`${value === "zh" ? "font-bold" : ""}`}
+              className={`${value === 'zh' ? 'font-bold' : ''}`}
             >
               中文
             </Typography>

@@ -1,22 +1,30 @@
-"use client";
+'use client';
 
-import LangSwitch from "@/components/LangSwitch";
-import Image from "next/image";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import Image from 'next/image';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+
+import LangSwitch from '@/components/LangSwitch';
 
 export default function AdminContactPage() {
-  const pageName = "contact";
+  const pageName = 'contact';
   const tabList = useMemo(
-    () => ["home", "afterSchool", "elementary", "kindergarten", "highSchool"],
+    () => [
+      'home',
+      'afterSchool',
+      'elementary',
+      'kindergarten',
+      'highSchool',
+      'middleSchool',
+    ],
     []
   );
   const [activePageData, setActivePageData] = useState([] as any);
-  const [activeTab, setActiveTab] = useState("home");
+  const [activeTab, setActiveTab] = useState('home');
   const [loading, setLoading] = useState(false);
   const [logoVersion, setLogoVersion] = useState(0);
   const [uploading, setUploading] = useState(false);
-  const [lang, setLang] = useState<"en" | "zh">("en");
+  const [lang, setLang] = useState<'en' | 'zh'>('en');
 
   const activeTabData = useMemo(
     () =>
@@ -33,7 +41,7 @@ export default function AdminContactPage() {
     const url = `/api/${pageName}/${activeTab}`;
     const { _id, ...body } = data;
     const res = await fetch(url, {
-      method: "PATCH",
+      method: 'PATCH',
       body: JSON.stringify(body),
     });
     setLoading(false);
@@ -42,17 +50,17 @@ export default function AdminContactPage() {
       return window.alert(JSON.stringify(await res.json()));
     }
     loadPageData();
-    return window.alert("Successed to update data");
+    return window.alert('Successed to update data');
   };
 
   const fetchPageData = async () => {
     const url = `/api/${pageName}`;
     const res = await fetch(url, {
-      cache: "no-cache",
+      cache: 'no-cache',
     });
     if (!res.ok) {
       // This will activate the closest `error.js` Error Boundary
-      throw new Error("Failed to fetch data");
+      throw new Error('Failed to fetch data');
     }
     return res.json();
   };
@@ -77,11 +85,11 @@ export default function AdminContactPage() {
     setUploading(true);
     const url = `https://www.hiape.ntpc.edu.tw/uploads`;
     const form = new FormData();
-    form.append("file", file);
-    if (fileName) form.append("fileName", fileName);
-    if (filePath) form.append("filePath", filePath);
+    form.append('file', file);
+    if (fileName) form.append('fileName', fileName);
+    if (filePath) form.append('filePath', filePath);
     const res = await fetch(url, {
-      method: "POST",
+      method: 'POST',
       body: form,
     });
     setUploading(false);
@@ -126,8 +134,8 @@ export default function AdminContactPage() {
             onClick={() => setActiveTab(tab)}
             className={`py-3 px-2 font-serif ${
               tab === activeTab
-                ? "font-bold border-b-2 border-deepBlue text-blue"
-                : "text-blue"
+                ? 'font-bold border-b-2 border-deepBlue text-blue'
+                : 'text-blue'
             }`}
           >
             {tab}
@@ -138,7 +146,7 @@ export default function AdminContactPage() {
       <div className="px-8 py-6 w-full h-screen bg-gray-200">
         <div className="w-full h-full overflow-scroll">
           {loading && activeTabData
-            ? "loading..."
+            ? 'loading...'
             : activeTabData && (
                 <div>
                   <div className="mt-4 align-middle inline-block w-full shadow overflow-x-auto sm:rounded-lg border-b border-gray-200">
@@ -211,7 +219,7 @@ export default function AdminContactPage() {
                         <tr>
                           <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                             <Controller
-                              name={"banner.img"}
+                              name={'banner.img'}
                               control={control}
                               render={({ field }) => (
                                 <div className="flex-1 flex flex-col items-start justify-start">
@@ -238,8 +246,8 @@ export default function AdminContactPage() {
                                     }}
                                   />
                                   {field.value &&
-                                    (field.value.startsWith("/") ||
-                                      field.value.startsWith("http")) && (
+                                    (field.value.startsWith('/') ||
+                                      field.value.startsWith('http')) && (
                                       <Image
                                         width={720}
                                         height={198}
@@ -258,7 +266,7 @@ export default function AdminContactPage() {
                                         ?.click();
                                     }}
                                   >
-                                    {uploading ? "上傳圖片中" : "更換圖片"}
+                                    {uploading ? '上傳圖片中' : '更換圖片'}
                                   </button>
                                 </div>
                               )}
@@ -279,7 +287,7 @@ export default function AdminContactPage() {
                         <tr>
                           <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                             <Controller
-                              name={"logo"}
+                              name={'logo'}
                               control={control}
                               render={({ field }) => (
                                 <div className="flex-1 flex flex-col items-start justify-start">
@@ -294,7 +302,7 @@ export default function AdminContactPage() {
                                         uploadFile(
                                           file,
                                           activeTab,
-                                          "logo"
+                                          'logo'
                                         ).then((data) => {
                                           field.onChange(data.file);
                                           setLogoVersion((v) => v + 1);
@@ -303,14 +311,14 @@ export default function AdminContactPage() {
                                     }}
                                   />
                                   {field.value &&
-                                    (field.value.startsWith("/") ||
-                                      field.value.startsWith("http")) && (
+                                    (field.value.startsWith('/') ||
+                                      field.value.startsWith('http')) && (
                                       // eslint-disable-next-line @next/next/no-img-element
                                       <img
                                         width={200}
                                         height={44}
-                                        alt={field.value + "?v=" + logoVersion}
-                                        src={field.value + "?v=" + logoVersion}
+                                        alt={field.value + '?v=' + logoVersion}
+                                        src={field.value + '?v=' + logoVersion}
                                         key={logoVersion}
                                       />
                                     )}
@@ -325,7 +333,7 @@ export default function AdminContactPage() {
                                         ?.click();
                                     }}
                                   >
-                                    {uploading ? "上傳圖片中" : "更換圖片"}
+                                    {uploading ? '上傳圖片中' : '更換圖片'}
                                   </button>
                                 </div>
                               )}

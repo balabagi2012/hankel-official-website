@@ -5,47 +5,47 @@ interface TypographyProps {
   className?: string;
 }
 export default function Typography(props: TypographyProps) {
-  const { varient, children, className = "", color } = props;
-  let typographyClassName = "";
+  const { varient, children, className = '', color } = props;
+  let typographyClassName = '';
   switch (varient) {
-    case "h1":
+    case 'h1':
       typographyClassName +=
-        "text-[24px] md:text-[52px] font-bold leading-[1.5] tracking-[1px]";
+        'text-[24px] md:text-[52px] font-bold leading-[1.5] tracking-[1px]';
       break;
 
-    case "h2":
+    case 'h2':
       typographyClassName +=
-        "text-[24px] md:text-[32px] font-bold leading-[1.5] tracking-[1px]";
+        'text-[24px] md:text-[32px] font-bold leading-[1.5] tracking-[1px]';
       break;
 
-    case "h3":
+    case 'h3':
       typographyClassName +=
-        "text-[24px] font-bold leading-[1.5] tracking-[1px]";
+        'text-[24px] font-bold leading-[1.5] tracking-[1px]';
       break;
 
-    case "h4":
+    case 'h4':
       typographyClassName +=
-        "text-[16px] md:text-[18px] font-bold leading-[2] tracking-[1px]";
+        'text-[16px] md:text-[18px] font-bold leading-[2] tracking-[1px]';
       break;
 
-    case "h5":
+    case 'h5':
       typographyClassName +=
-        "text-[14px] md:text-[16px] leading-[2] tracking-[1px]";
+        'text-[14px] md:text-[16px] leading-[2] tracking-[1px]';
       break;
 
-    case "h6":
-      typographyClassName += "text-[14px] leading-[1.8]";
+    case 'h6':
+      typographyClassName += 'text-[14px] leading-[1.8]';
       break;
 
-    case "body":
+    case 'body':
     default:
-      typographyClassName += "text-[12px] leading-[1.5] tracking-[1px]";
+      typographyClassName += 'text-[12px] leading-[1.5] tracking-[1px]';
       break;
   }
   return (
     <p
       className={`${typographyClassName} ${className} ${
-        color ? `text-${color}` : ""
+        color ? `text-${color}` : ''
       }`}
     >
       {children}

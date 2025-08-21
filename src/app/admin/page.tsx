@@ -1,23 +1,23 @@
-"use client";
-import Image from "next/image";
-import { useForm } from "react-hook-form";
+'use client';
+import Image from 'next/image';
+import { useForm } from 'react-hook-form';
 
 export default function AdminPage() {
   const { register, control, handleSubmit } = useForm({
     values: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
   });
   const onSubmit = async (data: any) => {
     const url = `/api/auth/login`;
     const res = await fetch(url, {
-      method: "POST",
+      method: 'POST',
       body: JSON.stringify(data),
     });
     if (!res.ok) {
       // This will activate the closest `error.js` Error Boundary
-      return window.alert("Failed to login");
+      return window.alert('Failed to login');
     }
 
     window.location.reload();
@@ -55,7 +55,7 @@ export default function AdminPage() {
               <label>email</label>
               <input
                 className="w-full border px-4 py-2 mb-4 mt-2"
-                {...register("email", {
+                {...register('email', {
                   required: true,
                 })}
               ></input>
@@ -67,7 +67,7 @@ export default function AdminPage() {
               <input
                 type="password"
                 className="w-full border px-4 py-2 mb-4 mt-2"
-                {...register("password", {
+                {...register('password', {
                   required: true,
                 })}
               ></input>

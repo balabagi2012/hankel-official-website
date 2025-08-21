@@ -1,25 +1,26 @@
-"use client";
+'use client';
 
-import { Program } from "@/app/api/home/route";
-import LangSwitch from "@/components/LangSwitch";
-import Image from "next/image";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import Image from 'next/image';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   Controller,
   SubmitHandler,
   useFieldArray,
   useForm,
-} from "react-hook-form";
+} from 'react-hook-form';
+
+import { Program } from '@/app/api/home/route';
+import LangSwitch from '@/components/LangSwitch';
 
 export default function AdminHomePage() {
-  const pageName = "home";
-  const tabList = useMemo(() => ["banner", "program", "subBanner"], []);
+  const pageName = 'home';
+  const tabList = useMemo(() => ['banner', 'program', 'subBanner'], []);
   const [activePageData, setActivePageData] = useState([] as any);
-  const [activeTab, setActiveTab] = useState("banner");
+  const [activeTab, setActiveTab] = useState('banner');
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
   const activeTabData = useMemo(() => activePageData, [activePageData]);
-  const [lang, setLang] = useState<"en" | "zh">("en");
+  const [lang, setLang] = useState<'en' | 'zh'>('en');
 
   const { register, control, handleSubmit } = useForm({
     values: activeTabData,
@@ -32,12 +33,12 @@ export default function AdminHomePage() {
     move: moveBanner,
   } = useFieldArray({
     control,
-    name: "banners",
+    name: 'banners',
   });
 
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "programs",
+    name: 'programs',
   });
 
   const onSubmit: SubmitHandler<any> = async (data: any) => {
@@ -45,26 +46,26 @@ export default function AdminHomePage() {
     const url = `/api/${pageName}`;
     const { _id, ...body } = data;
     const res = await fetch(url, {
-      method: "PATCH",
+      method: 'PATCH',
       body: JSON.stringify(body),
     });
     setLoading(false);
     if (!res.ok) {
       // This will activate the closest `error.js` Error Boundary
-      return window.alert("Failed to update data");
+      return window.alert('Failed to update data');
     }
     loadPageData();
-    return window.alert("Successed to update data");
+    return window.alert('Successed to update data');
   };
 
   const fetchPageData = async () => {
     const url = `/api/${pageName}`;
     const res = await fetch(url, {
-      cache: "no-cache",
+      cache: 'no-cache',
     });
     if (!res.ok) {
       // This will activate the closest `error.js` Error Boundary
-      throw new Error("Failed to fetch data");
+      throw new Error('Failed to fetch data');
     }
     return res.json();
   };
@@ -85,24 +86,24 @@ export default function AdminHomePage() {
     setUploading(true);
     const url = `https://www.hiape.ntpc.edu.tw/uploads`;
     const form = new FormData();
-    form.append("file", file);
+    form.append('file', file);
     const res = await fetch(url, {
-      method: "POST",
+      method: 'POST',
       body: form,
     });
     setUploading(false);
     if (!res.ok) {
       // This will activate the closest `error.js` Error Boundary
-      return window.alert("Failed to upload file");
+      return window.alert('Failed to upload file');
     }
     return res.json();
   };
 
   const removeBannerAlert = (index: number) => {
     if (banners.length <= 1) {
-      return window.alert("You must have at least one banner");
+      return window.alert('You must have at least one banner');
     }
-    if (window.confirm("Do you really want to remove this banner?")) {
+    if (window.confirm('Do you really want to remove this banner?')) {
       removeBanner(index);
       handleSubmit(onSubmit);
     }
@@ -110,7 +111,7 @@ export default function AdminHomePage() {
 
   const renderTable = (key: string) => {
     switch (key) {
-      case "banner":
+      case 'banner':
         return (
           <div className="mt-4 align-middle inline-block w-full shadow overflow-x-auto sm:rounded-lg border-b border-gray-200">
             <div className="bg-white flex flex-row items-center">
@@ -121,7 +122,7 @@ export default function AdminHomePage() {
               </p>
               <button
                 className="ml-auto mr-6 px-3 py-1 bg-deepBlue text-white border border-gray-300 rounded-lg text-sm focus:outline-none"
-                onClick={() => appendBanner("/banners/home.png")}
+                onClick={() => appendBanner('/banners/home.png')}
               >
                 Add Banner
               </button>
@@ -172,8 +173,8 @@ export default function AdminHomePage() {
                 </tr>
               </thead>
               <tbody className="bg-white">
-                {banners.map((banner, index) => (
-                  <tr key={"banner" + index}>
+                {banners.map((banner: any, index) => (
+                  <tr key={banner.id}>
                     <td
                       key="banner"
                       className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 flex flex-col items-start justify-start"
@@ -205,8 +206,8 @@ export default function AdminHomePage() {
                               }}
                             />
                             {field.value &&
-                              (field.value.startsWith("/") ||
-                                field.value.startsWith("http")) && (
+                              (field.value.startsWith('/') ||
+                                field.value.startsWith('http')) && (
                                 <Image
                                   width={500}
                                   height={500}
@@ -225,7 +226,7 @@ export default function AdminHomePage() {
                                   ?.click();
                               }}
                             >
-                              {uploading ? "上傳圖片中" : "更換圖片"}
+                              {uploading ? '上傳圖片中' : '更換圖片'}
                             </button>
                             <button
                               className="bg-red-600 mt-1 px-2 py-2 rounded text-white"
@@ -350,7 +351,7 @@ export default function AdminHomePage() {
             </table>
           </div>
         );
-      case "program":
+      case 'program':
         return (
           <div className="mt-4 align-middle inline-block w-full shadow overflow-x-auto sm:rounded-lg border-b border-gray-200">
             <div className="bg-white flex flex-row items-center">
@@ -398,7 +399,7 @@ export default function AdminHomePage() {
               <tbody className="w-full bg-white overflow-scroll">
                 {(fields as unknown as Program[])?.map(
                   (program: Program, index: number) => (
-                    <tr key={`program-${index}`}>
+                    <tr key={program.id}>
                       <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                         <input
                           className="text-sm leading-5 text-gray-900 border"
@@ -446,7 +447,7 @@ export default function AdminHomePage() {
             </table>
           </div>
         );
-      case "subBanner":
+      case 'subBanner':
       default:
         return (
           <div className="mt-4 align-middle inline-block w-full shadow overflow-x-auto sm:rounded-lg border-b border-gray-200">
@@ -500,7 +501,7 @@ export default function AdminHomePage() {
                     className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 flex flex-col items-start justify-start"
                   >
                     <Controller
-                      name={"subBanner.img"}
+                      name={'subBanner.img'}
                       control={control}
                       render={({ field }) => (
                         <div className="flex-1 flex flex-col items-start justify-start">
@@ -526,8 +527,8 @@ export default function AdminHomePage() {
                             }}
                           />
                           {field.value &&
-                            (field.value.startsWith("/") ||
-                              field.value.startsWith("http")) && (
+                            (field.value.startsWith('/') ||
+                              field.value.startsWith('http')) && (
                               <Image
                                 width={500}
                                 height={500}
@@ -546,7 +547,7 @@ export default function AdminHomePage() {
                                 ?.click();
                             }}
                           >
-                            {uploading ? "上傳圖片中" : "更換圖片"}
+                            {uploading ? '上傳圖片中' : '更換圖片'}
                           </button>
                         </div>
                       )}
@@ -594,8 +595,8 @@ export default function AdminHomePage() {
             onClick={() => setActiveTab(tab)}
             className={`py-3 px-2 font-serif ${
               tab === activeTab
-                ? "font-bold border-b-2 border-deepBlue text-blue"
-                : "text-blue"
+                ? 'font-bold border-b-2 border-deepBlue text-blue'
+                : 'text-blue'
             }`}
           >
             {tab}
@@ -606,7 +607,7 @@ export default function AdminHomePage() {
       <div className="px-8 py-6 w-full h-screen bg-gray-200">
         <div className="w-full h-full overflow-scroll">
           {loading && activeTabData ? (
-            "loading..."
+            'loading...'
           ) : (
             <form onSubmit={handleSubmit(onSubmit)}>
               {activeTabData && renderTable(activeTab)}

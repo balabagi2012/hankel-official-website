@@ -1,5 +1,6 @@
-import { connectToDatabase } from "@/utils/mongodb";
-import { NextRequest } from "next/server";
+import { NextRequest } from 'next/server';
+
+import { connectToDatabase } from '@/utils/mongodb';
 
 // GET /api/team/:name
 export async function GET(
@@ -9,11 +10,11 @@ export async function GET(
   try {
     const { name } = params;
     const db = await connectToDatabase();
-    const team = await db.collection("team").findOne({ name });
+    const team = await db.collection('team').findOne({ name });
     return Response.json(team, { status: 200 });
   } catch (error) {
     return Response.json(
-      { error: "Failed to fetch team data" },
+      { error: 'Failed to fetch team data' },
       { status: 500 }
     );
   }
@@ -29,13 +30,13 @@ export async function PATCH(
     const body = await req.json();
     if (!body.name) {
       return Response.json(
-        { error: "Missing required fields" },
+        { error: 'Missing required fields' },
         { status: 400 }
       );
     }
 
     const db = await connectToDatabase();
-    await db.collection("team").updateOne(
+    await db.collection('team').updateOne(
       { name },
       {
         $set: {
@@ -45,12 +46,12 @@ export async function PATCH(
       { upsert: true }
     );
     return Response.json(
-      { message: "Team data updated successfully" },
+      { message: 'Team data updated successfully' },
       { status: 200 }
     );
   } catch (error) {
     return Response.json(
-      { error: "Failed to update team data" },
+      { error: 'Failed to update team data' },
       { status: 500 }
     );
   }

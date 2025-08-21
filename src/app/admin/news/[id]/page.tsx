@@ -1,12 +1,13 @@
-"use client";
-import EditorComponent from "@/components/Editor";
-import LangSwitch from "@/components/LangSwitch";
-import { ArrowLeftIcon } from "@heroicons/react/24/solid";
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+'use client';
+import { ArrowLeftIcon } from '@heroicons/react/24/solid';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+
+import EditorComponent from '@/components/Editor';
+import LangSwitch from '@/components/LangSwitch';
 
 export default function EditNewsPage({
   params: { id },
@@ -20,21 +21,21 @@ export default function EditNewsPage({
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
   const router = useRouter();
-  const [lang, setLang] = useState<"en" | "zh">("en");
+  const [lang, setLang] = useState<'en' | 'zh'>('en');
 
   const uploadFile = async (file: File) => {
     setUploading(true);
     const url = `https://www.hiape.ntpc.edu.tw/uploads`;
     const form = new FormData();
-    form.append("file", file);
+    form.append('file', file);
     const res = await fetch(url, {
-      method: "POST",
+      method: 'POST',
       body: form,
     });
     setUploading(false);
     if (!res.ok) {
       // This will activate the closest `error.js` Error Boundary
-      return window.alert("Failed to upload file");
+      return window.alert('Failed to upload file');
     }
     return res.json();
   };
@@ -44,30 +45,30 @@ export default function EditNewsPage({
     const url = `/api/news/${id}`;
     delete data._id;
     const res = await fetch(url, {
-      method: "PATCH",
+      method: 'PATCH',
       body: JSON.stringify(data),
     });
     setLoading(false);
     if (!res.ok) {
       // This will activate the closest `error.js` Error Boundary
-      return window.alert("Failed to update news");
+      return window.alert('Failed to update news');
     }
-    window.alert("Successed to update news");
-    router.push("/admin/news");
+    window.alert('Successed to update news');
+    router.push('/admin/news');
   };
 
   const removeNews = async () => {
-    if (window.confirm("Do you really want to remove this news?")) {
+    if (window.confirm('Do you really want to remove this news?')) {
       const url = `/api/news/${id}`;
       const res = await fetch(url, {
-        method: "DELETE",
+        method: 'DELETE',
       });
       if (!res.ok) {
         // This will activate the closest `error.js` Error Boundary
-        return window.alert("Failed to remove news");
+        return window.alert('Failed to remove news');
       }
-      window.alert("Successed to remove news");
-      router.push("/admin/news");
+      window.alert('Successed to remove news');
+      router.push('/admin/news');
     }
   };
 
@@ -127,7 +128,7 @@ export default function EditNewsPage({
           <div className="px-8 py-6 w-full h-screen bg-gray-200 overflow-scroll">
             <div className="bg-white px-6 py-3 rounded shadow mt-4">
               <div>
-                <label>title[{lang === "zh" ? "中文" : "EN"}]</label>
+                <label>title[{lang === 'zh' ? '中文' : 'EN'}]</label>
                 <input
                   className="w-full border px-4 py-2 mb-4 mt-2"
                   {...register(`title.${lang}`, {
@@ -138,7 +139,7 @@ export default function EditNewsPage({
             </div>
             <div className="bg-white px-6 py-3 rounded shadow mt-4">
               <div>
-                <label>description[{lang === "zh" ? "中文" : "EN"}]</label>
+                <label>description[{lang === 'zh' ? '中文' : 'EN'}]</label>
                 <input
                   className="w-full border px-4 py-2 mb-4 mt-2"
                   {...register(`description.${lang}`, {
@@ -151,13 +152,14 @@ export default function EditNewsPage({
               <div>
                 <label>category</label>
                 <select
-                  {...register("category")}
+                  {...register('category')}
                   className="w-full border px-4 py-2 mb-4 mt-2"
                 >
                   <option value="afterSchool">afterSchool</option>
                   <option value="kindergarten">kindergarten</option>
                   <option value="highSchool">highSchool</option>
                   <option value="elementary">elementary</option>
+                  <option value="middleSchool">middleSchool</option>
                 </select>
               </div>
             </div>
@@ -165,7 +167,7 @@ export default function EditNewsPage({
               <div>
                 <label>banner [建議尺寸254x350]</label>
                 <Controller
-                  name={"banner"}
+                  name={'banner'}
                   control={control}
                   render={({ field }) => (
                     <div className="flex flex-col items-start justify-start mt-2">
@@ -189,7 +191,7 @@ export default function EditNewsPage({
                         }}
                       />
                       {field.value?.length > 0 &&
-                        field.value.startsWith("/") && (
+                        field.value.startsWith('/') && (
                           <Image
                             src={field.value}
                             alt={field.name}
@@ -208,7 +210,7 @@ export default function EditNewsPage({
                             ?.click();
                         }}
                       >
-                        {uploading ? "上傳圖片中" : "更換圖片"}
+                        {uploading ? '上傳圖片中' : '更換圖片'}
                       </button>
                     </div>
                   )}
@@ -220,7 +222,7 @@ export default function EditNewsPage({
               key={`content[${lang}]`}
             >
               <div>
-                <label>content[{lang === "zh" ? "中文" : "EN"}]</label>
+                <label>content[{lang === 'zh' ? '中文' : 'EN'}]</label>
                 <Controller
                   name={`content.${lang}`}
                   control={control}

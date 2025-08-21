@@ -1,20 +1,22 @@
-import Image from "next/image";
-import Link from "next/link";
-import Section from "../Section";
-import Title from "../Title";
-import Typography from "../Typography";
-import "./index.scss";
-import SeoHeading from "../SeoHeading";
+import './index.scss';
+
+import Image from 'next/image';
+import Link from 'next/link';
+
+import Section from '../Section';
+import SeoHeading from '../SeoHeading';
+import Title from '../Title';
+import Typography from '../Typography';
 
 interface NewsDetailProps {
   id: string;
-  lang: "en" | "zh";
+  lang: 'en' | 'zh';
 }
 
 const fetchPageData = async (id: string) => {
   const url = `${process.env.API_URI}/api/news/${id}`;
   const res = await fetch(url, {
-    cache: "no-cache",
+    cache: 'no-cache',
   });
   const data = await res.json();
   return data;
@@ -34,7 +36,7 @@ export default async function NewsDetail({ id, lang }: NewsDetailProps) {
             src={`/icons/ChevronRightFilledBlue.svg`}
             width={24}
             height={24}
-            alt={"back arrow"}
+            alt={'back arrow'}
             className="mr-2"
           ></Image>
           <Typography varient="h5" className="text-blue">
@@ -50,7 +52,7 @@ export default async function NewsDetail({ id, lang }: NewsDetailProps) {
               src={`/icons/ScheduleOutlined.svg`}
               width={24}
               height={24}
-              alt={"back arrow"}
+              alt={'back arrow'}
               className="mr-2"
             ></Image>
             <Typography varient="h5" className="">

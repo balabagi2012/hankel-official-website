@@ -1,5 +1,6 @@
-import { connectToDatabase } from "@/utils/mongodb";
-import { Seo, Text } from "../model";
+import { connectToDatabase } from '@/utils/mongodb';
+
+import { Seo, Text } from '../model';
 
 export interface FacilityEntity extends Seo {
   name: string;
@@ -12,6 +13,7 @@ export interface FacilityEntity extends Seo {
 }
 
 export interface Facility {
+  id: string;
   img: string;
   title: Text;
   description: Text;
@@ -21,11 +23,11 @@ export interface Facility {
 export async function GET() {
   try {
     const db = await connectToDatabase();
-    const facility = await db.collection("facility").find({}).toArray();
+    const facility = await db.collection('facility').find({}).toArray();
     return Response.json(facility, { status: 200 });
   } catch (error) {
     return Response.json(
-      { error: "Failed to fetch facility data" },
+      { error: 'Failed to fetch facility data' },
       { status: 500 }
     );
   }
@@ -52,12 +54,12 @@ export async function POST(req: Request) {
       !facilities
     ) {
       return Response.json(
-        { error: "Missing required fields" },
+        { error: 'Missing required fields' },
         { status: 400 }
       );
     }
     const db = await connectToDatabase();
-    const facility = await db.collection("facility").insertOne({
+    const facility = await db.collection('facility').insertOne({
       name,
       banner,
       title,
@@ -69,7 +71,7 @@ export async function POST(req: Request) {
     return Response.json({ facility }, { status: 200 });
   } catch (error) {
     return Response.json(
-      { error: "Failed to create facility data" },
+      { error: 'Failed to create facility data' },
       { status: 500 }
     );
   }

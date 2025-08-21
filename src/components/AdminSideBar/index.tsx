@@ -1,31 +1,31 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import Link from "next/link";
+import Image from 'next/image';
+import Link from 'next/link';
 
 export default function AdminSideBar() {
   const apiPathList = [
-    "home",
-    "about",
-    "contact",
-    "curriculum",
-    "facility",
-    "information",
-    "subschool",
-    "team",
-    "news",
-    "event",
-    "logout",
+    'home',
+    'about',
+    'contact',
+    'curriculum',
+    'facility',
+    'information',
+    'subschool',
+    'team',
+    'news',
+    'event',
+    'logout',
   ];
 
   const logout = async () => {
     const url = `/api/auth/logout`;
     const res = await fetch(url, {
-      method: "POST",
+      method: 'POST',
     });
     if (!res.ok) {
       // This will activate the closest `error.js` Error Boundary
-      return window.alert("Failed to logout");
+      return window.alert('Failed to logout');
     }
     window.location.reload();
   };
@@ -47,7 +47,7 @@ export default function AdminSideBar() {
       </div>
       <ul className="flex flex-col px-2 py-6 w-full">
         {apiPathList.map((apiPath) =>
-          apiPath === "logout" ? (
+          apiPath === 'logout' ? (
             <div
               key={apiPath}
               onClick={logout}
