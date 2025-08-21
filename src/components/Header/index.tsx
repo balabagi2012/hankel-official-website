@@ -3,11 +3,13 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 
 import { kindergarten, notoSans } from '@/app/styles/fonts';
 
 import Typography from '../Typography';
+import Logo from '../Logo';
+
 
 export default function Header() {
   const [openDropDown, setOpenDropDown] = useState(false);
@@ -19,14 +21,14 @@ export default function Header() {
   const pathname = usePathname();
   const router = useRouter();
 
-  const otherNavItemList = [
+  const otherNavItemList = useMemo(() => [
     {
       path: `/${language}/contact`,
       label: language === 'zh' ? '聯絡我們' : `Contact`,
     },
-  ];
+  ], [language]);
 
-  const subSchoolDropDownItemList = [
+  const subSchoolDropDownItemList = useMemo(() => [
     {
       path: `/${language}/kindergarten`,
       label: language === 'zh' ? '翰科幼兒園' : `Kindergarten`,
@@ -47,9 +49,9 @@ export default function Header() {
       path: `/${language}/afterSchool`,
       label: language === 'zh' ? '翰科安親班' : `After School`,
     },
-  ];
+  ], [language]);
 
-  const homepageNavItemList = [
+  const homepageNavItemList = useMemo(() => [
     {
       path: `/${language}/about`,
       label: language === 'zh' ? '關於我們' : `About`,
@@ -60,7 +62,7 @@ export default function Header() {
     },
     ...subSchoolDropDownItemList,
     ...otherNavItemList,
-  ];
+  ], [language, subSchoolDropDownItemList, otherNavItemList]);
 
   const getSubSchoolZhLabel = (subSchool: string) => {
     // REMARK: Ask by client to change.
@@ -81,97 +83,101 @@ export default function Header() {
     }
   };
 
-  const subSchoolNavItemList =
-    subSchool === 'afterSchool'
-      ? [
-          {
-            path: `/${language}/${subSchool}/about`,
-            label: language === 'zh' ? '關於我們' : `About`,
-          },
-          {
-            path: `/${language}/${subSchool}`,
-            label:
-              language === 'zh' ? getSubSchoolZhLabel(subSchool) : `Highlights`,
-          },
-          {
-            path: `/${language}/${subSchool}/contact`,
-            label: language === 'zh' ? '聯絡我們' : `Contact`,
-          },
-        ]
-      : subSchool === 'kindergarten'
-        ? [
-            {
-              path: `/${language}/${subSchool}/about`,
-              label: language === 'zh' ? '關於我們' : `About`,
-            },
-            {
-              path: `/${language}/${subSchool}`,
-              label:
-                language === 'zh'
-                  ? getSubSchoolZhLabel(subSchool)
-                  : `Highlights`,
-            },
-            {
-              path: `/${language}/${subSchool}/curriculum`,
-              label: language === 'zh' ? '課程內容' : `Our Curriculum`,
-            },
-            {
-              path: `/${language}/${subSchool}/facilities`,
-              label: language === 'zh' ? '校園導覽' : `Our Facilities`,
-            },
-            {
-              path: `/${language}/${subSchool}/team`,
-              label: language === 'zh' ? '教師團隊' : `Our Team`,
-            },
-            {
-              path: `/${language}/${subSchool}/information`,
-              label: language === 'zh' ? '入學資訊' : `Information`,
-            },
-            {
-              path: `/${language}/${subSchool}/contact`,
-              label: language === 'zh' ? '聯絡我們' : `Contact`,
-            },
-          ]
-        : [
-            {
-              path: `/${language}/${subSchool}/about`,
-              label: language === 'zh' ? '關於我們' : `About`,
-            },
-            {
-              path: `/${language}/${subSchool}`,
-              label:
-                language === 'zh'
-                  ? getSubSchoolZhLabel(subSchool)
-                  : `Highlights`,
-            },
-            {
-              path: `/${language}/${subSchool}/curriculum`,
-              label: language === 'zh' ? '課程內容' : `Our Curriculum`,
-            },
-            {
-              path: `/${language}/${subSchool}/facilities`,
-              label: language === 'zh' ? '校園導覽' : `Our Facilities`,
-            },
-            {
-              path: `/${language}/${subSchool}/team`,
-              label: language === 'zh' ? '教師團隊' : `Our Team`,
-            },
-
-            {
-              path: `/${language}/${subSchool}/information`,
-              label: language === 'zh' ? '入學資訊' : `Information`,
-            },
-            {
-              path: `/${language}/${subSchool}/contact`,
-              label: language === 'zh' ? '聯絡我們' : `Contact`,
-            },
-          ];
+  const subSchoolNavItemList = useMemo(() => {
+    if (subSchool === 'afterSchool') {
+      return [
+        {
+          path: `/${language}/${subSchool}/about`,
+          label: language === 'zh' ? '關於我們' : `About`,
+        },
+        {
+          path: `/${language}/${subSchool}`,
+          label:
+            language === 'zh' ? getSubSchoolZhLabel(subSchool) : `Highlights`,
+        },
+        {
+          path: `/${language}/${subSchool}/contact`,
+          label: language === 'zh' ? '聯絡我們' : `Contact`,
+        },
+      ];
+    } else if (subSchool === 'kindergarten') {
+      return [
+        {
+          path: `/${language}/${subSchool}/about`,
+          label: language === 'zh' ? '關於我們' : `About`,
+        },
+        {
+          path: `/${language}/${subSchool}`,
+          label:
+            language === 'zh'
+              ? getSubSchoolZhLabel(subSchool)
+              : `Highlights`,
+        },
+        {
+          path: `/${language}/${subSchool}/curriculum`,
+          label: language === 'zh' ? '課程內容' : `Our Curriculum`,
+        },
+        {
+          path: `/${language}/${subSchool}/facilities`,
+          label: language === 'zh' ? '校園導覽' : `Our Facilities`,
+        },
+        {
+          path: `/${language}/${subSchool}/team`,
+          label: language === 'zh' ? '教師團隊' : `Our Team`,
+        },
+        {
+          path: `/${language}/${subSchool}/information`,
+          label: language === 'zh' ? '入學資訊' : `Information`,
+        },
+        {
+          path: `/${language}/${subSchool}/contact`,
+          label: language === 'zh' ? '聯絡我們' : `Contact`,
+        },
+      ];
+    } else {
+      return [
+        {
+          path: `/${language}/${subSchool}/about`,
+          label: language === 'zh' ? '關於我們' : `About`,
+        },
+        {
+          path: `/${language}/${subSchool}`,
+          label:
+            language === 'zh'
+              ? getSubSchoolZhLabel(subSchool)
+              : `Highlights`,
+        },
+        {
+          path: `/${language}/${subSchool}/curriculum`,
+          label: language === 'zh' ? '課程內容' : `Our Curriculum`,
+        },
+        {
+          path: `/${language}/${subSchool}/facilities`,
+          label: language === 'zh' ? '校園導覽' : `Our Facilities`,
+        },
+        {
+          path: `/${language}/${subSchool}/team`,
+          label: language === 'zh' ? '教師團隊' : `Our Team`,
+        },
+        {
+          path: `/${language}/${subSchool}/information`,
+          label: language === 'zh' ? '入學資訊' : `Information`,
+        },
+        {
+          path: `/${language}/${subSchool}/contact`,
+          label: language === 'zh' ? '聯絡我們' : `Contact`,
+        },
+      ];
+    }
+  }, [subSchool, language]);
 
   useEffect(() => {
     if (pathname) {
-      if (pathname.slice(1, 3) !== language) {
-        setLanguage(pathname.slice(1, 3));
+      const currentLang = pathname.slice(1, 3);
+      if (currentLang !== language) {
+        setLanguage(currentLang);
       }
+      
       const subSchool = [
         'kindergarten',
         'elementary',
@@ -179,6 +185,7 @@ export default function Header() {
         //"highSchool",
         'afterSchool',
       ].find((subSchool) => pathname.indexOf(subSchool) >= 0);
+      
       if (subSchool) {
         setIsSubHeader(true);
         setSubSchool(subSchool);
@@ -188,11 +195,13 @@ export default function Header() {
       }
       setOpenDropDown(false);
     }
-  }, [pathname, router, language]);
+  }, [pathname]); // 移除 router 和 language 依赖，避免无限循环
 
   const handleLanguageChange = (lang: string) => {
-    setLanguage(lang);
-    router.replace(`/${lang}${pathname.slice(3)}`);
+    if (lang !== language) {
+      setLanguage(lang);
+      router.replace(`/${lang}${pathname.slice(3)}`);
+    }
   };
 
   interface SubSchoolNavItemProps {
@@ -230,13 +239,10 @@ export default function Header() {
           rel="noopener noreferrer"
           className="flex flex-row justify-center items-center w-[150px] h-auto md:w-[200px] xl:w-[238px] mr-auto ml-3 md:ml-0"
         >
-          <Image
-            src={`/logo/${subSchool?.length > 0 ? subSchool : 'home'}.svg`}
-            alt="hankel logo"
-            className="w-full h-auto"
-            width="238"
-            height="50"
-          ></Image>
+          <Logo
+            name={subSchool?.length > 0 ? subSchool : 'home'}
+            lang={language as 'en' | 'zh'}
+          />
         </Link>
         <div
           className={`hidden md:flex flex-col items-center flex-1 ${
